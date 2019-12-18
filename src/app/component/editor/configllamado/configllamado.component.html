@@ -1,0 +1,330 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Configurador de Llamado</h3>
+    <ngx-alerts></ngx-alerts>
+
+    <div class="row centered">
+      <div *ngIf="!enableBtnBuscar" class="overlay centered" style="width: 100%;">
+        <div class="overlay-content centered">
+          <div class="loader centered">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+
+      <div class="row" style="min-height: 50px;">
+        <div class="col-md-12 mx-auto">
+
+          <button type="button" class="btn btn-primary waves-light" (click)="loadCreate();"
+                  mdbWavesEffect [disabled]="!enableBtnBuscar">Crear
+          </button>
+
+          <div class="md-form">
+            <input mdbInput placeholder="Buscar por nombre" type="text" [(ngModel)]="valueInput"
+                   [ngModelOptions]="{standalone: true}" (keydown)="enter($event)">
+          </div>
+          <div class="table-responsive">
+          <table mdbTable striped="true" small="true">
+            <thead>
+            <tr>
+              <th colspan="2"></th>
+              <th class="text-center h6">ID</th>
+              <th class="h6">Nombre</th>
+              <th class="h6">Lista de V&iacute;deos</th>
+              <th class="h6">Lista de Marquesinas</th>
+              <th class="h6">Grilla de Llamados</th>
+              <th class="h6">Espacio de Atenci&oacute;n</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let config of configllamados">
+              <td width="1%">
+                <i mdbTooltip="Modificar" (click)="loadEdit(config.idConfiguracionEmisorLlamados)" class="fa fa-pencil cyan-text icon-pointer mr-3"></i>
+              </td>
+              <td width="1%">
+                <i mdbTooltip="Borrar" (click)="showConfirmDelete(config.idConfiguracionEmisorLlamados)" class="fa fa-trash-o red-text icon-pointer"></i>
+              </td>
+              <td class="text-center">{{config.idConfiguracionEmisorLlamados}}</td>
+              <td>{{config.desNombre}}</td>
+              <td>{{config.listaVideo.desListaVideos}}</td>
+              <td>{{config.listaMarquesina.desListaMarquesinas}}</td>
+              <td>{{config.grillaLlamado.desNombre}}</td>
+              <td>{{config.espacioAtencion.nombre}}</td>
+            </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!--Modal: Create Form-->
+    <div mdbModal #form="mdb-modal" class="modal fade" id="modalCrearArea" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: auto;">
+      <div class="row centered">
+        <div *ngIf="!enableBtnBuscar" class="overlay centered" style="width: 100%;">
+          <div class="overlay-content centered">
+            <div class="loader centered">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-dialog modal-lg" role="document"><!-- cascading-modal -->
+        <!--Content-->
+        <div class="modal-content">
+
+          <!--Header-->
+          <div class="modal-header light-blue darken-3 white-text">
+            <h4 class="title">{{titleModal}}</h4>
+            <button id="btnCerrar" type="button" class="close waves-effect waves-light"
+                    data-dismiss="modal" aria-label="Close" (click)="form.hide()">
+              <span aria-hidden="true">X</span>
+            </button>
+          </div>
+          <!--Body-->
+          <div class="modal-body">
+
+              <div class="form-row">
+                <div class="col">
+                  <div class="md-form">
+                    <input mdbActive mdbInputDirective type="text" id="form30" class="form-control"
+                     [(ngModel)]="configllamado.desNombre">
+                    <label for="form30">Nombre</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-2"><label for="numFilas">Lista de V&iacute;deos</label></div>
+                <div class="col-4">
+                    <select [(ngModel)]="configllamado.listaVideo" class="form-control">
+                        <option class="text-uppercase" *ngFor="let l of listasVideos" [ngValue]="l">{{l.desListaVideos}}</option>
+                    </select>
+                </div>
+                <div class="col-2"><label for="numFilas">Lista de Marquesinas</label></div>
+                <div class="col-4">
+                    <select [(ngModel)]="configllamado.listaMarquesina" class="form-control">
+                        <option class="text-uppercase" *ngFor="let l of listasMarquesinas" [ngValue]="l">{{l.desListaMarquesinas}}</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-row">&nbsp;</div>
+              <div class="form-row">
+                <div class="col-2"><label for="numFilas">Grilla de Llamados</label></div>
+                <div class="col-4">
+                  <select [(ngModel)]="configllamado.grillaLlamado" class="form-control">
+                        <option class="text-uppercase" *ngFor="let l of listasGrillas" [ngValue]="l">{{l.desNombre}}</option>
+                    </select>
+                </div>
+                <div class="col-2"><label for="numFilas">Zona de Atenci&oacute;n</label></div>
+                <div class="col-4">
+                  <select [(ngModel)]="configllamado.espacioAtencion" class="form-control">
+                        <option class="text-uppercase" *ngFor="let l of espaciosAtencion" [ngValue]="l">{{l.nombre}}</option>
+                    </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col">
+                  <div class="md-form"><mat-slide-toggle [(ngModel)]="indMouseVisualizado">Mostrar Mouse</mat-slide-toggle></div>
+                </div>
+                <div class="col">
+                  <div class="md-form"><mat-slide-toggle [(ngModel)]="indPantallaExtendida">Pantalla Extendida</mat-slide-toggle></div>
+                </div>
+              </div>
+
+              <div class="form-row">&nbsp;</div>
+              <mdb-card>
+                  <mdb-card-header>Posici&oacute;n y Tama&ntilde;o de la Aplicaci&oacute;n:</mdb-card-header>
+                  <mdb-card-body>
+                      <div class="form-row">
+                        <div class="col">
+
+                          <div class="md-form">
+                          <input mdbInputDirective type="text" id="numPosAppX" class="form-control"
+                          [(ngModel)]="configllamado.numPosAppX">
+                          <label for="numPosAppX">Posici&oacute;n Eje X</label>
+                        </div>
+                        </div>
+                        <div class="col">
+                          <div class="md-form">
+                            <input mdbInputDirective type="text" id="numPosAppY" class="form-control"
+                              [(ngModel)]="configllamado.numPosAppY">
+                            <label for="numPosAppY">Posici&oacute;n Eje Y</label>
+                          </div>
+                        </div>
+
+                        <div class="col"><label for="numResolucion">Resoluci&oacute;n de Pantalla</label></div>
+                        <div class="col">
+                            <select [(ngModel)]="resolucionSeleccionada" class="form-control">
+                              <option class="text-uppercase" *ngFor="let p of resoluciones" [ngValue]="p.parametroIdentity.codDataParametro">{{p.valParametro}}</option>
+                            </select>
+                        </div>
+                    </div>
+                  </mdb-card-body>
+            </mdb-card>
+
+            <div class="form-row">&nbsp;</div>
+            <mdb-card>
+                  <mdb-card-header>Posici&oacute;n y Tama&ntilde;o de la Secci&oacute;n de V&iacute;deos:</mdb-card-header>
+                  <mdb-card-body>
+                      <div class="form-row">
+                        <div class="col">
+                            <div class="md-form">
+                                <input mdbInputDirective type="text" id="numPosVideoX" class="form-control"
+                                [(ngModel)]="configllamado.numPosVideoX">
+                                <label for="numPosVideoX">Posici&oacute;n Eje X</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                          <div class="md-form">
+                                <input mdbInputDirective type="text" id="numPosVideoY" class="form-control"
+                                [(ngModel)]="configllamado.numPosVideoY">
+                                <label for="numPosVideoY">Posici&oacute;n Eje Y</label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="md-form">
+                              <input mdbInputDirective type="text" id="numDimVideoX" class="form-control"
+                              [(ngModel)]="configllamado.numDimVideoX">
+                              <label for="numDimVideoX">Tama&ntilde;o Eje X</label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="md-form">
+                              <input mdbInputDirective type="text" id="numDimVideoY" class="form-control"
+                              [(ngModel)]="configllamado.numDimVideoY">
+                              <label for="numDimVideoY">Tama&ntilde;o Eje Y</label>
+                          </div>
+                        </div>
+                    </div>
+                  </mdb-card-body>
+            </mdb-card>
+
+            <div class="form-row">&nbsp;</div>
+            <mdb-card>
+                  <mdb-card-header>Posici&oacute;n y Tama&ntilde;o de la Secci&oacute;n de Marquesinas:</mdb-card-header>
+                  <mdb-card-body>
+                       <div class="form-row">
+                          <div class="col">
+                            <div class="md-form">
+                                <input mdbInputDirective type="text" id="numPosMarquesinaX" class="form-control"
+                                [(ngModel)]="configllamado.numPosMarquesinaX">
+                                <label for="numPosMarquesinaX">Posici&oacute;n Eje X</label>
+                            </div>
+                          </div>
+                          <div class="col">
+                              <div class="md-form">
+                                <input mdbInputDirective type="text" id="numPosMarquesinaY" class="form-control"
+                                [(ngModel)]="configllamado.numPosMarquesinaY">
+                                <label for="numPosMarquesinaY">Posici&oacute;n Eje Y</label>
+                              </div>
+                          </div>
+
+                          <div class="col">
+                            <div class="md-form">
+                                <input mdbInputDirective type="text" id="numDimMarquesinaX" class="form-control"
+                                [(ngModel)]="configllamado.numDimMarquesinaX">
+                                <label for="numDimMarquesinaX">Tama&ntilde;o Eje X</label>
+                            </div>
+                          </div>
+
+                          <div class="col">
+                            <div class="md-form">
+                                <input mdbInputDirective type="text" id="numDimMarquesinaY" class="form-control"
+                                [(ngModel)]="configllamado.numDimMarquesinaY">
+                                <label for="numDimMarquesinaY">Tama&ntilde;o Eje Y</label>
+                            </div>
+                          </div>
+                      </div>
+                  </mdb-card-body>
+            </mdb-card>
+
+            <div class="form-row">&nbsp;</div>
+            <mdb-card>
+                  <mdb-card-header>Posici&oacute;n y Tama&ntilde;o de la Grilla de Llamados:</mdb-card-header>
+                  <mdb-card-body>
+                      <div class="form-row">
+                        <div class="col">
+                          <div class="md-form">
+                              <input mdbInputDirective type="text" id="numPosGrillaX" class="form-control"
+                              [(ngModel)]="configllamado.numPosGrillaX">
+                              <label for="numPosGrillaX">Posici&oacute;n Eje X</label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="md-form">
+                              <input mdbInputDirective type="text" id="numPosGrillaY" class="form-control"
+                              [(ngModel)]="configllamado.numPosGrillaY">
+                              <label for="numPosGrillaY">Posici&oacute;n Eje Y</label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="md-form">
+                            <input mdbInputDirective type="text" id="numDimGrillaX" class="form-control"
+                            [(ngModel)]="configllamado.numDimGrillaX">
+                            <label for="numDimGrillaX">Tama&ntilde;o Eje X</label>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="md-form">
+                            <input mdbInputDirective type="text" id="numDimGrillaY" class="form-control"
+                            [(ngModel)]="configllamado.numDimGrillaY">
+                            <label for="numDimGrillaY">Tama&ntilde;o Eje Y</label>
+                          </div>
+                      </div>
+                    </div>
+                  </mdb-card-body>
+            </mdb-card>
+
+          </div>
+          <!--Footer-->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary waves-light" data-dismiss="modal"
+                    (click)="save()" mdbWavesEffect [disabled]="!enableBtnGuardar">Guardar
+            </button>
+          </div>
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+
+
+    <!-- start confirmModal-->
+    <div mdbModal #confirmDelete="mdb-modal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-notify modal-primary" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+          <!--Header-->
+          <div class="modal-header d-flex justify-content-center">
+            <p class="heading">Est&aacute; seguro de borrar este registro?</p>
+          </div>
+
+          <!--Body-->
+          <div class="modal-body">
+            <i class="fa fa-times fa-4x animated rotateIn"></i>
+          </div>
+
+          <!--Footer-->
+          <div class="modal-footer flex-center">
+            <button type="button" class="btn btn-danger waves-light" (click)="delete();"
+                    mdbWavesEffect [disabled]="!enableBtnBuscar">Borrar
+            </button>
+            <button type="button" class="btn btn-primary waves-light" (click)="confirmDelete.hide();"
+                    mdbWavesEffect [disabled]="!enableBtnBuscar">No
+            </button>
+
+          </div>
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+    <!-- end confirmModal-->
+
+  </div>
+</div>

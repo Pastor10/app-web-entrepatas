@@ -1,0 +1,82 @@
+<div class="card">
+  <div class="card-body">
+
+    <ngx-alerts></ngx-alerts>
+      <p-fieldset legend="Reporte de Performance de Usuarios">
+        <div class="row">            
+          <div class="col-2" style="left: 40px"> 
+            <div class="row">
+              <label>Oficinas</label>
+            </div>
+            <div class="row">
+              <p-multiSelect [options]="oficinas" [(ngModel)]="selectedOficinas" [panelStyle]="{minWidth:'24em'}"
+                      defaultLabel="Selecciona oficina" (onChange)="onChange()"></p-multiSelect>
+            </div>
+            <br>
+            <div class="row">
+              <label>Periodo</label>
+            </div>
+            
+            <div class="row">
+              <p-dropdown [options]="periodos" [(ngModel)]="periodoSelected" 
+                    placeholder="Periodo" optionLabel="name" (onChange)="onChange()"></p-dropdown>
+            </div>
+          </div>
+          
+          <div class="col-2" style="left: 40px">
+            <div *ngIf="showFechaInicio">
+              <label for="">{{labelFechaInicio}}</label>
+              <p-calendar placeholder="Seleccione una fecha" (onSelect)="search()" (dateChange)="addEvent('change', $event)"
+                      (dateInput)="addEvent('input', $event)" [(ngModel)]="dateInicioSelected" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+            <hr>
+            
+            <div *ngIf="showFechaFin">
+                <label for="">{{labelFechaFin}}</label>
+                <p-calendar placeholder="Seleccione una fecha" (onSelect)="search()" (dateChange)="addEvent('change', $event)"
+                (dateInput)="addEvent('input', $event)" [(ngModel)]="dateFinSelected" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+            </div>                 
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-2" style="left: 40px">
+            <div class="row">
+              <p>Oficinas: {{selectedOficinas}}</p>
+            </div>
+          </div>
+        </div>
+        <br>
+      </p-fieldset>
+      <table mdbTable class="table table-bordered" mdbTableScroll scrollX="true">
+        <thead class="v">
+          <tr>
+            <th class="text-center h6">Periodo</th>
+            <th class="text-center h6">Oficina</th>
+            <th class="text-center h6">Usuarios</th>
+            <th class="text-center h6">Atendidos</th>
+            <th class="text-center h6">Tiempo Atención Minimo</th>
+            <th class="text-center h6">Tiempo Atención Maximo</th>
+            <th class="text-center h6">Tiempo Atención Promedio</th>
+            <th class="text-center h6">Tiempo Muerto Minimo</th>
+            <th class="text-center h6">Tiempo Muerto Maximo</th>
+            <th class="text-center h6">Tiempo Muerto Promedio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of listItem">
+            <td class="text-center p-1">{{o.periodo}}</td>
+            <td class="text-center text-uppercase p-1">{{o.oficina}}</td>
+            <td class="text-center text-uppercase p-1">{{o.usuario}}</td>
+            <td class="text-center p-1">{{o.atendidos}}</td>
+            <td class="text-center p-1">{{o.tiempoAtencionMinimo | time }}</td>
+            <td class="text-center p-1">{{o.tiempoAtencionMaximo | time }}</td>
+            <td class="text-center p-1">{{o.tiempoAtencionPromedio | time }}</td>
+            <td class="text-center p-1">{{o.tiempoMuertoMinimo | time }}</td>
+            <td class="text-center p-1">{{o.tiempoMuertoMaximo | time }}</td>
+            <td class="text-center p-1">{{o.tiempoMuertoPromedio | time }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>

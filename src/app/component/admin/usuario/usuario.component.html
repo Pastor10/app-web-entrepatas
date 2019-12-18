@@ -1,0 +1,183 @@
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Usuarios</h3>
+    <ngx-alerts></ngx-alerts>
+
+    <div class="row centered">
+      <div *ngIf="!enableBtnBuscar" class="overlay centered" style="width: 100%;">
+        <div class="overlay-content centered">
+          <div class="loader centered">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+
+      <div class="row">
+        <div class="col-md-12 mx-auto">
+
+          <button type="button" class="btn btn-primary waves-light" (click)="loadCreate();" mdbWavesEffect [disabled]="!enableBtnCrear">Crear
+          </button>
+
+          <div class="md-form">
+            <input mdbInput placeholder="Buscar por DNI" type="text" [(ngModel)]="valueInput" [ngModelOptions]="{standalone: true}"
+              (keydown)="enter($event)">
+          </div>
+          <div class="table-responsive">
+          <table mdbTable striped="true" small="true">
+            <thead>
+              <tr>
+                <th colspan="2"></th>
+                <th class="text-center h6">ID</th>
+                <th class="h6">Nombre</th>
+                <th class="text-center h6">Apellido Paterno</th>
+                <th class="text-center h6">Apellido Materno</th>
+                <th class="text-center h6">DNI</th>
+                <th class="text-center h6">Activo</th>
+                <th class="text-center h6">Usuario</th>
+                <th class="text-center h6">Perfil</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let o of listItem">
+                  <td width="1%">
+                    <i mdbTooltip="Modificar" (click)="loadEdit(o.idUsuario)" class="fa fa-pencil cyan-text icon-pointer"></i>
+                  </td>
+                  <td width="1%">
+                    <i mdbTooltip="Borrar" (click)="showConfirmDelete(o.idUsuario)" class="fa fa-trash-o red-text icon-pointer"></i>
+                  </td>
+                <td class="text-center">{{o.idUsuario}}</td>
+                <td>{{o.nombre}}</td>
+                <td>{{o.apePaterno}}</td>
+                <td>{{o.apeMaterno}}</td>
+                <td>{{o.dni}}</td>
+                <td class="text-center">
+                  <span *ngIf="o.visible" class="badge green">Sí</span>
+                  <span *ngIf="!o.visible" class="badge red">No</span>
+                </td>
+                <td>{{o.username}}</td>
+                <td>{{o.perfil?.nombre}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!--Modal: Create Form-->
+    <div mdbModal #modal="mdb-modal" class="modal fade top" data-toggle="modal" id="modalCrearOficina" tabindex="-1"
+      role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: auto;">
+      <div class="row centered">
+        <div *ngIf="!enableBtnBuscar" class="overlay centered" style="width: 100%;">
+          <div class="overlay-content centered">
+            <div class="loader centered">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-dialog" role="document">
+        <!--Content-->
+
+        <div class="modal-content">
+
+          <!--Header-->
+          <div class="modal-header light-blue darken-3 white-text">
+            <h4 class="title">{{titleModal}}</h4>
+            <button id="btnCerrar" type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close"
+              (click)="modal.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <!--Body-->
+          <div class="modal-body">
+
+            <div class="md-form">
+              <input mdbInputDirective type="text" id="nombre" class="form-control text-uppercase" [(ngModel)]="item.nombre">
+              <label for="nombre">Nombre</label>
+            </div>
+
+            <div class="md-form">
+              <input mdbInputDirective type="text" id="apePaterno" class="form-control text-uppercase" [(ngModel)]="item.apePaterno">
+              <label for="apePaterno">Ape. Paterno</label>
+            </div>
+
+            <div class="md-form">
+              <input mdbInputDirective type="text" id="apeMaterno" class="form-control text-uppercase" [(ngModel)]="item.apeMaterno">
+              <label for="apeMaterno">Ape. Materno</label>
+            </div>
+
+            <div class="md-form">
+              <input mdbInputDirective type="text" id="dni" class="form-control text-uppercase" [(ngModel)]="item.dni">
+              <label for="dni">DNI</label>
+            </div>
+
+            <div class="md-form">
+              <input mdbInputDirective type="text" id="username" class="form-control" [(ngModel)]="item.username">
+              <label for="username">Usuario</label>
+            </div>
+
+            <div class="md-form">
+              <input mdbInputDirective type="password" id="password" class="form-control" [(ngModel)]="item.passwordTrans">
+              <label for="password">Password</label>
+            </div>
+
+            <label>Perfil</label>
+            <select class="browser-default custom-select mb-4 text-uppercase" (change)="selectIdPerfil($event.target.value)"
+              [(ngModel)]="idPerfil">
+              <option class="text-uppercase" *ngFor="let o of listPerfil" value="{{o.idPerfil}}">{{o.nombre}}
+              </option>
+            </select>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="visible" [(ngModel)]="item.visible">
+              <label class="custom-control-label" for="visible">Activo</label>
+            </div>
+          </div>
+          <!--Footer-->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary waves-light" data-dismiss="modal" (click)="save()"
+              mdbWavesEffect [disabled]="!enableBtnGuardar">Guardar
+            </button>
+          </div>
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+
+    <!-- start confirmModal-->
+    <div mdbModal #confirmDelete="mdb-modal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm modal-notify modal-primary" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+          <!--Header-->
+          <div class="modal-header d-flex justify-content-center">
+            <p class="heading">Est&aacute; seguro de borrar este registro?</p>
+          </div>
+
+          <!--Body-->
+          <div class="modal-body">
+            <i class="fa fa-times fa-4x animated rotateIn"></i>
+          </div>
+
+          <!--Footer-->
+          <div class="modal-footer flex-center">
+            <button type="button" class="btn btn-danger waves-light" (click)="delete();" mdbWavesEffect [disabled]="!enableBtnBuscar">Borrar
+            </button>
+            <button type="button" class="btn btn-primary waves-light" (click)="confirmDelete.hide();" mdbWavesEffect
+              [disabled]="!enableBtnBuscar">No
+            </button>
+
+          </div>
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+    <!-- end confirmModal-->
+
+  </div>
+</div>

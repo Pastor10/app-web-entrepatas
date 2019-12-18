@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-body">
+  
+      <ngx-alerts></ngx-alerts>
+        <p-fieldset legend="Reporte general">
+          <div class="row">
+            <div class="col-2" style="left: 40px">
+              <div class="row">
+                <label>Cobertura</label>
+              </div>
+              <div class="row">
+                <p-dropdown [options]="dataListaTipoCoberturaSugerida" [(ngModel)]="tipoCoberturaSelected" 
+                    placeholder="TODAS" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>        
+              </div>
+ 
+              <br>
+              <div class="row">
+                <label>Filtro</label>
+              </div>
+              <div class="row">
+                <p-dropdown [options]="dataListaFiltro" [(ngModel)]="filtroSelected" 
+                    placeholder="NINGUNO" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>        
+              </div>
+             <!--  <div class="row">
+                <p-dropdown [options]="periodos" [(ngModel)]="periodoSelected" 
+                    placeholder="Periodo" optionLabel="name" (onChange)="onChange()"></p-dropdown>        
+              </div>-->
+            </div>
+  
+            <div class="col-2" style="left: 40px">
+              <div *ngIf="showFechaInicio" >
+                <label for="">{{labelFechaInicio}}</label>
+                <p-calendar placeholder="Seleccione una fecha" (onSelect)="search()" (dateChange)="addEvent('change', $event)"
+                (dateInput)="addEvent('input', $event)" [(ngModel)]="dateInicioSelected" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>       
+              </div>
+              <hr>
+              
+              <div *ngIf="showFechaFin">
+                <label for="">{{labelFechaFin}}</label>
+                <p-calendar placeholder="Seleccione una fecha" (onSelect)="search()" (dateChange)="addEvent('change', $event)"
+                      (dateInput)="addEvent('input', $event)" [(ngModel)]="dateFinSelected" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+              </div>
+            </div>
+          </div>
+         
+          <br>
+        </p-fieldset>
+  
+        <table mdbTable class="table table-bordered" mdbTableScroll scrollX="true">
+          <thead class="v">
+            <tr>
+              <th class="text-center h6">Fecha</th>
+              <th class="text-center h6">cod. Local</th>
+              <th class="text-center h6">Producto</th>
+              <th class="text-center h6">Cod. Producto</th>
+              <th class="text-center h6">cod. SAP</th>
+              <th class="text-center h6">Estado</th>
+              <th class="text-center h6">Linea</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let o of listItem">
+              <td class="text-center p-1">{{o.periodo}}</td>
+              <td class="text-center text-uppercase p-1">{{o.oficina}}</td>
+              <td class="text-center text-uppercase p-1">{{o.tipoTicket}}</td>
+              <td class="text-center text-uppercase p-1">{{o.usuario}}</td>
+              <td class="text-center text-uppercase p-1">{{o.ventanilla}}</td>
+              <td class="text-center p-1">{{o.tiempoEsperaPromedio | time}}</td>
+              <td class="text-center p-1">{{o.tiempoAtencionPromedio | time}}</td>
+  
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+  

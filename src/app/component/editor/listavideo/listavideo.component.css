@@ -1,0 +1,9 @@
+.subject-info-box-1,
+.subject-info-box-2 {
+    float: left;
+    width: 45%;
+}
+.subject-info-arrows {
+    float: left;
+    width: 10%;
+}
