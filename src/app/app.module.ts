@@ -124,6 +124,7 @@ import { registerLocaleData } from '@angular/common';
 
 import localePy from '@angular/common/locales/es-PY';
 import { ReporteF7GeneralComponent } from './component/report/f7-general/f7-general.component';
+import { ReporteF7Service } from './shared/service/reporteF7.service';
 
 registerLocaleData(localePy, 'es');
 
@@ -238,6 +239,7 @@ registerLocaleData(localePy, 'es');
     ClockService,
     SucesoAlarmaService,
     ReporteService,
+    ReporteF7Service,
     { provide: LOCALE_ID, useValue: 'es' }
   ],
 

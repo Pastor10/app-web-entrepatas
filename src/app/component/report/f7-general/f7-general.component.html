@@ -4,7 +4,7 @@
       <ngx-alerts></ngx-alerts>
         <p-fieldset legend="Reporte general">
           <div class="row">
-            <div class="col-2" style="left: 40px">
+            <div class="col-4" style="left: 40px">
               <div class="row">
                 <label>Cobertura</label>
               </div>
@@ -21,24 +21,24 @@
                 <p-dropdown [options]="dataListaFiltro" [(ngModel)]="filtroSelected" 
                     placeholder="NINGUNO" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>        
               </div>
-             <!--  <div class="row">
-                <p-dropdown [options]="periodos" [(ngModel)]="periodoSelected" 
-                    placeholder="Periodo" optionLabel="name" (onChange)="onChange()"></p-dropdown>        
-              </div>-->
             </div>
   
             <div class="col-2" style="left: 40px">
-              <div *ngIf="showFechaInicio" >
-                <label for="">{{labelFechaInicio}}</label>
-                <p-calendar placeholder="Seleccione una fecha" (onSelect)="search()" (dateChange)="addEvent('change', $event)"
-                (dateInput)="addEvent('input', $event)" [(ngModel)]="dateInicioSelected" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>       
+              <div *ngIf="showFilter1">
+                <label for="">{{labelFiltro1}}</label>
+                <input *ngIf="!isComboFilter1"  name="labelFiltro1" mdbInputDirective type="text" id="labelFiltro1" class="form-control"
+                  [(ngModel)]="username">
+                <p-dropdown *ngIf="isComboFilter1"  [options]="listCombo1" [(ngModel)]="filtroSelected" 
+                    placeholder="SELECCIONE" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown> 
+                      
               </div>
-              <hr>
-              
-              <div *ngIf="showFechaFin">
-                <label for="">{{labelFechaFin}}</label>
-                <p-calendar placeholder="Seleccione una fecha" (onSelect)="search()" (dateChange)="addEvent('change', $event)"
-                      (dateInput)="addEvent('input', $event)" [(ngModel)]="dateFinSelected" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+              <br>
+              <div *ngIf="showFilter2">
+                <label for="">{{labelFiltro2}}</label>
+                <input *ngIf="!isComboFilter2" name="labelFiltro2" mdbInputDirective type="text" id="labelFiltro2" class="form-control"
+                  [(ngModel)]="username">   
+                <p-dropdown *ngIf="isComboFilter2"  [options]="listCombo2" [(ngModel)]="filtroSelected" 
+                  placeholder="SELECCIONE" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>   
               </div>
             </div>
           </div>
@@ -59,7 +59,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let o of listItem">
+            <!--<tr *ngFor="let o of listItem">
               <td class="text-center p-1">{{o.periodo}}</td>
               <td class="text-center text-uppercase p-1">{{o.oficina}}</td>
               <td class="text-center text-uppercase p-1">{{o.tipoTicket}}</td>
@@ -68,7 +68,7 @@
               <td class="text-center p-1">{{o.tiempoEsperaPromedio | time}}</td>
               <td class="text-center p-1">{{o.tiempoAtencionPromedio | time}}</td>
   
-            </tr>
+            </tr>-->
           </tbody>
         </table>
     </div>

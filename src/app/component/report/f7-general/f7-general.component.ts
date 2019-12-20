@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { AlertService } from 'ngx-alerts';
-import { ReportePromedio } from 'src/app/shared/model/reportePromedio.model';
-import { ReporteQuery } from 'src/app/shared/model/reporteQuery.model';
-import { Oficina } from 'src/app/shared/model/oficina.model';
-import { ReporteService } from 'src/app/shared/service/reporteservice.service';
-import { SelectItem } from 'primeng/api';
-import { OficinaService } from 'src/app/shared/service/oficina.service';
 import { Item } from 'src/app/shared/model/item.model';
+import { ReporteF7Service } from 'src/app/shared/service/reporteF7.service';
 
 @Component({
   selector: 'app-f7-reporte-general',
@@ -15,89 +9,32 @@ import { Item } from 'src/app/shared/model/item.model';
   styleUrls: ['./f7-general.component.css']
 })
 export class ReporteF7GeneralComponent implements OnInit {
-  public labelFechaInicio: string;
-  public labelFechaFin: string;
-  public showFechaInicio: boolean;
-  public showFechaFin: boolean;
-  public periodoSelected: Item;
-  public dateInicioSelected: Date;
-  public dateFinSelected: Date;
-  public oficinas: SelectItem[] = [];
-  public selectedOficinas: string[] = [];
-  public listOficina: Oficina[] = [];
-  public fechaInicio: Date;
-  public idsOficina: Array<number> = new Array<number>();
-  public reporteQuery: ReporteQuery;
-  public listItem: ReportePromedio[];
-  public es: any;
-  public events: string[] = [];
-  public periodos: Item[];
   public dataListaTipoCoberturaSugerida: Item[];
   public dataListaFiltro: Item[];
+  public dataLineaProducto: Item[];
+  public dataProductoERP: Item[];
+  public dataGrupoAnatomico: Item[];
   public tipoCoberturaSelected: Item;
   public filtroSelected: Item;
+  public showFilter1: boolean;
+  public showFilter2: boolean;
+  public isComboFilter1: boolean;
+  public isComboFilter2: boolean;
+  public labelFiltro1: String;
+  public labelFiltro2: String;
+  public listaGrupoProductoERP: Item[];
+  public listaGrupoAnatomico: Item[];
+  public listCombo1: Item[];
+  public listCombo2: Item[];
 
   constructor(
     public alertService: AlertService,
-    public reporteService: ReporteService,
-    public oficinaService: OficinaService
-  ) {
-    this.labelFechaInicio = 'Fecha';
-    this.labelFechaFin = 'Fecha fin';
-    this.showFechaInicio = false;
-    this.showFechaFin = false;
-    this.loadOficinas();
-  }
-  get filterfecha() {
-    return  "fechas ";
-  }
-  ngOnInit() {
+    public reporteF7Service: ReporteF7Service
+  ) { }
 
-    this.es = {
-      firstDayOfWeek: 1,
-      dayNames: [
-        'domingo',
-        'lunes',
-        'martes',
-        'miércoles',
-        'jueves',
-        'viernes',
-        'sábado'
-      ],
-      dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-      dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
-      monthNames: [
-        'enero',
-        'febrero',
-        'marzo',
-        'abril',
-        'mayo',
-        'junio',
-        'julio',
-        'agosto',
-        'septiembre',
-        'octubre',
-        'noviembre',
-        'diciembre'
-      ],
-      monthNamesShort: [
-        'ene',
-        'feb',
-        'mar',
-        'abr',
-        'may',
-        'jun',
-        'jul',
-        'ago',
-        'sep',
-        'oct',
-        'nov',
-        'dic'
-      ],
-      today: 'Hoy',
-      clear: 'Borrar'
-    };
-    this.periodos = [new Item('Diario', 'D'), new Item('Mensual', 'M')];
+  ngOnInit() {
+    this.loadListarGrupoProductoERP();
+    this.loadListarGrupoAnatomico();
     this.dataListaTipoCoberturaSugerida = [new Item('TODAS', '0'), new Item('S', 'S'), new Item('N', 'N'), new Item('C', 'C')];
     this.dataListaFiltro = [
     new Item('NINGUNO', '0'), new Item('COD. LOCAL', '1'),
@@ -106,54 +43,110 @@ export class ReporteF7GeneralComponent implements OnInit {
     new Item('TIPO LAM', '7'), new Item('COD SAP LOCAL', '8'), new Item('COD SAP PRODUCTO', '9'),
     new Item('JERARQUIAS', '10'), new Item('ANALISTA ASR', '11')
     ];
+    this.dataLineaProducto = [ new Item('CONSUMO', '1'), new Item('DISPOSITIVO MEDICO QUIRUR.', '2'), new Item('MEDICAMENTO ETICO', '3'),
+    new Item('MEDICAMENTO POPULAR', '4'), new Item('NUTRICION', '5')];
   }
 
   public onChangeFilter() {
-    console.log('value', this.tipoCoberturaSelected.code);
-    console.log('value', this.filtroSelected.code);
-  }
-
-  public onChange() {
-    this.listItem = [];
-    if (this.periodoSelected != undefined) {
-      if (this.periodoSelected.code.indexOf('M') != -1) {
-        this.showFechaInicio = true;
-        this.showFechaFin = true;
-        this.labelFechaInicio = 'Fecha Inicio';
+    if (this.filtroSelected != undefined) {
+      if (this.filtroSelected.code == '1') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Código Local';
+      } else if (this.filtroSelected.code == '2') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Código Producto';
+      } else if (this.filtroSelected.code == '3') {
+        this.showFilter1 = true;
+        this.showFilter2 = true;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Código Local';
+        this.labelFiltro2 = 'Código Producto';
+      } else if (this.filtroSelected.code == '4') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.labelFiltro1 = 'Cód. Linea Producto';
+      } else if (this.filtroSelected.code == '5') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = true;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Linea Producto';
+        this.listCombo1 = this.dataLineaProducto;
+      } else if (this.filtroSelected.code == '6') {
+        this.showFilter1 = true;
+        this.showFilter2 = true;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = true;
+        this.labelFiltro1 = 'Código Local';
+        this.labelFiltro2 = 'Linea Producto';
+        this.listCombo2 = this.dataLineaProducto;
+      } else if (this.filtroSelected.code == '7') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Tipo LAM';
+      } else if (this.filtroSelected.code == '8') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Código SAP Local';
+      } else if (this.filtroSelected.code == '9') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Cód. SAP Producto';
+      } else if (this.filtroSelected.code == '10') {
+        this.showFilter1 = true;
+        this.showFilter2 = true;
+        this.isComboFilter1 = true;
+        this.isComboFilter2 = true;
+        this.labelFiltro1 = 'Grupo Producto ERP';
+        this.labelFiltro2 = 'Grupo Anatomico';
+      } else if (this.filtroSelected.code == '11') {
+        this.showFilter1 = true;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
+        this.labelFiltro1 = 'Analista ASR';
       } else {
-        this.dateFinSelected = undefined;
-        this.showFechaInicio = true;
-        this.showFechaFin = false;
-        this.labelFechaInicio = 'Fecha';
+        this.showFilter1 = false;
+        this.showFilter2 = false;
+        this.isComboFilter1 = false;
+        this.isComboFilter2 = false;
       }
-      this.idsOficina = [];
-      this.selectedOficinas.forEach(o => {
-        const id: SelectItem = this.oficinas.find(obj => obj.value.localeCompare(o) == 0);
-        if (id != undefined) {
-          this.idsOficina.push(Number(id.title));
-        }
-      });
-      if (this.dateInicioSelected != undefined && this.idsOficina.length > 0) {
-        this.search();
-      }
+
+
     }
   }
 
-  public loadOficinas() {
-    this.oficinaService.getAll().subscribe(
+  public loadListarGrupoProductoERP() {
+    this.reporteF7Service.listarGrupoProductoERP().subscribe(
       data => {
-        this.listOficina = <Oficina[]>data;
-        this.listOficina.forEach(o => {
-          const obj = {
-            label: o.nombre,
-            value: o.nombre,
-            title: o.idOficina + ''
-          };
-          this.oficinas.push(obj);
-        });
+        this.listaGrupoProductoERP = <any>data;
+        this.listCombo1 = [];
+        var name = '';
+        var count = '';
+            for ( let i = 0; i <= this.listaGrupoProductoERP.length; i++) {
+              name = this.listaGrupoProductoERP[i];
+              count = i;
+              if (name != undefined) {
+                this.listCombo1.push(new Item(name, count));
+              }
+            }
       },
       error => {
-        this.listOficina = [];
+        this.listaGrupoProductoERP = [];
         const errorMessage =
           error.message != undefined
             ? error.message
@@ -163,30 +156,23 @@ export class ReporteF7GeneralComponent implements OnInit {
     );
   }
 
-  public search() {
-    if (this.oficinas.length == 0) {
-      this.alertService.danger('Seleccione al menos una oficina');
-      return;
-    }
-    if (
-      this.periodoSelected.code.indexOf('M') != -1 &&
-      this.dateFinSelected == undefined
-    ) {
-      return;
-    }
-
-    this.reporteQuery = new ReporteQuery();
-    this.reporteQuery.fechaInicio = this.dateInicioSelected;
-    this.reporteQuery.fechaFin = this.dateFinSelected;
-    this.reporteQuery.idsOficina = this.idsOficina;
-    this.reporteService.tiempoPromedio(this.reporteQuery).subscribe(
+  public loadListarGrupoAnatomico() {
+    this.reporteF7Service.listarGrupoAnatomico().subscribe(
       data => {
-        console.log("TIEMPO PROMEDIO \n")
-        console.log(data)
-        this.listItem = <ReportePromedio[]>data;
+        this.listaGrupoAnatomico = <any>data;
+        this.listCombo2 = [];
+        let name = '';
+        let count = '';
+            for ( let i = 0; i <= this.listaGrupoAnatomico.length; i++) {
+              name = this.listaGrupoAnatomico[i];
+              count = i;
+              if (name != undefined) {
+                this.listCombo2.push(new Item(name, count));
+              }
+            }
       },
       error => {
-        this.listItem = [];
+        this.listaGrupoProductoERP = [];
         const errorMessage =
           error.message != undefined
             ? error.message
@@ -195,4 +181,5 @@ export class ReporteF7GeneralComponent implements OnInit {
       }
     );
   }
+
 }
