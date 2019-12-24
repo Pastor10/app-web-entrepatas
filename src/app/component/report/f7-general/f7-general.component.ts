@@ -12,8 +12,6 @@ export class ReporteF7GeneralComponent implements OnInit {
   public dataListaTipoCoberturaSugerida: Item[];
   public dataListaFiltro: Item[];
   public dataLineaProducto: Item[];
-  public dataProductoERP: Item[];
-  public dataGrupoAnatomico: Item[];
   public tipoCoberturaSelected: Item;
   public filtroSelected: Item;
   public showFilter1: boolean;
@@ -26,6 +24,8 @@ export class ReporteF7GeneralComponent implements OnInit {
   public listaGrupoAnatomico: Item[];
   public listCombo1: Item[];
   public listCombo2: Item[];
+  public name: String;
+  public count: String;
 
   constructor(
     public alertService: AlertService,
@@ -113,6 +113,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.isComboFilter2 = true;
         this.labelFiltro1 = 'Grupo Producto ERP';
         this.labelFiltro2 = 'Grupo Anatomico';
+        this.listCombo1 = this.listaGrupoProductoERP;
+        this.listCombo2 = this.listaGrupoAnatomico;
       } else if (this.filtroSelected.code == '11') {
         this.showFilter1 = true;
         this.showFilter2 = false;
@@ -135,15 +137,15 @@ export class ReporteF7GeneralComponent implements OnInit {
       data => {
         this.listaGrupoProductoERP = <any>data;
         this.listCombo1 = [];
-        var name = '';
-        var count = '';
             for ( let i = 0; i <= this.listaGrupoProductoERP.length; i++) {
-              name = this.listaGrupoProductoERP[i];
-              count = i;
-              if (name != undefined) {
-                this.listCombo1.push(new Item(name, count));
+              console.log('this.listaGrupoProductoERP', this.listaGrupoProductoERP[i]);
+              if (this.listaGrupoProductoERP[i] != undefined) {
+                this.name = '' + this.listaGrupoProductoERP[i];
+                this.count = '' + i;
+                this.listCombo1.push(new Item(this.name, this.count));
               }
             }
+            this.listaGrupoProductoERP = this.listCombo1;
       },
       error => {
         this.listaGrupoProductoERP = [];
@@ -161,18 +163,17 @@ export class ReporteF7GeneralComponent implements OnInit {
       data => {
         this.listaGrupoAnatomico = <any>data;
         this.listCombo2 = [];
-        let name = '';
-        let count = '';
-            for ( let i = 0; i <= this.listaGrupoAnatomico.length; i++) {
-              name = this.listaGrupoAnatomico[i];
-              count = i;
-              if (name != undefined) {
-                this.listCombo2.push(new Item(name, count));
-              }
-            }
+        for ( let i = 0; i <= this.listaGrupoAnatomico.length; i++) {
+          if (this.listaGrupoAnatomico[i] != undefined) {
+            this.name = '' + this.listaGrupoAnatomico[i];
+            this.count = '' + i;
+            this.listCombo2.push(new Item(this.name, this.count));
+          }
+        }
+        this.listaGrupoAnatomico = this.listCombo2;
       },
       error => {
-        this.listaGrupoProductoERP = [];
+        this.listaGrupoAnatomico = [];
         const errorMessage =
           error.message != undefined
             ? error.message

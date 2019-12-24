@@ -1,4 +1,56 @@
 
 export class ReporteF7 {
-    
+    fecha: String;
+    codigoLocal: String;
+    descripcionLocal: String;
+    leadTime: String;
+    codigoProducto: String;
+    descriptionProducto: String;
+    descriptionUnidadPresente: String;
+    count: String;
+    centro: String;
+    codigoSap: String;
+    departamento: String;
+    linea: String;
+    transito: String;
+    analistaAsr: String;
+    stock: String;
+    tipoGrupoExterno: String;
+    ventaMes0: String;
+    ventaMes1: String;
+    ventaMes2: String;
+    ventaMes3: String;
+    ventaMes4: String;
+    materialEstado: String;
+    jerarquia1: String;
+    jerarquia2: String;
+    jerarquia3: String;
+    outl: String;
+    iop: String;
+    materialStock: String;
+    reservado: String;
+    soq: String;
+    estado: String;
+    cat: String;
+    weekly: String;
+    fdh: String;
+    fechaUltimaIntegracionACD: String;
+    nsProveedor: String;
+    promocion: String;
+    promocionVenta: String;
+    weekly30Days: String;
+    fa: String;
+    ventaProy: String;
+    stockCDDia: String;
+    dI: String;
+    restriccion: String;
+    indiceAprobacion: String;
+    descripcionSemana: String;
+    idSemana: String;
+    usuarioModifica: String;
+    indiceF7Nuevo: String;
+    ipAddress: String;
+    osUserTmp: String;
+    descripcionMotivo: String;
+    fechaModificacion: String;
 }
