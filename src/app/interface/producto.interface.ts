@@ -1,0 +1,31 @@
+export interface Producto {
+    fecha: string;
+    centro: string;
+    codLocal: string;
+    descLocal: string;
+    codSap: string;
+    codProducto: string;
+    descProducto: string;
+    descUnidProducto: string;
+    materialEstado: string;
+    grupoExterno: string;
+    jerarquia1: string;
+    jerarquia2: string;
+    jerarquia3: string;
+    leadTime: string;
+    stock: string;
+    outl: string;
+    iop: string;
+    estado: string;
+    cat: string;
+    weekly: string;
+    mes0: number;
+    mes1: number;
+    mes2: number;
+    mes3: number;
+    mes4: number;
+    descJerarquia3: string;
+    restriccion: string;
+    indiceAprobacion: string;
+    indiceF7New: string;
+}

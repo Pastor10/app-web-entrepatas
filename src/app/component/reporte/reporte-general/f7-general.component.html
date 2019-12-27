@@ -1,0 +1,91 @@
+<div class="ui-g">
+    <div class="ui-g-12">
+        <div class="card card-w-title">
+            <h1>Reporte General</h1>
+            <div class="ui-g form-group">
+                <div class="row ui-g-12">
+                        <div class="ui-g-2 ui-md-1">
+                                <label for="dropdown">Indicador</label>
+                        </div>
+                        <div class="ui-g-2 ui-md-2">
+                            <p-dropdown [options]="dataListaTipoCoberturaSugerida" [(ngModel)]="tipoCoberturaSelected" 
+                                    placeholder="TODAS" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>        
+                        </div>
+
+                        <div class="ui-g-2 ui-md-1">
+                                <label for="dropdown">Filtro</label>
+                        </div>
+                        <div class="ui-g-2 ui-md-4">
+                                <p-dropdown [options]="dataListaFiltro" [(ngModel)]="filtroSelected" 
+                                placeholder="NINGUNO" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>  
+                        </div>
+                        <div class="ui-g-2 ui-md-2" >
+                            <button pButton  label="Aceptar" (click)="buscarProductosXFiltros()"  style="background: #eb0000;color: white;"></button>
+                        </div>
+
+                </div>
+
+            </div>
+            <div class="ui-g form-group">
+                
+                    <div class="row row ui-g-8">
+                        <p-toast key="tst"></p-toast>
+                        <div *ngIf="showFilter1">
+                                <div class="ui-g-12 ui-md-2">
+                                        <label for="dropdown">{{labelFiltro1}}</label>
+                                </div>
+                                <div class="ui-g-12 ui-md-4">
+                                            <input *ngIf="!isComboFilter1"  name="inputFilter1" mdbInputDirective type="text" id="inputFilter1" class="form-control"
+                                            [(ngModel)]="inputFilter1" pInputText>
+                                          <p-dropdown *ngIf="isComboFilter1"  [options]="listCombo1" [(ngModel)]="filterCombo1Selected" 
+                                              placeholder="SELECCIONE" optionLabel="name" ></p-dropdown> 
+                                </div>
+
+                        </div>
+                        <div *ngIf="showFilter2">
+                                <div class="ui-g-12 ui-md-2">
+                                        <label for="dropdown">{{labelFiltro2}}</label>
+                                    </div>
+                                    <div class="ui-g-12 ui-md-4">
+                                            <input *ngIf="!isComboFilter2" name="inputFilter2" mdbInputDirective type="text" id="inputFilter2" class="form-control"
+                                            [(ngModel)]="inputFilter2" pInputText>   
+                                          <p-dropdown *ngIf="isComboFilter2"  [options]="listCombo2" [(ngModel)]="filterCombo2Selected" 
+                                            placeholder="SELECCIONE" optionLabel="name" ></p-dropdown> 
+                                    </div>
+
+                        </div>
+                    </div>
+
+            </div>
+            
+            <p-table [columns]="cols" [value]="listProductos" [scrollable]="true" selectionMode="single" dataKey="vin"  
+                     [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [style]="{width:'1040px'}">
+                
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                            <col *ngFor="let col of columns" style="width:180px">
+                    </colgroup>
+                </ng-template>
+                
+                     <ng-template pTemplate="caption">
+                    LISTA DE PRODUCTOS
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                        <td *ngFor="let col of columns">
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

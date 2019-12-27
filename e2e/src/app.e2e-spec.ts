@@ -1,14 +1,15 @@
-import { AppPage } from './app.po';
+import {AvalonPage} from './app.po';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+describe('Avalon App', () => {
+    let page: AvalonPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+    beforeEach(() => {
+        page = new AvalonPage();
+    });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
-  });
+    it('should display welcome message', () => {
+        page.navigateTo();
+        expect(page.getTitleText()).toEqual('Welcome to Avalon!');
+    });
+
 });

@@ -1,6 +1,6 @@
 export class Item{
     constructor(
-        public name: String,
-        public code: String
+        public name: string,
+        public code: string
     ) {}
 }
