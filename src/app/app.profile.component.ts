@@ -6,10 +6,10 @@ import {trigger, state, transition, style, animate} from '@angular/animations';
     template: `
         <div class="profile" [ngClass]="{'profile-expanded':active}">
             <a href="#" (click)="onClick($event)">
-                <img class="profile-image" src="assets/layout/images/avatar.png" />
-                <span class="profile-name">Isabel Oliviera</span>
+                <img class="profile-image" src="assets/layout/images/default-avatar.png" />
+                <span class="profile-name">Demo</span>
                 <i class="fa fa-fw fa-caret-down"></i>
-                <span class="profile-role">Marketing</span>
+                <span class="profile-role">Admin</span>
             </a>
         </div>
 

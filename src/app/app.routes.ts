@@ -17,7 +17,7 @@ import {DocumentationComponent} from './demo/view/documentation.component';
 import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
 
 export const routes: Routes = [
-    {path: '', component: DashboardDemoComponent},
+    {path: '', component: ReporteF7GeneralComponent},
     {path: 'sample', component: SampleDemoComponent},
     {path: 'forms', component: FormsDemoComponent},
     {path: 'data', component: DataDemoComponent},

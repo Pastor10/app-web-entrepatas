@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
     template: `
         <div class="layout-footer">
             <span class="footer-text-left">
-                <img src="assets/layout/images/logo-dark.png" />
+                DERECHOS RESERVADOS
             </span>
             <span class="footer-text-right">
                 <a href="#"><i class="fa fa-facebook"></i></a>

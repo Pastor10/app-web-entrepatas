@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item } from 'src/app/shared/model/item.model';
 import { ReporteF7Service } from 'src/app/shared/service/reporteF7.service';
 import { Producto } from 'src/app/interface/producto.interface';
 import { SelectItem, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Table } from 'primeng/table';
 //import * as $ from 'jquery';
 
 @Component({
@@ -40,6 +41,9 @@ export class ReporteF7GeneralComponent implements OnInit {
   listProductos: Producto[];
   inputFilter1: string;
   inputFilter2: string;
+  display = false;
+  uploadedFiles: any[] = [];
+  @ViewChild('dt', { static: true }) public tabla: Table;
 
   constructor(
     public reporteF7Service: ReporteF7Service
@@ -56,9 +60,9 @@ export class ReporteF7GeneralComponent implements OnInit {
     this.dataListaTipoCoberturaSugerida = [new Item('TODAS', '0'), new Item('S', 'S'), new Item('N', 'N'), new Item('R', 'R')];
     this.dataListaFiltro = [
     new Item('NINGUNO', '0'), new Item('COD. LOCAL', '1'),
-    new Item('COD PRODUCTO', '2'), new Item('COD LOCAL Y PRODUCTO', '3'), new Item('COD LINEA PRODUCTO', '4'),
+    new Item('COD PRODUCTO', '2'), new Item('COD LOCAL Y PRODUCTO', '3'),
     new Item('DESCRIPCIÓN LINEA PRODUCTO', '5'), new Item('COD LOCAL Y LINEA PRODUCTO', '6'),
-    new Item('TIPO LAM', '7'), new Item('COD SAP LOCAL', '8'), new Item('COD SAP PRODUCTO', '9'),
+    new Item('COD SAP', '8'), new Item('GRUPO EXTERNO', '9'),
     new Item('JERARQUIAS', '10'), new Item('ANALISTA ASR', '11')
     ];
     this.dataLineaProducto = [ new Item('CONSUMO', '1'), new Item('DISPOSITIVO MEDICO QUIRUR.', '2'), new Item('MEDICAMENTO ETICO', '3'),
@@ -75,7 +79,6 @@ export class ReporteF7GeneralComponent implements OnInit {
       { field: 'descripcionProducto', header: 'Desc unid. producto' },
       { field: 'materialEstado', header: 'Material estado' },
       { field: 'tipoGrupoExterno', header: 'Grupo externo' },
-
       { field: 'jerarquia1', header: 'Jerarquia 1' },
       { field: 'jerarquia2', header: 'Jerarquia 2' },
       { field: 'jerarquia3', header: 'Jerarquia 3' },
@@ -86,42 +89,18 @@ export class ReporteF7GeneralComponent implements OnInit {
       { field: 'estado', header: 'Estado' },
       { field: 'cat', header: 'Cat' },
       { field: 'weekly', header: 'Weekly' },
-      { field: 'mes0', header: 'Mes 0' },
-      { field: 'mes1', header: 'Mes 1' },
-      { field: 'mes2', header: 'Mes 2' },
-      { field: 'mes3', header: 'Mes 3' },
-      { field: 'mes4', header: 'Mes 4' },
+      { field: 'ventaMes0', header: 'Mes 0' },
+      { field: 'ventaMes1', header: 'Mes 1' },
+      { field: 'ventaMes2', header: 'Mes 2' },
+      { field: 'ventaMes3', header: 'Mes 3' },
+      { field: 'ventaMes4', header: 'Mes 4' },
       { field: 'analistaAsr', header: 'Analista ASR' },
       { field: 'restriccion', header: 'Restricción' },
       { field: 'indiceAprobacion', header: 'Indice de aprobación' },
       { field: 'indiceF7Nuevo', header: 'Indice F7 new' }
   ];
 
-    this.scrollableCols = [
-      { field: 'jerarquia1', header: 'Jerarquia 1' },
-      { field: 'jerarquia2', header: 'Jerarquia 2' },
-      { field: 'jerarquia3', header: 'Jerarquia 3' },
-      { field: 'leadTime', header: 'Lead time' },
-      { field: 'stock', header: 'Stock' },
-      { field: 'outl', header: 'Outl' },
-      { field: 'iop', header: 'IOP' },
-      { field: 'estado', header: 'Estado' },
-      { field: 'cat', header: 'Cat' },
-      { field: 'weekly', header: 'Weekly' },
-      { field: 'mes0', header: 'Mes 0' },
-      { field: 'mes1', header: 'Mes 1' },
-      { field: 'mes2', header: 'Mes 2' },
-      { field: 'mes3', header: 'Mes 3' },
-      { field: 'mes4', header: 'Mes 4' },
-      { field: 'analistaAsr', header: 'Desc Jerarquia 3' },
-      { field: 'restriccion', header: 'Restricción' },
-      { field: 'indiceAprobacion', header: 'Indice de aprobación' },
-      { field: 'indiceF7Nuevo', header: 'Indice F7 new' }
-  ];
-    this.frozenCols = [
-      { field: 'fecha', header: 'Fecha' }
-  ];
-    this.listarProductosDefault(-1);
+    this.listarProductosDefault(0);
   }
 
   public onChangeFilter() {
@@ -176,13 +155,13 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.showFilter2 = false;
         this.isComboFilter1 = false;
         this.isComboFilter2 = false;
-        this.labelFiltro1 = 'Código SAP Local';
+        this.labelFiltro1 = 'Código SAP';
       } else if (this.filtroSelected.code == '9') {
         this.showFilter1 = true;
         this.showFilter2 = false;
         this.isComboFilter1 = false;
         this.isComboFilter2 = false;
-        this.labelFiltro1 = 'Cód. SAP Producto';
+        this.labelFiltro1 = 'Grupo Externo';
       } else if (this.filtroSelected.code == '10') {
         this.showFilter1 = true;
         this.showFilter2 = true;
@@ -268,13 +247,65 @@ export class ReporteF7GeneralComponent implements OnInit {
 
   }
 
-  loadChunk(index): Producto[] {
-    let prod: Producto[] = [];
-    for (let i = 0; i < this.listProductos.length; i++) {
-        prod[i] = {...this.listProductos[i], ...{vin: (index + i)}};
-    } 
+ 
 
-    return prod;
+  exportExcel() {
+    const params = [];
+    if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0') {
+      this.reporteF7Service.exportToExcelDefault(params.join('&'), -1);
+    }
+
+    if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0') {
+      params.push(`${this.tipoCoberturaSelected.name}`);
+      this.reporteF7Service.exportToExcelTipoCobertura(params.join('&'), -1);
+    }
+    if (this.filtroSelected.code == '1') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.inputFilter1}`);
+      this.reporteF7Service.exportToExcelCodLocal(params.join('/'), -1);
+    }
+    if (this.filtroSelected.code == '2') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.inputFilter1}`);
+      this.reporteF7Service.exportToExcelCodProducto(params.join('/'), -1);
+    }
+
+    if (this.filtroSelected.code == '3') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.inputFilter1}`);
+      params.push(`${this.inputFilter2}`);
+      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'), -1);
+    }
+
+    if (this.filtroSelected.code == '5') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.filterCombo1Selected.name}`);
+      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1);
+    }
+
+    if (this.filtroSelected.code == '6') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.inputFilter1}`);
+      params.push(`${this.filterCombo2Selected.name}`);
+      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1);
+    }
+
+    if (this.filtroSelected.code == '8') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.inputFilter1}`);
+      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'), -1);
+    }
+
+    if (this.filtroSelected.code == '11') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.inputFilter1}`);
+      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'), -1);
+    }
+
+  }
+
+  openImport() {
+    this.display = true;
   }
 
   buscarProductosXFiltros() {
@@ -354,7 +385,7 @@ export class ReporteF7GeneralComponent implements OnInit {
 
       }
 
-      if (this.filtroSelected.code == '8') {
+    if (this.filtroSelected.code == '8') {
         //this.dataLineaProducto;
         this.listProductos = [];
         this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
@@ -365,7 +396,7 @@ export class ReporteF7GeneralComponent implements OnInit {
 
       }
 
-      if (this.filtroSelected.code == '10') {
+    if (this.filtroSelected.code == '10') {
         //this.dataLineaProducto;
         this.listProductos = [];
         this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
@@ -376,7 +407,7 @@ export class ReporteF7GeneralComponent implements OnInit {
 
       }
 
-      if (this.filtroSelected.code == '11') {
+    if (this.filtroSelected.code == '11') {
         //this.dataLineaProducto;
         this.listProductos = [];
         this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
@@ -387,6 +418,17 @@ export class ReporteF7GeneralComponent implements OnInit {
 
       }
   }
+
+  onFileUpload(data: { files: File }): void {
+    const formData: FormData = new FormData();
+    const file = data.files[0];
+    formData.append('file', file, file.name);
+    this.reporteF7Service.importFromExcel(formData).subscribe(resp => {
+        this.display = false;
+        this.messageService.add({severity: 'success', summary: 'Archivo importado correctamente', detail: ''});
+        this.tabla._filter();
+    });
+}
 }
 
 

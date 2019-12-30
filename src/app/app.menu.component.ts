@@ -30,7 +30,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Administrador', icon: 'fa fa-fw  fa-tags',
                 items: [
                     {label: 'Usuarios', icon: 'fa fa-users',  command: () => this.changeVersion('v3')},
-                    {label: 'Perfiles', icon: 'fa fa-user',  command: () => this.changeVersion('v4')}
+                    {label: 'Perfiles', icon: 'fa fa-user',  command: () => this.changeVersion('v3')}
                 ]
             },
             {
@@ -42,35 +42,8 @@ export class AppMenuComponent implements OnInit {
                     },
                     {label: 'Reporte no coberturado', icon: 'fa fa-list-alt',  command: () => this.changeVersion('v4')}
                 ]
-            },
-            {label: 'Dashboard', icon: 'fa fa-fw fa-home', routerLink: ['/']},
-            {
-                label: 'Components', icon: 'fa fa-fw fa-sitemap',
-                items: [
-                    {label: 'Sample Page', icon: 'fa fa-fw fa-columns', routerLink: ['/sample']},
-                    {label: 'Forms', icon: 'fa fa-fw fa-code', routerLink: ['/forms']},
-                    {label: 'Data', icon: 'fa fa-fw fa-table', routerLink: ['/data']},
-                    {label: 'Panels', icon: 'fa fa-fw fa-list-alt', routerLink: ['/panels']},
-                    {label: 'Overlays', icon: 'fa fa-fw fa-square', routerLink: ['/overlays']},
-                    {label: 'Menus', icon: 'fa fa-fw fa-minus-square-o', routerLink: ['/menus']},
-                    {label: 'Messages', icon: 'fa fa-fw fa-circle-o-notch', routerLink: ['/messages']},
-                    {label: 'Charts', icon: 'fa fa-fw fa-area-chart', routerLink: ['/charts']},
-                    {label: 'File', icon: 'fa fa-fw fa-arrow-circle-o-up', routerLink: ['/file']},
-                    {label: 'Misc', icon: 'fa fa-fw fa-user-secret', routerLink: ['/misc']}
-                ]
-            },
-            {
-                label: 'Template Pages', icon: 'fa fa-fw fa-life-saver',
-                items: [
-                    {label: 'Empty Page', icon: 'fa fa-fw fa-square-o', routerLink: ['/empty']},
-                    {label: 'Landing Page', icon: 'fa fa-fw fa-certificate', url: 'assets/pages/landing.html', target: '_blank'},
-                    {label: 'Login Page', icon: 'fa fa-fw fa-sign-in', url: 'assets/pages/login.html', target: '_blank'},
-                    {label: 'Error Page', icon: 'fa fa-fw fa-exclamation-circle', url: 'assets/pages/error.html', target: '_blank'},
-                    {label: 'Not Found Page', icon: 'fa fa-fw fa-times', url: 'assets/pages/notfound.html', target: '_blank'},
-                    {label: 'Access Denied Page', icon: 'fa fa-fw fa-exclamation-triangle',
-                        url: 'assets/pages/access.html', target: '_blank'}
-                ]
             }
+
         ];
     }
 

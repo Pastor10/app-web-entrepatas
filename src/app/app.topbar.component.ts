@@ -25,8 +25,8 @@ import {AppComponent} from './app.component';
 
                         <a href="#" (click)="app.onTopbarItemClick($event,profile)">
                             <img class="profile-image" src="assets/layout/images/avatar.png" />
-                            <span class="topbar-item-name">Isabel Lopez</span>
-                            <span class="topbar-item-role">Marketing</span>
+                            <span class="topbar-item-name">Demo </span>
+                            <span class="topbar-item-role">Admin</span>
                         </a>
 
                         <ul class="layout-menu fadeInDown">

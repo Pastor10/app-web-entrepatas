@@ -1,7 +1,7 @@
 <div class="ui-g">
     <div class="ui-g-12">
         <div class="card card-w-title">
-            <h1>Reporte General</h1>
+            <h1 style="text-align: center;">REPORTE GENERAL</h1>
             <div class="ui-g form-group">
                 <div class="row ui-g-12">
                         <div class="ui-g-2 ui-md-1">
@@ -66,6 +66,7 @@
                             <col *ngFor="let col of columns" style="width:180px">
                     </colgroup>
                 </ng-template>
+               
                 
                 <ng-template pTemplate="caption">
                     LISTA DE PRODUCTOS
@@ -85,7 +86,33 @@
                         </td>
                     </tr>
                 </ng-template>
+                <ng-template pTemplate="summary" let-rowData>
+                    <div style="text-align:left">
+                        <p-button style="margin-right: 0.3rem;" type="button" icon="fa fa-file-excel-o"
+                                  (onClick)="exportExcel()"  label="Exportar a Excel"></p-button>
+
+                        <button style="margin-right: 0.3rem;" type="button" pButton icon="fa fa-file-excel-o"
+                                (click)="openImport()" label="Importar de excel"></button>
+                    </div>
+                </ng-template>
             </p-table>
         </div>
     </div>
 </div>
+
+<p-dialog header="Importar items desde excel" [(visible)]="display" [modal]="true" [responsive]="true"
+   [style]="{width: '600px', minWidth: '300px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+
+  <p-fileUpload accept=".xlsx" (uploadHandler)="onFileUpload($event)" [customUpload]="true"
+              chooseLabel="Selecciona un archivo excel" uploadLabel="Subir excel"
+              cancelLabel="Cancelar" name="file"
+              [multiple]="false" maxFileSize="1000000">
+      <ng-template pTemplate="content">
+          <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}}
+                  bytes
+              </li>
+          </ul>
+      </ng-template>
+  </p-fileUpload>
+  </p-dialog>
