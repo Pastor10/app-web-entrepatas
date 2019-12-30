@@ -1,7 +1,7 @@
 import {throwError as observableThrowError, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {ReporteF7} from '../model/reporteF7.model';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 //import {environment} from '../shared/environments/environment;
 import {timeoutWith} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -27,7 +27,7 @@ export class ReporteF7Service {
       }
 
       coverage_page(pagina: number, tipoCobertura: string): Observable<any> {
-        return this.http.get(this.baseUrl + 'coverage/' + tipoCobertura + '/page/' + pagina).pipe(
+        return this.http.get(this.baseUrl + 'coverage/' + tipoCobertura + '/page/' + pagina, {responseType: 'blob'}).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
@@ -67,6 +67,18 @@ export class ReporteF7Service {
       listarProductosByCodLocalDescLinea(pagina, indiceAprobacion, codLocal, desLinea) {
         return this.http.get(this.baseUrl + 'coverage/local_deslinea/' + indiceAprobacion + '/' + codLocal + '/' + desLinea
         + '/page/' + pagina).pipe(
+          timeoutWith(environment.TIMEOUT, observableThrowError(
+            new Error('Tiempo de respuesta excedido, intente nuevamente'))));
+      }
+
+      listarProductosByCodProdSap(pagina, indiceAprobacion, codProductoSap) {
+        return this.http.get(this.baseUrl + 'coverage/cod_sap/' + indiceAprobacion + '/' + codProductoSap + '/'  + pagina).pipe(
+          timeoutWith(environment.TIMEOUT, observableThrowError(
+            new Error('Tiempo de respuesta excedido, intente nuevamente'))));
+      }
+    
+      listarProductosBySnalistaAsr(pagina, indiceAprobacion, analistaAsr) {
+        return this.http.get(this.baseUrl + 'coverage/analista_asr/' + indiceAprobacion + '/' + analistaAsr + '/'  + pagina).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }

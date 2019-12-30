@@ -91,7 +91,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       { field: 'mes2', header: 'Mes 2' },
       { field: 'mes3', header: 'Mes 3' },
       { field: 'mes4', header: 'Mes 4' },
-      { field: 'analistaAsr', header: 'Desc Jerarquia 3' },
+      { field: 'analistaAsr', header: 'Analista ASR' },
       { field: 'restriccion', header: 'Restricción' },
       { field: 'indiceAprobacion', header: 'Indice de aprobación' },
       { field: 'indiceF7Nuevo', header: 'Indice F7 new' }
@@ -121,7 +121,7 @@ export class ReporteF7GeneralComponent implements OnInit {
     this.frozenCols = [
       { field: 'fecha', header: 'Fecha' }
   ];
-    this.listarProductosDefault(0);
+    this.listarProductosDefault(-1);
   }
 
   public onChangeFilter() {
@@ -347,6 +347,39 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.listProductos = [];
         this.reporteF7Service.listarProductosByCodLocalDescLinea(0, this.tipoCoberturaSelected.code, this.inputFilter1,
            this.filterCombo2Selected.name).subscribe(
+          data => {
+            this.listProductos = data['content'];
+            console.log('this.listProductos:', data);
+          });
+
+      }
+
+      if (this.filtroSelected.code == '8') {
+        //this.dataLineaProducto;
+        this.listProductos = [];
+        this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
+          data => {
+            this.listProductos = data as Array<Producto>;
+            console.log('this.listProductos:', data);
+          });
+
+      }
+
+      if (this.filtroSelected.code == '10') {
+        //this.dataLineaProducto;
+        this.listProductos = [];
+        this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
+          data => {
+            this.listProductos = data['content'];
+            console.log('this.listProductos:', data);
+          });
+
+      }
+
+      if (this.filtroSelected.code == '11') {
+        //this.dataLineaProducto;
+        this.listProductos = [];
+        this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
           data => {
             this.listProductos = data['content'];
             console.log('this.listProductos:', data);

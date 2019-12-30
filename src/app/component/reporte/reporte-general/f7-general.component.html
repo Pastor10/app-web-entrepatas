@@ -59,7 +59,7 @@
             </div>
             
             <p-table [columns]="cols" [value]="listProductos" [scrollable]="true" selectionMode="single" dataKey="vin"  
-                     [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [style]="{width:'1040px'}">
+                     [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" >
                 
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>
@@ -67,7 +67,7 @@
                     </colgroup>
                 </ng-template>
                 
-                     <ng-template pTemplate="caption">
+                <ng-template pTemplate="caption">
                     LISTA DE PRODUCTOS
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
