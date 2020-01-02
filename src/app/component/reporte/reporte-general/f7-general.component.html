@@ -29,7 +29,7 @@
             <div class="ui-g form-group">
                 
                     <div class="row row ui-g-8">
-                        <p-toast key="tst"></p-toast>
+                        <p-toast key="msg"></p-toast>
                         <div *ngIf="showFilter1">
                                 <div class="ui-g-12 ui-md-2">
                                         <label for="dropdown">{{labelFiltro1}}</label>
@@ -102,7 +102,13 @@
 
 <p-dialog header="Importar items desde excel" [(visible)]="display" [modal]="true" [responsive]="true"
    [style]="{width: '600px', minWidth: '300px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-
+   <p-toast key="tst"></p-toast>
+   <div >
+        <label for="form-control">Ingresar Motivo: </label>
+            <input name="motivo" mdbInputDirective type="text" id="motivo" class="form-control"
+            [(ngModel)]="motivo" pInputText>
+     </div>
+     <br>
   <p-fileUpload accept=".xlsx" (uploadHandler)="onFileUpload($event)" [customUpload]="true"
               chooseLabel="Selecciona un archivo excel" uploadLabel="Subir excel"
               cancelLabel="Cancelar" name="file"

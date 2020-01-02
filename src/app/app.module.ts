@@ -101,6 +101,7 @@ import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f
 import { ReporteF7Service } from './shared/service/reporteF7.service';
 import { MessageService } from 'primeng/api';
 
+
 @NgModule({
     imports: [
         BrowserModule,

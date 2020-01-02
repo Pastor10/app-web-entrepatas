@@ -83,8 +83,15 @@ export class ReporteF7Service {
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
+      listarProductosByJerarquias(pagina, indiceAprobacion, productoERP, grupoAnatomico) {
+        ///coverage/jerarquias/{indice_aprobacion}/{jerarquia2}/{jerarquia3}/{page}")
+        return this.http.get(this.baseUrl + 'coverage/jerarquias/' + indiceAprobacion + '/' + productoERP + '/'
+         + grupoAnatomico + '/' + pagina).pipe(
+          timeoutWith(environment.TIMEOUT, observableThrowError(
+            new Error('Tiempo de respuesta excedido, intente nuevamente'))));
+      }
+
       exportToExcelDefault(params, pagina) {
-       // this.baseUrl + 'coverage/page/' + pagina
         this.http.get(`${this.baseUrl}coverage/page/` + pagina, {responseType: 'blob'}).subscribe(data => {
             const a = document.createElement('a');
             document.body.appendChild(a);
@@ -98,7 +105,6 @@ export class ReporteF7Service {
     }
 
     exportToExcelTipoCobertura(params, pagina) {
-      // this.baseUrl + 'coverage/' + tipoCobertura + '/page/' + pagina
        this.http.get(this.baseUrl + 'coverage/' + params + '/page/' + pagina, {responseType: 'blob'}).subscribe(data => {
            const a = document.createElement('a');
            document.body.appendChild(a);
@@ -112,7 +118,6 @@ export class ReporteF7Service {
    }
 
    exportToExcelCodLocal(params, pagina) {
-    // this.baseUrl + 'coverage/cod_local/' + indiceAprobacion + '/' + codLocal + '/'  + pagina
      this.http.get(this.baseUrl + 'coverage/cod_local/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
          const a = document.createElement('a');
          document.body.appendChild(a);
@@ -126,7 +131,6 @@ export class ReporteF7Service {
  }
 
   exportToExcelCodProducto(params, pagina) {
-    // "/coverage/cod_prod/{ind_cobertura}/{cod_prod}/{page}")
     this.http.get(this.baseUrl + 'coverage/cod_prod/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
@@ -140,7 +144,6 @@ export class ReporteF7Service {
   }
 
   exportToExcelCodLocalProducto(params, pagina) {
-    // coverage/local_prod/{ind_cobertura}/{cod_local}/{cod_prod}/{page}")
     this.http.get(this.baseUrl + 'coverage/local_prod/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
@@ -154,7 +157,6 @@ export class ReporteF7Service {
   }
 
   exportToExcelDescripcionLinea(params, pagina) {
-    // /coverage/des_linea/{ind_cobertura}/{des_linea}/page/{page}")
     this.http.get(this.baseUrl + 'coverage/des_linea/' + params + '/page/' + pagina, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
@@ -168,7 +170,6 @@ export class ReporteF7Service {
   }
 
   exportToExcelCodLocalDescLinea(params, pagina) {
-    // coverage/local_deslinea/{ind_cobertura}/{cod_local}/{des_linea}/page/{page}")
     this.http.get(this.baseUrl + 'coverage/local_deslinea/' + params + '/page/' + pagina, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
@@ -182,7 +183,6 @@ export class ReporteF7Service {
   }
 
   exportToExcelCodSapProducto(params, pagina) {
-    // coverage/cod_sap/{ind_cobertura}/{cod_sap}/{page}")
     this.http.get(this.baseUrl + 'coverage/cod_sap/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
@@ -210,6 +210,8 @@ export class ReporteF7Service {
   }
 
   importFromExcel(formData): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/products/import`, formData);
+    console.log(`${this.baseUrl}importarExcel/`, formData);
+    //return this.http.post<any>(this.baseUrl + 'importarExcel/' + formData + params);
+    return this.http.post<any>(`${this.baseUrl}importarExcel/`, formData);
 }
 }
