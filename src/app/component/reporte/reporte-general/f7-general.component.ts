@@ -112,7 +112,6 @@ export class ReporteF7GeneralComponent implements OnInit {
     getIP() {
       this.ip.getIPAddress().subscribe((res: any) => {
         this.ipAddress = res.ip;
-        console.log('this.ipAddress ', this.ipAddress);
       });
     }
 
@@ -205,7 +204,6 @@ export class ReporteF7GeneralComponent implements OnInit {
     this.reporteF7Service.listarGrupoProductoERP().subscribe(
       data => {
         this.listaGrupoProductoERP = <any>data;
-        console.log('this.listaGrupoProductoERP', data);
         this.listCombo1 = [];
         for ( let i = 0; i <= this.listaGrupoProductoERP.length; i++) {
           if (this.listaGrupoProductoERP[i] != undefined) {
@@ -459,7 +457,6 @@ export class ReporteF7GeneralComponent implements OnInit {
             this.listProductos = data['content'];
           });
       }
-        
 
       }
   }
@@ -493,10 +490,3 @@ export class ReporteF7GeneralComponent implements OnInit {
     }
 }
 }
-
-
-// new Item('NINGUNO', '0'), new Item('COD. LOCAL', '1'),
-// new Item('COD PRODUCTO', '2'), new Item('COD LOCAL Y PRODUCTO', '3'), new Item('COD LINEA PRODUCTO', '4'),
-// new Item('DESCRIPCIÓN LINEA PRODUCTO', '5'), new Item('COD LOCAL Y LINEA PRODUCTO', '6'),
-// new Item('TIPO LAM', '7'), new Item('COD SAP LOCAL', '8'), new Item('COD SAP PRODUCTO', '9'),
-// new Item('JERARQUIAS', '10'), new Item('ANALISTA ASR', '11')
