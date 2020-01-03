@@ -1,69 +1,37 @@
+<div class="limiter">
+  <div class="container-login100" >
+      <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+          <form class="login100-form validate-form flex-sb flex-w" (submit)="login()">
+              <div class="logo-container">
+                  <img class="logo" src="../../../../../assets/layout/images/farmacias-logo.png">
+              </div>
 
-    <div class="container">
-        <div class="panel panel-primary">
-            <div class="panel-body">
+              <div class="p-t-31 p-b-2">
+          <span class="txt1">
+            Usuario
+          </span>
+              </div>
+              <div class="wrap-input100 validate-input" data-validate = "Se requiere nombre de usuario">
+                  <input required [(ngModel)]="username"  class="input100" type="text" name="username" >
+                  <span class="focus-input100"></span>
+              </div>
 
-                    <ngx-alerts></ngx-alerts>
-
-                    <div class="modal-dialog cascading-modal" role="document">
-                      <!--Content-->
-                      <div class="modal-content">
-
-
-                        <!--Modal cascading tabs-->
-                        <div class="modal-c-tabs">
-
-                          <!-- Tab panels -->
-                          <mdb-tabset #staticTabs [buttonClass]="'nav md-tabs tabs-2 light-blue darken-3'" [contentClass]="''" class="tab-content">
-                            <!--Panel 7-->
-
-                            <div style="background-color: #ea392c" class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold" style="color: aliceblue">BIENVENIDO</h4>
-
-                                  </div>
-
-
-                            <form (submit)="login()" >
-                              <!--Body-->
-                              <div class="modal-body mb-1">
-                                <div class="md-form form-sm">
-                                  <i class="fa fa-user prefix"></i>
-                                  <input name="username" mdbInputDirective type="text" id="username" class="form-control"
-                                         [(ngModel)]="username">
-                                  <label for="username">Usuario</label>
-                                </div>
-
-                                <div class="md-form form-sm">
-                                  <i class="fa fa-lock prefix"></i>
-                                  <input name="password" mdbInputDirective type="password" id="password" class="form-control"
-                                         [(ngModel)]="password">
-                                  <label for="password">Contraseña</label>
-                                </div>
-
-                              </div>
-                              <!--Footer-->
-                              <div class="modal-footer display-footer">
-                                <div class="options text-center text-md-right mt-1">
-
-                                </div>
-                                <button type="submit" mdbWavesEffect mdbBtn class="btn btn-danger waves-light" mdbWavesEffect>Iniciar sesión
-                                  <i class="fa fa-sign-in ml-1"></i>
-                                </button>
-
-                              </div>
-                            </form>
-
-                            <!--/.Panel 7-->
-
-                            <!--Panel 8-->
-
-                            <!--/.Panel 8-->
-                          </mdb-tabset>
-
-                        </div>
-                      </div>
-                      <!--/.Content-->
-                    </div>
-                  </div>
-        </div>
-    </div>
+              <div class="p-t-20 p-b-2">
+          <span class="txt1">
+            Contraseña
+          </span>
+              </div>
+              <div class="wrap-input100 validate-input" data-validate = "Se requiere contraseña">
+                  <input required [(ngModel)]="password"  class="input100" type="password" name="pass" >
+                  <span class="focus-input100"></span>
+              </div>
+ 
+              <div class="container-login100-form-btn m-t-20">
+                  <button type="submit" class="login100-form-btn">
+                      Ingresar
+                  </button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

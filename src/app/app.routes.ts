@@ -15,9 +15,13 @@ import {FileDemoComponent} from './demo/view/filedemo.component';
 import {UtilsDemoComponent} from './demo/view/utilsdemo.component';
 import {DocumentationComponent} from './demo/view/documentation.component';
 import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
+import { LoginComponent } from './component/login/login.component';
+import { AppMainComponent } from './app.main.component';
+import { UsuariosComponent } from './component/usuarios/usuarios.component';
 
 export const routes: Routes = [
     {path: '', component: ReporteF7GeneralComponent},
+    {path: 'login', component: LoginComponent},
     {path: 'sample', component: SampleDemoComponent},
     {path: 'forms', component: FormsDemoComponent},
     {path: 'data', component: DataDemoComponent},
@@ -31,7 +35,8 @@ export const routes: Routes = [
     {path: 'file', component: FileDemoComponent},
     {path: 'utils', component: UtilsDemoComponent},
     {path: 'documentation', component: DocumentationComponent},
-    {path: 'reporteF7-general', component: ReporteF7GeneralComponent}
+    {path: 'reporteF7-general', component: ReporteF7GeneralComponent},
+    {path: 'usuarios', component: UsuariosComponent}
 ];
 
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'});

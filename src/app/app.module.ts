@@ -99,7 +99,12 @@ import {EventService} from './demo/service/eventservice';
 import {NodeService} from './demo/service/nodeservice';
 import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
 import { ReporteF7Service } from './shared/service/reporteF7.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { LoginComponent } from './component/login/login.component';
+import { AuthService } from './shared/service/auth.service';
+import { LocalStorageService } from './shared/service/localstorage.service';
+import { AppMainComponent } from './app.main.component';
+import { UsuariosComponent } from './component/usuarios/usuarios.component';
 
 
 @NgModule({
@@ -198,11 +203,21 @@ import { MessageService } from 'primeng/api';
         FileDemoComponent,
         UtilsDemoComponent,
         DocumentationComponent,
-        ReporteF7GeneralComponent
+        ReporteF7GeneralComponent,
+        LoginComponent,
+        UsuariosComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        CarService, CountryService, EventService, NodeService, ReporteF7Service, MessageService
+        CarService,
+        CountryService,
+        EventService,
+        NodeService,
+        ReporteF7Service,
+        MessageService,
+        AuthService,
+        LocalStorageService,
+        ConfirmationService
     ],
     bootstrap: [AppComponent]
 })

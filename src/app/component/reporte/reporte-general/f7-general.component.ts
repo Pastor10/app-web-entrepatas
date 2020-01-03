@@ -102,8 +102,8 @@ export class ReporteF7GeneralComponent implements OnInit {
       { field: 'ventaMes4', header: 'Mes 4' },
       { field: 'analistaAsr', header: 'Analista ASR' },
       { field: 'restriccion', header: 'Restricción' },
-      { field: 'indiceAprobacion', header: 'Indice de aprobación' },
-      { field: 'indiceF7Nuevo', header: 'Indice F7 new' }
+      { field: 'indiceAprobacion', header: 'Indice F7' },
+      { field: 'indiceF7Nuevo', header: 'Nuevo indice F7 ' }
   ];
 
     this.listarProductosDefault(0);
