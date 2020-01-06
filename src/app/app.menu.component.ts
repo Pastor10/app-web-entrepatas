@@ -29,12 +29,15 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Administrador', icon: 'fa fa-fw  fa-tags',
                 items: [
-                    {label: 'Usuarios',
-                    icon: 'fa fa-users',
-                    routerLink: ['/usuarios'],
+                    {
+                        label: 'Usuarios',
+                        icon: 'fa fa-users',
+                        routerLink: ['/usuarios']
                     },
-                    {label: 'Perfiles', icon: 'fa fa-user',
-                      command: () => this.changeVersion('v3')
+                    {
+                        label: 'Perfiles', 
+                        icon: 'fa fa-user',
+                        command: () => this.changeVersion('v3')
                     }
                 ]
             },
@@ -43,7 +46,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     {label: 'Reporte general', 
                     icon: 'fa fa-list-alt',
-                    routerLink: ['/reporteF7-general'],
+                    routerLink: ['/reporteF7-general']
                     },
                     {label: 'Reporte no coberturado',
                      icon: 'fa fa-list-alt', 

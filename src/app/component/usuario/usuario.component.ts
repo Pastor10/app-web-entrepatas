@@ -14,7 +14,6 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 export class UsuarioComponent implements OnInit {
 
     isEdit: boolean;
-    idEmpresa;
     modelForm: FormGroup;
 
 
@@ -84,11 +83,8 @@ export class UsuarioComponent implements OnInit {
 
 
     get linkVolver() {
-        if (this.modeRoot) {
-            return `/empresas/${this.idEmpresa}/usuarios`;
-        } else {
             return `/usuarios`;
-        }
+        
     }
 
 }

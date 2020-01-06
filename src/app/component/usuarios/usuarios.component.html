@@ -1,10 +1,12 @@
 <p-card>
     <p-panel [style]="{'margin-bottom':'20px'}">
+            <p-header>
+                    <span  class="ui-panel-title">Usuarios</span>
+                </p-header>
 
         <div class="ui-g">
             <div class="ui-g-12">
-
-                <p-table #dt [columns]="cols" [value]="users" [lazy]="true" (onLazyLoad)="loadLazy($event)"
+                <p-table #dt [columns]="cols" [value]="users" [lazy]="true" 
                          [paginator]="true"
                          [rows]="perPage" [totalRecords]="totalRecords"
                          dataKey="id"
@@ -74,7 +76,6 @@
                     <ng-template pTemplate="summary" let-rowData>
                         <div style="text-align:left">
                             <button style="margin-right: 0.2rem;" type="button" pButton icon="fa fa-plus" (click)="newUser()" label="Nuevo"></button>
-                            <button *ngIf="modeRoot" routerLink="/empresas" style="margin-right: 0.4rem" pButton type="button" label="Volver" class="ui-button-secondary"></button>
                         </div>
                     </ng-template>
 

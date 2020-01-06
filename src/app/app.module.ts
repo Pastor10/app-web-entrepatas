@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -92,6 +92,7 @@ import {ChartsDemoComponent} from './demo/view/chartsdemo.component';
 import {FileDemoComponent} from './demo/view/filedemo.component';
 import {UtilsDemoComponent} from './demo/view/utilsdemo.component';
 import {DocumentationComponent} from './demo/view/documentation.component';
+import {NgxsModule} from '@ngxs/store';
 
 import {CarService} from './demo/service/carservice';
 import {CountryService} from './demo/service/countryservice';
@@ -103,8 +104,9 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { LoginComponent } from './component/login/login.component';
 import { AuthService } from './shared/service/auth.service';
 import { LocalStorageService } from './shared/service/localstorage.service';
-import { AppMainComponent } from './app.main.component';
 import { UsuariosComponent } from './component/usuarios/usuarios.component';
+import { UsuarioService } from './shared/service/usuario.service';
+import { UsuarioComponent } from './component/usuario/usuario.component';
 
 
 @NgModule({
@@ -179,7 +181,9 @@ import { UsuariosComponent } from './component/usuarios/usuarios.component';
         TooltipModule,
         TreeModule,
         TreeTableModule,
-        VirtualScrollerModule
+        VirtualScrollerModule,
+        ReactiveFormsModule,
+        NgxsModule.forRoot()
     ],
     declarations: [
         AppComponent,
@@ -205,7 +209,8 @@ import { UsuariosComponent } from './component/usuarios/usuarios.component';
         DocumentationComponent,
         ReporteF7GeneralComponent,
         LoginComponent,
-        UsuariosComponent
+        UsuariosComponent,
+        UsuarioComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -217,7 +222,8 @@ import { UsuariosComponent } from './component/usuarios/usuarios.component';
         MessageService,
         AuthService,
         LocalStorageService,
-        ConfirmationService
+        ConfirmationService,
+        UsuarioService
     ],
     bootstrap: [AppComponent]
 })

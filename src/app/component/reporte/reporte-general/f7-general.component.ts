@@ -3,12 +3,9 @@ import { Item } from 'src/app/shared/model/item.model';
 import { ReporteF7Service } from 'src/app/shared/service/reporteF7.service';
 import { Producto } from 'src/app/interface/producto.interface';
 import { SelectItem, MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Table } from 'primeng/table';
 import { IpServiceService } from 'src/app/shared/service/ip.service';
 
-//import * as $ from 'jquery';
 
 @Component({
   selector: 'app-f7-reporte-general',

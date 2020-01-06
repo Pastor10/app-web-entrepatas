@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {LazyLoadEvent} from 'primeng/primeng';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService, LazyLoadEvent} from 'primeng/api';
 import {Store} from '@ngxs/store';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { UsuarioService } from 'src/app/shared/service/usuario.service';
+import { Perfil } from 'src/app/shared/model/perfil.model';
 
 @Component({
     selector: 'app-usuarios',
@@ -84,6 +85,8 @@ export class UsuariosComponent implements OnInit {
     loading: boolean;
     tokenGenerated: any;
     visibleTokenGenerado = false;
+    public listPerfil: Perfil[];
+    
 
 
     constructor(private route: ActivatedRoute,
@@ -91,11 +94,11 @@ export class UsuariosComponent implements OnInit {
                 private loginService: AuthService,
                 private confirmationService: ConfirmationService,
                 private messageService: MessageService,
-                private store: Store) {
+                private store: Store, public usuarioService: UsuarioService) {
     }
 
     ngOnInit() {
-
+        this.loadUsers();
         this.cols = [
             {field: 'nombres', header: 'Nombres'},
             {field: 'apellidos', header: 'Apellidos'},
@@ -119,5 +122,26 @@ export class UsuariosComponent implements OnInit {
         document.execCommand('copy');
     }
 
+    newUser() {
+        this.router.navigateByUrl(`/usuarios/nuevo`);
+        
+    }
+
+
+    public loadUsers(){
+        this.usuarioService.getAll().subscribe(
+          data => {
+            this.listPerfil = <Perfil[]>data;
+          },
+          error => {
+            this.listPerfil = [];
+            const errorMessage =
+              error.message != undefined
+                ? error.message
+                : 'No se pudo procesar la petición';
+            //this.alertService.danger(errorMessage);
+          }
+        );
+      }
 
 }

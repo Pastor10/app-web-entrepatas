@@ -16,8 +16,9 @@ import {UtilsDemoComponent} from './demo/view/utilsdemo.component';
 import {DocumentationComponent} from './demo/view/documentation.component';
 import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
 import { LoginComponent } from './component/login/login.component';
-import { AppMainComponent } from './app.main.component';
 import { UsuariosComponent } from './component/usuarios/usuarios.component';
+import { AuthGuard } from './shared/service/auth.guard';
+import { UsuarioComponent } from './component/usuario/usuario.component';
 
 export const routes: Routes = [
     {path: '', component: ReporteF7GeneralComponent},
@@ -36,7 +37,16 @@ export const routes: Routes = [
     {path: 'utils', component: UtilsDemoComponent},
     {path: 'documentation', component: DocumentationComponent},
     {path: 'reporteF7-general', component: ReporteF7GeneralComponent},
-    {path: 'usuarios', component: UsuariosComponent}
+    {
+    path: 'usuarios', component: UsuariosComponent,
+        children : [ {
+            path: 'nuevo',
+            component: UsuarioComponent
+            //canActivate: [AuthGuard]
+        }
+
+     ]
+    }
 ];
 
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'});
