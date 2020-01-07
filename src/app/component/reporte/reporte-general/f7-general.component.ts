@@ -60,6 +60,7 @@ export class ReporteF7GeneralComponent implements OnInit {
     if (this.tipoCoberturaSelected == undefined) {
       this.tipoCoberturaSelected = new Item('TODAS', '0');
       this.filtroSelected = new Item('NINGUNO', '0');
+      this.filterCombo2Selected = new Item(null, '0');
     }
 
     this.dataListaTipoCoberturaSugerida = [new Item('TODAS', '0'), new Item('S', 'S'), new Item('N', 'N'), new Item('R', 'R')];
@@ -267,49 +268,68 @@ export class ReporteF7GeneralComponent implements OnInit {
 
     if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0') {
       params.push(`${this.tipoCoberturaSelected.name}`);
-      this.reporteF7Service.exportToExcelTipoCobertura(params.join('&'), -1);
+      this.reporteF7Service.exportToExcelTipoCobertura(params.join('/'), -1, TypeReporte.GENERAL);
     }
     if (this.filtroSelected.code == '1') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
-      this.reporteF7Service.exportToExcelCodLocal(params.join('/'), -1);
+      params.push(-1);
+      params.push(`${TypeReporte.GENERAL}`);
+      this.reporteF7Service.exportToExcelCodLocal(params.join('/'));
     }
     if (this.filtroSelected.code == '2') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
-      this.reporteF7Service.exportToExcelCodProducto(params.join('/'), -1);
+      params.push(-1);
+      params.push(`${TypeReporte.GENERAL}`);
+      this.reporteF7Service.exportToExcelCodProducto(params.join('/'));
     }
 
     if (this.filtroSelected.code == '3') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(`${this.inputFilter2}`);
-      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'), -1);
+      params.push(-1);
+      params.push(`${TypeReporte.GENERAL}`);
+      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'));
     }
 
     if (this.filtroSelected.code == '5') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.filterCombo1Selected.name}`);
-      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1);
+      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1, TypeReporte.GENERAL);
     }
 
     if (this.filtroSelected.code == '6') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(`${this.filterCombo2Selected.name}`);
-      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1);
+      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1, TypeReporte.GENERAL);
     }
 
     if (this.filtroSelected.code == '8') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
-      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'), -1);
+      params.push(-1);
+      params.push(`${TypeReporte.GENERAL}`);
+      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'));
+    }
+
+    if (this.filtroSelected.code == '10') {
+      params.push(`${this.tipoCoberturaSelected.code}`);
+      params.push(`${this.filterCombo1Selected.name}`);
+      params.push(`${this.filterCombo2Selected.name}`);
+      params.push(-1);
+      params.push(`${TypeReporte.GENERAL}`);
+      this.reporteF7Service.exportToExcelJerarquias(params.join('/'));
     }
 
     if (this.filtroSelected.code == '11') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
-      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'), -1);
+      params.push(-1);
+      params.push(`${TypeReporte.GENERAL}`);
+      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'));
     }
 
   }
@@ -374,7 +394,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       } else {
         this.listProductos = [];
         this.reporteF7Service.listarProductosByCodLocalCodProducto(0, this.tipoCoberturaSelected.code, this.inputFilter1,
-          this.inputFilter2).subscribe(
+          this.inputFilter2, TypeReporte.GENERAL).subscribe(
           data => {
             this.listProductos = data as Array<Producto>;
           });
@@ -390,7 +410,8 @@ export class ReporteF7GeneralComponent implements OnInit {
           detail: ''});
           } else {
           this.listProductos = [];
-          this.reporteF7Service.listarProductosByDescLinea(0, this.tipoCoberturaSelected.code, this.filterCombo1Selected.name).subscribe(
+          this.reporteF7Service.listarProductosByDescLinea(0, this.tipoCoberturaSelected.code, this.filterCombo1Selected.name,
+             TypeReporte.GENERAL).subscribe(
           data => {
             this.listProductos = data['content'];
           });
@@ -409,7 +430,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       } else {
         this.listProductos = [];
         this.reporteF7Service.listarProductosByCodLocalDescLinea(0, this.tipoCoberturaSelected.code, this.inputFilter1,
-           this.filterCombo2Selected.name).subscribe(
+           this.filterCombo2Selected.name, TypeReporte.GENERAL).subscribe(
           data => {
             this.listProductos = data['content'];
           });
@@ -422,7 +443,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         detail: ''});
       } else{
         this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
+        this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+          TypeReporte.GENERAL).subscribe(
           data => {
             this.listProductos = data as Array<Producto>;
           });
@@ -431,14 +453,14 @@ export class ReporteF7GeneralComponent implements OnInit {
 
     if (this.filtroSelected.code == '10') {
 
-      if (this.filterCombo1Selected== undefined || this.filterCombo2Selected == undefined) {
+      if (this.filterCombo1Selected== undefined && this.filterCombo2Selected == undefined) {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccionar filtros', 
-        detail: 'Seleccione un grupo producto ERP y grupo Anatomico'});
+        detail: 'Seleccione al menos un grupo'});
 
       } else {
         this.listProductos = [];
         this.reporteF7Service.listarProductosByJerarquias(0, this.tipoCoberturaSelected.code,
-          this.filterCombo1Selected.name, this.filterCombo2Selected.name).subscribe(
+          this.filterCombo1Selected.name, this.filterCombo2Selected.name, TypeReporte.GENERAL).subscribe(
           data => {
             this.listProductos = data['content'];
             console.log('this.listProductos:', data);
@@ -453,7 +475,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         detail: ''});
       } else {
         this.listProductos = [];
-        this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1).subscribe(
+        this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+          TypeReporte.GENERAL).subscribe(
           data => {
             this.listProductos = data['content'];
           });

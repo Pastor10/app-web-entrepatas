@@ -29,8 +29,7 @@ export class ReporteF7Service {
 
       coverage_page(pagina: number, tipoCobertura: string, tipoReporte): Observable<any> {
         return this.http.get(this.baseUrl + 'coverage/' + tipoCobertura + '/page/' + pagina + '/'
-         + tipoReporte).pipe(
-          timeoutWith(environment.TIMEOUT, observableThrowError(
+         + tipoReporte).pipe(timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
@@ -47,64 +46,58 @@ export class ReporteF7Service {
       }
 
       listarProductosByCodLocal(pagina, indiceAprobacion, codLocal, typeReporte) {
-        if (typeReporte == 0) {
-          this.apiUrl = 'coverage/cod_local/' + indiceAprobacion + '/' + codLocal + '/'  + pagina;
-        } else {
-          this.apiUrl = 'coverage/cod_local_nocoberturado/' + indiceAprobacion + '/' + codLocal + '/'  + pagina;
-        }
-        return this.http.get(this.baseUrl + this.apiUrl).pipe(
+        return this.http.get(this.baseUrl + 'coverage/cod_local/' + indiceAprobacion + '/' + codLocal + '/'  
+        + pagina + '/'  + typeReporte).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
       listarProductosByCodProd(pagina, indiceAprobacion, codProducto, typeReporte) {
-        if (typeReporte == 0) {
-          this.apiUrl = 'coverage/cod_prod/' + indiceAprobacion + '/' + codProducto + '/'  + pagina;
-        } else {
-          this.apiUrl = 'coverage/cod_prod_nocoberturado/' + indiceAprobacion + '/' + codProducto + '/'  + pagina;
-        }
-        return this.http.get(this.baseUrl + this.apiUrl).pipe(
+        return this.http.get(this.baseUrl + 'coverage/cod_prod/' + indiceAprobacion + '/' + codProducto + '/' 
+         + pagina + '/'  + typeReporte).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      listarProductosByCodLocalCodProducto(pagina, indiceAprobacion, codLocal, codProducto) {
+      listarProductosByCodLocalCodProducto(pagina, indiceAprobacion, codLocal, codProducto, typeReporte) {
         return this.http.get(this.baseUrl + 'coverage/local_prod/' + indiceAprobacion + '/' + codLocal + '/' +
-        codProducto + '/' + pagina).pipe(
+        codProducto + '/' + pagina + '/'  + typeReporte ).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
 
-      listarProductosByDescLinea(pagina, indiceAprobacion, desLinea) {
-        return this.http.get(this.baseUrl + 'coverage/des_linea/' + indiceAprobacion + '/' + desLinea + '/page/' + pagina).pipe(
+      listarProductosByDescLinea(pagina, indiceAprobacion, desLinea, typeReporte) {
+        return this.http.get(this.baseUrl + 'coverage/des_linea/' + indiceAprobacion + '/' + desLinea + '/page/' +
+         pagina + '/'  + typeReporte).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      listarProductosByCodLocalDescLinea(pagina, indiceAprobacion, codLocal, desLinea) {
+      listarProductosByCodLocalDescLinea(pagina, indiceAprobacion, codLocal, desLinea, typeReporte) {
         return this.http.get(this.baseUrl + 'coverage/local_deslinea/' + indiceAprobacion + '/' + codLocal + '/' + desLinea
-        + '/page/' + pagina).pipe(
+        + '/page/' + pagina + '/'  + typeReporte).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      listarProductosByCodProdSap(pagina, indiceAprobacion, codProductoSap) {
-        return this.http.get(this.baseUrl + 'coverage/cod_sap/' + indiceAprobacion + '/' + codProductoSap + '/'  + pagina).pipe(
+      listarProductosByCodProdSap(pagina, indiceAprobacion, codProductoSap, typeReporte) {
+        return this.http.get(this.baseUrl + 'coverage/cod_sap/' + indiceAprobacion + '/' + codProductoSap + '/'  
+        + pagina + '/'  + typeReporte).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      listarProductosBySnalistaAsr(pagina, indiceAprobacion, analistaAsr) {
-        return this.http.get(this.baseUrl + 'coverage/analista_asr/' + indiceAprobacion + '/' + analistaAsr + '/'  + pagina).pipe(
+      listarProductosBySnalistaAsr(pagina, indiceAprobacion, analistaAsr, typeReporte) {
+        return this.http.get(this.baseUrl + 'coverage/analista_asr/' + indiceAprobacion + '/' + analistaAsr
+         + '/'  + pagina + '/'  + typeReporte).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      listarProductosByJerarquias(pagina, indiceAprobacion, productoERP, grupoAnatomico) {
-        ///coverage/jerarquias/{indice_aprobacion}/{jerarquia2}/{jerarquia3}/{page}")
+      listarProductosByJerarquias(pagina, indiceAprobacion, productoERP, grupoAnatomico, typeReporte) {
         return this.http.get(this.baseUrl + 'coverage/jerarquias/' + indiceAprobacion + '/' + productoERP + '/'
-         + grupoAnatomico + '/' + pagina).pipe(
+         + grupoAnatomico + '/' + pagina + '/'  + typeReporte).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
@@ -122,8 +115,9 @@ export class ReporteF7Service {
         });
     }
 
-    exportToExcelTipoCobertura(params, pagina) {
-       this.http.get(this.baseUrl + 'coverage/' + params + '/page/' + pagina, {responseType: 'blob'}).subscribe(data => {
+    exportToExcelTipoCobertura(params, pagina, typeReporte) {
+       this.http.get(this.baseUrl + 'coverage/' + params + '/page/' + pagina + '/' + typeReporte,
+        {responseType: 'blob'}).subscribe(data => {
            const a = document.createElement('a');
            document.body.appendChild(a);
            const blob = new Blob([data], {type: 'octet/stream'});
@@ -135,8 +129,8 @@ export class ReporteF7Service {
        });
    }
 
-   exportToExcelCodLocal(params, pagina) {
-     this.http.get(this.baseUrl + 'coverage/cod_local/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
+   exportToExcelCodLocal(params) {
+     this.http.get(this.baseUrl + 'coverage/cod_local/' + params , {responseType: 'blob'}).subscribe(data => {
          const a = document.createElement('a');
          document.body.appendChild(a);
          const blob = new Blob([data], {type: 'octet/stream'});
@@ -148,8 +142,8 @@ export class ReporteF7Service {
      });
  }
 
-  exportToExcelCodProducto(params, pagina) {
-    this.http.get(this.baseUrl + 'coverage/cod_prod/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
+  exportToExcelCodProducto(params) {
+    this.http.get(this.baseUrl + 'coverage/cod_prod/' + params , {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
@@ -161,8 +155,8 @@ export class ReporteF7Service {
     });
   }
 
-  exportToExcelCodLocalProducto(params, pagina) {
-    this.http.get(this.baseUrl + 'coverage/local_prod/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
+  exportToExcelCodLocalProducto(params) {
+    this.http.get(this.baseUrl + 'coverage/local_prod/' + params , {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
@@ -174,8 +168,9 @@ export class ReporteF7Service {
     });
   }
 
-  exportToExcelDescripcionLinea(params, pagina) {
-    this.http.get(this.baseUrl + 'coverage/des_linea/' + params + '/page/' + pagina, {responseType: 'blob'}).subscribe(data => {
+  exportToExcelDescripcionLinea(params, pagina, typeReporte) {
+    this.http.get(this.baseUrl + 'coverage/des_linea/' + params + '/page/' + pagina
+    + '/' + typeReporte, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
@@ -187,8 +182,9 @@ export class ReporteF7Service {
     });
   }
 
-  exportToExcelCodLocalDescLinea(params, pagina) {
-    this.http.get(this.baseUrl + 'coverage/local_deslinea/' + params + '/page/' + pagina, {responseType: 'blob'}).subscribe(data => {
+  exportToExcelCodLocalDescLinea(params, pagina, typeReporte) {
+    this.http.get(this.baseUrl + 'coverage/local_deslinea/' + params + '/page/' + pagina
+    + '/' + typeReporte, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
@@ -200,8 +196,8 @@ export class ReporteF7Service {
     });
   }
 
-  exportToExcelCodSapProducto(params, pagina) {
-    this.http.get(this.baseUrl + 'coverage/cod_sap/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
+  exportToExcelCodSapProducto(params) {
+    this.http.get(this.baseUrl + 'coverage/cod_sap/' + params, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
@@ -213,9 +209,21 @@ export class ReporteF7Service {
     });
   }
 
-  exportToExcelAnalistaAsr(params, pagina) {
-    // /coverage/analista_asr/{ind_cobertura}/{analista_asr}/{page}")
-    this.http.get(this.baseUrl + 'coverage/analista_asr/' + params + '/' + pagina, {responseType: 'blob'}).subscribe(data => {
+  exportToExcelJerarquias(params) {
+    this.http.get(this.baseUrl + 'coverage/jerarquias/' + params, {responseType: 'blob'}).subscribe(data => {
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        const blob = new Blob([data], {type: 'octet/stream'});
+        const url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = 'reporte-f7.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+    });
+  }
+
+  exportToExcelAnalistaAsr(params) {
+    this.http.get(this.baseUrl + 'coverage/analista_asr/' + params, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
