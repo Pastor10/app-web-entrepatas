@@ -107,6 +107,7 @@ import { LocalStorageService } from './shared/service/localstorage.service';
 import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { UsuarioService } from './shared/service/usuario.service';
 import { UsuarioComponent } from './component/usuario/usuario.component';
+import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 
 
 @NgModule({
@@ -210,7 +211,8 @@ import { UsuarioComponent } from './component/usuario/usuario.component';
         ReporteF7GeneralComponent,
         LoginComponent,
         UsuariosComponent,
-        UsuarioComponent
+        UsuarioComponent,
+        ReporteF7NoCoberturadoComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},

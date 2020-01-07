@@ -19,6 +19,7 @@ import { LoginComponent } from './component/login/login.component';
 import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { AuthGuard } from './shared/service/auth.guard';
 import { UsuarioComponent } from './component/usuario/usuario.component';
+import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 
 export const routes: Routes = [
     {path: '', component: ReporteF7GeneralComponent},
@@ -37,6 +38,7 @@ export const routes: Routes = [
     {path: 'utils', component: UtilsDemoComponent},
     {path: 'documentation', component: DocumentationComponent},
     {path: 'reporteF7-general', component: ReporteF7GeneralComponent},
+    {path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent},
     {
     path: 'usuarios', component: UsuariosComponent,
         children : [ {

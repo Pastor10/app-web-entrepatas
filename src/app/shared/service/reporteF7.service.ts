@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ReporteF7Service {
+  public apiUrl: string;
 
     constructor(private http: HttpClient) {
     }
@@ -26,8 +27,15 @@ export class ReporteF7Service {
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      coverage_page(pagina: number, tipoCobertura: string): Observable<any> {
-        return this.http.get(this.baseUrl + 'coverage/' + tipoCobertura + '/page/' + pagina).pipe(
+      coverage_page(pagina: number, tipoCobertura: string, tipoReporte): Observable<any> {
+        return this.http.get(this.baseUrl + 'coverage/' + tipoCobertura + '/page/' + pagina + '/'
+         + tipoReporte).pipe(
+          timeoutWith(environment.TIMEOUT, observableThrowError(
+            new Error('Tiempo de respuesta excedido, intente nuevamente'))));
+      }
+
+      coverage_pageNoCoberturado(pagina: number): Observable<any> {
+        return this.http.get(this.baseUrl + 'coverage/nocoberturado/page/' + pagina).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
@@ -38,14 +46,24 @@ export class ReporteF7Service {
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      listarProductosByCodLocal(pagina, indiceAprobacion, codLocal) {
-        return this.http.get(this.baseUrl + 'coverage/cod_local/' + indiceAprobacion + '/' + codLocal + '/'  + pagina).pipe(
+      listarProductosByCodLocal(pagina, indiceAprobacion, codLocal, typeReporte) {
+        if (typeReporte == 0) {
+          this.apiUrl = 'coverage/cod_local/' + indiceAprobacion + '/' + codLocal + '/'  + pagina;
+        } else {
+          this.apiUrl = 'coverage/cod_local_nocoberturado/' + indiceAprobacion + '/' + codLocal + '/'  + pagina;
+        }
+        return this.http.get(this.baseUrl + this.apiUrl).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      listarProductosByCodProd(pagina, indiceAprobacion, codProducto) {
-        return this.http.get(this.baseUrl + 'coverage/cod_prod/' + indiceAprobacion + '/' + codProducto + '/'  + pagina).pipe(
+      listarProductosByCodProd(pagina, indiceAprobacion, codProducto, typeReporte) {
+        if (typeReporte == 0) {
+          this.apiUrl = 'coverage/cod_prod/' + indiceAprobacion + '/' + codProducto + '/'  + pagina;
+        } else {
+          this.apiUrl = 'coverage/cod_prod_nocoberturado/' + indiceAprobacion + '/' + codProducto + '/'  + pagina;
+        }
+        return this.http.get(this.baseUrl + this.apiUrl).pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }

@@ -50,7 +50,8 @@ export class AppMenuComponent implements OnInit {
                     },
                     {label: 'Reporte no coberturado',
                      icon: 'fa fa-list-alt', 
-                      command: () => this.changeVersion('v4')}
+                     routerLink: ['/reporteF7-no-coverturado']
+                    }
                 ]
             }
 

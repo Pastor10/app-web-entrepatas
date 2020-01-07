@@ -9,11 +9,10 @@ import { TypeReporte } from 'src/app/enums/type-reporte';
 
 
 @Component({
-  selector: 'app-f7-reporte-general',
-  templateUrl: './f7-general.component.html',
-  styleUrls: ['./f7-general.component.css']
+  selector: 'app-f7-reporte-no-coberturado',
+  templateUrl: './f7-nocoberturado.component.html'
 })
-export class ReporteF7GeneralComponent implements OnInit {
+export class ReporteF7NoCoberturadoComponent implements OnInit {
   public dataListaTipoCoberturaSugerida: Item[];
   public dataListaFiltro: Item[];
   public dataLineaProducto: Item[];
@@ -250,9 +249,10 @@ export class ReporteF7GeneralComponent implements OnInit {
   }
 
   listarProductosDefault(pagina) {
-    this.reporteF7Service.listarProductosCoverage(pagina).subscribe(
+    this.reporteF7Service.coverage_pageNoCoberturado(pagina).subscribe(
       data => {
       this.listProductos = data['content'];
+      console.log('no coberturado', this.listProductos );
       });
 
   }
@@ -321,15 +321,12 @@ export class ReporteF7GeneralComponent implements OnInit {
   buscarProductosXFiltros() {
 
     if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0'){
-        this.listProductos = [];
-        this.listarProductosDefault(0);
-      }
+      this.listProductos = [];
+      this.listarProductosDefault(0);
+    }
     if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0'){
-        this.listProductos = [];
-        this.reporteF7Service.coverage_page(0, this.tipoCoberturaSelected.name, TypeReporte.GENERAL).subscribe(
-          data => {
-            this.listProductos = data['content'];
-          });
+      this.listProductos = [];
+      this.listarProductosDefault(0);
       }
     if (this.filtroSelected.code == '1') {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == ''){
@@ -337,8 +334,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         detail: ''});
       } else {
         this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodLocal(0, this.tipoCoberturaSelected.code, this.inputFilter1,
-           TypeReporte.GENERAL).subscribe(
+        this.reporteF7Service.listarProductosByCodLocal(0, 'N', this.inputFilter1, 
+          TypeReporte.NO_COBERTURADO).subscribe(
           data => {
             this.listProductos = data as Array<Producto>;
             console.log('this.listProductos:', data);
@@ -352,8 +349,7 @@ export class ReporteF7GeneralComponent implements OnInit {
         detail: ''});
       } else {
         this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodProd(0, this.tipoCoberturaSelected.code, this.inputFilter1, 
-          TypeReporte.GENERAL).subscribe(
+        this.reporteF7Service.listarProductosByCodProd(0, 'N', this.inputFilter1, TypeReporte.NO_COBERTURADO).subscribe(
           data => {
             this.listProductos = data as Array<Producto>;
             console.log('this.listProductos:', data);
@@ -373,7 +369,7 @@ export class ReporteF7GeneralComponent implements OnInit {
         detail: ''});
       } else {
         this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodLocalCodProducto(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+        this.reporteF7Service.listarProductosByCodLocalCodProducto(0, 'N', this.inputFilter1,
           this.inputFilter2).subscribe(
           data => {
             this.listProductos = data as Array<Producto>;
