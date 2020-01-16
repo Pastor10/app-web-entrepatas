@@ -13,7 +13,7 @@ export class ReporteF7Service {
     constructor(private http: HttpClient) {
     }
 
-    baseUrl: string = environment.END_POINT + 'reporteF7/';
+    baseUrl: string = environment.END_POINT + 'api/reporteF7/';
 
     listarGrupoProductoERP() {
         return this.http.get(this.baseUrl + 'listarGrupoProductoERP').pipe(

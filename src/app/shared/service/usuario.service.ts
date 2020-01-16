@@ -20,6 +20,12 @@ export class UsuarioService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
+  getUsers() {
+    return this.http.get(this.baseUrl + 'getUsers').pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
   getByDni(dni: string) {
     return this.http.get(this.baseUrl + 'findByDni/' + dni).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(

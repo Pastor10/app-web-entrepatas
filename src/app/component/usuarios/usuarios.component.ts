@@ -129,7 +129,7 @@ export class UsuariosComponent implements OnInit {
 
 
     public loadUsers(){
-        this.usuarioService.getAll().subscribe(
+        this.usuarioService.getUsers().subscribe(
           data => {
             this.listPerfil = <Perfil[]>data;
           },
