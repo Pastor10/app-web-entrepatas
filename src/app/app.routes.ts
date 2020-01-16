@@ -21,6 +21,8 @@ import { AuthGuard } from './shared/service/auth.guard';
 import { UsuarioComponent } from './component/usuario/usuario.component';
 import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 import { AppMainComponent } from './app.main.component';
+import { ProfilesComponent } from './component/profiles/profiles.component';
+import { ProfileComponent } from './component/perfil/profile.component';
 
 export const routes: Routes = [
     // {path: '', component: ReporteF7GeneralComponent},
@@ -31,7 +33,8 @@ export const routes: Routes = [
             {path: 'reporteF7-general', component: ReporteF7GeneralComponent,canActivate: [AuthGuard]},
             {path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent,canActivate: [AuthGuard]},
             // {path: 'usuarios', component: UsuariosComponent},
-            {path: 'perfiles', component: UsuariosComponent, canActivate: [AuthGuard]},
+            {path: 'perfiles', component: ProfilesComponent, canActivate: [AuthGuard]},
+            {path: 'perfiles/nuevo', component: ProfileComponent, canActivate: [AuthGuard]},
             {path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard]},
             {path: 'usuarios/nuevo', component: UsuarioComponent, canActivate: [AuthGuard],
               /*  children : [

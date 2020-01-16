@@ -110,6 +110,10 @@ import { UsuarioComponent } from './component/usuario/usuario.component';
 import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 import { AppMainComponent } from './app.main.component';
 import { TokenInterceptor } from './config/tokenInterceptor.service';
+import { ProfileService } from './shared/service/profile.service';
+import { ProfilesComponent } from './component/profiles/profiles.component';
+import { ProfileComponent } from './component/perfil/profile.component';
+import { RoleService } from './shared/service/role.service';
 
 
 @NgModule({
@@ -215,7 +219,9 @@ import { TokenInterceptor } from './config/tokenInterceptor.service';
         LoginComponent,
         UsuariosComponent,
         UsuarioComponent,
-        ReporteF7NoCoberturadoComponent
+        ReporteF7NoCoberturadoComponent,
+        ProfileComponent,
+        ProfilesComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -233,7 +239,9 @@ import { TokenInterceptor } from './config/tokenInterceptor.service';
         AuthService,
         LocalStorageService,
         ConfirmationService,
-        UsuarioService
+        UsuarioService,
+        ProfileService,
+        RoleService
     ],
     bootstrap: [AppComponent]
 })
