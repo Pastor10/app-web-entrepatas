@@ -78,7 +78,7 @@
                         <div class="ui-g-12" style="text-align: center">
                             <button [disabled]="!modelForm.valid" style="margin-right: 0.4rem" pButton type="submit" [label]="textButtonAction" ></button>
                             <button *ngIf="isEdit" (click)="confirmDelete()" style="margin-right: 0.4rem" pButton type="button" label="Eliminar" class="ui-button-danger"></button>
-                            <button [routerLink]="linkVolver" style="margin-right: 0.4rem" pButton type="button" label="Volver" class="ui-button-secondary"></button>
+                            <button [routerLink]="['/main/usuarios']" style="margin-right: 0.4rem" pButton type="button" label="Volver" class="ui-button-secondary"></button>
                         </div>
 
                     </div>

@@ -20,35 +20,34 @@ import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { AuthGuard } from './shared/service/auth.guard';
 import { UsuarioComponent } from './component/usuario/usuario.component';
 import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
+import { AppMainComponent } from './app.main.component';
 
 export const routes: Routes = [
-    {path: '', component: ReporteF7GeneralComponent},
+    // {path: '', component: ReporteF7GeneralComponent},
+    {path: '', component: LoginComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'sample', component: SampleDemoComponent},
-    {path: 'forms', component: FormsDemoComponent},
-    {path: 'data', component: DataDemoComponent},
-    {path: 'panels', component: PanelsDemoComponent},
-    {path: 'overlays', component: OverlaysDemoComponent},
-    {path: 'menus', component: MenusDemoComponent},
-    {path: 'messages', component: MessagesDemoComponent},
-    {path: 'misc', component: MiscDemoComponent},
-    {path: 'empty', component: EmptyDemoComponent},
-    {path: 'charts', component: ChartsDemoComponent},
-    {path: 'file', component: FileDemoComponent},
-    {path: 'utils', component: UtilsDemoComponent},
-    {path: 'documentation', component: DocumentationComponent},
-    {path: 'reporteF7-general', component: ReporteF7GeneralComponent},
-    {path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent},
-    {
-    path: 'usuarios', component: UsuariosComponent,
-        children : [ {
-            path: 'nuevo',
-            component: UsuarioComponent
-            //canActivate: [AuthGuard]
-        }
-
-     ]
-    }
+    {path: 'main', component: AppMainComponent, canActivate: [AuthGuard],
+        children: [
+            {path: 'reporteF7-general', component: ReporteF7GeneralComponent,canActivate: [AuthGuard]},
+            {path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent,canActivate: [AuthGuard]},
+            // {path: 'usuarios', component: UsuariosComponent},
+            {path: 'perfiles', component: UsuariosComponent, canActivate: [AuthGuard]},
+            {path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard]},
+            {path: 'usuarios/nuevo', component: UsuarioComponent, canActivate: [AuthGuard],
+              /*  children : [
+                    { path: 'nuevo', component: UsuarioComponent, canActivate: [AuthGuard]}
+                ]*/
+                
+            }
+        ]
+    },
+    // {path: 'reporteF7-general', component: ReporteF7GeneralComponent},
+    // {path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent},
+   /* { path: 'usuarios', component: UsuariosComponent,
+        children : [
+            { path: 'nuevo', component: UsuarioComponent canActivate: [AuthGuard]}
+        ]
+    } */
 ];
 
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'});

@@ -75,7 +75,7 @@
 
                     <ng-template pTemplate="summary" let-rowData>
                         <div style="text-align:left">
-                            <button style="margin-right: 0.2rem;" type="button" pButton icon="fa fa-plus" (click)="newUser()" label="Nuevo"></button>
+                            <button style="margin-right: 0.2rem;" type="button" pButton icon="fa fa-plus"  label="Nuevo" [routerLink]="['/main/usuarios/nuevo']" routerLinkActive="router-link-active" ></button>
                         </div>
                     </ng-template>
 

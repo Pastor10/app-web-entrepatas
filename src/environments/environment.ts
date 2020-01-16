@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  END_POINT: 'http://localhost:9002/api/',
+  END_POINT: 'http://localhost:9002/',
   TIMEOUT: 10000,
   MESSAGE_TIMEOUT: 'Tiempo de respuesta excedido',
   MESSAGE_ERROR_CONNECTION: 'Error al comunicarse con el servidor',

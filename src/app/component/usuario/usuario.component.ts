@@ -83,7 +83,7 @@ export class UsuarioComponent implements OnInit {
 
 
     get linkVolver() {
-            return `/usuarios`;
+            return '/usuarios';
         
     }
 

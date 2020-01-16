@@ -1,10 +1,9 @@
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import {AppRoutes} from './app.routes';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ReporteF7GeneralComponent } from 'src/app/component/reporte/reporte-general/f7-general.component';
+import { CommonModule } from '@angular/common';
+import { F7generalRoutingModule } from './f7-general-routing.module';
+import { SharedModule } from 'primeng/components/common/shared';
 
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -72,51 +71,17 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
-
-import {AppComponent} from './app.component';
-import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
-import {AppTopBarComponent} from './app.topbar.component';
-import {AppFooterComponent} from './app.footer.component';
-import {AppProfileComponent} from './app.profile.component';
-import {DashboardDemoComponent} from './demo/view/dashboarddemo.component';
-import {SampleDemoComponent} from './demo/view/sampledemo.component';
-import {FormsDemoComponent} from './demo/view/formsdemo.component';
-import {DataDemoComponent} from './demo/view/datademo.component';
-import {PanelsDemoComponent} from './demo/view/panelsdemo.component';
-import {OverlaysDemoComponent} from './demo/view/overlaysdemo.component';
-import {MenusDemoComponent} from './demo/view/menusdemo.component';
-import {MessagesDemoComponent} from './demo/view/messagesdemo.component';
-import {MiscDemoComponent} from './demo/view/miscdemo.component';
-import {EmptyDemoComponent} from './demo/view/emptydemo.component';
-import {ChartsDemoComponent} from './demo/view/chartsdemo.component';
-import {FileDemoComponent} from './demo/view/filedemo.component';
-import {UtilsDemoComponent} from './demo/view/utilsdemo.component';
-import {DocumentationComponent} from './demo/view/documentation.component';
-import {NgxsModule} from '@ngxs/store';
-
-import {CarService} from './demo/service/carservice';
-import {CountryService} from './demo/service/countryservice';
-import {EventService} from './demo/service/eventservice';
-import {NodeService} from './demo/service/nodeservice';
-import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
-import { ReporteF7Service } from './shared/service/reporteF7.service';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { LoginComponent } from './component/login/login.component';
-import { AuthService } from './shared/service/auth.service';
-import { LocalStorageService } from './shared/service/localstorage.service';
-import { UsuariosComponent } from './component/usuarios/usuarios.component';
-import { UsuarioService } from './shared/service/usuario.service';
-import { UsuarioComponent } from './component/usuario/usuario.component';
-import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
-import { AppMainComponent } from './app.main.component';
-import { TokenInterceptor } from './config/tokenInterceptor.service';
-
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 @NgModule({
+    declarations: [ReporteF7GeneralComponent],
     imports: [
+        F7generalRoutingModule,
         BrowserModule,
         FormsModule,
-        AppRoutes,
         HttpClientModule,
         BrowserAnimationsModule,
         AccordionModule,
@@ -186,55 +151,8 @@ import { TokenInterceptor } from './config/tokenInterceptor.service';
         TreeTableModule,
         VirtualScrollerModule,
         ReactiveFormsModule,
-        NgxsModule.forRoot()
-    ],
-    declarations: [
-        AppComponent,
-        AppMainComponent,
-        AppMenuComponent,
-        AppSubMenuComponent,
-        AppTopBarComponent,
-        AppFooterComponent,
-        AppProfileComponent,
-        DashboardDemoComponent,
-        SampleDemoComponent,
-        FormsDemoComponent,
-        DataDemoComponent,
-        PanelsDemoComponent,
-        OverlaysDemoComponent,
-        MenusDemoComponent,
-        MessagesDemoComponent,
-        MessagesDemoComponent,
-        MiscDemoComponent,
-        ChartsDemoComponent,
-        EmptyDemoComponent,
-        FileDemoComponent,
-        UtilsDemoComponent,
-        DocumentationComponent,
-        ReporteF7GeneralComponent,
-        LoginComponent,
-        UsuariosComponent,
-        UsuarioComponent,
-        ReporteF7NoCoberturadoComponent
-    ],
-    providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptor,
-            multi: true
-        },
-        CarService,
-        CountryService,
-        EventService,
-        NodeService,
-        ReporteF7Service,
-        MessageService,
-        AuthService,
-        LocalStorageService,
-        ConfirmationService,
-        UsuarioService
-    ],
-    bootstrap: [AppComponent]
+    ]
 })
-export class AppModule { }
+export class F7generalModule {
+}
+

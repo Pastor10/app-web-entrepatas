@@ -10,10 +10,9 @@ enum MenuOrientation {
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.main.component.html'
 })
-export class AppComponent implements AfterViewInit {
+export class AppMainComponent implements AfterViewInit {
 
     layoutMode: MenuOrientation = MenuOrientation.STATIC;
 
@@ -48,7 +47,7 @@ export class AppComponent implements AfterViewInit {
     constructor(public renderer: Renderer2) {}
 
     ngAfterViewInit() {
-        // setTimeout(() => {this.layoutMenuScrollerViewChild.moveBar(); }, 100);
+        setTimeout(() => {this.layoutMenuScrollerViewChild.moveBar(); }, 100);
     }
 
     onLayoutClick() {

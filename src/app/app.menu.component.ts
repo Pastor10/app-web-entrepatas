@@ -32,25 +32,25 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Usuarios',
                         icon: 'fa fa-users',
-                        routerLink: ['/usuarios']
+                        routerLink: ['/main/usuarios']
                     },
                     {
-                        label: 'Perfiles', 
+                        label: 'Perfiles',
                         icon: 'fa fa-user',
-                        command: () => this.changeVersion('v3')
+                        routerLink: ['/main/perfiles']
                     }
                 ]
             },
             {
                 label: 'Reportes', icon: 'fa fa-fw fa-bars',
                 items: [
-                    {label: 'Reporte general', 
+                    {label: 'Reporte general',
                     icon: 'fa fa-list-alt',
-                    routerLink: ['/reporteF7-general']
+                    routerLink: ['/main/reporteF7-general']
                     },
                     {label: 'Reporte no coberturado',
                      icon: 'fa fa-list-alt', 
-                     routerLink: ['/reporteF7-no-coverturado']
+                     routerLink: ['/main/reporteF7-no-coverturado']
                     }
                 ]
             }
@@ -194,7 +194,7 @@ export class AppSubMenuComponent {
         // prevent hash change
         if (item.items || (!item.url && !item.routerLink)) {
             setTimeout(() => {
-                this.app.layoutMenuScrollerViewChild.moveBar();
+                // this.app.layoutMenuScrollerViewChild.moveBar();
             }, 450);
             event.preventDefault();
         }

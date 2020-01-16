@@ -512,5 +512,5 @@ export class ReporteF7GeneralComponent implements OnInit {
       });
 
     }
-}
+}z
 }

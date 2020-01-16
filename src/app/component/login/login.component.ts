@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import {AuthService} from 'src/app/shared/service/auth.service';
 import {LoginResponse} from 'src/app/shared/model/loginResponse.model';
 import {LocalStorageService} from 'src/app/shared/service/localstorage.service';
+import {AppConstant} from 'src/app/shared/constant/app.constant';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +42,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
         data => {
           this.loginResponse = new LoginResponse();
           this.loginResponse = <LoginResponse>data;
-          this.localStorageService.set('userLogin', data);
+          const tkn = AppConstant.DECODE(data["token"]);
+          console.log("EL VALOR DEL TOKEN DESENCRIPTADO: ");
+          console.log(tkn);
+          localStorage.setItem('token',JSON.stringify(data["token"]));
           this.router.navigate(['/main']);
         },
         error => {

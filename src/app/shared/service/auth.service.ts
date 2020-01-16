@@ -15,14 +15,22 @@ export class AuthService {
   constructor(private http: HttpClient, public localStorageService: LocalStorageService) {
   }
 
-  baseUrl: string = environment.END_POINT + 'auth/login';
+  baseUrl: string = environment.END_POINT + 'login-ad';
 
   public login(username: string, password: string) {
     return this.http.post(this.baseUrl, {username: username, password: password}).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
-
+	public getToken(): string {
+		let token = JSON.parse(localStorage.getItem('token'));
+		if (!token) {
+			return;
+		}
+        console.log("El valor del token: ", token);
+		return token
+  }
+  /*
   public getToken(): string {
     this.loginResponse = new LoginResponse();
     this.loginResponse = this.localStorageService.get('userLogin');
@@ -32,5 +40,5 @@ export class AuthService {
       return '';
     }
   }
-
+*/
 }

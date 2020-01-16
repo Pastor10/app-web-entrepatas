@@ -123,8 +123,8 @@ export class UsuariosComponent implements OnInit {
     }
 
     newUser() {
-        this.router.navigateByUrl(`/usuarios/nuevo`);
-        
+        // this.router.navigateByUrl(`/main/usuarios/nuevo`);
+        this.router.navigate(['/main/usuarios/nuevo']);
     }
 
 

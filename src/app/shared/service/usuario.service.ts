@@ -12,7 +12,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
   }
 
-  baseUrl: string = environment.END_POINT + 'usuario/';
+  baseUrl: string = environment.END_POINT + 'api/usuario/';
 
   getAll() {
     return this.http.get(this.baseUrl + 'findAll').pipe(
