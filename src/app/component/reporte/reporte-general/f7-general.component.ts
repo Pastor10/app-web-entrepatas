@@ -54,6 +54,7 @@ export class ReporteF7GeneralComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.loadListarGrupoProductoERP();
     this.loadListarGrupoAnatomico();
     this.getIP();
@@ -261,9 +262,10 @@ export class ReporteF7GeneralComponent implements OnInit {
  
 
   exportExcel() {
+    const fecha = this.getFecha();
     const params = [];
     if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0') {
-      this.reporteF7Service.exportToExcelDefault(params.join('&'), -1);
+      this.reporteF7Service.exportToExcelDefault(params.join('&'), -1, fecha);
     }
 
     if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0') {
@@ -361,7 +363,7 @@ export class ReporteF7GeneralComponent implements OnInit {
            TypeReporte.GENERAL).subscribe(
           data => {
             this.listProductos = data as Array<Producto>;
-            console.log('this.listProductos:', data);
+            console.log('this.listProductos:', this.listProductos);
           });
       }
 
@@ -512,5 +514,22 @@ export class ReporteF7GeneralComponent implements OnInit {
       });
 
     }
-}z
+}
+  getFecha() {
+      const dateCurrent = new Date();
+      const anioCurrent = dateCurrent.getFullYear();
+
+      let monthCurrent: any = dateCurrent.getMonth() + 1;
+      if (monthCurrent < 10) {
+        monthCurrent = `0${monthCurrent}`;
+      }
+      const dayCurrent = dateCurrent.getDate();
+      const hourCurrent = dateCurrent.getHours();
+      const minuteCurrent = dateCurrent.getMinutes();
+      const secondCurrent = dateCurrent.getSeconds();
+      const dateFormatString = `${anioCurrent}-${monthCurrent}-${dayCurrent} ${dayCurrent}:${minuteCurrent}:${secondCurrent}`;
+
+      return dateFormatString;
+  }
+
 }

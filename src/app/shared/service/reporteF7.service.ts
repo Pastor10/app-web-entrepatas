@@ -15,6 +15,7 @@ export class ReporteF7Service {
 
     baseUrl: string = environment.END_POINT + 'api/reporteF7/';
 
+
     listarGrupoProductoERP() {
         return this.http.get(this.baseUrl + 'listarGrupoProductoERP').pipe(
           timeoutWith(environment.TIMEOUT, observableThrowError(
@@ -102,14 +103,14 @@ export class ReporteF7Service {
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
-      exportToExcelDefault(params, pagina) {
+      exportToExcelDefault(params, pagina, fecha) {
         this.http.get(`${this.baseUrl}coverage/page/` + pagina, {responseType: 'blob'}).subscribe(data => {
             const a = document.createElement('a');
             document.body.appendChild(a);
             const blob = new Blob([data], {type: 'octet/stream'});
             const url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'reporte-f7.xlsx';
+            a.download = `ReporteF7_${fecha}.xlsx`;
             a.click();
             window.URL.revokeObjectURL(url);
         });

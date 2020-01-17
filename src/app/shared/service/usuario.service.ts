@@ -12,7 +12,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
   }
 
-  baseUrl: string = environment.END_POINT + 'api/usuario/';
+  baseUrl: string = environment.END_POINT + 'api/usuarioPerfil/';
 
   getAll() {
     return this.http.get(this.baseUrl + 'findAll').pipe(
@@ -25,6 +25,7 @@ export class UsuarioService {
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
+
 
   getByDni(dni: string) {
     return this.http.get(this.baseUrl + 'findByDni/' + dni).pipe(

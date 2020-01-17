@@ -5,6 +5,7 @@ import {Store} from '@ngxs/store';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import { Perfil } from 'src/app/shared/model/perfil.model';
+import { Usuario } from 'src/app/shared/model/usuario.model';
 
 @Component({
     selector: 'app-usuarios',
@@ -85,8 +86,7 @@ export class UsuariosComponent implements OnInit {
     loading: boolean;
     tokenGenerated: any;
     visibleTokenGenerado = false;
-    public listPerfil: Perfil[];
-    
+    public listaUsuarios: Usuario[];
 
 
     constructor(private route: ActivatedRoute,
@@ -100,12 +100,10 @@ export class UsuariosComponent implements OnInit {
     ngOnInit() {
         this.loadUsers();
         this.cols = [
-            {field: 'nombres', header: 'Nombres'},
-            {field: 'apellidos', header: 'Apellidos'},
-            {field: 'dni', header: 'DNI'},
+            {field: 'idUsuarioPerfil', header: 'Nombres y Apellidos'},
             {field: 'email', header: 'Email'},
-            {field: 'username', header: 'Nombre de usuario'},
-            {field: 'cargo', header: 'Cargo'},
+            {field: 'perfil.nombre', header: 'Perfil'},
+            {field: 'enabled', header: 'Estado'},
             {header: 'Acciones', isActions: true}
         ];
         this.loading = true;
@@ -128,13 +126,15 @@ export class UsuariosComponent implements OnInit {
     }
 
 
-    public loadUsers(){
+    public loadUsers() {
+        console.log('load user ' );
         this.usuarioService.getUsers().subscribe(
           data => {
-            this.listPerfil = <Perfil[]>data;
+            this.listaUsuarios = <Usuario[]>data;
+            console.log('this.listPerfil ', this.listaUsuarios );
           },
           error => {
-            this.listPerfil = [];
+            this.listaUsuarios = [];
             const errorMessage =
               error.message != undefined
                 ? error.message
@@ -143,5 +143,9 @@ export class UsuariosComponent implements OnInit {
           }
         );
       }
+
+      linkUpdate(id) {
+       this.router.navigate(['usuarios/editar', id]);
+    }
 
 }

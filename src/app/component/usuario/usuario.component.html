@@ -8,76 +8,32 @@
                 <form [formGroup]="modelForm" (ngSubmit)="submitForm()" novalidate>
                     <div class="ui-g form-group">
                         <div class="ui-g-12 ui-md-2">
-                            <h5 class="label-custom" for="dni">DNI (*)</h5>
+                            <h5 class="label-custom" for="nombres">Nombres y Apellidos (*)</h5>
                         </div>
                         <div class="ui-g-12 ui-md-4">
-                            <input style="width: 100%; margin-bottom: 0.2em" formControlName="dni" id="dni" type="text" pInputText/>
-                            <p-message *ngIf="dni.touched && dni.errors?.required" severity="error" text="Ingrese DNI"></p-message>
-                            <p-message *ngIf="dni.errors?.minlength" severity="error" text="El dni debe tener 8 dígitos"></p-message>
-                            <p-message *ngIf="dni.errors?.maxlength" severity="error" text="El dni debe tener 8 dígitos"></p-message>
-                            <p-message *ngIf="dni.errors?.pattern" severity="error" text="El dni debe ser númerico"></p-message>
-                        </div>
-
-                        <div class="ui-g-12 ui-md-2">
-                            <h5 class="label-custom" for="nombres">Nombres (*)</h5>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <input style="width: 100%; margin-bottom: 0.2em" formControlName="nombres" id="nombres" type="text" pInputText/>
+                            <input style="width: 100%; margin-bottom: 0.2em" formControlName="nombres"  id="nombres" type="text" pInputText/>
                             <p-message *ngIf="nombres.touched && nombres.errors?.required" severity="error" text="Ingrese nombres"></p-message>
                         </div>
-
-                        <div class="ui-g-12 ui-md-2">
-                            <h5 class="label-custom" for="apellidos">Apellidos (*)</h5>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <input style="width: 100%; margin-bottom: 0.2em" formControlName="apellidos" id="apellidos" type="text" pInputText/>
-                            <p-message *ngIf="apellidos.touched && apellidos.errors?.required" severity="error" text="Ingrese apellidos"></p-message>
-                        </div>
-
-                        <div class="ui-g-12 ui-md-2">
-                            <h5 class="label-custom" for="cargo">Cargo (*)</h5>
-                        </div>
-                        <div class="ui-g-12 ui-md-4">
-                            <input style="width: 100%; margin-bottom: 0.2em" formControlName="cargo" id="cargo" type="text" pInputText/>
-                            <p-message *ngIf="cargo.touched && cargo.errors?.required" severity="error" text="Ingrese cargo"></p-message>
-                        </div>
-
 
                         <div class="ui-g-12 ui-md-2">
                             <h5 class="label-custom" for="email">Email (*)</h5>
                         </div>
                         <div class="ui-g-12 ui-md-4">
-                            <input style="width: 100%; margin-bottom: 0.2em" placeholder="Usuario del sistema" formControlName="email" id="email" type="text" pInputText/>
+                            <input style="width: 100%; margin-bottom: 0.2em" placeholder="Usuario del sistema" formControlName="email"  id="email" type="text" pInputText/>
                             <p-message *ngIf="email.touched && email.errors?.required" severity="error" text="Ingrese email"></p-message>
                             <p-message *ngIf="email.touched && email.errors?.email" severity="error" text="Ingrese un email válido"></p-message>
-                        </div>
-
-                        <div class="ui-g-12">
-                            <div class="ui-g">
-                                <div class="ui-g-12 ui-md-6">
-                                    <div class="card card-w-title">
-                                        <h1 class="label-custom">Puntos de venta</h1>
-                                        <p-pickList [showSourceControls]="false" [showTargetControls]="false" [source]="pvDisponibles" [target]="pvSeleccionados" sourceHeader="Disponibles" targetHeader="Asignados" [responsive]="true">
-                                            <ng-template let-p pTemplate="item">
-                                                <span>{{p.nombre}}</span>
-                                            </ng-template>
-                                        </p-pickList>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="ui-g-12 ui-md-2">
                             <h5 class="label-custom" for="perfil">Perfil (*)</h5>
                         </div>
                         <div class="ui-g-12 ui-md-4">
-                            <p-dropdown dataKey="id" [style]="{'width':'100%'}" [options]="perfiles" formControlName="perfil" placeholder="Seleccione..." optionLabel="nombre" [showClear]="true" id="perfil"></p-dropdown>
+                            <p-dropdown dataKey="id" [style]="{'width':'100%'}" [options]="listaPerfiles" formControlName="perfil"  placeholder="Seleccione..." optionLabel="nombre" [showClear]="true" id="perfil"></p-dropdown>
                             <p-message *ngIf="perfil.touched && perfil.errors?.required" severity="error" text="Seleccione un perfil"></p-message>
                         </div>
 
                         <div class="ui-g-12" style="text-align: center">
-                            <button [disabled]="!modelForm.valid" style="margin-right: 0.4rem" pButton type="submit" [label]="textButtonAction" ></button>
-                            <button *ngIf="isEdit" (click)="confirmDelete()" style="margin-right: 0.4rem" pButton type="button" label="Eliminar" class="ui-button-danger"></button>
+                            <button  style="margin-right: 0.4rem" pButton type="submit" label="Actualizar" ></button>
                             <button [routerLink]="['/main/usuarios']" style="margin-right: 0.4rem" pButton type="button" label="Volver" class="ui-button-secondary"></button>
                         </div>
 

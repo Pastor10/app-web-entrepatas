@@ -68,7 +68,8 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
-import { TooltipModule } from 'primeng/tooltip';
+//import { TooltipModule } from 'primeng/tooltip';
+import {TooltipModule} from 'ng2-tooltip-directive';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
@@ -110,6 +111,7 @@ import { UsuarioComponent } from './component/usuario/usuario.component';
 import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 import { AppMainComponent } from './app.main.component';
 import { TokenInterceptor } from './config/tokenInterceptor.service';
+import { PerfilService } from './shared/service/perfil.service';
 
 
 @NgModule({
@@ -233,7 +235,8 @@ import { TokenInterceptor } from './config/tokenInterceptor.service';
         AuthService,
         LocalStorageService,
         ConfirmationService,
-        UsuarioService
+        UsuarioService,
+        PerfilService
     ],
     bootstrap: [AppComponent]
 })

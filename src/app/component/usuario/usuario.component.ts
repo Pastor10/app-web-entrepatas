@@ -5,6 +5,10 @@ import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngxs/store';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { UsuarioService } from 'src/app/shared/service/usuario.service';
+import { Perfil } from 'src/app/shared/model/perfil.model';
+import { PerfilService } from 'src/app/shared/service/perfil.service';
+import { Usuario } from 'src/app/shared/model/usuario.model';
 
 
 @Component({
@@ -15,6 +19,9 @@ export class UsuarioComponent implements OnInit {
 
     isEdit: boolean;
     modelForm: FormGroup;
+    model: Usuario;
+    public listaPerfiles: Perfil[];
+    
 
 
     constructor(private route: ActivatedRoute,
@@ -23,11 +30,12 @@ export class UsuarioComponent implements OnInit {
                 private loginService: AuthService,
                 private confirmationService: ConfirmationService,
                 public fb: FormBuilder,
-                private store: Store) {
+                private store: Store, public perfilService: PerfilService, public userService: UsuarioService) {
 
     }
 
     ngOnInit() {
+        this.getPerfil();
         this.builderForm();
 
     }
@@ -36,10 +44,7 @@ export class UsuarioComponent implements OnInit {
     // Reactive student form
     builderForm() {
         this.modelForm = this.fb.group({
-            dni: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('^[0-9]+$')]],
             nombres: ['', [Validators.required]],
-            apellidos: ['', [Validators.required]],
-            cargo: ['', [Validators.required]],
             perfil: [null, [Validators.required]],
             email: ['', [Validators.required, Validators.email]]
         });
@@ -84,7 +89,68 @@ export class UsuarioComponent implements OnInit {
 
     get linkVolver() {
             return '/usuarios';
-        
+    }
+
+    getPerfil() {
+        this.perfilService.getAll().subscribe(
+            data => {
+              this.listaPerfiles = <Perfil[]>data;
+              console.log('this.listPerfil ', this.listaPerfiles );
+            },
+            error => {
+              this.listaPerfiles = [];
+              const errorMessage =
+                error.message != undefined
+                  ? error.message
+                  : 'No se pudo procesar la petición';
+              //this.alertService.danger(errorMessage);
+            }
+          );
+    }
+
+   /* loadModel() {
+            this.route.params.subscribe(p => {
+                const id = p['id'];
+                this.usuarioService.findById(id).subscribe(data => {
+                    if (data) {
+                        this.model = data;
+                        this.modelToForm(data);
+                    }
+                });
+            });
+    }*/
+
+    formToModel(): void {
+        this.model.nombre = this.modelForm.value.nombres;
+        this.model.email = this.modelForm.value.email;
+        this.model.perfil = this.modelForm.value.perfil;
+
+        console.log(this.model.nombre);
+        console.log(this.model.email);
+        console.log(this.model.perfil);
+
+    }
+
+    submitForm() {
+        this.formToModel();
+
+        this.userService.save(this.model).subscribe(
+            data => {
+              this.listaPerfiles = <Perfil[]>data;
+              this.messageService.add({severity: 'success', summary: 'Mensaje', detail: "Se actualizao el registro"});
+              console.log('this.listPerfil ', this.listaPerfiles );
+              this.router.navigateByUrl(this.linkVolver);
+            },
+            error => {
+              this.listaPerfiles = [];
+              const errorMessage =
+                error.message != undefined
+                  ? error.message
+                  : 'No se pudo procesar la petición';
+              //this.alertService.danger(errorMessage);
+            }
+          );
+
     }
 
 }

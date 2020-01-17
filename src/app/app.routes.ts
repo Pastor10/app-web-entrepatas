@@ -33,12 +33,23 @@ export const routes: Routes = [
             // {path: 'usuarios', component: UsuariosComponent},
             {path: 'perfiles', component: UsuariosComponent, canActivate: [AuthGuard]},
             {path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard]},
-            {path: 'usuarios/nuevo', component: UsuarioComponent, canActivate: [AuthGuard],
-              /*  children : [
-                    { path: 'nuevo', component: UsuarioComponent, canActivate: [AuthGuard]}
-                ]*/
-                
-            }
+            {path: 'usuarios/nuevo', component: UsuarioComponent,
+                data: {
+                    modeRoot: false,
+                    isEdit: false,
+                    title: 'Nuevo usuario',
+                    breadcrumb: [{label: 'Administración'}, {label: 'Nuevo usuario'}]
+                },
+                canActivate: [AuthGuard]
+            },
+            {path: 'usuarios/editar/:id', component: UsuarioComponent, 
+                data: {
+                    modeRoot: false,
+                    isEdit: true,
+                    title: 'Editar usuario',
+                    breadcrumb: [{label: 'Administración'}, {label: 'Editar usuario'}]
+                },
+                canActivate: [AuthGuard]}
         ]
     },
     // {path: 'reporteF7-general', component: ReporteF7GeneralComponent},

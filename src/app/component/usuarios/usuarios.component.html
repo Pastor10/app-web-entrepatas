@@ -6,7 +6,7 @@
 
         <div class="ui-g">
             <div class="ui-g-12">
-                <p-table #dt [columns]="cols" [value]="users" [lazy]="true" 
+                <p-table #dt [columns]="cols" [value]="listaUsuarios" [lazy]="true" 
                          [paginator]="true"
                          [rows]="perPage" [totalRecords]="totalRecords"
                          dataKey="id"
@@ -27,49 +27,29 @@
                     </ng-template>
 
                     <ng-template pTemplate="body" let-rowData let-columns="columns">
-                        <tr>
-                            <td *ngFor="let col of columns" [ngSwitch]="col.field">
-                                <span *ngIf="!col.isActions">
-                                    <span *ngSwitchCase="'puntoVenta'">
-                                        <span *ngIf="rowData[col.field]">{{rowData[col.field].nombre}}</span>
-                                    </span>
-                                    <span *ngSwitchCase="'nombres'">
-                                        <span class="ui-column-title">Nombre</span>
-                                        <span *ngIf="rowData[col.field]">{{rowData['nombres']}}</span>
-                                    </span>
-                                     <span *ngSwitchCase="'apellidos'">
-                                        <span class="ui-column-title">Apellidos</span>
-                                        <span *ngIf="rowData[col.field]">{{rowData['apellidos']}}</span>
-                                    </span>
-                                    <span *ngSwitchCase="'dni'">
-                                        <span class="ui-column-title">DNI</span>
-                                        <span *ngIf="rowData[col.field]">{{rowData['dni']}}</span>
-                                    </span>
-                                    <span *ngSwitchCase="'email'">
-                                        <span class="ui-column-title">Email</span>
-                                        <span *ngIf="rowData[col.field]">{{rowData['email']}}</span>
-                                    </span>
-                                    <span *ngSwitchCase="'username'">
-                                        <span class="ui-column-title">Nombre de usuario</span>
-                                        <span *ngIf="rowData[col.field]">{{rowData['username']}}</span>
-                                    </span>
-                                    <span *ngSwitchCase="'cargo'">
-                                        <span class="ui-column-title">Cargo</span>
-                                        <span *ngIf="rowData[col.field]">{{rowData['cargo']}}</span>
-                                    </span>
-                                    <span *ngSwitchDefault>
-                                        {{rowData[col.field]}}
-                                    </span>
-                                </span>
-                                <div *ngIf="col.isActions" style="text-align: center">
-                                    <span class="ui-column-title">Acciones</span>
-                                    <!--<button pButton type="button" icon="pi pi-external-link" class="space-buttons" tooltip="Detalle" autoPlacement="true"></button>-->
-                                    <button style="margin-right: 0.2rem; margin-left: 0.2rem;" type="button" pButton icon="fa fa-unlock" (click)="restorePassword(rowData)" tooltip="Restaurar contraseña" autoPlacement="true"></button>
-                                    <button style="margin-right: 0.2rem; margin-left: 0.2rem;" [routerLink]="linkUpdate(rowData['id'])" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar, Eliminar"></button>
-
-                                    <button *ngIf="modeRoot" style="margin-right: 0.2rem; margin-left: 0.2rem;" type="button" pButton icon="fa fa-key" (click)="generateToken(rowData)" tooltip="Generar token para api Rest" autoPlacement="true"></button>
-                                </div>
+                        <tr *ngFor="let u of listaUsuarios" style="text-align: center">
+                            <td>
+                                {{u.user.fullName}}
                             </td>
+                            <td>
+                                {{u.user.email}}
+                            </td>
+                            <td>
+                                {{u.perfil.nombre}}
+                            </td>
+                            <td>
+                                <span *ngIf="u.user.enabled == true">
+                                    Activo
+                                </span>
+                                <span *ngIf="u.user.enabled == false">
+                                    Inactivo
+                                </span>
+                            </td>
+                            <td>
+                                <button style="margin-right: 0.2rem; margin-left: 0.2rem;" [routerLink]="['/main/usuarios/editar',u.user.id]" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar"></button>
+
+                            </td>
+                           
                         </tr>
                     </ng-template>
 
@@ -87,21 +67,4 @@
     </p-panel>
 </p-card>
 
-<p-dialog header="Token generado" [(visible)]="visibleTokenGenerado" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70"
-          [maximizable]="true" [baseZIndex]="10000">
 
-    <h3>Usuario para api rest: </h3>
-    <p>{{userSelected?.nombreCompleto}}</p>
-
-
-    <h3>Token: </h3>
-    <input #inputToken (focus)="focusInputToken(inputToken)" [value]="tokenGenerated?.token" type="text" style="width: 100%; margin-bottom: 0.2em" pInputText >
-
-    <h3>Expira: </h3>
-    <p>{{tokenGenerated?.expires | date: 'dd/MM/yyyy hh:mm a'}}</p>
-
-    <p-footer>
-        <button type="button" pButton (click)="visibleTokenGenerado=false" label="Cerrar" class="ui-button-secondary"></button>
-    </p-footer>
-
-</p-dialog>

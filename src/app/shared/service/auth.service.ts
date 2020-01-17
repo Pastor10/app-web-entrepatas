@@ -22,12 +22,12 @@ export class AuthService {
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
+  
 	public getToken(): string {
 		let token = JSON.parse(localStorage.getItem('token'));
 		if (!token) {
 			return;
 		}
-        console.log("El valor del token: ", token);
 		return token
   }
   /*
