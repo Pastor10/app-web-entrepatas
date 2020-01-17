@@ -113,6 +113,12 @@ import { AppMainComponent } from './app.main.component';
 import { TokenInterceptor } from './config/tokenInterceptor.service';
 import { PerfilService } from './shared/service/perfil.service';
 
+import { ProfileService } from './shared/service/profile.service';
+import { ProfilesComponent } from './component/profiles/profiles.component';
+import { ProfileComponent } from './component/perfil/profile.component';
+import { RoleService } from './shared/service/role.service';
+
+
 
 @NgModule({
     imports: [
@@ -217,7 +223,9 @@ import { PerfilService } from './shared/service/perfil.service';
         LoginComponent,
         UsuariosComponent,
         UsuarioComponent,
-        ReporteF7NoCoberturadoComponent
+        ReporteF7NoCoberturadoComponent,
+        ProfileComponent,
+        ProfilesComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
@@ -236,7 +244,9 @@ import { PerfilService } from './shared/service/perfil.service';
         LocalStorageService,
         ConfirmationService,
         UsuarioService,
-        PerfilService
+        PerfilService,
+        ProfileService,
+        RoleService
     ],
     bootstrap: [AppComponent]
 })

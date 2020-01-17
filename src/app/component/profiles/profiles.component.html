@@ -1,0 +1,79 @@
+
+<p-card>
+    <p-panel [style]="{'margin-bottom':'20px'}">
+            <p-header>
+                    <span  class="ui-panel-title">Usuarios</span>
+                </p-header>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <p-table #dt [columns]="cols" [value]="listProfile" [lazy]="true" 
+                         [paginator]="true"
+                         [rows]="perPage" [totalRecords]="totalRecords"
+                         dataKey="id"
+                         [responsive]="true"
+                         [autoLayout]="true">
+                         <ng-template pTemplate="colgroup" let-columns>
+                            <colgroup>
+                              <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                              <col style="width: 150px" > <!--check -->
+                            </colgroup>
+                          </ng-template>
+
+                         <ng-template pTemplate="header" let-columns let-pro>
+                            <tr>
+                              <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left" pResizableColumn>
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                              </th>
+                              <th style="width:15em" id="">Acciones</th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-rowData let-columns="columns">
+                            <tr [pSelectableRow]="rowData">
+                              <td *ngFor="let col of columns" class="ui-resizable-column">
+                                <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
+                              </td>
+                              <td style="text-align: center">
+                                <div style="text-align: center">
+                                    <span class="ui-column-title">Acciones</span>
+                                    <!--<button pButton type="button" icon="pi pi-external-link" class="space-buttons" tooltip="Detalle" autoPlacement="true"></button>-->
+                                    <button  style="margin-right: 0.2rem; margin-left: 0.2rem;"[routerLink]="['/main/perfiles/editar',rowData['id']]" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar, Eliminar"></button>
+                                    <button *ngIf="modeRoot" style="margin-right: 0.2rem; margin-left: 0.2rem;" type="button" pButton icon="fa fa-key" (click)="generateToken(rowData)" tooltip="Generar token para api Rest" autoPlacement="true"></button>
+                                </div>
+                              </td>
+                            </tr>
+                          </ng-template>
+
+                    <ng-template pTemplate="summary" let-rowData>
+                        <div style="text-align:left">
+                            <button style="margin-right: 0.2rem;" type="button" pButton icon="fa fa-plus"  label="Nuevo" [routerLink]="['/main/perfiles/nuevo']" routerLinkActive="router-link-active" ></button>
+                        </div>
+                    </ng-template>
+
+                </p-table>
+
+            </div>
+        </div>
+
+    </p-panel>
+</p-card>
+
+<p-dialog header="Token generado" [(visible)]="visibleTokenGenerado" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70"
+          [maximizable]="true" [baseZIndex]="10000">
+
+    <h3>Usuario para api rest: </h3>
+    <p>{{userSelected?.nombreCompleto}}</p>
+
+
+    <h3>Token: </h3>
+    <input #inputToken (focus)="focusInputToken(inputToken)" [value]="tokenGenerated?.token" type="text" style="width: 100%; margin-bottom: 0.2em" pInputText >
+
+    <h3>Expira: </h3>
+    <p>{{tokenGenerated?.expires | date: 'dd/MM/yyyy hh:mm a'}}</p>
+
+    <p-footer>
+        <button type="button" pButton (click)="visibleTokenGenerado=false" label="Cerrar" class="ui-button-secondary"></button>
+    </p-footer>
+
+</p-dialog>
