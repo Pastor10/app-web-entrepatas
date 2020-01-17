@@ -35,6 +35,7 @@ export const routes: Routes = [
             // {path: 'usuarios', component: UsuariosComponent},
             {path: 'perfiles', component: ProfilesComponent, canActivate: [AuthGuard]},
             {path: 'perfiles/nuevo', component: ProfileComponent, canActivate: [AuthGuard]},
+            {path: 'perfiles/editar/:id', component: ProfileComponent, canActivate: [AuthGuard]},
             {path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard]},
             {path: 'usuarios/nuevo', component: UsuarioComponent, canActivate: [AuthGuard],
               /*  children : [

@@ -1,3 +1,5 @@
+<p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 <p-card>
     <div class="ui-g">
         <div class="ui-g-12">
@@ -23,9 +25,10 @@
                     </div>
 
                     <div class="ui-g-12" style="text-align: center">
-                        <button [disabled]="!modelForm.valid" style="margin-right: 0.4rem" pButton type="submit">Guardar</button>
+                        <button  [disabled]="!modelForm.valid" style="margin-right: 0.4rem" [label]="textButtonAction"  pButton type="submit">
+                        </button>
                         <button *ngIf="isEdit" (click)="confirmDelete()" style="margin-right: 0.4rem" pButton type="button" label="Eliminar" class="ui-button-danger"></button>
-                        <button [routerLink]="linkVolver" style="margin-right: 0.4rem" pButton type="button" label="Volver" class="ui-button-secondary"></button>
+                        <button [routerLink]="['/main/perfiles']" style="margin-right: 0.4rem" pButton type="button" label="Volver" class="ui-button-secondary"></button>
                     </div>
 
                 </div>

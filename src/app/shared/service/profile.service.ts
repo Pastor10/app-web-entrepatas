@@ -20,10 +20,23 @@ export class ProfileService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
+  getFindId(id) {
+    return this.http.get(this.baseUrl + 'findById/'+ id).pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
   create(data){
-    console.log("El valor de data es: ", data);
     return this.http.post<any>(this.baseUrl + 'create',  data).
     toPromise().then(res => res).then(data => data);
+  }
+  update(data){
+    return this.http.post<any>(this.baseUrl + 'update',  data).
+    toPromise().then(res => res).then(data => data);
+  }
+  delete(data){
+  return this.http.get<any>(this.baseUrl + 'delete/'+data).
+  toPromise().then(res => res).then(data => data);
   }
 
 

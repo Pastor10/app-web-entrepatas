@@ -125,10 +125,12 @@ export class ProfilesComponent implements OnInit {
              let  roles = "";
              let rolesJson = profiles[i].roles;
              for(let x = 0; x < rolesJson.length; x++){
-              roles +=  rolesJson[x].name + ",";
+               let roleName = rolesJson[x].name.toLowerCase();
+              roles +=  roleName.substring(0, 1).toUpperCase() +
+             roleName.substring(1) + " , ";
              }
              roles = roles.replace(/,\s*$/, "");
-             roles +=".";
+            // roles +=".";
              let profile = {
               id: profiles[i].idPerfil,
               nombre: profiles[i].nombre,
@@ -148,7 +150,7 @@ export class ProfilesComponent implements OnInit {
         );
       }
 
-      linkUpdate(){
-
+      linkUpdate(id){
+        return `main/perfiles/editar/${id}`;
       }
 }

@@ -1,3 +1,4 @@
+
 <p-card>
     <p-panel [style]="{'margin-bottom':'20px'}">
             <p-header>
@@ -37,8 +38,7 @@
                                 <div style="text-align: center">
                                     <span class="ui-column-title">Acciones</span>
                                     <!--<button pButton type="button" icon="pi pi-external-link" class="space-buttons" tooltip="Detalle" autoPlacement="true"></button>-->
-                                    <button style="margin-right: 0.2rem; margin-left: 0.2rem;" type="button" pButton icon="fa fa-unlock" (click)="restorePassword(rowData)" tooltip="Restaurar contraseña" autoPlacement="true"></button>
-                                    <button style="margin-right: 0.2rem; margin-left: 0.2rem;" [routerLink]="linkUpdate(rowData['id'])" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar, Eliminar"></button>
+                                    <button  style="margin-right: 0.2rem; margin-left: 0.2rem;"[routerLink]="['/main/perfiles/editar',rowData['id']]" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar, Eliminar"></button>
                                     <button *ngIf="modeRoot" style="margin-right: 0.2rem; margin-left: 0.2rem;" type="button" pButton icon="fa fa-key" (click)="generateToken(rowData)" tooltip="Generar token para api Rest" autoPlacement="true"></button>
                                 </div>
                               </td>

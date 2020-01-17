@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
                 private router: Router,
                 private messageService: MessageService,
                 private loginService: AuthService,
-                private confirmationService: ConfirmationService,
+                private _confirm: ConfirmationService,
                 public fb: FormBuilder,
                 private store: Store,public roleService: RoleService,public profileService: ProfileService) {
 
@@ -41,9 +41,11 @@ export class ProfileComponent implements OnInit {
             this.listRoles = <Role[]>data;
             let i = 0;
             this.listRoles.forEach(rol => {
+               // let roleName = rol.name.toLowerCase();
                 this.roles[i++] = {name: rol.name, status: false, id: rol.id};
             });
             this.builderForm();
+            this.loadModel();
           },
           error => {
             const errorMessage =
@@ -94,18 +96,107 @@ export class ProfileComponent implements OnInit {
         this.model.roles = rolesToSaved;
     }
 
-    submitForm() {
-        //alert(this.modelForm.value.nombre);
-        this.formToModel();
-        let message;
-        this.profileService.create(this.model).then((res) => {
-            if (res != null) {
-              alert("Se ha registrado con exito!!!");
-            } 
-            })
-        } 
 
+        submitForm() {
+            
+            let message;
+            if (!this.isEdit) {
+                this.formToModel();
+                this.profileService.create(this.model).then((res) => {
+                    if (res != null) {
+                        message = 'Perfil registrado correctamente.';
+                      this.showMsg('success',message);
+                      var root = this;
+                      setTimeout(function(){
+                        root.router.navigateByUrl('main/perfiles');
+                    },2500)
+                    } 
+                    })
 
+            } else {
+                this.formToModel();
+                this.profileService.update(this.model).then((res) => {
+                    if (res != null) {
+                        message = 'Perfil actualizado correctamente.';
+                        this.showMsg('success',message);
+                        var root = this;
+                        setTimeout(function(){
+                          root.router.navigateByUrl('main/perfiles');
+                      },2500)
+                       // this.messageService.add({severity: 'success', summary: 'Mensaje', detail: message});
+                    } 
+                    })
+            }
     
+                this.messageService.add({severity: 'success', summary: 'Mensaje', detail: message});
+                //this.router.navigateByUrl(this.linkVolver);
+        }
 
+        get textButtonAction() {
+            return this.isEdit ? 'Actualizar' : 'Guardar';
+        }
+        modelToForm(model: Perfil): void {
+            this.modelForm.patchValue({
+                nombre: model.nombre,
+            });
+        }
+        private clearRoles(): void {
+            this.roles.forEach((rol) => {
+                rol.status = false;
+            });
+        }
+        loadModel() {
+        //     this.isEdit = this.route.snapshot.data.isEdit;
+           // this.isEdit = true;
+          //  if (this.isEdit) {
+                this.route.params.subscribe(p => {
+                    const id = p['id'];
+                    if(id != undefined){
+                    this.isEdit = true;
+                    this.profileService.getFindId(id)
+                    .subscribe(data => {
+                        console.log("El valor que esta retornando getFindId es: ", data);
+                        if (data) {
+                            this.model =<Perfil>data;
+                            this.modelToForm(<Perfil>data);
+                            this.clearRoles();
+                            this.model.roles.forEach((rolA) => {
+                                this.roles.forEach((rolB) => {
+                                    if (rolA.name.localeCompare(rolB.name) == 0) {
+                                        rolB.status = true;
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+                });
+            //}
+        }
+
+
+        confirmDelete() {
+            this._confirm.confirm({
+                message: '¿Seguro que desea eliminar este registro?',
+                header: 'Confirmación',
+                icon: 'pi pi-exclamation-triangle',
+                acceptLabel : 'Si',
+                rejectLabel : 'No',
+                accept: () => {
+                    this.profileService.delete(this.model.idPerfil).then(res => {
+                            this.showMsg('success', 'El regitro a sido Eliminado!');
+                            var root = this;
+                            setTimeout(function(){
+                              root.router.navigateByUrl('main/perfiles');
+                          },2500)
+
+                    });
+                },
+                reject: () => {
+                }
+            });
+        }
+        showMsg( type: string, msg: string, title: string = 'Atención') {
+            this.messageService.add( { key: 'tst', severity: type, summary: title, detail: msg } );
+        }
 }
