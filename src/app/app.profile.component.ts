@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {trigger, state, transition, style, animate} from '@angular/animations';
+import { AppConstant } from './shared/constant/app.constant';
 
 @Component({
     selector: 'app-inline-profile',
@@ -7,7 +8,7 @@ import {trigger, state, transition, style, animate} from '@angular/animations';
         <div class="profile" [ngClass]="{'profile-expanded':active}">
             <a href="#" (click)="onClick($event)">
                 <img class="profile-image" src="assets/layout/images/default-avatar.png" />
-                <span class="profile-name">Demo</span>
+                <span class="profile-name">{{name}}</span>
                 <i class="fa fa-fw fa-caret-down"></i>
                 <span class="profile-role">Admin</span>
             </a>
@@ -45,7 +46,7 @@ import {trigger, state, transition, style, animate} from '@angular/animations';
                 </div>
             </li>
             <li role="menuitem">
-                <a href="#" [attr.tabindex]="!active ? '-1' : null">
+                <a href="#" (click)="logout()" [attr.tabindex]="!active ? '-1' : null">
                     <i class="fa fa-fw fa-sign-out"></i>
                     <span>Logout</span>
                 </a>
@@ -72,9 +73,22 @@ import {trigger, state, transition, style, animate} from '@angular/animations';
 export class AppProfileComponent {
 
     active: boolean;
+    public tkn;
+    public pl;
+    public name;
 
     onClick(event) {
         this.active = !this.active;
         event.preventDefault();
     }
+    logout(){
+        localStorage.removeItem("token");
+       }
+constructor(){
+         this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
+         this.pl = JSON.parse(this.tkn.sub);
+         this.name = this.pl.full_name;
+    
+}
+       
 }

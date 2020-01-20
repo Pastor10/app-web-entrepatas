@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import { Perfil } from 'src/app/shared/model/perfil.model';
 import { PerfilService } from 'src/app/shared/service/perfil.service';
-import { Usuario } from 'src/app/shared/model/usuario.model';
+import { User } from 'src/app/shared/model/User.model';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class UsuarioComponent implements OnInit {
 
     isEdit: boolean;
     modelForm: FormGroup;
-    model: Usuario;
+    model: User;
     public listaPerfiles: Perfil[];
     
 
@@ -121,13 +121,13 @@ export class UsuarioComponent implements OnInit {
     }*/
 
     formToModel(): void {
-        this.model.nombre = this.modelForm.value.nombres;
+        this.model.fullName = this.modelForm.value.nombres;
         this.model.email = this.modelForm.value.email;
-        this.model.perfil = this.modelForm.value.perfil;
+        this.model.type = this.modelForm.value.perfil;
 
-        console.log(this.model.nombre);
+        console.log(this.model.fullName);
         console.log(this.model.email);
-        console.log(this.model.perfil);
+        console.log(this.model.type);
 
     }
 

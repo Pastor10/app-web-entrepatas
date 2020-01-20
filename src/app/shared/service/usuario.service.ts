@@ -5,7 +5,9 @@ import {timeoutWith} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
-import { Usuario } from '../model/usuario.model';
+import { UserPerfil } from '../model/UserPerfil';
+import { User } from '../model/User.model';
+
 
 @Injectable()
 export class UsuarioService {
@@ -39,18 +41,18 @@ export class UsuarioService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-  getById(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(this.baseUrl + 'findById/' + id).pipe(
+  getById(id: number): Observable<UserPerfil> {
+    return this.http.get<UserPerfil>(this.baseUrl + 'findById/' + id).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-  create(o: Usuario) {
+  create(o: UserPerfil) {
     return this.http.post(this.baseUrl + 'create', o);
   }
 
-  save(o: Usuario) {
-    if (o.idUsuario == undefined) {
+  save(o: User) {
+    if (o.id == undefined) {
       console.log('creando');
       return this.http.post(this.baseUrl + 'create', o);
     } else {
@@ -59,7 +61,7 @@ export class UsuarioService {
     }
   }
 
-  update(o: Usuario) {
+  update(o: UserPerfil) {
     return this.http.put(this.baseUrl + 'update', o);
   }
 

@@ -5,7 +5,7 @@ import {timeoutWith} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
-import { Usuario } from '../model/usuario.model';
+import { User } from '../model/User.model';
 
 @Injectable()
 export class ProfileService {

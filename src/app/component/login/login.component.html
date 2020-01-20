@@ -1,5 +1,5 @@
-<div class="limiter">
-  <div class="container-login100" >
+ <div class="limiter">
+  <div class="container-login100" style="background-image: url('../../../../../assets/demo/images/fondo.png')">
       <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
           <form class="login100-form validate-form flex-sb flex-w" (submit)="login()">
               <div class="logo-container">
@@ -11,7 +11,7 @@
             Usuario
           </span>
               </div>
-              <div class="wrap-input100 validate-input" data-validate = "Se requiere nombre de usuario">
+              <div style="margin-bottom:20px;" class="wrap-input100 validate-input" data-validate = "Se requiere nombre de usuario">
                   <input required [(ngModel)]="username"  class="input100" type="text" name="username" >
                   <span class="focus-input100"></span>
               </div>
@@ -21,7 +21,7 @@
             Contraseña
           </span>
               </div>
-              <div class="wrap-input100 validate-input" data-validate = "Se requiere contraseña">
+              <div style="margin-bottom:20px;" class="wrap-input100 validate-input" data-validate = "Se requiere contraseña">
                   <input required [(ngModel)]="password"  class="input100" type="password" name="pass" >
                   <span class="focus-input100"></span>
               </div>
@@ -35,3 +35,36 @@
       </div>
   </div>
 </div>
+
+
+
+<!-- 
+<div class="login-panel ui-fluid">
+    <ng-container>
+        <div>
+            <img src="/assets/img/avatar.png" alt="" style="max-width: 100%; width: 35%">
+            <h4>PROYECTO F7</h4>
+            <p>Digite sus credenciales para comenzar</p>
+        </div>
+        <div class="ui-g" >
+            <div class="ui-g-12">
+            
+                    <span class="md-inputfield">
+                    <input required [(ngModel)]="username"  placeholder="Correo" id="user" type="text" autocomplete="off" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
+       
+                </span>
+            </div>
+            <div class="ui-g-12">
+                <span class="md-inputfield">
+                    <input  required [(ngModel)]="password"  placeholder="Contraseña" id="pass" type="password" (keyup.enter)="login()" autocomplete="off" class="ui-inputtext ui-corner-all ui-state-default ui-widget">
+                </span>
+            </div>
+            <div class="ui-g-12">
+                <button (click)="login()" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all">
+                    <span class="ui-button-text ui-c">Entrar</span>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</div> 
+-->

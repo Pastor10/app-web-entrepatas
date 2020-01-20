@@ -74,6 +74,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     onMenuButtonClick(event) {
+
         this.menuClick = true;
         this.rotateMenuButton = !this.rotateMenuButton;
         this.topbarMenuActive = false;
