@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item } from 'src/app/shared/model/item.model';
 import { ReporteF7Service } from 'src/app/shared/service/reporteF7.service';
 import { Producto } from 'src/app/interface/producto.interface';
-import { SelectItem, MessageService } from 'primeng/api';
+import { SelectItem, MessageService, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { IpServiceService } from 'src/app/shared/service/ip.service';
 import { TypeReporte } from 'src/app/enums/type-reporte';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-f7-reporte-general',
@@ -45,6 +45,11 @@ export class ReporteF7GeneralComponent implements OnInit {
   ipAddress: string;
   motivo: string;
   typeReporte: TypeReporte;
+  lastLazyLoadEvent: LazyLoadEvent;
+  perPage = 10;
+  totalRecords: number;
+  datasource: Producto[];
+  loading: boolean;
 
   @ViewChild('dt', { static: true }) public tabla: Table;
 
@@ -58,6 +63,7 @@ export class ReporteF7GeneralComponent implements OnInit {
     this.loadListarGrupoProductoERP();
     this.loadListarGrupoAnatomico();
     this.getIP();
+    //this.resetAndRefreshTable();
     if (this.tipoCoberturaSelected == undefined) {
       this.tipoCoberturaSelected = new Item('TODAS', '0');
       this.filtroSelected = new Item('NINGUNO', '0');
@@ -108,12 +114,14 @@ export class ReporteF7GeneralComponent implements OnInit {
   ];
 
     this.listarProductosDefault(0);
+    this.loading = true;
   }
 
     getIP() {
       this.ip.getIPAddress().subscribe((res: any) => {
         this.ipAddress = res.ip;
       });
+      
     }
 
   public onChangeFilter() {
@@ -254,11 +262,31 @@ export class ReporteF7GeneralComponent implements OnInit {
   listarProductosDefault(pagina) {
     this.reporteF7Service.listarProductosCoverage(pagina).subscribe(
       data => {
-      this.listProductos = data['content'];
+     this.listProductos = this.createListProducts(data['content']);
+     //this.datasource = this.createListProducts(data['content']);
+     //this.totalRecords = this.datasource.length;
       });
 
   }
 
+ createListProducts(data){
+  let arrayProduct = [];
+  for(let i= 0; i < data.length;i++){
+  let product =  data[i];
+  product.fecha = this.formatDate(data[i].fecha);
+  arrayProduct.push(product);
+  }
+  return arrayProduct;
+ }
+ 
+  formatDate(date) {
+        var d = new Date(date),
+        month =  (d.getMonth()),
+        day =  Number(d.getDate()+2),
+        year = d.getFullYear();
+  let fecha = new Date(year,month,day);
+  return moment(fecha).format('YYYY-MM-DD');
+}
  
 
   exportExcel() {
@@ -270,21 +298,21 @@ export class ReporteF7GeneralComponent implements OnInit {
 
     if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0') {
       params.push(`${this.tipoCoberturaSelected.name}`);
-      this.reporteF7Service.exportToExcelTipoCobertura(params.join('/'), -1, TypeReporte.GENERAL);
+      this.reporteF7Service.exportToExcelTipoCobertura(params.join('/'), -1, TypeReporte.GENERAL, fecha);
     }
     if (this.filtroSelected.code == '1') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.GENERAL}`);
-      this.reporteF7Service.exportToExcelCodLocal(params.join('/'));
+      this.reporteF7Service.exportToExcelCodLocal(params.join('/'), fecha);
     }
     if (this.filtroSelected.code == '2') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.GENERAL}`);
-      this.reporteF7Service.exportToExcelCodProducto(params.join('/'));
+      this.reporteF7Service.exportToExcelCodProducto(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '3') {
@@ -293,20 +321,20 @@ export class ReporteF7GeneralComponent implements OnInit {
       params.push(`${this.inputFilter2}`);
       params.push(-1);
       params.push(`${TypeReporte.GENERAL}`);
-      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'));
+      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '5') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.filterCombo1Selected.name}`);
-      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1, TypeReporte.GENERAL);
+      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1, TypeReporte.GENERAL, fecha);
     }
 
     if (this.filtroSelected.code == '6') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(`${this.filterCombo2Selected.name}`);
-      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1, TypeReporte.GENERAL);
+      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1, TypeReporte.GENERAL, fecha);
     }
 
     if (this.filtroSelected.code == '8') {
@@ -314,7 +342,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.GENERAL}`);
-      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'));
+      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '10') {
@@ -323,7 +351,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       params.push(`${this.filterCombo2Selected.name}`);
       params.push(-1);
       params.push(`${TypeReporte.GENERAL}`);
-      this.reporteF7Service.exportToExcelJerarquias(params.join('/'));
+      this.reporteF7Service.exportToExcelJerarquias(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '11') {
@@ -331,7 +359,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.GENERAL}`);
-      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'));
+      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'), fecha);
     }
 
   }
@@ -340,7 +368,23 @@ export class ReporteF7GeneralComponent implements OnInit {
     this.display = true;
   }
 
+  resetAndRefreshTable() {
+    this.tabla.reset();
+    this.refreshTable();
+}
+
+  refreshTable() {
+      this.tabla.reset();
+      if (this.lastLazyLoadEvent) {
+         // this.buscarProductosXFiltros(this.lastLazyLoadEvent);
+      }
+  }
+
   buscarProductosXFiltros() {
+    //this.lastLazyLoadEvent = event;
+    //const pageNumber = event.first / this.perPage;
+    //console.log('pageNumberv ', pageNumber);
+
 
     if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0'){
         this.listProductos = [];
@@ -350,7 +394,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.listProductos = [];
         this.reporteF7Service.coverage_page(0, this.tipoCoberturaSelected.name, TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data['content'];
+            this.listProductos = this.createListProducts(data['content']);
+            //this.listProductos = data['content'];
           });
       }
     if (this.filtroSelected.code == '1') {
@@ -362,8 +407,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.reporteF7Service.listarProductosByCodLocal(0, this.tipoCoberturaSelected.code, this.inputFilter1,
            TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
-            console.log('this.listProductos:', this.listProductos);
+            //this.listProductos = data as Array<Producto>;
+            this.listProductos = this.createListProducts(data as Array<Producto>);
           });
       }
 
@@ -377,8 +422,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.reporteF7Service.listarProductosByCodProd(0, this.tipoCoberturaSelected.code, this.inputFilter1, 
           TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
-            console.log('this.listProductos:', data);
+           // this.listProductos = data as Array<Producto>;
+           this.listProductos = this.createListProducts(data as Array<Producto>);
           });
       }
 
@@ -398,7 +443,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.reporteF7Service.listarProductosByCodLocalCodProducto(0, this.tipoCoberturaSelected.code, this.inputFilter1,
           this.inputFilter2, TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
+            //this.listProductos = data as Array<Producto>;
+            this.listProductos = this.createListProducts(data as Array<Producto>);
           });
 
       }
@@ -415,7 +461,8 @@ export class ReporteF7GeneralComponent implements OnInit {
           this.reporteF7Service.listarProductosByDescLinea(0, this.tipoCoberturaSelected.code, this.filterCombo1Selected.name,
              TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data['content'];
+           // this.listProductos = data['content'];
+           this.listProductos = this.createListProducts(data['content']);
           });
         }
 
@@ -434,7 +481,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.reporteF7Service.listarProductosByCodLocalDescLinea(0, this.tipoCoberturaSelected.code, this.inputFilter1,
            this.filterCombo2Selected.name, TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data['content'];
+            //this.listProductos = data['content'];
+            this.listProductos = this.createListProducts(data['content']);
           });
       }
       }
@@ -448,7 +496,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1,
           TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
+            //this.listProductos = data as Array<Producto>;
+            this.listProductos = this.createListProducts(data as Array<Producto>);
           });
       }
       }
@@ -464,8 +513,8 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.reporteF7Service.listarProductosByJerarquias(0, this.tipoCoberturaSelected.code,
           this.filterCombo1Selected.name, this.filterCombo2Selected.name, TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data['content'];
-            console.log('this.listProductos:', data);
+            //this.listProductos = data['content'];
+            this.listProductos = this.createListProducts(data['content']);
           });
 
       }
@@ -480,11 +529,20 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1,
           TypeReporte.GENERAL).subscribe(
           data => {
-            this.listProductos = data['content'];
+            //this.listProductos = data['content'];
+            this.listProductos = this.createListProducts(data['content']);
           });
       }
 
       }
+
+  /*  setTimeout(() => {
+        if (this.datasource) {
+            this.listProductos = this.datasource.slice(event.first, (event.first + event.rows));
+        }
+        this.loading = false;
+    }, 1000);*/
+    
   }
 
   onFileUpload(data: { files: File }): void {

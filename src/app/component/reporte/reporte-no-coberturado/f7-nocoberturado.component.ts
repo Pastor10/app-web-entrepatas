@@ -269,21 +269,21 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
 
     if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0') {
       params.push(`${this.tipoCoberturaSelected.name}`);
-      this.reporteF7Service.exportToExcelTipoCobertura(params.join('/'), -1, TypeReporte.NO_COBERTURADO);
+      this.reporteF7Service.exportToExcelTipoCobertura(params.join('/'), -1, TypeReporte.NO_COBERTURADO, fecha);
     }
     if (this.filtroSelected.code == '1') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodLocal(params.join('/'));
+      this.reporteF7Service.exportToExcelCodLocal(params.join('/'), fecha);
     }
     if (this.filtroSelected.code == '2') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodProducto(params.join('/'));
+      this.reporteF7Service.exportToExcelCodProducto(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '3') {
@@ -292,20 +292,20 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
       params.push(`${this.inputFilter2}`);
       params.push(-1);
       params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'));
+      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '5') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.filterCombo1Selected.name}`);
-      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1, TypeReporte.NO_COBERTURADO);
+      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1, TypeReporte.NO_COBERTURADO, fecha);
     }
 
     if (this.filtroSelected.code == '6') {
       params.push(`${this.tipoCoberturaSelected.code}`);
       params.push(`${this.inputFilter1}`);
       params.push(`${this.filterCombo2Selected.name}`);
-      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1, TypeReporte.NO_COBERTURADO);
+      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1, TypeReporte.NO_COBERTURADO, fecha);
     }
 
     if (this.filtroSelected.code == '8') {
@@ -313,7 +313,7 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'));
+      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '10') {
@@ -322,7 +322,7 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
       params.push(`${this.filterCombo2Selected.name}`);
       params.push(-1);
       params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelJerarquias(params.join('/'));
+      this.reporteF7Service.exportToExcelJerarquias(params.join('/'), fecha);
     }
 
     if (this.filtroSelected.code == '11') {
@@ -330,7 +330,7 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
       params.push(`${this.inputFilter1}`);
       params.push(-1);
       params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'));
+      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'), fecha);
     }
 
   }

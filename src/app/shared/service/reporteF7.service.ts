@@ -116,7 +116,7 @@ export class ReporteF7Service {
         });
     }
 
-    exportToExcelTipoCobertura(params, pagina, typeReporte) {
+    exportToExcelTipoCobertura(params, pagina, typeReporte, fecha) {
        this.http.get(this.baseUrl + 'coverage/' + params + '/page/' + pagina + '/' + typeReporte,
         {responseType: 'blob'}).subscribe(data => {
            const a = document.createElement('a');
@@ -124,52 +124,52 @@ export class ReporteF7Service {
            const blob = new Blob([data], {type: 'octet/stream'});
            const url = window.URL.createObjectURL(blob);
            a.href = url;
-           a.download = 'reporte-f7.xlsx';
+           a.download = `ReporteF7_${fecha}.xlsx`;
            a.click();
            window.URL.revokeObjectURL(url);
        });
    }
 
-   exportToExcelCodLocal(params) {
+   exportToExcelCodLocal(params, fecha) {
      this.http.get(this.baseUrl + 'coverage/cod_local/' + params , {responseType: 'blob'}).subscribe(data => {
          const a = document.createElement('a');
          document.body.appendChild(a);
          const blob = new Blob([data], {type: 'octet/stream'});
          const url = window.URL.createObjectURL(blob);
          a.href = url;
-         a.download = 'reporte-f7.xlsx';
+         a.download = `ReporteF7_${fecha}.xlsx`;
          a.click();
          window.URL.revokeObjectURL(url);
      });
  }
 
-  exportToExcelCodProducto(params) {
+  exportToExcelCodProducto(params, fecha) {
     this.http.get(this.baseUrl + 'coverage/cod_prod/' + params , {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'reporte-f7.xlsx';
+        a.download = `ReporteF7_${fecha}.xlsx`;
         a.click();
         window.URL.revokeObjectURL(url);
     });
   }
 
-  exportToExcelCodLocalProducto(params) {
+  exportToExcelCodLocalProducto(params, fecha) {
     this.http.get(this.baseUrl + 'coverage/local_prod/' + params , {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'reporte-f7.xlsx';
+        a.download = `ReporteF7_${fecha}.xlsx`;
         a.click();
         window.URL.revokeObjectURL(url);
     });
   }
 
-  exportToExcelDescripcionLinea(params, pagina, typeReporte) {
+  exportToExcelDescripcionLinea(params, pagina, typeReporte, fecha) {
     this.http.get(this.baseUrl + 'coverage/des_linea/' + params + '/page/' + pagina
     + '/' + typeReporte, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
@@ -177,13 +177,13 @@ export class ReporteF7Service {
         const blob = new Blob([data], {type: 'octet/stream'});
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'reporte-f7.xlsx';
+        a.download = `ReporteF7_${fecha}.xlsx`;
         a.click();
         window.URL.revokeObjectURL(url);
     });
   }
 
-  exportToExcelCodLocalDescLinea(params, pagina, typeReporte) {
+  exportToExcelCodLocalDescLinea(params, pagina, typeReporte, fecha) {
     this.http.get(this.baseUrl + 'coverage/local_deslinea/' + params + '/page/' + pagina
     + '/' + typeReporte, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
@@ -191,46 +191,46 @@ export class ReporteF7Service {
         const blob = new Blob([data], {type: 'octet/stream'});
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'reporte-f7.xlsx';
+        a.download = `ReporteF7_${fecha}.xlsx`;
         a.click();
         window.URL.revokeObjectURL(url);
     });
   }
 
-  exportToExcelCodSapProducto(params) {
+  exportToExcelCodSapProducto(params, fecha) {
     this.http.get(this.baseUrl + 'coverage/cod_sap/' + params, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'reporte-f7.xlsx';
+        a.download = `ReporteF7_${fecha}.xlsx`;
         a.click();
         window.URL.revokeObjectURL(url);
     });
   }
 
-  exportToExcelJerarquias(params) {
+  exportToExcelJerarquias(params, fecha) {
     this.http.get(this.baseUrl + 'coverage/jerarquias/' + params, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'reporte-f7.xlsx';
+        a.download = `ReporteF7_${fecha}.xlsx`;
         a.click();
         window.URL.revokeObjectURL(url);
     });
   }
 
-  exportToExcelAnalistaAsr(params) {
+  exportToExcelAnalistaAsr(params, fecha) {
     this.http.get(this.baseUrl + 'coverage/analista_asr/' + params, {responseType: 'blob'}).subscribe(data => {
         const a = document.createElement('a');
         document.body.appendChild(a);
         const blob = new Blob([data], {type: 'octet/stream'});
         const url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'reporte-f7.xlsx';
+        a.download = `ReporteF7_${fecha}.xlsx`;
         a.click();
         window.URL.revokeObjectURL(url);
     });

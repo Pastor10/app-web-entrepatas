@@ -58,8 +58,10 @@
 
             </div>
             
-            <p-table [columns]="cols" [value]="listProductos" [scrollable]="true" selectionMode="single" dataKey="vin"  
-                     [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" >
+            <p-table [columns]="cols" [value]="listProductos" [totalRecords]="totalRecords"   [scrollable]="true" selectionMode="single" dataKey="vin"  
+                     [paginator]="true" [rows]="perPage" 
+                     [responsive]="true"  
+                     paginatorPosition="bottom"   >
                 
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>

@@ -128,10 +128,11 @@ export class UsuariosComponent implements OnInit {
 
     public loadUsers() {
         console.log('load user ' );
+        this.listaUsuarios = [];
         this.usuarioService.getUsers().subscribe(
           data => {
             this.listaUsuarios = <Usuario[]>data;
-            console.log('this.listPerfil ', this.listaUsuarios );
+            console.log('this.listaUsuarios ', this.listaUsuarios );
           },
           error => {
             this.listaUsuarios = [];
