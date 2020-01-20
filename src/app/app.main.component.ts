@@ -118,6 +118,8 @@ export class AppMainComponent implements AfterViewInit {
 
     onTopbarSubItemClick(event) {
         event.preventDefault();
+
+
     }
 
     hideOverlayMenu() {

@@ -735,7 +735,7 @@ body, html {
     text-align: center;
 }
 .logo {
-    width: 120px;
+    width: 320px;
 }
 /*---------------------------------------------*/
 a {
@@ -855,6 +855,7 @@ iframe {
 .limiter {
     width: 100%;
     margin: 0 auto;
+
 }
 
 .container-login100 {
@@ -875,12 +876,20 @@ iframe {
     background-repeat: no-repeat;;
 }
 
-
+/*
 .wrap-login100 {
     width: 500px;
     background: #fff;
     border-radius: 10px;
     position: relative;
+}*/
+.wrap-login100 {
+    width: 500px;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+    padding: 2%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.45);
 }
 
 

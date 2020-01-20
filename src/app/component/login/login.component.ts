@@ -16,7 +16,8 @@ import {AppConstant} from 'src/app/shared/constant/app.constant';
 
 export class LoginComponent implements OnInit, AfterViewInit {
 
-  constructor(public router: Router, public messageService: MessageService,
+  constructor(public router: Router, 
+              public messageService: MessageService,
               public authenticationService: AuthService,
               public localStorageService: LocalStorageService) {
   }

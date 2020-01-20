@@ -22,35 +22,27 @@
                                             ariaLabelDesc="Activa para ordenar en orden descendente"
                                             ariaLabelAsc="Activa para ordenar en orden ascendente"></p-sortIcon>
                             </th>
+                            <th style="text-align: center">
+                                <div style="text-align: center">
+                                    <span class="ui-column-title">Acciones</span>
+                                </div>
+                              </th>
                         </tr>
 
                     </ng-template>
 
                     <ng-template pTemplate="body" let-rowData let-columns="columns">
-                        <tr *ngFor="let u of listaUsuarios" style="text-align: center">
-                            <td>
-                                {{u.user.fullName}}
+                        <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let col of columns" class="ui-resizable-column">
+                              <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
                             </td>
-                            <td>
-                                {{u.user.email}}
-                            </td>
-                            <td>
-                                {{u.perfil.nombre}}
-                            </td>
-                            <td>
-                                <span *ngIf="u.user.enabled == true">
-                                    Activo
-                                </span>
-                                <span *ngIf="u.user.enabled == false">
-                                    Inactivo
-                                </span>
-                            </td>
-                            <td>
-                                <button style="margin-right: 0.2rem; margin-left: 0.2rem;" [routerLink]="['/main/usuarios/editar',u.user.id]" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar"></button>
-
-                            </td>
-                           
-                        </tr>
+                            <td style="text-align: center">
+                                <div style="text-align: center">
+                                    <span class="ui-column-title">Acciones</span>
+                                    <button  style="margin-right: 0.2rem; margin-left: 0.2rem;"[routerLink]="['/main/usuarios/editar',rowData['id']]" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar, Eliminar"></button>
+                                </div>
+                              </td>
+                          </tr>
                     </ng-template>
 
                     <ng-template pTemplate="summary" let-rowData>

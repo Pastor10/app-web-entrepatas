@@ -5,7 +5,8 @@ import {Store} from '@ngxs/store';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import { Perfil } from 'src/app/shared/model/perfil.model';
-import { Usuario } from 'src/app/shared/model/usuario.model';
+import { User } from 'src/app/shared/model/User.model';
+import { UserPerfil } from 'src/app/shared/model/UserPerfil';
 
 @Component({
     selector: 'app-usuarios',
@@ -86,7 +87,8 @@ export class UsuariosComponent implements OnInit {
     loading: boolean;
     tokenGenerated: any;
     visibleTokenGenerado = false;
-    public listaUsuarios: Usuario[];
+    public listaUsuariosPerfil: UserPerfil[];
+    public listaUsuarios: User[];
 
 
     constructor(private route: ActivatedRoute,
@@ -98,15 +100,15 @@ export class UsuariosComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadUsers();
         this.cols = [
-            {field: 'idUsuarioPerfil', header: 'Nombres y Apellidos'},
+            {field: 'fullName', header: 'Nombres y Apellidos'},
             {field: 'email', header: 'Email'},
-            {field: 'perfil.nombre', header: 'Perfil'},
-            {field: 'enabled', header: 'Estado'},
-            {header: 'Acciones', isActions: true}
+            {field: 'profile', header: 'Perfil'},
+            {field: 'enabled', header: 'Estado'}
         ];
+        this.loadUsers();
         this.loading = true;
+
 
     }
 
@@ -130,9 +132,23 @@ export class UsuariosComponent implements OnInit {
         console.log('load user ' );
         this.listaUsuarios = [];
         this.usuarioService.getUsers().subscribe(
-          data => {
-            this.listaUsuarios = <Usuario[]>data;
-            console.log('this.listaUsuarios ', this.listaUsuarios );
+          data => { 
+            this.listaUsuariosPerfil = <UserPerfil[]>data;
+            let arrayUser = [];
+            console.log(this.listaUsuariosPerfil);
+            for(let i = 0; i < this.listaUsuariosPerfil.length; i++){  
+              let o = {
+                id:this.listaUsuariosPerfil[i].user.id,
+                email:this.listaUsuariosPerfil[i].user.email,
+                fullName:this.listaUsuariosPerfil[i].user.fullName,
+                enabled:this.listaUsuariosPerfil[i].user.enabled==true?"Activo":"Pasivo",
+                deleted:this.listaUsuariosPerfil[i].user.deleted,
+                type:this.listaUsuariosPerfil[i].user.type,
+                profile:this.listaUsuariosPerfil[i].perfil.nombre 
+              }
+              arrayUser.push(o);
+            }
+            this.listaUsuarios = <User[]>arrayUser;
           },
           error => {
             this.listaUsuarios = [];
@@ -148,5 +164,9 @@ export class UsuariosComponent implements OnInit {
       linkUpdate(id) {
        this.router.navigate(['usuarios/editar', id]);
     }
+
+    trackByFn(index, item) {
+        return index; // or item.id
+      }
 
 }
