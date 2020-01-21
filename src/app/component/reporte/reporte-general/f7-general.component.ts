@@ -113,7 +113,8 @@ export class ReporteF7GeneralComponent implements OnInit {
       { field: 'indiceF7Nuevo', header: 'Nuevo indice F7 ' }
   ];
 
-    this.listarProductosDefault(0);
+    //this.listarProductosDefault(0);
+   // this.resetAndRefreshTable();
     this.loading = true;
   }
 
@@ -262,9 +263,8 @@ export class ReporteF7GeneralComponent implements OnInit {
   listarProductosDefault(pagina) {
     this.reporteF7Service.listarProductosCoverage(pagina).subscribe(
       data => {
-     this.listProductos = this.createListProducts(data['content']);
-     //this.datasource = this.createListProducts(data['content']);
-     //this.totalRecords = this.datasource.length;
+     this.datasource = this.createListProducts(data['content']);
+     this.totalRecords = data['totalElements'];
       });
 
   }
@@ -284,9 +284,9 @@ export class ReporteF7GeneralComponent implements OnInit {
         month =  (d.getMonth()),
         day =  Number(d.getDate()+2),
         year = d.getFullYear();
-  let fecha = new Date(year,month,day);
-  return moment(fecha).format('YYYY-MM-DD');
-}
+        let fecha = new Date(year,month,day);
+        return moment(fecha).format('YYYY-MM-DD');
+  }
  
 
   exportExcel() {
@@ -376,39 +376,53 @@ export class ReporteF7GeneralComponent implements OnInit {
   refreshTable() {
       this.tabla.reset();
       if (this.lastLazyLoadEvent) {
-         // this.buscarProductosXFiltros(this.lastLazyLoadEvent);
+          this.buscarProductosXFiltros(this.lastLazyLoadEvent);
       }
   }
 
-  buscarProductosXFiltros() {
-    //this.lastLazyLoadEvent = event;
-    //const pageNumber = event.first / this.perPage;
-    //console.log('pageNumberv ', pageNumber);
+  
 
-
+  buscarProductosXFiltros(event: LazyLoadEvent) {
+    //this.datasource = [];
+    this.loading = true;
+    this.lastLazyLoadEvent = event;
+    const pageNumber = event.first / this.perPage;
+    console.log('pageNumberv ', pageNumber);
+    //this.listarProductosDefault(pageNumber);
     if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0'){
-        this.listProductos = [];
-        this.listarProductosDefault(0);
-      }
+      this.reporteF7Service.listarProductosCoverage(pageNumber).subscribe(
+        data => {
+       this.datasource = this.createListProducts(data['content']);
+       this.totalRecords = data['totalElements'];
+        });
+      //this.listarProductosDefault(pageNumber);
+    }
+
     if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0'){
-        this.listProductos = [];
-        this.reporteF7Service.coverage_page(0, this.tipoCoberturaSelected.name, TypeReporte.GENERAL).subscribe(
-          data => {
-            this.listProductos = this.createListProducts(data['content']);
-            //this.listProductos = data['content'];
-          });
-      }
+      this.reporteF7Service.coverage_page(pageNumber, this.tipoCoberturaSelected.name, TypeReporte.GENERAL).subscribe(
+        data => {
+          console.log('data', data);
+          //this.listProductos = this.createListProducts(data['content']);
+          this.datasource = this.createListProducts(data['content']);
+          this.totalRecords = data['totalElements'];
+          console.log('datasource ', this.datasource);
+
+        });
+    }
+
     if (this.filtroSelected.code == '1') {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == ''){
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de local', 
         detail: ''});
       } else {
-        this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodLocal(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+        //this.listProductos = [];
+        this.reporteF7Service.listarProductosByCodLocal(pageNumber, this.tipoCoberturaSelected.code, this.inputFilter1,
            TypeReporte.GENERAL).subscribe(
           data => {
-            //this.listProductos = data as Array<Producto>;
-            this.listProductos = this.createListProducts(data as Array<Producto>);
+            this.datasource = this.createListProducts(data as Array<Producto>);
+            this.totalRecords = data['totalElements'];
+
+            //this.listProductos = this.createListProducts(data as Array<Producto>);
           });
       }
 
@@ -418,12 +432,16 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de producto', 
         detail: ''});
       } else {
-        this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodProd(0, this.tipoCoberturaSelected.code, this.inputFilter1, 
+        //this.listProductos = [];
+          this.reporteF7Service.listarProductosByCodProd(pageNumber, this.tipoCoberturaSelected.code, this.inputFilter1, 
           TypeReporte.GENERAL).subscribe(
           data => {
-           // this.listProductos = data as Array<Producto>;
-           this.listProductos = this.createListProducts(data as Array<Producto>);
+           
+           //this.listProductos = this.createListProducts(data as Array<Producto>);
+           this.datasource = this.createListProducts(data as Array<Producto>);
+           this.totalRecords = data['totalElements'];
+
+
           });
       }
 
@@ -439,12 +457,14 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de Producto', 
         detail: ''});
       } else {
-        this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodLocalCodProducto(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+  
+        this.reporteF7Service.listarProductosByCodLocalCodProducto(pageNumber, this.tipoCoberturaSelected.code, this.inputFilter1,
           this.inputFilter2, TypeReporte.GENERAL).subscribe(
           data => {
-            //this.listProductos = data as Array<Producto>;
-            this.listProductos = this.createListProducts(data as Array<Producto>);
+
+            //this.listProductos = this.createListProducts(data as Array<Producto>);
+            this.datasource = this.createListProducts(data as Array<Producto>);
+            this.totalRecords = data['totalElements'];
           });
 
       }
@@ -457,12 +477,13 @@ export class ReporteF7GeneralComponent implements OnInit {
           this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
           detail: ''});
           } else {
-          this.listProductos = [];
-          this.reporteF7Service.listarProductosByDescLinea(0, this.tipoCoberturaSelected.code, this.filterCombo1Selected.name,
+
+          this.reporteF7Service.listarProductosByDescLinea(pageNumber, this.tipoCoberturaSelected.code, this.filterCombo1Selected.name,
              TypeReporte.GENERAL).subscribe(
           data => {
-           // this.listProductos = data['content'];
-           this.listProductos = this.createListProducts(data['content']);
+           //this.listProductos = this.createListProducts(data['content']);
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements'];
           });
         }
 
@@ -477,12 +498,13 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
         detail: ''});
       } else {
-        this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodLocalDescLinea(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+        this.reporteF7Service.listarProductosByCodLocalDescLinea(pageNumber, this.tipoCoberturaSelected.code, this.inputFilter1,
            this.filterCombo2Selected.name, TypeReporte.GENERAL).subscribe(
           data => {
-            //this.listProductos = data['content'];
-            this.listProductos = this.createListProducts(data['content']);
+         
+            //this.listProductos = this.createListProducts(data['content']);
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements'];
           });
       }
       }
@@ -492,12 +514,12 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código SAP', 
         detail: ''});
       } else{
-        this.listProductos = [];
-        this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+        this.reporteF7Service.listarProductosByCodProdSap(pageNumber, this.tipoCoberturaSelected.code, this.inputFilter1,
           TypeReporte.GENERAL).subscribe(
           data => {
-            //this.listProductos = data as Array<Producto>;
-            this.listProductos = this.createListProducts(data as Array<Producto>);
+            //this.listProductos = this.createListProducts(data as Array<Producto>);
+            this.datasource = this.createListProducts(data as Array<Producto>);
+            this.totalRecords = data['totalElements'];
           });
       }
       }
@@ -509,12 +531,12 @@ export class ReporteF7GeneralComponent implements OnInit {
         detail: 'Seleccione al menos un grupo'});
 
       } else {
-        this.listProductos = [];
-        this.reporteF7Service.listarProductosByJerarquias(0, this.tipoCoberturaSelected.code,
+        this.reporteF7Service.listarProductosByJerarquias(pageNumber, this.tipoCoberturaSelected.code,
           this.filterCombo1Selected.name, this.filterCombo2Selected.name, TypeReporte.GENERAL).subscribe(
           data => {
-            //this.listProductos = data['content'];
-            this.listProductos = this.createListProducts(data['content']);
+            //this.listProductos = this.createListProducts(data['content']);
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements'];
           });
 
       }
@@ -525,24 +547,25 @@ export class ReporteF7GeneralComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar nombre Analista ASR', 
         detail: ''});
       } else {
-        this.listProductos = [];
-        this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1,
+        this.reporteF7Service.listarProductosBySnalistaAsr(pageNumber, this.tipoCoberturaSelected.code, this.inputFilter1,
           TypeReporte.GENERAL).subscribe(
           data => {
-            //this.listProductos = data['content'];
-            this.listProductos = this.createListProducts(data['content']);
+            //this.listProductos = this.createListProducts(data['content']);
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements']
           });
       }
 
       }
 
-  /*  setTimeout(() => {
-        if (this.datasource) {
-            this.listProductos = this.datasource.slice(event.first, (event.first + event.rows));
-        }
-        this.loading = false;
-    }, 1000);*/
-    
+    setTimeout(() => {
+      if (this.datasource) {
+          this.listProductos = this.datasource.slice(pageNumber);
+          console.log('listProductos ', this.listProductos);
+          this.loading = false;
+      }
+  }, 1000);
+   
   }
 
   onFileUpload(data: { files: File }): void {

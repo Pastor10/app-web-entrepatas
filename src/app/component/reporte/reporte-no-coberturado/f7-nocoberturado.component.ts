@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item } from 'src/app/shared/model/item.model';
 import { ReporteF7Service } from 'src/app/shared/service/reporteF7.service';
 import { Producto } from 'src/app/interface/producto.interface';
-import { SelectItem, MessageService } from 'primeng/api';
+import { SelectItem, MessageService, LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { IpServiceService } from 'src/app/shared/service/ip.service';
 import { TypeReporte } from 'src/app/enums/type-reporte';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-f7-reporte-no-coberturado',
@@ -44,6 +44,11 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
   ipAddress: string;
   motivo: string;
   typeReporte: TypeReporte;
+  lastLazyLoadEvent: LazyLoadEvent;
+  perPage = 10;
+  totalRecords: number;
+  datasource: Producto[];
+  loading: boolean;
 
   @ViewChild('dt', { static: true }) public tabla: Table;
 
@@ -105,7 +110,8 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
       { field: 'indiceF7Nuevo', header: 'Nuevo indice F7 ' }
   ];
 
-    this.listarProductosDefault(0);
+    //this.listarProductosDefault(0);
+    this.loading = true;
   }
 
     getIP() {
@@ -258,6 +264,15 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
 
   }
 
+
+  formatDate(date) {
+    var d = new Date(date),
+    month =  (d.getMonth()),
+    day =  Number(d.getDate()+2),
+    year = d.getFullYear();
+    let fecha = new Date(year,month,day);
+    return moment(fecha).format('YYYY-MM-DD');
+}
  
 
   exportExcel() {
@@ -339,17 +354,46 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
     this.display = true;
   }
 
-  buscarProductosXFiltros() {
+  resetAndRefreshTable() {
+    this.tabla.reset();
+    this.refreshTable();
+  }
+
+  refreshTable() {
+      this.tabla.reset();
+      if (this.lastLazyLoadEvent) {
+          this.buscarProductosXFiltros(this.lastLazyLoadEvent);
+      }
+  }
+
+  createListProducts(data){
+    let arrayProduct = [];
+    for(let i= 0; i < data.length;i++){
+    let product =  data[i];
+    product.fecha = this.formatDate(data[i].fecha);
+    arrayProduct.push(product);
+    }
+    return arrayProduct;
+   }
+
+  buscarProductosXFiltros(event: LazyLoadEvent) {
+    this.loading = true;
+    this.lastLazyLoadEvent = event;
+    const pageNumber = event.first / this.perPage;
 
     if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0'){
-      this.listProductos = [];
-      this.listarProductosDefault(0);
+      this.reporteF7Service.coverage_pageNoCoberturado(pageNumber).subscribe(
+        data => {
+       this.datasource = this.createListProducts(data['content']);
+       this.totalRecords = data['totalElements'];
+        });
     }
     if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0'){
-      this.listProductos = [];
+
       this.reporteF7Service.coverage_page(0, this.tipoCoberturaSelected.name, TypeReporte.NO_COBERTURADO).subscribe(
         data => {
-          this.listProductos = data['content'];
+          this.datasource = this.createListProducts(data['content']);
+          this.totalRecords = data['totalElements'];
         });
     }
     if (this.filtroSelected.code == '1') {
@@ -357,11 +401,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de local', 
         detail: ''});
       } else {
-        this.listProductos = [];
+
         this.reporteF7Service.listarProductosByCodLocal(0, this.tipoCoberturaSelected.code, this.inputFilter1, 
           TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
+            this.datasource = this.createListProducts(data as Array<Producto>);
+            this.totalRecords = data['totalElements'];
 
           });
       }
@@ -372,11 +417,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de producto', 
         detail: ''});
       } else {
-        this.listProductos = [];
+
         this.reporteF7Service.listarProductosByCodProd(0, this.tipoCoberturaSelected.code, 
           this.inputFilter1, TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
+            this.datasource = this.createListProducts(data as Array<Producto>);
+            this.totalRecords = data['totalElements'];
           });
       }
 
@@ -392,11 +438,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de Producto', 
         detail: ''});
       } else {
-        this.listProductos = [];
+
         this.reporteF7Service.listarProductosByCodLocalCodProducto(0, this.tipoCoberturaSelected.code, this.inputFilter1,
           this.inputFilter2, TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
+            this.datasource = this.createListProducts(data as Array<Producto>);
+            this.totalRecords = data['totalElements'];
           });
 
       }
@@ -409,11 +456,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
           this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
           detail: ''});
           } else {
-          this.listProductos = [];
+
           this.reporteF7Service.listarProductosByDescLinea(0, this.tipoCoberturaSelected.code, this.filterCombo1Selected.name,
             TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data['content'];
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements'];
           });
         }
 
@@ -428,11 +476,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
         detail: ''});
       } else {
-        this.listProductos = [];
+
         this.reporteF7Service.listarProductosByCodLocalDescLinea(0, this.tipoCoberturaSelected.code, this.inputFilter1,
            this.filterCombo2Selected.name, TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data['content'];
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements'];
           });
       }
       }
@@ -442,11 +491,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código SAP', 
         detail: ''});
       } else{
-        this.listProductos = [];
+
         this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1,
           TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data as Array<Producto>;
+            this.datasource = this.createListProducts(data as Array<Producto>);
+            this.totalRecords = data['totalElements'];
           });
       }
       }
@@ -458,12 +508,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         detail: 'Seleccione al menos un grupo'});
 
       } else {
-        this.listProductos = [];
+
         this.reporteF7Service.listarProductosByJerarquias(0, this.tipoCoberturaSelected.code,
           this.filterCombo1Selected.name, this.filterCombo2Selected.name, TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data['content'];
-            console.log('this.listProductos:', data);
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements'];
           });
 
       }
@@ -474,15 +524,23 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar nombre Analista ASR', 
         detail: ''});
       } else {
-        this.listProductos = [];
+
         this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1,
           TypeReporte.NO_COBERTURADO).subscribe(
           data => {
-            this.listProductos = data['content'];
+            this.datasource = this.createListProducts(data['content']);
+            this.totalRecords = data['totalElements']
           });
       }
 
       }
+
+      setTimeout(() => {
+        if (this.datasource) {
+            this.listProductos = this.datasource.slice(pageNumber);
+            this.loading = false;
+        }
+    }, 1000);
   }
 
   onFileUpload(data: { files: File }): void {

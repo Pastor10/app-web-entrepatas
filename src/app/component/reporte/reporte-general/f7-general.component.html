@@ -8,7 +8,7 @@
                                 <label for="dropdown">Indice F7</label>
                         </div>
                         <div class="ui-g-2 ui-md-2">
-                            <p-dropdown [options]="dataListaTipoCoberturaSugerida" [(ngModel)]="tipoCoberturaSelected" 
+                            <p-dropdown [options]="dataListaTipoCoberturaSugerida"  [(ngModel)]="tipoCoberturaSelected" 
                                     placeholder="TODAS" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>        
                         </div>
 
@@ -20,7 +20,7 @@
                                 placeholder="NINGUNO" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>  
                         </div>
                         <div class="ui-g-2 ui-md-2" >
-                            <button pButton  label="Aceptar" (click)="buscarProductosXFiltros()"  style="background: #eb0000;color: white;"></button>
+                            <button pButton  label="Aceptar" (click)="refreshTable()"  style="background: #eb0000;color: white;"></button>
                         </div>
 
                 </div>
@@ -58,8 +58,8 @@
 
             </div>
             
-            <p-table [columns]="cols" [value]="listProductos" [totalRecords]="totalRecords"   [scrollable]="true" selectionMode="single" dataKey="vin"  
-                     [paginator]="true" [rows]="perPage" 
+            <p-table #dt [columns]="cols" [value]="datasource" [totalRecords]="totalRecords"   [scrollable]="true" selectionMode="single" dataKey="id"  
+                     [paginator]="true" [rows]="perPage" [lazy]="true" (onLazyLoad)="buscarProductosXFiltros($event)" 
                      [responsive]="true"  
                      paginatorPosition="bottom"   >
                 

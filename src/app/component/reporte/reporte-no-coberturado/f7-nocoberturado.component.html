@@ -20,7 +20,7 @@
                                 placeholder="NINGUNO" optionLabel="name" (onChange)="onChangeFilter()"></p-dropdown>  
                         </div>
                         <div class="ui-g-2 ui-md-2" >
-                            <button pButton  label="Aceptar" (click)="buscarProductosXFiltros()"  style="background: #eb0000;color: white;"></button>
+                            <button pButton  label="Aceptar" (click)="refreshTable()"  style="background: #eb0000;color: white;"></button>
                         </div>
 
                 </div>
@@ -58,8 +58,8 @@
 
             </div>
             
-            <p-table [columns]="cols" [value]="listProductos" [scrollable]="true" selectionMode="single" dataKey="vin"  
-                     [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" >
+            <p-table #dt [columns]="cols" [value]="datasource" [scrollable]="true" selectionMode="single" dataKey="vin"  
+                     [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="buscarProductosXFiltros($event)"  >
                 
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>
