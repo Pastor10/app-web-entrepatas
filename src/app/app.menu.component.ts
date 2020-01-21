@@ -2,6 +2,9 @@ import {Component, Input, OnInit, EventEmitter, ViewChild} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {MenuItem} from 'primeng/primeng';
 import {AppComponent} from './app.component';
+import { UsuarioService } from './shared/service/usuario.service';
+import { UsuarioPerfilService } from './shared/service/usuarioPerfil.service';
+import { AppConstant } from './shared/constant/app.constant';
 
 @Component({
     selector: 'app-menu',
@@ -21,42 +24,85 @@ export class AppMenuComponent implements OnInit {
     layout = 'blue';
 
     version = 'v3';
+    
+    public tkn;
+    public pl;
+ 
 
-    constructor(public app: AppComponent) {}
+    constructor(public app: AppComponent, public usuarioPerfilService: UsuarioPerfilService) {}
 
     ngOnInit() {
-        this.model = [
+        let arrayOptions = [
             {
-                label: 'Administrador', icon: 'fa fa-fw  fa-tags',
+                label: 'Administrador',
+                icon: 'fa fa-fw  fa-tags',
                 items: [
                     {
                         label: 'Usuarios',
                         icon: 'fa fa-users',
-                        routerLink: ['/main/usuarios']
+                        routerLink: ['/main/usuarios'],
+                        role: 'ROLE_USER',
+                        state: false
                     },
                     {
                         label: 'Perfiles',
                         icon: 'fa fa-user',
-                        routerLink: ['/main/perfiles']
+                        routerLink: ['/main/perfiles'],
+                        role:'ROLE_PERFIL',
+                        state: false
                     }
                 ]
             },
             {
-                label: 'Reportes', icon: 'fa fa-fw fa-bars',
+                label: 'Reportes', 
+                icon: 'fa fa-fw fa-bars',
                 items: [
                     {label: 'Reporte general',
                     icon: 'fa fa-list-alt',
-                    routerLink: ['/main/reporteF7-general']
+                    routerLink: ['/main/reporteF7-general'],
+                    role:'ROLE_REPORTE',
+                    state: false
                     },
                     {label: 'Reporte no coberturado',
                      icon: 'fa fa-list-alt', 
-                     routerLink: ['/main/reporteF7-no-coverturado']
+                     routerLink: ['/main/reporteF7-no-coverturado'],
+                     role:'ROLE_REPORTE_NO_COBERTURADO',
+                     state: false
                     }
                 ]
             }
 
         ];
+this.createOptions(arrayOptions);
     }
+
+   createOptions(arrayOptions){
+    this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
+    this.pl = JSON.parse(this.tkn.sub);
+     let email = this.pl.email;
+     this.usuarioPerfilService.getFindByEmail(email).subscribe(
+        data => { 
+        for(let i= 0; i < arrayOptions.length; i++){
+        for(let x = 0; x < arrayOptions[i].items.length; x++){
+        for(let a= 0; a < data.perfil.roles.length; a++){
+         if(arrayOptions[i].items[x].role === data.perfil.roles[a].name){
+            arrayOptions[i].items[x].state = true;
+         }}}}
+        for(let i= 0;i < arrayOptions.length; i++){
+            arrayOptions[i].items = arrayOptions[i].items.filter(function( obj ) {
+                return obj.state == true;});}
+        arrayOptions = arrayOptions.filter(function( obj ) {
+            return obj.items.length > 0;});
+        this.model = arrayOptions;
+        },
+        error => {
+          const errorMessage =
+            error.message != undefined
+              ? error.message
+              : 'No se pudo procesar la petición';
+        }
+      );
+   }
 
     changeTheme(theme: string) {
         const themeLink: HTMLLinkElement = document.getElementById('theme-css') as  HTMLLinkElement;

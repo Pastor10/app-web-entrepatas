@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ConfirmationService, MessageService, LazyLoadEvent} from 'primeng/api';
 import {Store} from '@ngxs/store';
 import { AuthService } from 'src/app/shared/service/auth.service';
-import { UsuarioService } from 'src/app/shared/service/usuario.service';
+import { UsuarioPerfilService } from 'src/app/shared/service/usuarioPerfil.service';
 import { Perfil } from 'src/app/shared/model/perfil.model';
 import { User } from 'src/app/shared/model/User.model';
 import { UserPerfil } from 'src/app/shared/model/UserPerfil';
@@ -96,7 +96,7 @@ export class UsuariosComponent implements OnInit {
                 private loginService: AuthService,
                 private confirmationService: ConfirmationService,
                 private messageService: MessageService,
-                private store: Store, public usuarioService: UsuarioService) {
+                private store: Store, public usuarioPerfilService: UsuarioPerfilService) {
     }
 
     ngOnInit() {
@@ -131,7 +131,7 @@ export class UsuariosComponent implements OnInit {
     public loadUsers() {
         console.log('load user ' );
         this.listaUsuarios = [];
-        this.usuarioService.getUsers().subscribe(
+        this.usuarioPerfilService.getUsers().subscribe(
           data => { 
             this.listaUsuariosPerfil = <UserPerfil[]>data;
             let arrayUser = [];
