@@ -139,7 +139,6 @@ export class ProfilesComponent implements OnInit {
 
              this.listProfile.push(profile);
             }
-          //  console.log(this .listProfile);
           },
           error => {
             const errorMessage =

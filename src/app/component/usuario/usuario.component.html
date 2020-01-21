@@ -1,3 +1,4 @@
+<p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
 <p-card>
     <p-panel [style]="{'margin-bottom':'20px'}">
         <p-header>
@@ -11,7 +12,7 @@
                             <h5 class="label-custom" for="nombres">Nombres y Apellidos (*)</h5>
                         </div>
                         <div class="ui-g-12 ui-md-4">
-                            <input style="width: 100%; margin-bottom: 0.2em" formControlName="nombres"  id="nombres" type="text" pInputText/>
+                            <input style="width: 100%; margin-bottom: 0.2em" formControlName="nombres"  id="nombres" type="text" readonly  pInputText/>
                             <p-message *ngIf="nombres.touched && nombres.errors?.required" severity="error" text="Ingrese nombres"></p-message>
                         </div>
 
@@ -19,7 +20,7 @@
                             <h5 class="label-custom" for="email">Email (*)</h5>
                         </div>
                         <div class="ui-g-12 ui-md-4">
-                            <input style="width: 100%; margin-bottom: 0.2em" placeholder="Usuario del sistema" formControlName="email"  id="email" type="text" pInputText/>
+                            <input style="width: 100%; margin-bottom: 0.2em" placeholder="Usuario del sistema" formControlName="email" readonly   id="email" type="text" pInputText/>
                             <p-message *ngIf="email.touched && email.errors?.required" severity="error" text="Ingrese email"></p-message>
                             <p-message *ngIf="email.touched && email.errors?.email" severity="error" text="Ingrese un email válido"></p-message>
                         </div>
@@ -28,7 +29,7 @@
                             <h5 class="label-custom" for="perfil">Perfil (*)</h5>
                         </div>
                         <div class="ui-g-12 ui-md-4">
-                            <p-dropdown dataKey="id" [style]="{'width':'100%'}" [options]="listaPerfiles" formControlName="perfil"  placeholder="Seleccione..." optionLabel="nombre" [showClear]="true" id="perfil"></p-dropdown>
+                            <p-dropdown  [style]="{'width':'100%'}" [options]="listaPerfiles" formControlName="perfil"  placeholder="Seleccione..." ></p-dropdown>
                             <p-message *ngIf="perfil.touched && perfil.errors?.required" severity="error" text="Seleccione un perfil"></p-message>
                         </div>
 

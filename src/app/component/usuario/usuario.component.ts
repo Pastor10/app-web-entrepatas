@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService, MessageService, SelectItem} from 'primeng/api';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngxs/store';
 import { AuthService } from 'src/app/shared/service/auth.service';
-import { UsuarioService } from 'src/app/shared/service/usuario.service';
+import { UsuarioPerfilService } from 'src/app/shared/service/usuarioPerfil.service';
 import { Perfil } from 'src/app/shared/model/perfil.model';
 import { PerfilService } from 'src/app/shared/service/perfil.service';
 import { User } from 'src/app/shared/model/User.model';
-
+import { UserPerfil } from 'src/app/shared/model/UserPerfil';
 
 @Component({
     selector: 'app-usuario',
@@ -19,29 +19,24 @@ export class UsuarioComponent implements OnInit {
 
     isEdit: boolean;
     modelForm: FormGroup;
-    model: User;
-    public listaPerfiles: Perfil[];
-    
-
-
+    model: UserPerfil;
+    public listaPerfiles : SelectItem[];
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private messageService: MessageService,
                 private loginService: AuthService,
                 private confirmationService: ConfirmationService,
                 public fb: FormBuilder,
-                private store: Store, public perfilService: PerfilService, public userService: UsuarioService) {
+                private store: Store, public perfilService: PerfilService, public usuarioPerfilService: UsuarioPerfilService) {
 
     }
 
     ngOnInit() {
         this.getPerfil();
         this.builderForm();
+        this.loadModel();
 
     }
-
-
-    // Reactive student form
     builderForm() {
         this.modelForm = this.fb.group({
             nombres: ['', [Validators.required]],
@@ -90,12 +85,19 @@ export class UsuarioComponent implements OnInit {
     get linkVolver() {
             return '/usuarios';
     }
-
+    
     getPerfil() {
         this.perfilService.getAll().subscribe(
             data => {
-              this.listaPerfiles = <Perfil[]>data;
-              console.log('this.listPerfil ', this.listaPerfiles );
+              let arrayPerfiles = <Perfil[]>data;
+              let array= [];
+            for(let i=0; i < arrayPerfiles.length; i++){
+                array.push({
+                  label:arrayPerfiles[i].nombre,
+                  value:arrayPerfiles[i].idPerfil
+                });
+            }
+              this.listaPerfiles = <SelectItem[]>array;
             },
             error => {
               this.listaPerfiles = [];
@@ -103,54 +105,59 @@ export class UsuarioComponent implements OnInit {
                 error.message != undefined
                   ? error.message
                   : 'No se pudo procesar la petición';
-              //this.alertService.danger(errorMessage);
             }
           );
     }
 
-   /* loadModel() {
-            this.route.params.subscribe(p => {
-                const id = p['id'];
-                this.usuarioService.findById(id).subscribe(data => {
-                    if (data) {
-                        this.model = data;
-                        this.modelToForm(data);
-                    }
-                });
-            });
-    }*/
 
     formToModel(): void {
-        this.model.fullName = this.modelForm.value.nombres;
-        this.model.email = this.modelForm.value.email;
-        this.model.type = this.modelForm.value.perfil;
-
-        console.log(this.model.fullName);
-        console.log(this.model.email);
-        console.log(this.model.type);
-
+        this.model.user.fullName = this.modelForm.value.nombres;
+        this.model.user.email = this.modelForm.value.email;
+        this.model.perfil.idPerfil = this.modelForm.value.perfil;
     }
-
+    showMsg( type: string, msg: string, title: string = 'Atención') {
+        this.messageService.add( { key: 'tst', severity: type, summary: title, detail: msg } );
+    }
     submitForm() {
+        let message;
         this.formToModel();
-
-        this.userService.save(this.model).subscribe(
-            data => {
-              this.listaPerfiles = <Perfil[]>data;
-              this.messageService.add({severity: 'success', summary: 'Mensaje', detail: "Se actualizao el registro"});
-              console.log('this.listPerfil ', this.listaPerfiles );
-              this.router.navigateByUrl(this.linkVolver);
-            },
-            error => {
-              this.listaPerfiles = [];
-              const errorMessage =
-                error.message != undefined
-                  ? error.message
-                  : 'No se pudo procesar la petición';
-              //this.alertService.danger(errorMessage);
-            }
-          );
+        this.usuarioPerfilService.update(this.model).then((res) => {
+            if (res != null) {
+                message = 'Usuario actualizado correctamente.';
+                this.showMsg('success',message);
+                var root = this;
+                setTimeout(function(){
+                  root.router.navigateByUrl('main/usuarios');
+              },2500)
+            } 
+            })
 
     }
+    
+    modelToForm(model: UserPerfil): void {
+        this.modelForm.patchValue({
+            nombres: model.user.fullName,
+            email:model.user.email,
+            perfil:model.perfil.idPerfil
+
+        });
+    }
+
+    loadModel() {
+                this.route.params.subscribe(p => {
+                    const id = p['id'];
+                    if(id != undefined){
+                    this.isEdit = true;
+                    this.usuarioPerfilService.getById(id)
+                    .subscribe(data => {
+                        if (data) {
+                            this.model =<UserPerfil>data;
+                            this.modelToForm(<UserPerfil>data);
+
+                        }
+                    });
+                }
+                });
+        }
 
 }

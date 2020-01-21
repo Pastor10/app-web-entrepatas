@@ -117,6 +117,7 @@ import { ProfileService } from './shared/service/profile.service';
 import { ProfilesComponent } from './component/profiles/profiles.component';
 import { ProfileComponent } from './component/perfil/profile.component';
 import { RoleService } from './shared/service/role.service';
+import { UsuarioPerfilService } from './shared/service/usuarioPerfil.service';
 
 
 
@@ -246,7 +247,8 @@ import { RoleService } from './shared/service/role.service';
         UsuarioService,
         PerfilService,
         ProfileService,
-        RoleService
+        RoleService,
+        UsuarioPerfilService
     ],
     bootstrap: [AppComponent]
 })
