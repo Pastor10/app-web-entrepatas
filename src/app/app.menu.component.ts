@@ -48,7 +48,7 @@ export class AppMenuComponent implements OnInit {
                         label: 'Perfiles',
                         icon: 'fa fa-user',
                         routerLink: ['/main/perfiles'],
-                        role:'ROLE_PERFIL',
+                        role: 'ROLE_PERFIL',
                         state: false
                     }
                 ]

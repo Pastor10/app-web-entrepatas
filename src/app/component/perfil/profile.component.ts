@@ -35,15 +35,19 @@ export class ProfileComponent implements OnInit {
      ngOnInit() {
        this.loadRole();
     }
+    
     public loadRole(){
-        this.roleService.getAll().subscribe(
+      //  var root = this;
+      
+            this.roleService.getAll().subscribe(
           data => {
             this.listRoles = <Role[]>data;
             let i = 0;
             this.listRoles.forEach(rol => {
                // let roleName = rol.name.toLowerCase();
-                this.roles[i++] = {name: rol.name, status: false, id: rol.id};
+               this.roles[i++] = {name: rol.name, status: false, id: rol.id};
             });
+            
             this.builderForm();
             this.loadModel();
           },
@@ -54,6 +58,7 @@ export class ProfileComponent implements OnInit {
                 : 'No se pudo procesar la petición';
           }
         );
+ 
       }
       builderForm() {
         const controls = this.roles.map(c => new FormControl(false));
@@ -146,9 +151,6 @@ export class ProfileComponent implements OnInit {
             });
         }
         loadModel() {
-        //     this.isEdit = this.route.snapshot.data.isEdit;
-           // this.isEdit = true;
-          //  if (this.isEdit) {
                 this.route.params.subscribe(p => {
                     const id = p['id'];
                     if(id != undefined){
@@ -161,7 +163,7 @@ export class ProfileComponent implements OnInit {
                             this.modelToForm(<Perfil>data);
                             this.clearRoles();
                             this.model.roles.forEach((rolA) => {
-                                this.roles.forEach((rolB) => {
+                            this.roles.forEach((rolB) => {
                                     if (rolA.name.localeCompare(rolB.name) == 0) {
                                         rolB.status = true;
                                     }
@@ -171,7 +173,6 @@ export class ProfileComponent implements OnInit {
                     });
                 }
                 });
-            //}
         }
 
 

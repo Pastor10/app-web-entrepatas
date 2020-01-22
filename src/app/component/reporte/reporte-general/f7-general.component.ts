@@ -120,9 +120,8 @@ export class ReporteF7GeneralComponent implements OnInit {
 
     getIP() {
       this.ip.getIPAddress().subscribe((res: any) => {
-        this.ipAddress = res.ip;
+        this.ipAddress = res;
       });
-      
     }
 
   public onChangeFilter() {
@@ -387,7 +386,6 @@ export class ReporteF7GeneralComponent implements OnInit {
     this.loading = true;
     this.lastLazyLoadEvent = event;
     const pageNumber = event.first / this.perPage;
-    console.log('pageNumberv ', pageNumber);
     //this.listarProductosDefault(pageNumber);
     if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0'){
       this.reporteF7Service.listarProductosCoverage(pageNumber).subscribe(
@@ -561,7 +559,6 @@ export class ReporteF7GeneralComponent implements OnInit {
     setTimeout(() => {
       if (this.datasource) {
           this.listProductos = this.datasource.slice(pageNumber);
-          console.log('listProductos ', this.listProductos);
           this.loading = false;
       }
   }, 1000);
