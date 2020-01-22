@@ -15,3 +15,4 @@ COPY docker/nginx/nginx.conf /etc/nginx/
 COPY docker/nginx/f7.conf /etc/nginx/conf.d/
 # Se copian los ficheros hacia la carpeta de nginx
 COPY dist/fps-app-web-f7 /var/www/html/fps-app-web-f7
+CMD ["root/setup.sh"]
