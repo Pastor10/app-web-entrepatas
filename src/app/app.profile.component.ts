@@ -46,6 +46,7 @@ export class AppProfileComponent {
     public tkn;
     public pl;
     public name;
+    public perfil;
 
     onClick(event) {
         this.active = !this.active;
@@ -56,6 +57,7 @@ export class AppProfileComponent {
        }
 constructor(){
          this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
+         
          this.pl = JSON.parse(this.tkn.sub);
          this.name = this.pl.full_name;
     
