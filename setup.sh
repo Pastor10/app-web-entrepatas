@@ -16,7 +16,7 @@ then
 
     echo "Setting up project $PROFILE"
     echo "backend for dev"
-    sed -i -e 's/localhost:9002/dev.checklistmvpws.solucionesfps.pe/g' /var/www/html/fps-app-web-f7/main.js
+    sed -i -e 's/localhost:9002/f7ws.farmaciasperuanas.pe/g' /var/www/html/fps-app-web-f7/main.js
     echo "filestorage for dev"
     # sed -i -e 's/35.229.116.96:8585/35.229.116.96:8585/g' /var/www/html/app/main.*.js
     nginx -g 'daemon off;'
@@ -26,7 +26,7 @@ then
 
     echo "Setting up project $PROFILE"
     echo "backend for prod"
-    sed -i -e 's/localhost:9002/dev.checklistmvpws.solucionesfps.pe/g' /var/www/html/fps-app-web-f7/main.js
+    sed -i -e 's/localhost:9002/f7ws.farmaciasperuanas.pe/g' /var/www/html/fps-app-web-f7/main.js
     echo "filestorage for prod" 
     # sed -i -e 's/35.229.116.96:8585/35.229.116.96:8585/g' /var/www/html/app/main.*.js
     nginx -g 'daemon off;'
