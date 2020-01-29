@@ -44,8 +44,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.loginResponse = new LoginResponse();
           this.loginResponse = <LoginResponse>data;
           const tkn = AppConstant.DECODE(data["token"]);
-          console.log("EL VALOR DEL TOKEN DESENCRIPTADO: ");
-          console.log(tkn);
           localStorage.setItem('token',JSON.stringify(data["token"]));
           this.router.navigate(['/main']);
         },

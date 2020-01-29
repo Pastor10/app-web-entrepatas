@@ -7,6 +7,7 @@ import { Table } from 'primeng/table';
 import { IpServiceService } from 'src/app/shared/service/ip.service';
 import { TypeReporte } from 'src/app/enums/type-reporte';
 import * as moment from 'moment';
+import { AppConstant } from '../../../shared/constant/app.constant';
 
 @Component({
   selector: 'app-f7-reporte-general',
@@ -50,13 +51,22 @@ export class ReporteF7GeneralComponent implements OnInit {
   totalRecords: number;
   datasource: Producto[];
   loading: boolean;
+  public tkn;
+  public pl;
+  public nameUser;
 
   @ViewChild('dt', { static: true }) public tabla: Table;
 
   constructor(
     public reporteF7Service: ReporteF7Service, public messageService: MessageService,
     private ip: IpServiceService
-  ) { }
+    
+  ) 
+  { this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
+    this.pl = JSON.parse(this.tkn.sub);
+    this.nameUser = this.pl.full_name;
+    console.log('this.nameUser ', this.nameUser);
+ }
 
   ngOnInit() {
 
@@ -578,7 +588,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       const formData: FormData = new FormData();
       const file = data.files[0];
       formData.append('file', file, file.name);
-      formData.append('usuario', 'Luis Pastor');
+      formData.append('usuario', this.nameUser);
       formData.append('ip', this.ipAddress);
       formData.append('motivo', this.motivo);
       this.reporteF7Service.importFromExcel(formData).subscribe(resp => {
