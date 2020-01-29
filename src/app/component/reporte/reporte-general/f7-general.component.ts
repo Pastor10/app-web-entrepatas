@@ -283,6 +283,9 @@ export class ReporteF7GeneralComponent implements OnInit {
   for(let i= 0; i < data.length;i++){
   let product =  data[i];
   product.fecha = this.formatDate(data[i].fecha);
+  if(data[i].fechaModificacion != null){
+    product.fechaModificacion = this.formatDate(data[i].fechaModificacion);
+  }
   arrayProduct.push(product);
   }
   return arrayProduct;
