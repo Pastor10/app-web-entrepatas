@@ -2,11 +2,15 @@
 import {Autority} from './autority.model';
 import {Perfil} from './perfil.model';
 
-export interface User {
-id:Number;
-email:string;
-fullName:string;
-enabled:boolean;
-deleted:boolean;
-type:string;
+export class User {
+    constructor(
+        public id?: number,
+        public email?: string,
+        public fullname?: string,
+        public enabled?: boolean,
+        public deleted?: boolean,
+        public type?: string,
+        public user_type?: string,
+        public profileEntity?: Perfil
+    ) {}
 }

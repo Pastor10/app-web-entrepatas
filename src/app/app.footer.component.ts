@@ -8,11 +8,7 @@ import {AppComponent} from './app.component';
             <span class="footer-text-left">
                 DERECHOS RESERVADOS
             </span>
-            <span class="footer-text-right">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-github"></i></a>
-            </span>
+
         </div>
     `
 })

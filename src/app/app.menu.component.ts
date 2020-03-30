@@ -3,7 +3,6 @@ import {trigger, state, style, transition, animate} from '@angular/animations';
 import {MenuItem} from 'primeng/primeng';
 import {AppComponent} from './app.component';
 import { UsuarioService } from './shared/service/usuario.service';
-import { UsuarioPerfilService } from './shared/service/usuarioPerfil.service';
 import { AppConstant } from './shared/constant/app.constant';
 
 @Component({
@@ -29,12 +28,12 @@ export class AppMenuComponent implements OnInit {
     public pl;
  
 
-    constructor(public app: AppComponent, public usuarioPerfilService: UsuarioPerfilService) {}
+    constructor(public app: AppComponent, public usuarioService: UsuarioService) {}
 
     ngOnInit() {
         let arrayOptions = [
             {
-                label: 'Administrador',
+                label: 'Configuración',
                 icon: 'fa fa-fw  fa-tags',
                 items: [
                     {
@@ -73,19 +72,24 @@ export class AppMenuComponent implements OnInit {
             }
 
         ];
-this.createOptions(arrayOptions);
+        this.createOptions(arrayOptions);
     }
 
    createOptions(arrayOptions){
     this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
     this.pl = JSON.parse(this.tkn.sub);
-     let email = this.pl.email;
-     this.usuarioPerfilService.getFindByEmail(email).subscribe(
-        data => { 
+    let email = this.pl.email;
+    this.usuarioService.getFindByEmail(email).subscribe(
+        data => {
+            console.log(data);
+            
+            localStorage.setItem('perfil', JSON.stringify(data.profileEntity.nombre));
+            
+            
         for(let i= 0; i < arrayOptions.length; i++){
         for(let x = 0; x < arrayOptions[i].items.length; x++){
-        for(let a= 0; a < data.perfil.roles.length; a++){
-         if(arrayOptions[i].items[x].role === data.perfil.roles[a].name){
+        for(let a= 0; a < data.profileEntity.roles.length; a++){
+         if(arrayOptions[i].items[x].role === data.profileEntity.roles[a].name){
             arrayOptions[i].items[x].state = true;
          }}}}
         for(let i= 0;i < arrayOptions.length; i++){
@@ -94,6 +98,7 @@ this.createOptions(arrayOptions);
         arrayOptions = arrayOptions.filter(function( obj ) {
             return obj.items.length > 0;});
         this.model = arrayOptions;
+        
         },
         error => {
           const errorMessage =

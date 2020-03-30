@@ -5,7 +5,7 @@ import {timeoutWith} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
-import { User } from '../model/User.model';
+import { Perfil } from '../model/perfil.model';
 
 @Injectable()
 export class ProfileService {
@@ -21,23 +21,21 @@ export class ProfileService {
   }
 
   getFindId(id) {
-    return this.http.get(this.baseUrl + 'findById/'+ id).pipe(
+    return this.http.get(this.baseUrl + 'findById/' + id).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-  create(data){
-    return this.http.post<any>(this.baseUrl + 'create',  data).
-    toPromise().then(res => res).then(data => data);
-  }
-  update(data){
-    return this.http.post<any>(this.baseUrl + 'update',  data).
-    toPromise().then(res => res).then(data => data);
-  }
-  delete(data){
-  return this.http.get<any>(this.baseUrl + 'delete/'+data).
-  toPromise().then(res => res).then(data => data);
+  delete(id) {
+    return this.http.get(this.baseUrl + 'delete/' + id);
   }
 
+  save(o: Perfil) {
+    if (o.idPerfil == undefined) {
+      return this.http.post(this.baseUrl + 'create', o);
+    } else {
+      return this.http.post(this.baseUrl + 'update', o);
+    }
+  }
 
 }

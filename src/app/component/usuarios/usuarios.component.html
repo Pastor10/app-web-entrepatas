@@ -1,62 +1,156 @@
-<p-card>
+
+<p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+      <div style="text-align: center">
+          <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+          <h3>{{message.summary}}</h3>
+          <input type="hidden" [(ngModel)]="data">
+          <p>{{message.detail}}</p>
+      </div>
+      <div class="ui-g ui-fluid">
+          <div class="ui-g-6">
+              <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
+          </div>
+          <div class="ui-g-6">
+              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+          </div>
+      </div>
+  </ng-template>
+</p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<div class="ui-g">
+  <div class="ui-g-12 ui-lg-9">
     <p-panel [style]="{'margin-bottom':'20px'}">
-            <p-header>
-                    <span  class="ui-panel-title">Usuarios</span>
-                </p-header>
+      <p-header>
+        <span  class="ui-panel-title">Usuarios</span>
+      </p-header>
 
+      <!-- loader -->
+      <!-- <div style="text-align:center" *ngIf="loadingResult;">
+          <p>Espere un momento</p>
+          <p-progressSpinner></p-progressSpinner>
+      </div> -->
+      <!-- loader -->
+
+      <p-table #dt [columns]="cols" [value]="listaUsuariosApp"  dataKey="idDirectorio"
+        [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
+        
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+            <col style="width: 150px" > <!--check -->
+          </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns let-pro>
+          <tr>
+            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="width:15em" id="">Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+              <span *ngIf="col.field=='profile'; else elseProfile">
+                {{rowData.profileEntity.nombre}}
+              </span>
+              <ng-template #elseProfile>
+                <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
+              </ng-template>
+              
+              
+            </td>
+            <td style="text-align: center">
+              <a *ngIf="rowData.enabled==true" (click)="doAction(rowData, 'state');">
+                <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Desactivar"></button>
+              </a>
+              <a *ngIf="rowData.enabled==false" (click)="doAction(rowData, 'state');">
+                <button  pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons" tooltip="Activar" style="background-color: #a09898;"></button>
+              </a> &nbsp;
+              <a (click)="doAction(rowData, 'edit');"  class="hand">
+                <button  pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons" tooltip="Editar"></button>
+              </a> &nbsp;
+              <a (click)="showConshowConfirmDeletefirm(rowData)"  class="hand">
+                <button  pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons" tooltip="Eliminar"></button>
+              </a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+  </p-panel>
+  </div>
+
+  <div class="ui-g-12 ui-lg-3">
+      <!-- Left Side -->
+      <div class="card card-w-title">
         <div class="ui-g">
-            <div class="ui-g-12">
-                <p-table #dt [columns]="cols" [value]="listaUsuarios" [lazy]="true" 
-                         [paginator]="true"
-                         [rows]="perPage" [totalRecords]="totalRecords"
-                         dataKey="id"
-                         [responsive]="true"
-                         [autoLayout]="true">
-
-
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                {{col.header}}
-                                <p-sortIcon *ngIf="!col.isActions" [field]="col.field" ariaLabel="Activa para ordenar"
-                                            ariaLabelDesc="Activa para ordenar en orden descendente"
-                                            ariaLabelAsc="Activa para ordenar en orden ascendente"></p-sortIcon>
-                            </th>
-                            <th style="text-align: center">
-                                <div style="text-align: center">
-                                    <span class="ui-column-title">Acciones</span>
-                                </div>
-                              </th>
-                        </tr>
-
-                    </ng-template>
-
-                    <ng-template pTemplate="body" let-rowData let-columns="columns">
-                        <tr [pSelectableRow]="rowData">
-                            <td *ngFor="let col of columns" class="ui-resizable-column">
-                              <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
-                            </td>
-                            <td style="text-align: center">
-                                <div style="text-align: center">
-                                    <span class="ui-column-title">Acciones</span>
-                                    <button  style="margin-right: 0.2rem; margin-left: 0.2rem;"[routerLink]="['/main/usuarios/editar',rowData['id']]" pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Actualizar, Eliminar"></button>
-                                </div>
-                              </td>
-                          </tr>
-                    </ng-template>
-<!-- 
-                    <ng-template pTemplate="summary" let-rowData>
-                        <div style="text-align:left">
-                            <button style="margin-right: 0.2rem;" type="button" pButton icon="fa fa-plus"  label="Nuevo" [routerLink]="['/main/usuarios/nuevo']" routerLinkActive="router-link-active" ></button>
-                        </div>
-                    </ng-template>
--->
-                </p-table>
-
-            </div>
+          <div class="ui-g-12">
+          <h1>Agregar / Editar usuarios</h1>
+          </div>
         </div>
 
-    </p-panel>
-</p-card>
 
+        <!-- loader -->
+        <!-- <div style="text-align:center" *ngIf="loading;">
+            <p>Espere un momento</p>
+            <p-progressSpinner></p-progressSpinner>
+        </div> -->
+        <!-- loader -->
 
+        <form  (ngSubmit)="save()" >
+            <input [(ngModel)]="id" name="id" type="hidden" pInputText/>
+        <div class="ui-g ">
+            <div class="row ui-g-12" >
+                    <!-- <p-dropdown  name="emailSelected" field="email"
+                    [options]="listaUsuarios" [(ngModel)]="emailSelected" optionLabel="email" 
+                    filter="true" (onChange)="findEmail()" (completeMethod)="filterListTypeDriver($event)">
+                    </p-dropdown> -->
+
+                      <p-autoComplete [(ngModel)]="emailSelected" [suggestions]="listFilterUser"  field="email"
+                      name="emailSelected" (ngModelChange)="findEmail()" (completeMethod)="filterListEmail($event)" [size]="15"
+                      [minLength]="1" placeholder="Seleccionar email" [dropdown]="true">
+                
+                      </p-autoComplete>
+
+            </div>
+            
+            <div class="row ui-g-12" >
+                    <input   mdbInputDirective type="text" id="nombre" class="form-control"
+                    [(ngModel)]="nombre" name="nombre" pInputText placeholder="Nombre" disabled>
+            </div>
+            <div class="row ui-g-12" >
+                    <input   mdbInputDirective type="text" id="tipo" name="tipo"  class="form-control"
+                    [(ngModel)]="tipo" pInputText placeholder="Tipo" disabled>
+               
+            </div>
+            <div class="row ui-g-12" >
+                <!-- <div class="ui-g-2 ui-md-4">
+                    <p-dropdown placeholder="Seleccionar Perfil" name="perfilSelected" [options]="listaPerfil" [(ngModel)]="perfilSelected" optionLabel="nombre" >
+                    </p-dropdown>
+                </div> -->
+                <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
+                      name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
+                      [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" >
+                
+                  </p-autoComplete>
+            </div>
+            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected"></p-checkbox></div>
+            </div>
+              <div class="ui-g-12 ui-md-6">
+                  <button pButton  label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
+              </div>
+              <div class="ui-g-12 ui-md-6">
+                <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary" (click)="limpiarData()"></button>
+              </div>
+
+        </div>
+        </form>
+      </div>
+      <!-- {{theForm.value | json}} -->
+  </div>
+</div>

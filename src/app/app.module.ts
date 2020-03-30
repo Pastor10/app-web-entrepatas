@@ -79,26 +79,8 @@ import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
 import {AppTopBarComponent} from './app.topbar.component';
 import {AppFooterComponent} from './app.footer.component';
 import {AppProfileComponent} from './app.profile.component';
-import {DashboardDemoComponent} from './demo/view/dashboarddemo.component';
-import {SampleDemoComponent} from './demo/view/sampledemo.component';
-import {FormsDemoComponent} from './demo/view/formsdemo.component';
-import {DataDemoComponent} from './demo/view/datademo.component';
-import {PanelsDemoComponent} from './demo/view/panelsdemo.component';
-import {OverlaysDemoComponent} from './demo/view/overlaysdemo.component';
-import {MenusDemoComponent} from './demo/view/menusdemo.component';
-import {MessagesDemoComponent} from './demo/view/messagesdemo.component';
-import {MiscDemoComponent} from './demo/view/miscdemo.component';
-import {EmptyDemoComponent} from './demo/view/emptydemo.component';
-import {ChartsDemoComponent} from './demo/view/chartsdemo.component';
-import {FileDemoComponent} from './demo/view/filedemo.component';
-import {UtilsDemoComponent} from './demo/view/utilsdemo.component';
-import {DocumentationComponent} from './demo/view/documentation.component';
-import {NgxsModule} from '@ngxs/store';
 
-import {CarService} from './demo/service/carservice';
-import {CountryService} from './demo/service/countryservice';
-import {EventService} from './demo/service/eventservice';
-import {NodeService} from './demo/service/nodeservice';
+import {NgxsModule} from '@ngxs/store';
 import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
 import { ReporteF7Service } from './shared/service/reporteF7.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -107,17 +89,15 @@ import { AuthService } from './shared/service/auth.service';
 import { LocalStorageService } from './shared/service/localstorage.service';
 import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { UsuarioService } from './shared/service/usuario.service';
-import { UsuarioComponent } from './component/usuario/usuario.component';
+
 import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 import { AppMainComponent } from './app.main.component';
 import { TokenInterceptor } from './config/tokenInterceptor.service';
-import { PerfilService } from './shared/service/perfil.service';
+
 
 import { ProfileService } from './shared/service/profile.service';
 import { ProfilesComponent } from './component/profiles/profiles.component';
-import { ProfileComponent } from './component/perfil/profile.component';
 import { RoleService } from './shared/service/role.service';
-import { UsuarioPerfilService } from './shared/service/usuarioPerfil.service';
 
 
 
@@ -205,27 +185,10 @@ import { UsuarioPerfilService } from './shared/service/usuarioPerfil.service';
         AppTopBarComponent,
         AppFooterComponent,
         AppProfileComponent,
-        DashboardDemoComponent,
-        SampleDemoComponent,
-        FormsDemoComponent,
-        DataDemoComponent,
-        PanelsDemoComponent,
-        OverlaysDemoComponent,
-        MenusDemoComponent,
-        MessagesDemoComponent,
-        MessagesDemoComponent,
-        MiscDemoComponent,
-        ChartsDemoComponent,
-        EmptyDemoComponent,
-        FileDemoComponent,
-        UtilsDemoComponent,
-        DocumentationComponent,
         ReporteF7GeneralComponent,
         LoginComponent,
         UsuariosComponent,
-        UsuarioComponent,
         ReporteF7NoCoberturadoComponent,
-        ProfileComponent,
         ProfilesComponent
     ],
     providers: [
@@ -235,20 +198,14 @@ import { UsuarioPerfilService } from './shared/service/usuarioPerfil.service';
             useClass: TokenInterceptor,
             multi: true
         },
-        CarService,
-        CountryService,
-        EventService,
-        NodeService,
         ReporteF7Service,
         MessageService,
         AuthService,
         LocalStorageService,
         ConfirmationService,
         UsuarioService,
-        PerfilService,
         ProfileService,
-        RoleService,
-        UsuarioPerfilService
+        RoleService
     ],
     bootstrap: [AppComponent]
 })

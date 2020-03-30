@@ -13,6 +13,43 @@ import { User } from '../model/User.model';
 export class UsuarioService {
   constructor(private http: HttpClient) {
   }
+  baseUrl: string = environment.END_POINT + 'api/user/';
+  apiUserAplicacion = 'http://dev.projectmanagerws.solucionesfps.pe/user/findUserByEmailAndApp/Ajustes de parametros';
 
+
+  listarUsuariosAplicacion() {
+    return this.http.get(this.apiUserAplicacion).
+    pipe(timeoutWith(environment.TIMEOUT, observableThrowError(
+          new Error('Tiempo de respuesta excedido, intente nuevamente'))));
+  }
+
+  getFindByEmail(data) {
+    return this.http.get<any>(this.baseUrl + 'getUserPerfil/'+ data).pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
+  getUsers() {
+    return this.http.get(this.baseUrl + 'getUsers').pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
+
+  save(o: User) {
+      return this.http.post(this.baseUrl + 'create', o).
+      toPromise().then(res => res).then(data => data).catch(err => console.log(err));
+    
+  }
+
+  update(o: User) {
+    return this.http.post(this.baseUrl + 'update', o).
+    toPromise().then(res => res).then(data => data).catch(err => console.log(err)) ;
+  
+}
+
+  delete(id) {
+  return this.http.get(this.baseUrl + 'delete/' + id);
+}
 
 }
