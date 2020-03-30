@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, public localStorageService: LocalStorageService) {
   }
 
-  baseUrl: string = environment.END_POINT + 'login-ad';
+  baseUrl: string = environment.END_POINT + 'api/login-ad';
 
   public login(username: string, password: string) {
     return this.http.post(this.baseUrl, {username: username, password: password}).pipe(
