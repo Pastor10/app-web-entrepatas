@@ -262,7 +262,7 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
   formatDate(date) {
     var d = new Date(date),
     month =  (d.getMonth()),
-    day =  Number(d.getDate()+2),
+    day =  Number(d.getDate()),
     year = d.getFullYear();
     let fecha = new Date(year,month,day);
     return moment(fecha).format('YYYY-MM-DD');
@@ -530,7 +530,7 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
     const hourCurrent = dateCurrent.getHours();
     const minuteCurrent = dateCurrent.getMinutes();
     const secondCurrent = dateCurrent.getSeconds();
-    const dateFormatString = `${anioCurrent}-${monthCurrent}-${dayCurrent} ${dayCurrent}:${minuteCurrent}:${secondCurrent}`;
+    const dateFormatString = `${anioCurrent}-${monthCurrent}-${dayCurrent} ${hourCurrent}:${minuteCurrent}:${secondCurrent}`;
 
     return dateFormatString;
   }
