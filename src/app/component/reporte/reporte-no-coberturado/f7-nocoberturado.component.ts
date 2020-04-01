@@ -45,7 +45,7 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
   motivo: string;
   typeReporte: TypeReporte;
   lastLazyLoadEvent: LazyLoadEvent;
-  perPage = 10;
+  perPage = 20;
   totalRecords: number;
   datasource: Producto[];
   loading: boolean;
@@ -79,35 +79,29 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
     new Item('MEDICAMENTO POPULAR', '4'), new Item('NUTRICION', '5')];
 
     this.cols = [
-      { field: 'fecha', header: 'Fecha' },
-      { field: 'centro', header: 'Centro' },
-      { field: 'codigoLocal', header: 'Cod. Local' },
-      { field: 'descripcionLocal', header: 'Desc. Local' },
-      { field: 'codigoSap', header: 'Cod. SAP' },
-      { field: 'codigoProducto', header: 'Cod. Prod' },
-      { field: 'descprod', header: 'Desc. producto' },
-      { field: 'descripcionProducto', header: 'Desc unid. producto' },
-      { field: 'materialEstado', header: 'Material estado' },
-      { field: 'tipoGrupoExterno', header: 'Grupo externo' },
-      { field: 'jerarquia1', header: 'Jerarquia 1' },
-      { field: 'jerarquia2', header: 'Jerarquia 2' },
-      { field: 'jerarquia3', header: 'Jerarquia 3' },
-      { field: 'leadTime', header: 'Lead time' },
-      { field: 'stock', header: 'Stock' },
-      { field: 'outl', header: 'Outl' },
-      { field: 'iop', header: 'IOP' },
-      { field: 'estado', header: 'Estado' },
-      { field: 'cat', header: 'Cat' },
-      { field: 'weekly', header: 'Weekly' },
-      { field: 'ventaMes0', header: 'Mes 0' },
-      { field: 'ventaMes1', header: 'Mes 1' },
-      { field: 'ventaMes2', header: 'Mes 2' },
-      { field: 'ventaMes3', header: 'Mes 3' },
-      { field: 'ventaMes4', header: 'Mes 4' },
-      { field: 'analistaAsr', header: 'Analista ASR' },
-      { field: 'restriccion', header: 'Restricción' },
-      { field: 'indiceAprobacion', header: 'Indice F7' },
-      { field: 'indiceF7Nuevo', header: 'Nuevo indice F7 ' }
+      { field: 'fecha', header: 'Fecha', width: '100px'  },
+      { field: 'codLocalSap', header: 'Centro' , width: '100px' },
+      { field: 'filialId', header: 'Cod. Local' , width: '100px' },
+      { field: 'local', header: 'Desc. Local' , width: '150px' },
+      { field: 'codSap', header: 'Cod. SAP', width: '100px'  },
+      { field: 'productoId', header: 'Cod. Prod', width: '100px'  },
+      { field: 'deProducto', header: 'Desc. producto', width: '400px'  },
+      { field: 'grupoExterno', header: 'Grupo externo', width: '100px'  },
+      { field: 'jq1', header: 'Jerarquia 1' , width: '150px' },
+      { field: 'jq2', header: 'Jerarquia 2', width: '150px'  },
+      { field: 'jq3', header: 'Jerarquia 3' , width: '250px' },
+      { field: 'leadTimeCd', header: 'Lead time' , width: '50px' },
+      { field: 'stock', header: 'Stock' , width: '50px' },
+      { field: 'outl', header: 'Outl', width: '50px'  },
+      { field: 'iop', header: 'IOP', width: '50px'  },
+      { field: 'estProd', header: 'Estado', width: '50px'  },
+      { field: 'dWeekly', header: 'Weekly' , width: '50px' },
+      { field: 'mes0', header: 'Mes 0' , width: '50px' },
+      { field: 'mes1', header: 'Mes 1' , width: '50px' },
+      { field: 'mes2', header: 'Mes 2' , width: '50px' },
+      { field: 'analistaAsr', header: 'Analista ASR' , width: '100px' },
+      { field: 'observacion', header: 'Observacion' , width: '200px' },
+      { field: 'indF7', header: 'Indice F7', width: '100px'  }
   ];
 
     //this.listarProductosDefault(0);
@@ -278,75 +272,55 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
   exportExcel() {
     const fecha = this.getFecha();
     const params = [];
-    if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0') {
-      this.reporteF7Service.exportToExcelDefault(params.join('&'), -1, fecha);
+    const pageNumber = -1;
+    params.push(`page=${pageNumber}`);
+    params.push(`tipoReporte=${TypeReporte.NO_COBERTURADO}`);
+  
+    if (this.tipoCoberturaSelected.code != '0') {
+      params.push(`indice=${this.tipoCoberturaSelected.name}`);
+  
     }
 
-    if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0') {
-      params.push(`${this.tipoCoberturaSelected.name}`);
-      this.reporteF7Service.exportToExcelTipoCobertura(params.join('/'), -1, TypeReporte.NO_COBERTURADO, fecha);
-    }
     if (this.filtroSelected.code == '1') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.inputFilter1}`);
-      params.push(-1);
-      params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodLocal(params.join('/'), fecha);
+        params.push(`codLocal=${this.inputFilter1}`);
     }
     if (this.filtroSelected.code == '2') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.inputFilter1}`);
-      params.push(-1);
-      params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodProducto(params.join('/'), fecha);
+        params.push(`codProd=${this.inputFilter1}`);
     }
 
     if (this.filtroSelected.code == '3') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.inputFilter1}`);
-      params.push(`${this.inputFilter2}`);
-      params.push(-1);
-      params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodLocalProducto(params.join('/'), fecha);
+        params.push(`codLocal=${this.inputFilter1}`);
+        params.push(`codProd=${this.inputFilter2}`);
     }
 
     if (this.filtroSelected.code == '5') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.filterCombo1Selected.name}`);
-      this.reporteF7Service.exportToExcelDescripcionLinea(params.join('/'), -1, TypeReporte.NO_COBERTURADO, fecha);
+        params.push(`jerarquia1=${this.filterCombo1Selected.name}`);
     }
 
     if (this.filtroSelected.code == '6') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.inputFilter1}`);
-      params.push(`${this.filterCombo2Selected.name}`);
-      this.reporteF7Service.exportToExcelCodLocalDescLinea(params.join('/'), -1, TypeReporte.NO_COBERTURADO, fecha);
+        params.push(`codLocal=${this.inputFilter1}`);
+        params.push(`jerarquia1=${this.filterCombo2Selected.name}`);
     }
 
     if (this.filtroSelected.code == '8') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.inputFilter1}`);
-      params.push(-1);
-      params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelCodSapProducto(params.join('/'), fecha);
+        params.push(`codSap=${this.inputFilter1}`);
+
+    }
+
+    if (this.filtroSelected.code == '9') {
+        params.push(`tipoGrupo=${this.inputFilter1}`);
     }
 
     if (this.filtroSelected.code == '10') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.filterCombo1Selected.name}`);
-      params.push(`${this.filterCombo2Selected.name}`);
-      params.push(-1);
-      params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelJerarquias(params.join('/'), fecha);
+        params.push(`jerarquia2=${this.filterCombo1Selected.name}`);
+        params.push(`jerarquia3=${this.filterCombo2Selected.name}`);
+
     }
 
     if (this.filtroSelected.code == '11') {
-      params.push(`${this.tipoCoberturaSelected.code}`);
-      params.push(`${this.inputFilter1}`);
-      params.push(-1);
-      params.push(`${TypeReporte.NO_COBERTURADO}`);
-      this.reporteF7Service.exportToExcelAnalistaAsr(params.join('/'), fecha);
+        params.push(`analista=${this.inputFilter1}`);
     }
+    this.reporteF7Service.exportToExcel(params.join('&'), fecha);
 
   }
 
@@ -380,53 +354,39 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
     this.loading = true;
     this.lastLazyLoadEvent = event;
     const pageNumber = event.first / this.perPage;
+    const params = [];
 
-    if (this.tipoCoberturaSelected.code == '0' &&  this.filtroSelected .code=='0'){
-      this.reporteF7Service.coverage_pageNoCoberturado(pageNumber).subscribe(
-        data => {
-       this.datasource = this.createListProducts(data['content']);
-       this.totalRecords = data['totalElements'];
-        });
-    }
-    if (this.tipoCoberturaSelected.code != '0' && this.filtroSelected .code=='0'){
+    params.push(`tipoReporte=${TypeReporte.NO_COBERTURADO}`);
+    params.push(`page=${pageNumber}`);
 
-      this.reporteF7Service.coverage_page(0, this.tipoCoberturaSelected.name, TypeReporte.NO_COBERTURADO).subscribe(
-        data => {
-          this.datasource = this.createListProducts(data['content']);
-          this.totalRecords = data['totalElements'];
-        });
+   
+    if (this.tipoCoberturaSelected.code != '0') {
+      params.push(`indice=${this.tipoCoberturaSelected.name}`);
+  
     }
+    
+
     if (this.filtroSelected.code == '1') {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == ''){
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de local', 
         detail: ''});
       } else {
-
-        this.reporteF7Service.listarProductosByCodLocal(0, this.tipoCoberturaSelected.code, this.inputFilter1, 
-          TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data as Array<Producto>);
-            this.totalRecords = data['totalElements'];
-
-          });
-      }
+        params.push(`codLocal=${this.inputFilter1}`);
 
       }
+
+    }
     if (this.filtroSelected.code == '2') {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de producto', 
         detail: ''});
       } else {
 
-        this.reporteF7Service.listarProductosByCodProd(0, this.tipoCoberturaSelected.code, 
-          this.inputFilter1, TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data as Array<Producto>);
-            this.totalRecords = data['totalElements'];
-          });
+        params.push(`codProd=${this.inputFilter1}`);
+ 
       }
 
-      }
+    }
 
     if (this.filtroSelected.code == '3') {
 
@@ -438,17 +398,12 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de Producto', 
         detail: ''});
       } else {
-
-        this.reporteF7Service.listarProductosByCodLocalCodProducto(0, this.tipoCoberturaSelected.code, this.inputFilter1,
-          this.inputFilter2, TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data as Array<Producto>);
-            this.totalRecords = data['totalElements'];
-          });
-
+        params.push(`codLocal=${this.inputFilter1}`);
+        params.push(`codProd=${this.inputFilter2}`);
+   
       }
 
-      }
+    }
 
     if (this.filtroSelected.code == '5') {
 
@@ -456,16 +411,11 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
           this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
           detail: ''});
           } else {
+            params.push(`jerarquia1=${this.filterCombo1Selected.name}`);
 
-          this.reporteF7Service.listarProductosByDescLinea(0, this.tipoCoberturaSelected.code, this.filterCombo1Selected.name,
-            TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data['content']);
-            this.totalRecords = data['totalElements'];
-          });
         }
 
-      }
+    }
 
     if (this.filtroSelected.code == '6') {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
@@ -476,71 +426,67 @@ export class ReporteF7NoCoberturadoComponent implements OnInit {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
         detail: ''});
       } else {
-
-        this.reporteF7Service.listarProductosByCodLocalDescLinea(0, this.tipoCoberturaSelected.code, this.inputFilter1,
-           this.filterCombo2Selected.name, TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data['content']);
-            this.totalRecords = data['totalElements'];
-          });
+        params.push(`codLocal=${this.inputFilter1}`);
+        params.push(`jerarquia1=${this.filterCombo2Selected.name}`);
+    
       }
-      }
+    }
 
     if (this.filtroSelected.code == '8') {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código SAP', 
         detail: ''});
       } else{
+        params.push(`codSap=${this.inputFilter1}`);
+    
+      }
+    }
 
-        this.reporteF7Service.listarProductosByCodProdSap(0, this.tipoCoberturaSelected.code, this.inputFilter1,
-          TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data as Array<Producto>);
-            this.totalRecords = data['totalElements'];
-          });
+    if (this.filtroSelected.code == '9') {
+
+      if (this.filterCombo1Selected== undefined && this.filterCombo2Selected == undefined) {
+        this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccionar filtros', 
+        detail: 'Ingrese un grupo'});
+
+      } else {
+        params.push(`tipoGrupo=${this.inputFilter1}`);
+
       }
-      }
+    }
 
     if (this.filtroSelected.code == '10') {
 
-      if (this.filterCombo1Selected== undefined || this.filterCombo2Selected == undefined) {
+      if (this.filterCombo1Selected== undefined && this.filterCombo2Selected == undefined) {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccionar filtros', 
-        detail: 'Seleccione al menos un grupo'});
+        detail: 'Seleccione al menos una jerarquia'});
 
       } else {
-
-        this.reporteF7Service.listarProductosByJerarquias(0, this.tipoCoberturaSelected.code,
-          this.filterCombo1Selected.name, this.filterCombo2Selected.name, TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data['content']);
-            this.totalRecords = data['totalElements'];
-          });
+        params.push(`jerarquia2=${this.filterCombo1Selected.name}`);
+        params.push(`jerarquia3=${this.filterCombo2Selected.name}`);
 
       }
-      }
+    }
 
     if (this.filtroSelected.code == '11') {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar nombre Analista ASR', 
         detail: ''});
       } else {
-
-        this.reporteF7Service.listarProductosBySnalistaAsr(0, this.tipoCoberturaSelected.code, this.inputFilter1,
-          TypeReporte.NO_COBERTURADO).subscribe(
-          data => {
-            this.datasource = this.createListProducts(data['content']);
-            this.totalRecords = data['totalElements']
-          });
+        params.push(`analista=${this.inputFilter1}`);
       }
 
-      }
+    }
 
-      setTimeout(() => {
-        if (this.datasource) {
-            this.listProductos = this.datasource.slice(pageNumber);
-            this.loading = false;
-        }
-    }, 1000);
+      this.reporteF7Service.findByFilter(params.join('&')).subscribe(
+        data => {
+          console.log(data);
+          this.datasource = this.createListProducts(data['content']);
+          
+          this.totalRecords = data['totalElements'];
+      
+        });
+
+     
   }
 
   onFileUpload(data: { files: File }): void {

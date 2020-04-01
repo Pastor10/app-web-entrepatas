@@ -58,16 +58,17 @@
 
             </div>
             
-            <p-table #dt [columns]="cols" [value]="datasource" [totalRecords]="totalRecords"   [scrollable]="true" selectionMode="single" dataKey="id"  
+            <p-table #dt [columns]="cols" [value]="datasource" [totalRecords]="totalRecords"  scrollable="true"
+            [style]="{width:'100%'}" scrollHeight="350px"  selectionMode="single" 
                      [paginator]="true" [rows]="perPage" [lazy]="true" (onLazyLoad)="buscarProductosXFiltros($event)" 
                      [responsive]="true"  
-                     paginatorPosition="bottom"   >
-                
-                <ng-template pTemplate="colgroup" let-columns>
-                    <colgroup>
-                            <col *ngFor="let col of columns" style="width:180px">
-                    </colgroup>
-                </ng-template>
+                     paginatorPosition="bottom">
+
+                     <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                                <col *ngFor="let col of columns"  [ngStyle]="{'width': col.width}">
+                        </colgroup>
+                    </ng-template>
                
                 
                 <ng-template pTemplate="caption">
@@ -82,7 +83,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr [pSelectableRow]="rowData">
+                    <tr [pSelectableRow]="rowData" style="text-align:center">
                         <td *ngFor="let col of columns">
                             {{rowData[col.field]}}
                         </td>

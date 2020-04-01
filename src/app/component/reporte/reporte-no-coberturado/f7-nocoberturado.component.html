@@ -58,12 +58,13 @@
 
             </div>
             
-            <p-table #dt [columns]="cols" [value]="datasource" [scrollable]="true" selectionMode="single" dataKey="vin"  
-                     [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="buscarProductosXFiltros($event)"  >
+            <p-table #dt [columns]="cols" [value]="datasource" scrollable="true" [totalRecords]="totalRecords" 
+            [style]="{width:'100%'}" scrollHeight="350px"  selectionMode="single"  
+                     [paginator]="true" [rows]="perPage" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="buscarProductosXFiltros($event)"  >
                 
                 <ng-template pTemplate="colgroup" let-columns>
                     <colgroup>
-                            <col *ngFor="let col of columns" style="width:180px">
+                            <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
                     </colgroup>
                 </ng-template>
                

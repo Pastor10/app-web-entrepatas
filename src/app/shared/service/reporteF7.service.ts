@@ -28,6 +28,25 @@ export class ReporteF7Service {
             new Error('Tiempo de respuesta excedido, intente nuevamente'))));
       }
 
+      findByFilter(params){
+        return this.http.get(this.baseUrl + 'findFilter?' + params).
+        pipe(timeoutWith(environment.TIMEOUT, observableThrowError(
+              new Error('Tiempo de respuesta excedido, intente nuevamente'))));
+      }
+
+      exportToExcel(params, fecha) {
+        this.http.get(this.baseUrl + 'findFilter?' + params, {responseType: 'blob'}).subscribe(data => {
+            const a = document.createElement('a');
+            document.body.appendChild(a);
+            const blob = new Blob([data], {type: 'octet/stream'});
+            const url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = `ReporteF7_${fecha}.xlsx`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        });
+      }
+
       coverage_page(pagina: number, tipoCobertura: string, tipoReporte): Observable<any> {
         return this.http.get(this.baseUrl + 'coverage/' + tipoCobertura + '/page/' + pagina + '/'
          + tipoReporte).pipe(timeoutWith(environment.TIMEOUT, observableThrowError(
