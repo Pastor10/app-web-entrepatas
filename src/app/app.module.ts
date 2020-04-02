@@ -3,7 +3,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import {LocationStrategy, HashLocationStrategy, PathLocationStrategy} from '@angular/common';
 import {AppRoutes} from './app.routes';
 
 import { AccordionModule } from 'primeng/accordion';
@@ -192,7 +192,7 @@ import { RoleService } from './shared/service/role.service';
         ProfilesComponent
     ],
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: LocationStrategy, useClass: PathLocationStrategy},
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
