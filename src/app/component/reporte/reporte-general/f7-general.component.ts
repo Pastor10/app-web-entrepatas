@@ -530,6 +530,7 @@ export class ReporteF7GeneralComponent implements OnInit {
             this.messageService.add({key: 'msg', severity: 'error', summary: 'Error al importar archivo', detail: resp.msj});
           }
           this.display = false;
+          this.resetAndRefreshTable();
           //this.tabla._filter();
       });
 
