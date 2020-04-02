@@ -73,6 +73,7 @@ import {TooltipModule} from 'ng2-tooltip-directive';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 import {AppComponent} from './app.component';
 import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
@@ -98,12 +99,15 @@ import { TokenInterceptor } from './config/tokenInterceptor.service';
 import { ProfileService } from './shared/service/profile.service';
 import { ProfilesComponent } from './component/profiles/profiles.component';
 import { RoleService } from './shared/service/role.service';
+import { LoadingComponent } from './component/loading/loading.component';
+import { LoaderInterceptor } from './shared/service/loader-interceptor';
 
 
 
 @NgModule({
     imports: [
         BrowserModule,
+        ProgressSpinnerModule,
         FormsModule,
         AppRoutes,
         HttpClientModule,
@@ -189,13 +193,19 @@ import { RoleService } from './shared/service/role.service';
         LoginComponent,
         UsuariosComponent,
         ReporteF7NoCoberturadoComponent,
-        ProfilesComponent
+        ProfilesComponent,
+        LoadingComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptor,
             multi: true
         },
         ReporteF7Service,

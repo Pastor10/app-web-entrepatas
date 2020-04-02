@@ -114,7 +114,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.router.navigate(['/main']);
         },
         error => {
-          console.log('error', error);
           if (error.status == 401) {
             this.showMsg('error', 'Usuario y/o password incorrectos', 'Usuario');
            

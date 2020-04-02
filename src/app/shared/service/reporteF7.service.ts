@@ -256,7 +256,6 @@ export class ReporteF7Service {
   }
 
   importFromExcel(formData): Observable<any> {
-    console.log(`${this.baseUrl}importarExcel/`, formData);
     //return this.http.post<any>(this.baseUrl + 'importarExcel/' + formData + params);
     return this.http.post<any>(`${this.baseUrl}importarExcel/`, formData);
 }

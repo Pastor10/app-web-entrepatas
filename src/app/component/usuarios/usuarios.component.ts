@@ -128,14 +128,12 @@ export class UsuariosComponent implements OnInit {
     }
 
     public filterListEmail(event) {
-        console.log('filterListTypeDriver(event)', event);
         let query = event.query
         this.listFilterUser = this.filterListUserEmail(query, this.listaUsuarios);
 
       }
 
       public filterListPerfil(event) {
-        console.log('filterListTypeDriver(event)', event);
         let query = event.query
         this.listFilterPerfil = this.filterListPerfilName(query, this.listaPerfil);
 

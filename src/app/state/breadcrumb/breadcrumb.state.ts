@@ -25,7 +25,6 @@ export class BreadcrumbState {
 
     @Action(SetItems)
     setItems({getState, setState}: StateContext<BreadcrumbStateModel>, {items}: SetItems) {
-        console.log('Seteando', items);
         const state = getState();
         setState({
             ...state,

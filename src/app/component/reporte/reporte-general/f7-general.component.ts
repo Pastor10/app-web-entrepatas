@@ -8,6 +8,7 @@ import { IpServiceService } from 'src/app/shared/service/ip.service';
 import { TypeReporte } from 'src/app/enums/type-reporte';
 import * as moment from 'moment';
 import { AppConstant } from '../../../shared/constant/app.constant';
+import { LoaderService } from 'src/app/shared/service/loader.service';
 
 @Component({
   selector: 'app-f7-reporte-general',
@@ -59,17 +60,15 @@ export class ReporteF7GeneralComponent implements OnInit {
 
   constructor(
     public reporteF7Service: ReporteF7Service, public messageService: MessageService,
-    private ip: IpServiceService
+    private ip: IpServiceService, private loadingService: LoaderService
     
   ) 
   { this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
     this.pl = JSON.parse(this.tkn.sub);
     this.nameUser = this.pl.full_name;
-    console.log('this.nameUser ', this.nameUser);
  }
 
   ngOnInit() {
-
     this.loadListarGrupoProductoERP();
     this.loadListarGrupoAnatomico();
     this.getIP();
@@ -360,7 +359,7 @@ export class ReporteF7GeneralComponent implements OnInit {
 }
 
   refreshTable() {
-      this.tabla.reset();
+      //this.tabla.reset();
       if (this.lastLazyLoadEvent) {
           this.buscarProductosXFiltros(this.lastLazyLoadEvent);
       }
@@ -390,6 +389,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == ''){
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de local', 
         detail: ''});
+        return;
       } else {
         params.push(`codLocal=${this.inputFilter1}`);
 
@@ -400,6 +400,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de producto', 
         detail: ''});
+        return;
       } else {
 
         params.push(`codProd=${this.inputFilter1}`);
@@ -413,10 +414,12 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de local', 
         detail: ''});
+        return;
       }
       if (this.inputFilter2 == undefined || this.inputFilter2.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de Producto', 
         detail: ''});
+        return;
       } else {
         params.push(`codLocal=${this.inputFilter1}`);
         params.push(`codProd=${this.inputFilter2}`);
@@ -430,6 +433,7 @@ export class ReporteF7GeneralComponent implements OnInit {
         if (this.filterCombo1Selected== undefined || this.filterCombo1Selected.code=='0') {
           this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
           detail: ''});
+          return;
           } else {
             params.push(`jerarquia1=${this.filterCombo1Selected.name}`);
 
@@ -441,10 +445,12 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código de local', 
         detail: ''});
+        return;
       }
       if (this.filterCombo2Selected == undefined || this.filterCombo2Selected.code =='0') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccione linea de Producto', 
         detail: ''});
+        return;
       } else {
         params.push(`codLocal=${this.inputFilter1}`);
         params.push(`jerarquia1=${this.filterCombo2Selected.name}`);
@@ -456,6 +462,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar código SAP', 
         detail: ''});
+        return;
       } else{
         params.push(`codSap=${this.inputFilter1}`);
     
@@ -467,6 +474,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.filterCombo1Selected== undefined && this.filterCombo2Selected == undefined) {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccionar filtros', 
         detail: 'Ingrese un grupo'});
+        return;
 
       } else {
         params.push(`tipoGrupo=${this.inputFilter1}`);
@@ -479,6 +487,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.filterCombo1Selected== undefined && this.filterCombo2Selected == undefined) {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Seleccionar filtros', 
         detail: 'Seleccione al menos una jerarquia'});
+        return;
 
       } else {
         params.push(`jerarquia2=${this.filterCombo1Selected.name}`);
@@ -491,6 +500,7 @@ export class ReporteF7GeneralComponent implements OnInit {
       if (this.inputFilter1 == undefined || this.inputFilter1.trim() == '') {
         this.messageService.add({key: 'msg', severity: 'info', summary: 'Ingresar nombre Analista ASR', 
         detail: ''});
+        return;
       } else {
         params.push(`analista=${this.inputFilter1}`);
       }
@@ -500,7 +510,6 @@ export class ReporteF7GeneralComponent implements OnInit {
       this.reporteF7Service.findByFilter(params.join('&')).subscribe(
         data => {
           this.datasource = this.createListProducts(data['content']);
-          console.log(this.datasource );
           this.totalRecords = data['totalElements'];
       
         });

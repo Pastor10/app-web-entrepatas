@@ -57,7 +57,7 @@
                     </div>
 
             </div>
-            
+    
             <p-table #dt [columns]="cols" [value]="datasource" [totalRecords]="totalRecords"  scrollable="true"
             [style]="{width:'100%'}" scrollHeight="350px"  selectionMode="single" 
                      [paginator]="true" [rows]="perPage" [lazy]="true" (onLazyLoad)="buscarProductosXFiltros($event)" 

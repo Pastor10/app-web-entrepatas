@@ -81,8 +81,6 @@ export class AppMenuComponent implements OnInit {
     let email = this.pl.email;
     this.usuarioService.getFindByEmail(email).subscribe(
         data => {
-            console.log(data);
-            
             localStorage.setItem('perfil', JSON.stringify(data.profileEntity.nombre));
             
             
