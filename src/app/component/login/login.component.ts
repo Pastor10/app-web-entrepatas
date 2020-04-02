@@ -31,6 +31,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.username = '';
     this.password = '';
+
+    const urlPortal = new URL(window.location.href);
+    const token = urlPortal.searchParams.get('token');
+    
+    if (token) {
+      this.setAutologin(token);
+      return;
+      }
   }
 
   public ngAfterViewInit() {
