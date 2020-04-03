@@ -37,7 +37,7 @@ then
     echo "Setting up project $PROFILE"
     echo "backend for prod"
     #sed -i -e 'htts/localhost:9002/f7ws.farmaciasperuanas.pe/g' /var/www/html/fps-app-web-f7/main.js
-    sed -i -e 's/http:\/\/localhost:9002/https:\/\/https://f7.farmaciasperuanas.pe/g' /var/www/html/fps-app-web-f7/main.js
+    sed -i -e 's/http:\/\/localhost:9002/https:\/\/f7.farmaciasperuanas.pe/g' /var/www/html/fps-app-web-f7/main.js
     echo "filestorage for prod" 
     nginx -g 'daemon off;'
 
