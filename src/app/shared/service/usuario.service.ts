@@ -14,7 +14,8 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
   }
   baseUrl: string = environment.END_POINT + 'api/user/';
-  apiUserAplicacion = 'http://dev.projectmanagerws.solucionesfps.pe/user/findUserByEmailAndApp/Ajustes de parametros';
+  //apiUserAplicacion = 'http://dev.projectmanagerws.solucionesfps.pe/user/findUserByEmailAndApp/F7-WEB';
+  apiUserAplicacion = 'https://accountws.farmaciasperuanas.pe/user/findUserByEmailAndApp/F7-WEB';
 
 
   listarUsuariosAplicacion() {
