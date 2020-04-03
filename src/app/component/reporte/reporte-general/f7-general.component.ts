@@ -275,7 +275,10 @@ export class ReporteF7GeneralComponent implements OnInit {
   let arrayProduct = [];
   for(let i= 0; i < data.length;i++){
   let product =  data[i];
+  console.log(data);
+  
   product.fecha = this.formatDate(data[i].fecha);
+  product.fecPrimIngr = this.formatDate(data[i].fecPrimIngr);
   if(data[i].fechaModificacion != null){
     product.fechaModificacion = this.formatDate(data[i].fechaModificacion);
   }
@@ -287,7 +290,7 @@ export class ReporteF7GeneralComponent implements OnInit {
   formatDate(date) {
         var d = new Date(date),
         month =  (d.getMonth()),
-        day =  Number(d.getDate()),
+        day =  Number(d.getDate()+1),
         year = d.getFullYear();
         let fecha = new Date(year,month,day);
         return moment(fecha).format('YYYY-MM-DD');
