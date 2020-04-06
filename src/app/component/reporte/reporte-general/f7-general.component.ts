@@ -275,7 +275,6 @@ export class ReporteF7GeneralComponent implements OnInit {
   let arrayProduct = [];
   for(let i= 0; i < data.length;i++){
   let product =  data[i];
-  console.log(data);
   
   product.fecha = this.formatDate(data[i].fecha);
   product.fecPrimIngr = this.formatDate(data[i].fecPrimIngr);
