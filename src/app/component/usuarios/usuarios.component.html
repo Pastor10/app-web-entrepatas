@@ -20,7 +20,7 @@
 </p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 <div class="ui-g">
-  <div class="ui-g-12 ui-lg-9">
+  <div class="ui-g-12 ui-lg-7">
     <p-panel [style]="{'margin-bottom':'20px'}">
       <p-header>
         <span  class="ui-panel-title">Usuarios</span>
@@ -54,27 +54,42 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [pSelectableRow]="rowData">
-            <td *ngFor="let col of columns">
-              <span *ngIf="col.field=='profile'; else elseProfile">
-                {{rowData.profileEntity.nombre}}
-              </span>
-              <ng-template #elseProfile>
-                <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
-              </ng-template>
-              
-              
+            <td>
+               <span>
+                  {{rowData.persona.nombre}} {{rowData.persona.apePaterno}} {{rowData.persona.apeMaterno}}
+               </span>
             </td>
+            <td>
+                <span>
+                   {{rowData.persona.correo}}
+                </span>
+             </td>
+             <td>
+                <span>
+                    {{rowData.perfil.nombre}}
+                </span>
+             </td>
+             <td >
+                <span *ngIf="rowData.estado" class="label arrowed label-succes">
+                    Activo
+                </span>
+                <span *ngIf="!rowData.estado" class="label arrowed label-important">
+                    Desactivo
+                 </span>
+                 
+             </td>
+    
             <td style="text-align: center">
-              <a *ngIf="rowData.enabled==true" (click)="doAction(rowData, 'state');">
-                <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Desactivar"></button>
+              <a *ngIf="rowData.estado==true" (click)="doAction(rowData, 'state');">
+                <button  pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons" tooltip="Desactivar"></button>
               </a>
-              <a *ngIf="rowData.enabled==false" (click)="doAction(rowData, 'state');">
-                <button  pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons" tooltip="Activar" style="background-color: #a09898;"></button>
+              <a *ngIf="rowData.estado==false" (click)="doAction(rowData, 'state');">
+                <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Activar" style="background-color: #a09898;"></button>
               </a> &nbsp;
               <a (click)="doAction(rowData, 'edit');"  class="hand">
                 <button  pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons" tooltip="Editar"></button>
               </a> &nbsp;
-              <a (click)="showConshowConfirmDeletefirm(rowData)"  class="hand">
+              <a (click)="showConfirmDelete(rowData)"  class="hand">
                 <button  pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons" tooltip="Eliminar"></button>
               </a>
             </td>
@@ -84,54 +99,61 @@
   </p-panel>
   </div>
 
-  <div class="ui-g-12 ui-lg-3">
-      <!-- Left Side -->
+  <div class="ui-g-12 ui-lg-5"> 
+
       <div class="card card-w-title">
         <div class="ui-g">
           <div class="ui-g-12">
-          <h1>Agregar / Editar usuarios</h1>
+           <h1><strong>Agregar / Editar usuarios</strong> </h1>
           </div>
         </div>
 
-
-        <!-- loader -->
-        <!-- <div style="text-align:center" *ngIf="loading;">
-            <p>Espere un momento</p>
-            <p-progressSpinner></p-progressSpinner>
-        </div> -->
-        <!-- loader -->
 
         <form  (ngSubmit)="save()" >
             <input [(ngModel)]="id" name="id" type="hidden" pInputText/>
         <div class="ui-g ">
             <div class="row ui-g-12" >
-                    <!-- <p-dropdown  name="emailSelected" field="email"
-                    [options]="listaUsuarios" [(ngModel)]="emailSelected" optionLabel="email" 
-                    filter="true" (onChange)="findEmail()" (completeMethod)="filterListTypeDriver($event)">
-                    </p-dropdown> -->
-
-                      <p-autoComplete [(ngModel)]="emailSelected" [suggestions]="listFilterUser"  field="email"
-                      name="emailSelected" (ngModelChange)="findEmail()" (completeMethod)="filterListEmail($event)" [size]="15"
-                      [minLength]="1" placeholder="Seleccionar email" [dropdown]="true">
+                <label for="form-control" style="padding-right: 5px"> <strong>Tipo documento: </strong> </label>
+                <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
+                      name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
+                      [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" >
                 
-                      </p-autoComplete>
-
+                  </p-autoComplete>
             </div>
-            
             <div class="row ui-g-12" >
+                <label for="form-control" style="padding-right: 25px"> <strong>Documento: </strong> </label>
+                      <input   mdbInputDirective type="text" id="nombre" class="form-control"
+                      [(ngModel)]="nombre" name="nombre" pInputText placeholder="Ingresar nombres" >
+              </div>
+            <div class="row ui-g-12" >
+              <label for="form-control" style="padding-right: 25px"> <strong>Nombres: </strong> </label>
                     <input   mdbInputDirective type="text" id="nombre" class="form-control"
-                    [(ngModel)]="nombre" name="nombre" pInputText placeholder="Nombre" disabled>
+                    [(ngModel)]="nombre" name="nombre" pInputText placeholder="Ingresar nombres" >
+            </div>
+            <div class="row ui-g-12">
+                <label for="form-control" style="padding-right: 10px"> <strong>Ap. Paterno: </strong> </label>
+                <input   mdbInputDirective type="text" id="apePaterno" class="form-control"
+                [(ngModel)]="apePaterno" name="apePaterno" pInputText placeholder="Ingresar apellido paterno" >
+                
             </div>
             <div class="row ui-g-12" >
-                    <input   mdbInputDirective type="text" id="tipo" name="tipo"  class="form-control"
-                    [(ngModel)]="tipo" pInputText placeholder="Tipo" disabled>
-               
+                <label for="form-control" style="padding-right: 10px"> <strong>Ap. Materno: </strong> </label>
+                <input   mdbInputDirective type="text" id="apeMaterno" class="form-control"
+                [(ngModel)]="apeMaterno" name="apeMaterno" pInputText placeholder="Ingresar apellido materno" >
             </div>
             <div class="row ui-g-12" >
-                <!-- <div class="ui-g-2 ui-md-4">
-                    <p-dropdown placeholder="Seleccionar Perfil" name="perfilSelected" [options]="listaPerfil" [(ngModel)]="perfilSelected" optionLabel="nombre" >
-                    </p-dropdown>
-                </div> -->
+                <label for="form-control" style="padding-right: 45px"> <strong>Correo: </strong> </label>
+                <input   mdbInputDirective type="text" id="correo" class="form-control"
+                [(ngModel)]="correo" name="correo" pInputText placeholder="Ingresar correo" >
+            </div>
+            <div class="row ui-g-12" >
+                <label for="form-control" style="padding-right: 45px"> <strong>Celular: </strong> </label>
+                <input   mdbInputDirective type="text" id="celular" class="form-control"
+                [(ngModel)]="celular" name="celular" pInputText placeholder="Ingresar celular" >
+            </div>
+
+            <div class="row ui-g-12" >
+                <label for="form-control" style="padding-right: 60px"> <strong>Perfil: </strong> </label>
                 <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
                       name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
                       [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" >
@@ -151,6 +173,89 @@
         </div>
         </form>
       </div>
-      <!-- {{theForm.value | json}} -->
-  </div>
+
+  </div> -->
+
+  <!-- <div class="ui-g-12 ui-lg-5">
+      <p-panel [style]="{'margin-bottom':'20px'}">
+          <p-header>
+              <span class="ui-panel-title">Crear / editar usuario</span>
+          </p-header>
+          <div class="ui-g ">
+              <div class="ui-g-4">
+                  <h5 class="label-custom">Tipo documento(*)</h5>
+            
+                  <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
+                      field="abreviatura" name="perfilSelected" [size]="15"
+                      (completeMethod)="filterListTipoDocumento($event)" [minLength]="1"
+                      placeholder="Seleccione tipo documento" [dropdown]="true">
+
+                  </p-autoComplete>
+              </div>
+              <div class="ui-g-3">
+                  <h5 class="label-custom">Num. documento</h5>
+                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.numeroDocumento"
+                      (keydown.enter)="getPersona()" pInputText />
+              </div>
+
+              <div class="ui-g-5">
+                  <h5 class="label-custom">Nombres</h5>
+                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.nombre" pInputText />
+              </div>
+              <div class="ui-g-3">
+                  <h5 class="label-custom">Ape. Paterno</h5>
+                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.apePaterno"
+                      pInputText />
+              </div>
+              <div class="ui-g-3">
+                  <h5 class="label-custom">Ape. Materno</h5>
+                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.apeMaterno"
+                      pInputText />
+              </div>
+
+
+              <div class="ui-g-4">
+                  <h5 class="label-custom">Correo</h5>
+                  <input   mdbInputDirective type="text" id="correo" class="form-control"
+                  [(ngModel)]="correo" name="correo" pInputText placeholder="Ingresar correo" >
+              </div>
+
+              <div class="ui-g-4">
+                  <label for="form-control" style="padding-right: 45px"> <strong>Celular: </strong> </label>
+                  <input   mdbInputDirective type="text" id="celular" class="form-control"
+                  [(ngModel)]="celular" name="celular" pInputText placeholder="Ingresar celular" >
+              </div>
+
+              <div class="ui-g-4">
+                  <h5 class="label-custom">Celular (*)</h5>
+                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.celular" pInputText />
+              </div>
+
+              <div class="ui-g-4">
+                  <label for="form-control" style="padding-right: 60px"> <strong>Perfil: </strong> </label>
+                <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
+                      name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
+                      [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" >
+                
+                  </p-autoComplete>
+              </div>
+   
+              <div class="ui-g" style="width:250px;margin-bottom:10px">
+                  <div class="ui-g-12">
+                      <p-checkbox binary="true" label="CREAR USUARIO" name="createUser" [(ngModel)]="createUser">
+                      </p-checkbox>
+                  </div>
+              </div>
+              <div class="ui-g-12" text-align: center style="text-align: center;">
+                  <button style="width: auto; margin-top: 1.2rem;  font-size: 15px;" pButton type="submit"
+                      label="Registrar" class="ui-button-rounded ui-button-success"
+                      (click)="saveGeneraAdopcion()"></button>
+
+              </div>
+
+          </div>
+
+
+      </p-panel>
+  </div> -->
 </div>

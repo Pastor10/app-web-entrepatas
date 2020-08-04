@@ -7,78 +7,14 @@ import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ProfileService } from 'src/app/shared/service/profile.service';
 import { Table } from 'primeng/table';
+import { Persona } from 'src/app/shared/model/persona.model';
+import { TipoDocumento } from 'src/app/shared/model/tipoDocumento.model';
+import { TipoDocumentoService } from 'src/app/shared/service/tipodocumento.service';
 
 
 @Component({
     selector: 'app-usuarios',
-    templateUrl: './usuarios.component.html',
-    styles: [`
-        /* Column Priorities */
-        @media only all {
-            th.ui-p-6,
-            td.ui-p-6,
-            th.ui-p-5,
-            td.ui-p-5,
-            th.ui-p-4,
-            td.ui-p-4,
-            th.ui-p-3,
-            td.ui-p-3,
-            th.ui-p-2,
-            td.ui-p-2,
-            th.ui-p-1,
-            td.ui-p-1 {
-                display: none;
-            }
-        }
-
-        /* Show priority 1 at 320px (20em x 16px) */
-        @media screen and (min-width: 20em) {
-            th.ui-p-1,
-            td.ui-p-1 {
-                display: table-cell;
-            }
-        }
-
-        /* Show priority 2 at 480px (30em x 16px) */
-        @media screen and (min-width: 30em) {
-            th.ui-p-2,
-            td.ui-p-2 {
-                display: table-cell;
-            }
-        }
-
-        /* Show priority 3 at 640px (40em x 16px) */
-        @media screen and (min-width: 40em) {
-            th.ui-p-3,
-            td.ui-p-3 {
-                display: table-cell;
-            }
-        }
-
-        /* Show priority 4 at 800px (50em x 16px) */
-        @media screen and (min-width: 50em) {
-            th.ui-p-4,
-            td.ui-p-4 {
-                display: table-cell;
-            }
-        }
-
-        /* Show priority 5 at 960px (60em x 16px) */
-        @media screen and (min-width: 60em) {
-            th.ui-p-5,
-            td.ui-p-5 {
-                display: table-cell;
-            }
-        }
-
-        /* Show priority 6 at 1,120px (70em x 16px) */
-        @media screen and (min-width: 70em) {
-            th.ui-p-6,
-            td.ui-p-6 {
-                display: table-cell;
-            }
-        }
-    `]
+    templateUrl: './usuarios.component.html'
 })
 export class UsuariosComponent implements OnInit {
 
@@ -100,6 +36,15 @@ export class UsuariosComponent implements OnInit {
     nombre: string;
     tipo: string;
     id: number;
+    apePaterno: string;
+    apeMaterno: string;
+    username: string;
+    password: string;
+    correo: string;
+    celular: number;
+    persona: Persona;
+    listTipoDocumento: TipoDocumento[];
+
     lastLazyLoadEvent: LazyLoadEvent;
     public listFilterPerfil: Perfil [];
     public data: User;
@@ -108,16 +53,17 @@ export class UsuariosComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private messageService: MessageService, public fb: FormBuilder,
-                public perfilService: ProfileService, public usuarioService: UsuarioService) {
+                public perfilService: ProfileService, public usuarioService: UsuarioService, public tipoDocumentoService: TipoDocumentoService ) {
     }
 
     ngOnInit() {
-        this.listarUsuariosAplicacion();
-
+        //this.listarUsuariosAplicacion();
+        this.getAllTipoDocumento();
         this.cols = [
-            {field: 'fullname', header: 'Nombres y Apellidos', width: '180px'},
-            {field: 'email', header: 'Email', width: '250px'},
+            {field: 'nombre', header: 'Nombres y Apellidos', width: '220px'},
+            {field: 'correo', header: 'Email', width: '150px'},
             {field: 'profile', header: 'Perfil', width: '100px'},
+            {field: 'estado', header: 'Estado', width: '100px'}
         ];
         this.getUsers();
         this.listarPerfiles();
@@ -127,11 +73,35 @@ export class UsuariosComponent implements OnInit {
 
     }
 
-    public filterListEmail(event) {
-        let query = event.query
-        this.listFilterUser = this.filterListUserEmail(query, this.listaUsuarios);
+    getAllTipoDocumento() {
+      this.tipoDocumentoService.getAll().subscribe((data: TipoDocumento[]) => {
+          this.listTipoDocumento = data;
 
+      });
+  }
+
+    public filterListTipoDocumento(event) {
+      let query = event.query
+      this.listTipoDocumento = this.filterDocumento(query, this.listTipoDocumento);
+
+  }
+
+  filterDocumento(query, lista: TipoDocumento[]): TipoDocumento[] {
+      let filtered: TipoDocumento[] = [];
+      for (let i = 0; i < lista.length; i++) {
+          let model = lista[i];
+          if (model.abreviatura.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+              filtered.push(model);
+          }
       }
+      return filtered;
+  }
+
+    // public filterListEmail(event) {
+    //     let query = event.query
+    //     this.listFilterUser = this.filterListUserEmail(query, this.listaUsuarios);
+
+    //   }
 
       public filterListPerfil(event) {
         let query = event.query
@@ -139,24 +109,12 @@ export class UsuariosComponent implements OnInit {
 
       }
 
-
-      filterListUserEmail(query, driverTypeList: User[] ): User[]  {
-        let filtered : User[] = [];
-        for(let i = 0; i < driverTypeList.length; i++) {
-            let driverType = driverTypeList[i];
-            if(driverType.email.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(driverType);
-            }
-        }
-        return filtered;
-      }
-
-      filterListPerfilName(query, driverTypeList: Perfil[] ): Perfil[]  {
+      filterListPerfilName(query, perfiles: Perfil[] ): Perfil[]  {
         let filtered : Perfil[] = [];
-        for(let i = 0; i < driverTypeList.length; i++) {
-            let driverType = driverTypeList[i];
-            if(driverType.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(driverType);
+        for(let i = 0; i < perfiles.length; i++) {
+            let perfil = perfiles[i];
+            if(perfil.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(perfil);
             }
         }
         return filtered;
@@ -178,20 +136,30 @@ export class UsuariosComponent implements OnInit {
         });
     }
     findEmail() {
-        this.nombre = this.emailSelected.fullname;
-        this.tipo = this.emailSelected.user_type;
         this.id = this.emailSelected.id;
 
     }
 
     formToModel(): void {
         this.model.id = this.id;
-        this.model.email = this.emailSelected.email;
-        this.model.fullname = this.emailSelected.fullname;
-        this.model.profileEntity = this.perfilSelected;
-        this.model.enabled = this.estadoSelected;
-        this.model.type = this.tipo;
-        this.model.deleted = false;
+
+        this.model.perfil = this.perfilSelected;
+        this.model.estado = this.estadoSelected;
+        this.model.visible = true;
+        this.model.username = this.username;
+        this.model.password = this.password;
+
+        this.persona = new Persona();
+        this.persona.correo = this.correo;
+        this.persona.nombre = this.nombre;
+        this.persona.apePaterno = this.apePaterno;
+        this.persona.apeMaterno = this.apeMaterno;
+        this.persona.celular = this.celular;
+        this.persona.estado =true;
+        this.persona.nombreCompleto = this.nombre +' '+this.apePaterno +' '+this.apeMaterno;
+        this.model.persona = this.persona;
+
+        
     }
 
  
@@ -228,10 +196,10 @@ export class UsuariosComponent implements OnInit {
 
     doAction(data, accion) {
         if (accion =='state') {
-            data.enabled = !data.enabled;
+            data.estado = !data.estado;
             
             let message;
-            if (data.enabled) {
+            if (data.estado) {
                 message = 'usuario activado correctamente.';
             } else {
                 message = 'usuario desactivado correctamente.';
@@ -239,13 +207,18 @@ export class UsuariosComponent implements OnInit {
             this.updateUser(data, message);
 
         } else {
-             this.nombre = data.fullname;
-             this.tipo = data.type;
+            console.log(data);
+            
+             this.nombre = data.persona.nombre;
+             this.apePaterno = data.persona.apePaterno
+             this.apeMaterno = data.persona.apeMaterno;
+             this.correo = data.persona.correo;
+             this.celular = data.persona.celular;
+             this.username = data.username
+             //this.tipo = data.type;
              this.id = data.id;
-             this.emailSelected = new User(data.id, data.email, data.fullname, data.enabled, data.deleted, 
-                data.type, data.type, data.user_type);
-             this.estadoSelected = data.enabled;
-             this.perfilSelected = data.profileEntity;
+             this.estadoSelected = data.estado;
+             this.perfilSelected = data.perfil;
 
         }
 
@@ -257,14 +230,18 @@ export class UsuariosComponent implements OnInit {
         this.id = undefined;
         this.nombre = '';
         this.tipo = '';
+        this.celular = null;
+        this.correo = '';
+        this.apePaterno = '';
+        this.apeMaterno = '';
+        this.username = '';
+        this.password='';
         this.perfilSelected = null;
       }
 
     modelToForm(model: User): void {
         this.modelForm.patchValue({
-            nombres: model.fullname,
-            email: model.email,
-            perfil: model.profileEntity.idPerfil
+            perfil: model.perfil.id
 
         });
     }
@@ -338,15 +315,17 @@ export class UsuariosComponent implements OnInit {
             message = 'Usuario creado correctamente.';
             this.showMsg('success', message);
             setTimeout(function() {
-                        
+                      
             }, 2500);
+            this.limpiarData();
             this.refreshTable();
+
             }
-                   });
+       });
 
     }
 
-    showConshowConfirmDeletefirm(data) {
+    showConfirmDelete(data) {
         this.messageService.clear();
         this.data = data;
         this.messageService.add({key: 'c', sticky: true, severity: 'warn', summary: 'Seguro que desea eliminar?'});

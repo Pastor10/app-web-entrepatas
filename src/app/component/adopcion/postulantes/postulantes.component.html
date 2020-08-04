@@ -1,0 +1,226 @@
+<p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+<!-- <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog> -->
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+      <div style="text-align: center">
+          <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+          <h3>{{message.summary}}</h3>
+          <input type="hidden" [(ngModel)]="postulante">
+          <p>{{message.detail}}</p>
+      </div>
+      <div style="text-align: left" class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                   <p> <strong>crear usuario al postulante?</strong>&nbsp;
+                    <p-inputSwitch [(ngModel)]="creaUser"></p-inputSwitch> </p>
+            </div>
+            
+        </div>
+      <div class="ui-g ui-fluid">
+          <div class="ui-g-6">
+              <button type="button" pButton (click)="onConfirm(postulante)" label="Si" class="ui-button-success"></button>
+          </div>
+          <div class="ui-g-6">
+              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-danger"></button>
+          </div>
+      </div>
+  </ng-template>
+</p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<div class="ui-g">
+  <div class="ui-g-12 ui-lg-12">
+    <p-panel [style]="{'margin-bottom':'20px'}">
+      <p-header>
+        <span  class="ui-panel-title " >Postulantes para adopción</span>
+      </p-header>
+      <p-table [columns]="cols" [value]="publicaciones" dataKey="id">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3em"></th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+            <tr >
+                <td>
+                    <a href="#" [pRowToggler]="rowData" (click)="getAllPostulantesByPublicacion(rowData)">
+                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                    </a>
+                </td>
+                <td>
+                   <span>
+                        {{rowData.fechaCreacion | date:'dd/MM/yyyy'}} 
+                   </span>
+                </td>
+                <td>
+                    <span>
+                        {{rowData.fechaCreacion | date:'h:mm a'}} 
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        {{rowData.usuarioPublica.persona.nombreCompleto}}
+                    </span>
+                </td>
+                <td>
+                    <span>
+                        {{rowData.animal.nombre}}
+                    </span>
+                </td>
+                <td>
+                    <span>
+                       {{rowData.animal.raza.tipoAnimal.nombre}} - {{rowData.animal.sexo}}
+                    </span>
+                 </td>
+                 <td>
+                    <span>
+                        {{rowData.condicion.nombre}}
+                    </span>
+                 </td>
+                 
+                <td >
+                    <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label arrowed label-succes">
+                        {{rowData.estadoPublicacion}}
+                    </span>
+                    <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label arrowed label-info">
+                        {{rowData.estadoPublicacion}}
+                     </span>
+                     <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label arrowed label-important">
+                      {{rowData.estadoPublicacion}}
+                   </span>
+                 </td>
+              </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+                <tr>
+                        <td [attr.colspan]="columns.length + 1">
+                            <div class="ui-g ui-fluid" style="padding:5px">
+                                <div class="ui-g-12">
+                                    <div class="ui-g">
+                                        <div class="ui-g-12">
+                                            <p-panel header="Postulantes para {{rowData.animal.nombre}}">
+                                                <p-table [value]="postulantes">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                            <th>Nombres</th>
+                                                            <th>Correo</th>
+                                                            <th>Dirección</th>
+                                                            <th>Celular</th>
+                                                            <th>Documento</th>
+                                                            <th>Puntuación</th>
+                                                            <th>Acción</th>
+                                                        </tr>
+                                                    </ng-template>
+
+                                                    <ng-template pTemplate="body" let-b>
+                                                        <tr>
+                                                            <td>{{b.persona.nombreCompleto}}</td>
+                                                            <td>{{b.persona.correo}}</td>
+                                                            <td>{{b.persona.ubigeo.nombre}}-{{b.persona.direccion}}</td>
+                                                            <td>{{b.persona.celular}}</td>
+                                                            <td>{{b.persona.numeroDocumento}}</td>
+                                                            <td><p-rating [(ngModel)]="b.puntuacion" name="puntuacion" id="puntuacion"></p-rating></td>
+                                                            <td style="text-align: center">
+                                                                    <a (click)="calificar(b);">
+                                                                      <button  pButton type="button" icon="fa fa-star-half-o" class="ui-button-success space-buttons" tooltip="Calificar"></button>
+                                                                    </a>&nbsp;
+                                                                    <a (click)="showConfirm(b)">
+                                                                            <button  pButton type="button" icon="fa fa-paperclip" class="ui-button-primary space-buttons" tooltip="Generar Adopción"></button>
+                                                                    </a>   
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </p-panel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <!-- <p-table #dt [columns]="cols" [value]="eventos"  
+                [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
+                
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                    <col style="width: 150px" >
+                  </colgroup>
+                </ng-template>
+        
+                <ng-template pTemplate="header" let-columns let-pro>
+                  <tr>
+                    <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                    <th style="width:15em" id="">Acciones</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr [pSelectableRow]="rowData">
+                    <td>
+                       <span>
+                            {{rowData.fecha | date:'dd/MM/yyyy'}} 
+                       </span>
+                    </td>
+                    <td>
+                        <span>
+                            {{rowData.fecha | date:'h:mm a'}} 
+                        </span>
+                    </td>
+                    <td>
+                        <span>
+                            {{rowData.tipoEvento.nombre}}
+                        </span>
+                    </td>
+                    <td>
+                        <span>
+                            {{rowData.titulo}}
+                        </span>
+                    </td>
+                    <td>
+                        <span>
+                           {{rowData.ubigeo.nombre}} - {{rowData.direccion}}
+                        </span>
+                     </td>
+                     <td>
+                        <span>
+                            {{rowData.descripcion}}
+                        </span>
+                     </td>
+                     
+                    <td >
+                        <span *ngIf="rowData.estado==true" class="label arrowed label-succes">
+                           Activo
+                        </span>
+                        <span *ngIf="rowData.estado==false" class="label arrowed label-important">
+                            Desactivo
+                         </span>
+                     </td>
+                    <td style="text-align: center">
+                      <a *ngIf="rowData.estado==true" (click)="doAction(rowData, 'state');">
+                        <button  pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons" tooltip="Anular"></button>
+                      </a>
+                      <a *ngIf="rowData.estado==false" (click)="doAction(rowData, 'state');">
+                        <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Activar" style="background-color: #a09898;"></button>
+                      </a> &nbsp;
+                      <a (click)="doAction(rowData, 'edit');"  class="hand">
+                        <button  pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons" tooltip="Editar"></button>
+                      </a> &nbsp;
+                      <a (click)="showConfirmDelete(rowData)"  class="hand">
+                        <button  pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons" tooltip="Eliminar"></button>
+                      </a>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table> -->
+      
+        </ng-template>
+        </p-table>
+
+
+  </p-panel>
+  </div>
+</div>

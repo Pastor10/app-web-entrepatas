@@ -1,7 +1,7 @@
 import { Role } from "./role.model";
 
 export class Perfil {
-  idPerfil: number;
+  id: number;
   nombre: string;
   activo: boolean;
   roles: Role[]

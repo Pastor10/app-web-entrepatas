@@ -9,6 +9,7 @@ import { RoleService } from 'src/app/shared/service/role.service';
 import { Role } from 'src/app/shared/model/role.model';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, ValidatorFn } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { RoleName } from 'src/app/enums/role';
 
 
 
@@ -104,6 +105,26 @@ export class ProfilesComponent implements OnInit {
     ROLE_REPORTE_NO_COBERTURADO: number;
     ROLE_PERFIL: number;
     ROLE_USER: number;
+    ROLE_PUBLICACION_REGISTRO: number;
+    ROLE_PUBLICACION_LISTADO: number;
+    ROLE_PUBLICACION_HISTORIAL_CLINICO: number;
+    ROLE_PUBLICACION_APROBACION: number;
+    ROLE_ADOPCION_POSTULANTE_LISTADO: number;
+    ROLE_ADOPCION_GENERAR: number;
+    ROLE_ADOPCION_LISTADO: number;
+    ROLE_ADOPCION_DEVOLUCION: number;
+    ROLE_EVENTO_GENERA: number;
+    ROLE_EVENTO_LISTADO: number;
+    ROLE_EVENTO_TIPO: number;
+    ROLE_COLABORA_REFUGIO: number;
+    ROLE_LOCAL_CREA: number;
+    ROLE_LOCAL_TIPO: number;
+    ROLE_VETERINARIA: number;
+    ROLE_VETERINARIO: number;
+    ROLE_ANIMAL_RAZA: number;
+    ROLE_ANIMAL_TAMANO: number;
+    ROLE_ANIMAL_TIPO: number;
+    public role: RoleName;
     public form: FormGroup;
     lastLazyLoadEvent: LazyLoadEvent;
     public data: Perfil;
@@ -126,6 +147,7 @@ export class ProfilesComponent implements OnInit {
             {field: 'roles', header: 'Roles'}
         ];
         this.loading = true;
+        this.limpiarData();
         //this.builderForm();
         //this.loadRoles();
 
@@ -161,7 +183,7 @@ export class ProfilesComponent implements OnInit {
              roles = roles.replace(/,\s*$/, "");
             // roles +=".";
              let profile = {
-              idPerfil: profiles[i].idPerfil,
+              id: profiles[i].id,
               nombre: profiles[i].nombre,
               activo: profiles[i].activo,
               roles: roles
@@ -206,15 +228,36 @@ export class ProfilesComponent implements OnInit {
     }
 
     getPerfilId(perfil) {
+      console.log('perfil', perfil);
+      
         this.ROLE_USER = 0;
         this.ROLE_PERFIL = 0;
         this.ROLE_REPORTE = 0;
         this.ROLE_REPORTE_NO_COBERTURADO = 0;
-        this.profileService.getFindId(perfil.idPerfil).subscribe(
+        this.ROLE_PUBLICACION_REGISTRO= 0;
+        this.ROLE_PUBLICACION_LISTADO= 0;
+        this.ROLE_PUBLICACION_HISTORIAL_CLINICO= 0;
+        this.ROLE_PUBLICACION_APROBACION= 0;
+        this.ROLE_ADOPCION_POSTULANTE_LISTADO= 0;
+        this.ROLE_ADOPCION_GENERAR= 0;
+        this.ROLE_ADOPCION_LISTADO= 0;
+        this.ROLE_ADOPCION_DEVOLUCION= 0;
+        this.ROLE_EVENTO_GENERA= 0;
+        this.ROLE_EVENTO_LISTADO= 0;
+        this.ROLE_EVENTO_TIPO= 0;
+        this.ROLE_COLABORA_REFUGIO= 0;
+        this.ROLE_LOCAL_CREA= 0;
+        this.ROLE_LOCAL_TIPO= 0;
+        this.ROLE_VETERINARIA= 0;
+        this.ROLE_VETERINARIO= 0;
+        this.ROLE_ANIMAL_RAZA= 0;
+        this.ROLE_ANIMAL_TAMANO= 0;
+        this.ROLE_ANIMAL_TIPO= 0;
+        this.profileService.getFindId(perfil.id).subscribe(
             (data: Perfil) => {
                 this.perfil = data.nombre;
                 this.roles = data.roles;
-                this.idPerfil = data.idPerfil;
+                this.idPerfil = data.id;
 
                 this.roles.forEach( item => {
 
@@ -222,11 +265,49 @@ export class ProfilesComponent implements OnInit {
                         this.ROLE_USER = item.id;
                     } else if (item.name === 'ROLE_PERFIL') {
                         this.ROLE_PERFIL = item.id;
-                    } else if (item.name === 'ROLE_REPORTE') {
-                        this.ROLE_REPORTE = item.id;
+                    }else if (item.name === 'ROLE_ADOPCION_GENERAR') {
+                      this.ROLE_ADOPCION_GENERAR = item.id;
+                    }else if (item.name === 'ROLE_ADOPCION_POSTULANTE_LISTADO') {
+                      this.ROLE_ADOPCION_POSTULANTE_LISTADO = item.id;
+                    }else if (item.name === 'ROLE_ADOPCION_LISTADO') {
+                      this.ROLE_ADOPCION_LISTADO = item.id;
+                    }else if (item.name === 'ROLE_ADOPCION_DEVOLUCION') {
+                      this.ROLE_ADOPCION_DEVOLUCION = item.id;
+                    }else if (item.name === 'ROLE_PUBLICACION_APROBACION') {
+                      this.ROLE_PUBLICACION_APROBACION = item.id;
+                    }else if (item.name === 'ROLE_PUBLICACION_HISTORIAL_CLINICO') {
+                      this.ROLE_PUBLICACION_HISTORIAL_CLINICO = item.id;
+                    }else if (item.name === 'ROLE_PUBLICACION_LISTADO') {
+                      this.ROLE_PUBLICACION_LISTADO = item.id;
+                    }else if (item.name === 'ROLE_PUBLICACION_REGISTRO') {
+                      this.ROLE_PUBLICACION_REGISTRO = item.id;
+                    }else if (item.name === 'ROLE_EVENTO_GENERA') {
+                      this.ROLE_EVENTO_GENERA = item.id;
+                    }else if (item.name === 'ROLE_EVENTO_LISTADO') {
+                      this.ROLE_EVENTO_LISTADO = item.id;
+                    }else if (item.name === 'ROLE_EVENTO_TIPO') {
+                      this.ROLE_EVENTO_TIPO = item.id;
+                    }else if (item.name === 'ROLE_COLABORA_REFUGIO') {
+                      this.ROLE_COLABORA_REFUGIO = item.id;
+                    }else if (item.name === 'ROLE_LOCAL_CREA') {
+                      this.ROLE_LOCAL_CREA = item.id;
+                    }else if (item.name === 'ROLE_LOCAL_TIPO') {
+                      this.ROLE_LOCAL_TIPO = item.id;
+                    }else if (item.name === 'ROLE_VETERINARIA') {
+                      this.ROLE_VETERINARIA = item.id;
+                    }else if (item.name === 'ROLE_VETERINARIO') {
+                      this.ROLE_VETERINARIO = item.id;
+                    }else if (item.name === 'ROLE_ANIMAL_RAZA') {
+                      this.ROLE_ANIMAL_RAZA = item.id;
+                    }else if (item.name === 'ROLE_ANIMAL_TAMANO') {
+                      this.ROLE_ANIMAL_TAMANO = item.id;
+                    }else if (item.name === 'ROLE_ANIMAL_TIPO') {
+                      this.ROLE_ANIMAL_TIPO = item.id;
+                    }else if (item.name === 'ROLE_REPORTE') {
+                      this.ROLE_REPORTE = item.id;
                     }else if (item.name === 'ROLE_REPORTE_NO_COBERTURADO') {
                       this.ROLE_REPORTE_NO_COBERTURADO = item.id;
-                  }
+                    }
                 });
             },
             error => {
@@ -243,7 +324,7 @@ export class ProfilesComponent implements OnInit {
 
     public deletePerfil(data, message): void {
 
-      this.profileService.delete(data.idPerfil).subscribe(
+      this.profileService.delete(data.id).subscribe(
         data => {
           this.showMsg('success', message, 'Perfil');
           this.loadProfiles();
@@ -315,6 +396,25 @@ export class ProfilesComponent implements OnInit {
       this.ROLE_PERFIL = 0;
       this.ROLE_REPORTE = 0;
       this.ROLE_REPORTE_NO_COBERTURADO = 0;
+      this.ROLE_PUBLICACION_REGISTRO= 0;
+      this.ROLE_PUBLICACION_LISTADO= 0;
+      this.ROLE_PUBLICACION_HISTORIAL_CLINICO= 0;
+      this.ROLE_PUBLICACION_APROBACION= 0;
+      this.ROLE_ADOPCION_POSTULANTE_LISTADO= 0;
+      this.ROLE_ADOPCION_GENERAR= 0;
+      this.ROLE_ADOPCION_LISTADO= 0;
+      this.ROLE_ADOPCION_DEVOLUCION= 0;
+      this.ROLE_EVENTO_GENERA= 0;
+      this.ROLE_EVENTO_LISTADO= 0;
+      this.ROLE_EVENTO_TIPO= 0;
+      this.ROLE_COLABORA_REFUGIO= 0;
+      this.ROLE_LOCAL_CREA= 0;
+      this.ROLE_LOCAL_TIPO= 0;
+      this.ROLE_VETERINARIA= 0;
+      this.ROLE_VETERINARIO= 0;
+      this.ROLE_ANIMAL_RAZA= 0;
+      this.ROLE_ANIMAL_TAMANO= 0;
+      this.ROLE_ANIMAL_TIPO= 0;
       this.saveProfile = true;
     }
 
@@ -332,10 +432,10 @@ export class ProfilesComponent implements OnInit {
         }
 
         if (this.idPerfil != undefined) {
-          perfil.idPerfil = this.idPerfil;
+          perfil.id = this.idPerfil;
           this.edit = true;
         } else {
-          perfil.idPerfil = undefined;
+          perfil.id = undefined;
           this.edit = false;
         }
 
@@ -369,9 +469,146 @@ export class ProfilesComponent implements OnInit {
           role.name = 'ROLE_REPORTE_NO_COBERTURADO';
           rolesToSaved.push(role);
 
-      }
-        perfil.roles = rolesToSaved;
+        }
+        if (this.ROLE_PUBLICACION_REGISTRO != 0  ) {
+          const role = new Role();
+          role.id = 5;
+          role.name = 'ROLE_PUBLICACION_REGISTRO';
+          rolesToSaved.push(role);
 
+        }
+        if (this.ROLE_PUBLICACION_LISTADO != 0  ) {
+          const role = new Role();
+          role.id = 6;
+          role.name = 'ROLE_PUBLICACION_LISTADO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_PUBLICACION_HISTORIAL_CLINICO != 0  ) {
+          const role = new Role();
+          role.id = 7;
+          role.name = 'ROLE_PUBLICACION_HISTORIAL_CLINICO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_PUBLICACION_APROBACION != 0  ) {
+          const role = new Role();
+          role.id = 8;
+          role.name = 'ROLE_PUBLICACION_APROBACION';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_ADOPCION_POSTULANTE_LISTADO != 0  ) {
+          const role = new Role();
+          role.id = 9;
+          role.name = 'ROLE_ADOPCION_POSTULANTE_LISTADO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_ADOPCION_GENERAR != 0  ) {
+          const role = new Role();
+          role.id = 10;
+          role.name = 'ROLE_ADOPCION_GENERAR';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_ADOPCION_LISTADO != 0  ) {
+          const role = new Role();
+          role.id = 11;
+          role.name = 'ROLE_ADOPCION_LISTADO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_ADOPCION_DEVOLUCION != 0  ) {
+          const role = new Role();
+          role.id = 12;
+          role.name = 'ROLE_ADOPCION_DEVOLUCION';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_EVENTO_GENERA != 0  ) {
+          const role = new Role();
+          role.id = 13;
+          role.name = 'ROLE_EVENTO_GENERA';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_EVENTO_LISTADO != 0  ) {
+          const role = new Role();
+          role.id = 14;
+          role.name = 'ROLE_EVENTO_LISTADO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_EVENTO_TIPO != 0  ) {
+          const role = new Role();
+          role.id = 15;
+          role.name = 'ROLE_EVENTO_TIPO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_COLABORA_REFUGIO != 0  ) {
+          const role = new Role();
+          role.id = 16;
+          role.name = 'ROLE_COLABORA_REFUGIO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_LOCAL_CREA != 0  ) {
+          const role = new Role();
+          role.id = 17;
+          role.name = 'ROLE_LOCAL_CREA';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_LOCAL_TIPO != 0  ) {
+          const role = new Role();
+          role.id = 18;
+          role.name = 'ROLE_LOCAL_TIPO';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_VETERINARIA != 0  ) {
+          const role = new Role();
+          role.id = 19;
+          role.name = 'ROLE_VETERINARIA';
+          rolesToSaved.push(role);
+
+        }
+        if (this.ROLE_VETERINARIO != 0  ) {
+          const role = new Role();
+          role.id = 20;
+          role.name = 'ROLE_VETERINARIO';
+          rolesToSaved.push(role);
+
+        }
+
+        if (this.ROLE_ANIMAL_RAZA != 0  ) {
+          const role = new Role();
+          role.id = 21;
+          role.name = 'ROLE_ANIMAL_RAZA';
+          rolesToSaved.push(role);
+
+        }
+
+        if (this.ROLE_ANIMAL_TAMANO != 0  ) {
+          const role = new Role();
+          role.id = 22;
+          role.name = 'ROLE_ANIMAL_TAMANO';
+          rolesToSaved.push(role);
+
+        }
+
+        if (this.ROLE_ANIMAL_TIPO != 0  ) {
+          const role = new Role();
+          role.id = 23;
+          role.name = 'ROLE_ANIMAL_TIPO';
+          rolesToSaved.push(role);
+
+        }
+        perfil.roles = rolesToSaved;
+        console.log(perfil.roles);
+        
 
         this.listProfile.forEach(item => {
           if (item.nombre.toUpperCase() === this.perfil.toUpperCase() && !this.edit) {

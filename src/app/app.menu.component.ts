@@ -53,6 +53,175 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
+                label: 'Publicaciones',
+                icon: 'fa fa-bell',
+                items: [
+                    {
+                        label: 'Publicar',
+                        icon: 'fa fa-bullhorn',
+                        routerLink: ['/main/generar-publicacion'],
+                        role: 'ROLE_PUBLICACION_REGISTRO',
+                        state: false
+                    },
+                    {
+                        label: 'Listado',
+                        icon: 'fa fa-list-ul',
+                        routerLink: ['/main/publicacion-lista'],
+                        role: 'ROLE_PUBLICACION_LISTADO',
+                        state: false
+                    },
+                    {
+                        label: 'Historial Clinico',
+                        icon: 'fa fa-folder-open-o',
+                        routerLink: ['/main/publicacion-cita'],
+                        role: 'ROLE_PUBLICACION_HISTORIAL_CLINICO',
+                        state: false
+                    },
+                    {
+                        label: 'Visitantes',
+                        icon: 'fa fa-check-square-o',
+                        routerLink: ['/main/publicacion-aprobacion'],
+                        role: 'ROLE_PUBLICACION_APROBACION',
+                        state: false
+                    }
+                ]
+            },
+            {
+                label: 'Adopcion',
+                icon: 'fa fa-heart',
+                items: [
+                    {
+                        label: 'Listar Postulantes',
+                        icon: 'fa fa-users',
+                        routerLink: ['/main/postulante'],
+                        role: 'ROLE_ADOPCION_POSTULANTE_LISTADO',
+                        state: false
+                    },
+                    {
+                        label: 'Generar Adopcion',
+                        icon: 'fa fa-clipboard',
+                        routerLink: ['/main/genera-adopcion'],
+                        role: 'ROLE_ADOPCION_GENERAR',
+                        state: false
+                    },
+                    {
+                        label: 'Listar Adopciones',
+                        icon: 'fa fa-file-text-o',
+                        routerLink: ['/main/adopciones'],
+                        role: 'ROLE_ADOPCION_LISTADO',
+                        state: false
+                    },
+                    {
+                        label: 'Devolucion',
+                        icon: 'fa fa-thumbs-o-down',
+                        routerLink: ['/main/devoluciones'],
+                        role: 'ROLE_ADOPCION_DEVOLUCION',
+                        state: false
+                    }
+                ]
+            },
+            {
+                label: 'Eventos',
+                icon: 'fa fa-calendar',
+                items: [
+                    {
+                        label: 'Generar Evento',
+                        icon: 'fa fa-street-view',
+                        routerLink: ['/main/evento-publica'],
+                        role: 'ROLE_EVENTO_GENERA',
+                        state: false
+                    },
+                    {
+                        label: 'Listar Eventos',
+                        icon: 'fa fa-bars',
+                        routerLink: ['/main/evento-lista'],
+                        role: 'ROLE_EVENTO_LISTADO',
+                        state: false
+                    },
+                    {
+                        label: 'Tipo Evento',
+                        icon: 'fa fa-cutlery',
+                        routerLink: ['/main/tipo-evento'],
+                        role: 'ROLE_EVENTO_TIPO',
+                        state: false
+                    }
+                ]
+            },
+            {
+                label: 'Colabora Refugio', 
+                icon: 'fa fa-handshake-o',
+                items: [
+                    {label: 'Colaborar',
+                    icon: 'fa fa-list-alt',
+                    routerLink: ['/main/reporteF7-general'],
+                    role:'ROLE_COLABORA_REFUGIO',
+                    state: false
+                    }
+                   
+                ]
+               
+            },
+            {
+                label: 'Local', 
+                icon: 'fa fa-home',
+                items: [
+                    {label: 'Locales',
+                    icon: 'fa fa-map-marker',
+                    routerLink: ['/main/local'],
+                    role:'ROLE_LOCAL_CREA',
+                    state: false
+                    },
+                    {label: 'Tipo Local',
+                     icon: 'fa fa-home', 
+                     routerLink: ['/main/tipolocal'],
+                     role:'ROLE_LOCAL_TIPO',
+                     state: false
+                    }
+                ]
+            },
+            {
+                label: 'Veterinaria', 
+                icon: 'fa fa-ambulance',
+                items: [
+                    {label: 'Veterinario',
+                    icon: 'fa fa-user-md',
+                    routerLink: ['/main/veterinario'],
+                    role:'ROLE_VETERINARIO',
+                    state: false
+                    },
+                    {label: 'Veterinaria',
+                     icon: 'fa fa-hospital-o', 
+                     routerLink: ['/main/veterinaria'],
+                     role:'ROLE_VETERINARIA',
+                     state: false
+                    }
+                ]
+            },
+            {
+                label: 'Animal', 
+                icon: 'fa fa-github',
+                items: [
+                    {label: 'Raza Animal',
+                    icon: 'fa fa-paw',
+                    routerLink: ['/main/raza'],
+                    role:'ROLE_ANIMAL_RAZA',
+                    state: false
+                    },
+                    {label: 'Tamaño',
+                     icon: 'fa fa-sort-amount-desc', 
+                     routerLink: ['/main/tamano-animal'],
+                     role:'ROLE_ANIMAL_TAMANO',
+                     state: false
+                    },
+                    {label: 'Tipo Animal',
+                    icon: 'fa fa-qq', 
+                    routerLink: ['/main/tipo-animal'],
+                    role:'ROLE_ANIMAL_TIPO',
+                    state: false
+                   }
+                ]
+            },
+            {
                 label: 'Reportes', 
                 icon: 'fa fa-fw fa-bars',
                 items: [
@@ -76,35 +245,54 @@ export class AppMenuComponent implements OnInit {
     }
 
    createOptions(arrayOptions){
-    this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
-    this.pl = JSON.parse(this.tkn.sub);
-    let email = this.pl.email;
-    this.usuarioService.getFindByEmail(email).subscribe(
-        data => {
-            localStorage.setItem('perfil', JSON.stringify(data.profileEntity.nombre));
-            
-            
-        for(let i= 0; i < arrayOptions.length; i++){
+    this.tkn = localStorage.getItem("userLogin");
+    this.pl = JSON.parse(this.tkn);
+    
+    //let email = this.pl.email;
+
+    for(let i= 0; i < arrayOptions.length; i++){
         for(let x = 0; x < arrayOptions[i].items.length; x++){
-        for(let a= 0; a < data.profileEntity.roles.length; a++){
-         if(arrayOptions[i].items[x].role === data.profileEntity.roles[a].name){
+        for(let a= 0; a < this.pl.roles.length; a++){
+         if(arrayOptions[i].items[x].role === this.pl.roles[a].name){
             arrayOptions[i].items[x].state = true;
          }}}}
-        for(let i= 0;i < arrayOptions.length; i++){
-            arrayOptions[i].items = arrayOptions[i].items.filter(function( obj ) {
-                return obj.state == true;});}
-        arrayOptions = arrayOptions.filter(function( obj ) {
-            return obj.items.length > 0;});
-        this.model = arrayOptions;
+
+         for(let i= 0;i < arrayOptions.length; i++){
+                    arrayOptions[i].items = arrayOptions[i].items.filter(function( obj ) {
+                        return obj.state == true;});}
+                arrayOptions = arrayOptions.filter(function( obj ) {
+                    return obj.items.length > 0;});
+
+         this.model = arrayOptions;
+
+    // this.usuarioService.getFindByEmail('luisyum@gmail.com').subscribe(
+    //     data => {
+    //         console.log('data', data);
+            
+    //         localStorage.setItem('perfil', JSON.stringify(data.profileEntity.nombre));
+            
+            
+    //     for(let i= 0; i < arrayOptions.length; i++){
+    //     for(let x = 0; x < arrayOptions[i].items.length; x++){
+    //     for(let a= 0; a < data.profileEntity.roles.length; a++){
+    //      if(arrayOptions[i].items[x].role === data.profileEntity.roles[a].name){
+    //         arrayOptions[i].items[x].state = true;
+    //      }}}}
+    //     for(let i= 0;i < arrayOptions.length; i++){
+    //         arrayOptions[i].items = arrayOptions[i].items.filter(function( obj ) {
+    //             return obj.state == true;});}
+    //     arrayOptions = arrayOptions.filter(function( obj ) {
+    //         return obj.items.length > 0;});
+    //     this.model = arrayOptions;
         
-        },
-        error => {
-          const errorMessage =
-            error.message != undefined
-              ? error.message
-              : 'No se pudo procesar la petición';
-        }
-      );
+    //     },
+    //     error => {
+    //       const errorMessage =
+    //         error.message != undefined
+    //           ? error.message
+    //           : 'No se pudo procesar la petición';
+    //     }
+    //   );
    }
 
     changeTheme(theme: string) {

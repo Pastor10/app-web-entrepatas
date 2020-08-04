@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {trigger, state, transition, style, animate} from '@angular/animations';
 import { AppConstant } from './shared/constant/app.constant';
+import { UsuarioService } from './shared/service/usuario.service';
+import { User } from './shared/model/User.model';
 
 @Component({
     selector: 'app-inline-profile',
@@ -8,17 +10,28 @@ import { AppConstant } from './shared/constant/app.constant';
         <div class="profile" [ngClass]="{'profile-expanded':active}">
             <a href="#" (click)="onClick($event)">
                 <img class="profile-image" src="assets/layout/images/default-avatar.png" />
-                <span class="profile-name">{{name}}</span>
+                <span class="profile-name">Bienvenido</span>
                 <i class="fa fa-fw fa-caret-down"></i>
-                <span class="profile-role">Admin</span>
+                <span class="profile-role">{{name}}</span>
             </a>
         </div>
 
         <ul id="profile-menu" class="layout-menu" [@menu]="active ? 'visible' : 'hidden'">
+            
+            <li role="menuitem">
+                <a href="#" routerLink="/main/perfil" [attr.tabindex]="!active ? '-1' : null">
+                    <i class="fa fa-user-circle-o"></i>
+                    <span>Mi Perfil</span>
+                </a>
+                <div class="layout-menu-tooltip">
+                    <div class="layout-menu-tooltip-arrow"></div>
+                    <div class="layout-menu-tooltip-text">Mi Perfil</div>
+                </div>
+            </li>
             <li role="menuitem">
                 <a href="#" (click)="logout()" [attr.tabindex]="!active ? '-1' : null">
                     <i class="fa fa-fw fa-sign-out"></i>
-                    <span>Logout</span>
+                    <span>Cerrar sesión</span>
                 </a>
                 <div class="layout-menu-tooltip">
                     <div class="layout-menu-tooltip-arrow"></div>
@@ -47,20 +60,33 @@ export class AppProfileComponent {
     public pl;
     public name;
     public perfil;
+    usuario: User;
 
     onClick(event) {
         this.active = !this.active;
         event.preventDefault();
     }
     logout(){
-        localStorage.removeItem("token");
+        localStorage.removeItem("userLogin");
        }
-constructor(){
-         this.tkn = AppConstant.DECODE(localStorage.getItem("token"));
+constructor(public usuarioService: UsuarioService){
+         this.tkn = localStorage.getItem("userLogin");
          
-         this.pl = JSON.parse(this.tkn.sub);
-         this.name = this.pl.full_name;
+         this.pl = JSON.parse(this.tkn);
+         console.log('user ',this.pl);
+         
+         this.name = this.pl.user.name;
+         //this.perfil = this.pl.user.per
+
+         
     
+}
+
+getUserId(id){
+    this.usuarioService.getUserId(id).subscribe((data: User) =>{
+    this.usuario = data;
+    });
+    return this.usuario;
 }
        
 }

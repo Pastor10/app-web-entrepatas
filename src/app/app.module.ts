@@ -75,6 +75,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
+
 import {AppComponent} from './app.component';
 import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
 import {AppTopBarComponent} from './app.topbar.component';
@@ -101,6 +102,48 @@ import { ProfilesComponent } from './component/profiles/profiles.component';
 import { RoleService } from './shared/service/role.service';
 import { LoadingComponent } from './component/loading/loading.component';
 import { LoaderInterceptor } from './shared/service/loader-interceptor';
+import { TipoLocalComponent } from './component/local/tipolocal/tipolocal.component';
+import { TipoLocalService } from './shared/service/tipolocal.service';
+import { GenerarPublicacionComponent } from './component/publicacion/publicacion-genera/generarpublicacion.component';
+import { LocalComponent } from './component/local/local_user/local.component';
+import { UbigeoService } from './shared/service/ubigeo.service';
+import { LocalService } from './shared/service/local.service';
+import { VeterinariaComponent } from './component/veterinaria/veterinaria/veterinaria.component';
+import { VeterinarioComponent } from './component/veterinaria/veterinario/veterinario.component';
+import { VeterinariaService } from './shared/service/veterinaria.service';
+import { VeterinarioService } from './shared/service/veterinario.service';
+import { TipoAnimalComponent } from './component/animal/tipo/tipoanimal.component';
+import { TipoAnimalService } from './shared/service/tipoanimal.service';
+import { TamanoAnimalComponent } from './component/animal/tamano/tamanoanimal.component';
+import { TamanoAnimalService } from './shared/service/tamanoanimal.service';
+import { RazaService } from './shared/service/raza.service';
+import { RazaComponent } from './component/animal/raza/raza.component';
+import { TipoEventoComponent } from './component/evento/tipoEvento/tipoevento.component';
+import { TipoEventoService } from './shared/service/tipoevento.service';
+import { EventoPublicaComponent } from './component/evento/publicacion/eventopublica.component';
+import { EventoService } from './shared/service/evento.service';
+import { EventoListaComponent } from './component/evento/eventos/eventolista.component';
+import { CondicionService } from './shared/service/condicion.service';
+import { PublicacionService } from './shared/service/publicacion.service';
+import { PublicacionListaComponent } from './component/publicacion/publicacion-lista/listapublicacion.component';
+import { CabeceraComponent } from './component/cabecera/cabecera.component';
+import { HomeComponent } from './component/home/home.component';
+import { ConocenosComponent } from './component/conocenos/conocenos.component';
+import { AdoptaComponent } from './component/adopta/adopta.component';
+import { AnimalService } from './shared/service/animal.service';
+import { TipoDocumentoService } from './shared/service/tipodocumento.service';
+import { SolicitudAdopcionService } from './shared/service/solicitudAdopcion.service';
+import { PostulanteComponent } from './component/adopcion/postulantes/postulantes.component';
+import { PostulanteService } from './shared/service/postulante.service';
+import { AdopcionService } from './shared/service/adopcion.service';
+import { AdopcionComponent } from './component/adopcion/lista-adopcion/adopciones.component';
+import { PerfilComponent } from './component/perfil/perfil.component';
+import { CitaMedicaComponent } from './component/publicacion/cita_medica/cita.component';
+import { CitaMedicaService } from './shared/service/cita.service';
+import { AprobacionPublicacionComponent } from './component/publicacion/aprobaciones/aprobaciones.component';
+import { GeneraAdopcionComponent } from './component/adopcion/genera-adopcion/genera.component';
+import { DevolucionComponent } from './component/adopcion/devolucion/devolucion.component';
+import { PersonaService } from './shared/service/persona.service';
 
 
 
@@ -194,7 +237,33 @@ import { LoaderInterceptor } from './shared/service/loader-interceptor';
         UsuariosComponent,
         ReporteF7NoCoberturadoComponent,
         ProfilesComponent,
-        LoadingComponent
+        LoadingComponent,
+        LocalComponent,
+        TipoLocalComponent,
+        GenerarPublicacionComponent,
+        VeterinariaComponent,
+        VeterinarioComponent,
+        TipoAnimalComponent,
+        TamanoAnimalComponent,
+        RazaComponent,
+        TipoEventoComponent,
+        EventoPublicaComponent,
+        EventoListaComponent,
+        PublicacionListaComponent,
+        CabeceraComponent,
+        HomeComponent,
+        ConocenosComponent,
+        AdoptaComponent,
+        PostulanteComponent,
+        AdopcionComponent,
+        PerfilComponent,
+        CitaMedicaComponent,
+        AprobacionPublicacionComponent,
+        GeneraAdopcionComponent,
+        DevolucionComponent
+
+
+
     ],
     providers: [
         {provide: LocationStrategy, useClass: PathLocationStrategy},
@@ -215,7 +284,26 @@ import { LoaderInterceptor } from './shared/service/loader-interceptor';
         ConfirmationService,
         UsuarioService,
         ProfileService,
-        RoleService
+        RoleService,
+        TipoLocalService,
+        UbigeoService,
+        LocalService,
+        VeterinariaService,
+        VeterinarioService,
+        TipoAnimalService,
+        TamanoAnimalService,
+        RazaService,
+        TipoEventoService,
+        EventoService,
+        CondicionService,
+        PublicacionService,
+        AnimalService,
+        TipoDocumentoService,
+        SolicitudAdopcionService,
+        PostulanteService,
+        AdopcionService,
+        CitaMedicaService,
+        PersonaService
     ],
     bootstrap: [AppComponent]
 })

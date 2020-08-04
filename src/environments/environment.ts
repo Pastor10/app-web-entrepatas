@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  //END_POINT: 'http://entrepatasch.us-east-2.elasticbeanstalk.com/',
   END_POINT: 'http://localhost:9002/',
   TIMEOUT: 10000,
   MESSAGE_TIMEOUT: 'Tiempo de respuesta excedido',

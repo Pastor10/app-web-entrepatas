@@ -18,7 +18,7 @@
   </ng-template>
 </p-toast>
         <div class="ui-g">
-            <div class="ui-g-12 ui-lg-8">
+            <div class="ui-g-12 ui-lg-9">
               <p-panel [style]="{'margin-bottom':'20px'}">
                 <p-header>
                         <span  class="ui-panel-title">Perfiles</span>
@@ -33,7 +33,7 @@
                 <ng-template pTemplate="colgroup" let-columns>
                    <colgroup>
                      <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-                     <col style="width: 150px" > <!--check -->
+                     <col style="width: 100px" > <!--check -->
                    </colgroup>
                  </ng-template>
 
@@ -43,7 +43,7 @@
                        {{col.header}}
                        <p-sortIcon [field]="col.field"></p-sortIcon>
                      </th>
-                     <th style="width:15em" id="">Acciones</th>
+                     <th style="width:5em" id="">Acciones</th>
                    </tr>
                  </ng-template>
                  <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -52,12 +52,6 @@
                        <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
                      </td>
                      <td style="text-align: center">
-                      <!-- <a *ngIf="rowData.activo==true" (click)="doAction(rowData, 'state');">
-                        <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Desactivar"></button>
-                      </a>
-                      <a *ngIf="rowData.activo==false" (click)="doAction(rowData, 'state');">
-                        <button  pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons" tooltip="Activar" style="background-color: #a09898;"></button>
-                      </a> &nbsp; -->
                       <a (click)="doAction(rowData, 'edit');"  class="hand">
                         <button  pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons" tooltip="Editar"></button>
                       </a>&nbsp;
@@ -72,7 +66,7 @@
               </p-panel>
             </div>
 
-            <div class="ui-g-12 ui-lg-4">
+            <div class="ui-g-12 ui-lg-3">
               <!-- Left Side -->
               <div class="card card-w-title">
                 <div class="ui-g">
@@ -97,26 +91,101 @@
                             pInputText placeholder="Perfil" [(ngModel)]="perfil" [ngModelOptions]="{standalone: true}">
                       </div>
                     </div>
+                    <p-scrollPanel [style]="{width: '90%', height: '400px'}" styleClass="custom">
+                        <div class="row ui-g-12" style="padding: 0px;">
+                            <div class="ui-g-2 ui-md-3">
+                              <label for="form-control"><strong>CONFIGURACIÓN</strong> </label>
+                              <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                  <div class="ui-g-12"><p-checkbox name="roles1" [(ngModel)]="ROLE_USER" label="Usuario"   binary="true" ></p-checkbox></div>
+                                  <div class="ui-g-12"><p-checkbox name="roles2" [(ngModel)]="ROLE_PERFIL" label="Perfil" binary="true" ></p-checkbox></div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>PUBLICACION</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles3" [(ngModel)]="ROLE_PUBLICACION_REGISTRO" label="Publicar"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles4" [(ngModel)]="ROLE_PUBLICACION_LISTADO" label="Listar Publicaciones"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles5" [(ngModel)]="ROLE_PUBLICACION_HISTORIAL_CLINICO" label="Historial Clinico"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles6" [(ngModel)]="ROLE_PUBLICACION_APROBACION" label="Aprobacion"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                        </div>
+        
+                            <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>ADOPCION</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles7" [(ngModel)]="ROLE_ADOPCION_POSTULANTE_LISTADO" label="Listar Postulantes"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles8" [(ngModel)]="ROLE_ADOPCION_GENERAR" label="Generar Adopcion"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles9" [(ngModel)]="ROLE_ADOPCION_LISTADO" label="Listar Adopcion"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles10" [(ngModel)]="ROLE_ADOPCION_DEVOLUCION" label="Devolucion"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                            </div>
+        
+                            <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>EVENTOS</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles11" [(ngModel)]="ROLE_EVENTO_GENERA" label="Generar Evento"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles12" [(ngModel)]="ROLE_EVENTO_LISTADO" label="Listar Eventos"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles13" [(ngModel)]="ROLE_EVENTO_TIPO" label="Tipo Evento"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>COLABORA</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles14" [(ngModel)]="ROLE_COLABORA_REFUGIO" label="Colaborar"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>LOCAL</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles15" [(ngModel)]="ROLE_LOCAL_CREA" label="Local"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles16" [(ngModel)]="ROLE_LOCAL_TIPO" label="Tipo Local"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>VETERINARIA</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles17" [(ngModel)]="ROLE_VETERINARIA" label="Veterinaria"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles18" [(ngModel)]="ROLE_VETERINARIO" label="Veterinario"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>ANIMAL</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles19" [(ngModel)]="ROLE_ANIMAL_RAZA" label="Raza"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles20" [(ngModel)]="ROLE_ANIMAL_TAMANO" label="Tamaño"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles21" [(ngModel)]="ROLE_ANIMAL_TIPO" label="Tipo Animal"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row ui-g-12" style="padding: 0px;">
+                                <div class="ui-g-2 ui-md-3">
+                                  <label for="form-control"><strong>REPORTES</strong> </label>
+                                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox name="roles22" [(ngModel)]="ROLE_REPORTE" label="Reporte General"  binary="true" ></p-checkbox></div>
+                                    <div class="ui-g-12"><p-checkbox name="roles23" [(ngModel)]="ROLE_REPORTE_NO_COBERTURADO" label="Reporte no coberturado"  binary="true" ></p-checkbox></div>
+                                </div>
+                                </div>
+                              </div>
+
+                    </p-scrollPanel>
+                   
                     
 
-                    <div class="row ui-g-12" style="padding: 0px;">
-                      <div class="ui-g-2 ui-md-3">
-                        <label for="form-control"><strong>CONFIGURACIÓN</strong> </label>
-                        <div class="ui-g" style="width:250px;margin-bottom:10px">
-                            <div class="ui-g-12"><p-checkbox name="roles1" [(ngModel)]="ROLE_USER" label="Usuario"   binary="true" ></p-checkbox></div>
-                            <div class="ui-g-12"><p-checkbox name="roles2" [(ngModel)]="ROLE_PERFIL" label="Perfil" binary="true" ></p-checkbox></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row ui-g-12" style="padding: 0px;">
-                      <div class="ui-g-2 ui-md-3">
-                        <label for="form-control"><strong>REPORTES</strong> </label>
-                        <div class="ui-g" style="width:250px;margin-bottom:10px">
-                          <div class="ui-g-12"><p-checkbox name="roles3" [(ngModel)]="ROLE_REPORTE" label="Reporte General"  binary="true" ></p-checkbox></div>
-                          <div class="ui-g-12"><p-checkbox name="roles4" [(ngModel)]="ROLE_REPORTE_NO_COBERTURADO" label="Reporte no coberturado"  binary="true" ></p-checkbox></div>
-                      </div>
-                      </div>
-                    </div>
+                    
 
                     <div class="ui-g-12 ui-md-6">
                         <button pButton  label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>

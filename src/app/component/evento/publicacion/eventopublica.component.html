@@ -1,0 +1,91 @@
+<p-card>
+        <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+        <form (ngSubmit)="save()">
+    
+            <div class="ui-g ui-fluid">
+                <div class=" ui-g-12 ui-md-6">
+                    <p-card>
+    
+                        <div style="text-align: center; margin-bottom: 0.5em;">
+                            <button style="width: auto; font-size: 20px;" pButton type="button" label="Generar Evento"
+                                    class="ui-button-rounded"></button>
+                        </div>
+    
+                        <div class="ui-g">
+                            <div class="ui-g-6">
+                                <h5 class="label-custom">Tipo Evento (*)</h5>
+                                <p-dropdown [style]="{'width':'100%'}" 
+                                            [options]="listaTipoEvento"
+                                            placeholder="Seleccione tipo evento"
+                                            name="tipoEvento" [(ngModel)]="tipoEvento" 
+                                            optionLabel="nombre" [showClear]="true" >
+                                            
+                                </p-dropdown>
+                            </div>
+                            <div class="ui-g-6">
+                                <h5 class="label-custom">Título (*)</h5>
+                                <input style="width: 100%;" type="text" name="nombre" [(ngModel)]="nombre" pInputText/>
+        
+                            </div>
+    
+                            <div class="ui-g-12">
+                                <h5 class="label-custom">Descripcíon (*)</h5>
+                                <textarea rows="5" cols="30" pInputTextarea name="descripcion" [(ngModel)]="descripcion"></textarea>
+              
+                            </div>
+                            <div class="ui-g-6">
+                                    <h5 class="label-custom">Fecha y Hora(*)</h5>
+                                    <p-calendar [(ngModel)]="fecha" name="fecha" [showTime]="true" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+                               
+                            </div>
+                            <div class="ui-g-12">
+                                <h5 class="label-custom">Ciudad(*)</h5>
+                                <p-autoComplete field="descripcion"
+                                    [(ngModel)]="ubigeo" name="ubigeo" (onSelect)="onSelectCiudad($event)"
+                                    [suggestions]="filteredCities"
+                                    (completeMethod)="filterCitiesByNombre($event)" [size]="40"
+                                    placeholder="Ingrese ubigeo" [minLength]="1">
+                                    <ng-template let-d pTemplate="item">
+                                        {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}} - {{d.descripcion}}
+                                    </ng-template>
+                                </p-autoComplete>
+                            </div>
+
+                            <div class="ui-g-12">
+                                    <h5 class="label-custom">Direccíon(*)</h5>
+                                    <input style="width: 100%;" type="text" [(ngModel)]="direccion" name="direccion" pInputText/>
+                            </div>
+                            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                                    <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected"></p-checkbox></div>
+                            </div>
+    
+                            <div class="ui-g-12" text-align: center style="text-align: center;">
+                                    <button 
+                                    style="width: auto; margin-top: 1.2rem;  padding: 5px ; font-size: 15px;" pButton
+                                    type="submit" [label]="labelButtonAction" class="ui-button-rounded ui-button-success"></button>
+
+                                    <button 
+                                    style="width: auto; margin-top: 1.2rem; margin-left: 20px ;   padding: 5px ; font-size: 15px;" pButton
+                                    type="submit" label="Cancelar" class="ui-button-rounded ui-button-secondary" (click)="limpiarData()"></button>
+                            </div>
+                        </div>
+    
+                    </p-card>
+                </div>
+    
+                <div style="text-align: center;" class="ui-g-12 ui-md-6">
+                    <p-card>
+                        <div *ngIf="tipoEvento!=null">
+                                <img  src="http://entrepatasch.us-east-2.elasticbeanstalk.com/api/tipoEvento/upload/img/{{tipoEvento.imagen}}" width="350px"  height="300px" >  
+                        </div>
+
+                    </p-card>
+
+                </div>
+    
+            </div>
+    
+    
+        </form>
+    </p-card>
+    

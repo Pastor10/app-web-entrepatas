@@ -1,0 +1,160 @@
+<p-card>
+ <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+    <form (ngSubmit)="save()">
+        <div class="ui-g ui-fluid" *ngIf="usuario!=null">
+            <div class=" ui-g-12 ui-md-6">
+                <p-card>
+
+                    <div style="text-align: center; margin-bottom: 0.5em;">
+                        <h2 class="label-custom">Datos Personales</h2>
+                    </div>
+
+                    <div class="ui-g">
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Tipo documento</h5>
+                            <p-dropdown [style]="{'width':'100%'}" [options]="listTipoDocumento"
+                                placeholder="Seleccione tipo documento" name="usuario.tipoDocumento"
+                                [(ngModel)]="usuario.persona.tipoDocumento" optionLabel="abreviatura"
+                                [showClear]="true">
+
+                            </p-dropdown>
+                        </div>
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Numero documento</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.numeroDocumento"
+                                [(ngModel)]="usuario.persona.numeroDocumento" pInputText />
+
+                        </div>
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Nombres</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.nombre"
+                                [(ngModel)]="usuario.persona.nombre" pInputText />
+
+                        </div>
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Apellido paterno</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.apePaterno"
+                                [(ngModel)]="usuario.persona.apePaterno" pInputText />
+
+                        </div>
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Apellido materno</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.apeMaterno"
+                                [(ngModel)]="usuario.persona.apeMaterno" pInputText />
+                        </div>
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Correo</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.correo"
+                                [(ngModel)]="usuario.persona.correo" pInputText />
+                        </div>
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Celular</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.celular"
+                                [(ngModel)]="usuario.persona.celular" pInputText />
+                        </div>
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Dirección</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.direccion"
+                                [(ngModel)]="usuario.persona.direccion" pInputText />
+                        </div>
+
+                        <!-- <div class="ui-g-6">
+                                        <h5 class="label-custom">Estado civil</h5>
+                                        <p-dropdown [style]="{'width':'100%'}" 
+                                                    [options]="listaTipoEvento"
+                                                    placeholder="Seleccione tipo evento"
+                                                    name="tipoEvento" [(ngModel)]="tipoEvento" 
+                                                    optionLabel="nombre" [showClear]="true" >
+                                                    
+                                        </p-dropdown>
+                                    </div> -->
+                    </div>
+
+                </p-card>
+            </div>
+
+            <div class="ui-g-12 ui-md-6">
+                <p-card>
+                    <div style="text-align: center; margin-bottom: 0.5em;">
+                        <h2 class="label-custom">Otros datos</h2>
+                    </div>
+
+                    <div class="ui-g">
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Ciudad</h5>
+                            <p-autoComplete field="descripcion" [(ngModel)]="usuario.persona.ubigeo" name="usuario.persona.ubigeo"
+                            [suggestions]="filteredCities" (completeMethod)="filterCitiesByNombre($event)" [size]="30"
+                            placeholder="Ingrese ubigeo" [minLength]="1">
+                            <ng-template let-d pTemplate="item">
+                                {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}} - {{d.descripcion}}
+                            </ng-template>
+                        </p-autoComplete>
+                            <!-- <input style="width: 100%;" type="text" name="nombre" [(ngModel)]="nombre" pInputText /> -->
+
+                        </div>
+
+                        <div class="ui-g-6">
+                            <h5 class="label-custom">Ocupación</h5>
+                            <input style="width: 100%;" type="text" name="usuario.persona.ocupacion"
+                                [(ngModel)]="usuario.persona.ocupacion" pInputText />
+
+                        </div>
+
+                    </div>
+
+                </p-card>
+
+            </div>
+
+
+            <!-- <div style="text-align: center;" class="ui-g-12 ui-md-12">
+
+                                <div class="ui-g">
+                                        <div class="ui-g-6">
+                                                <h3 class="first">Subir imagen</h3>
+                                                <p-fileUpload accept="image/*"
+                                                              chooseLabel="Selecciona una imagen" uploadLabel="Subir imagen"
+                                                              cancelLabel="Cancelar" name="file"
+                                                              (uploadHandler)="onFileUpload($event)" [customUpload]="true"
+                                                              [multiple]="false" maxFileSize="1000000">
+                                                    <ng-template pTemplate="content">
+                                                        <ul *ngIf="uploadedFiles.length">
+                                                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}}
+                                                                bytes
+                                                            </li>
+                                                        </ul>
+                                                    </ng-template>
+                                                </p-fileUpload>
+                                
+                                                <div style="margin-top: 0.5rem;">
+                                                    <label>URL imagen</label>
+                                                    <input onClick="this.select();" style="width: 100%; margin-bottom: 0.2em" name="avatarUrl" [(ngModel)]="avatarUrl" 
+                                                           id="imagenUrl" type="text" pInputText/>
+                                                    <p-message *ngIf="avatarUrl.touched && avatarUrl.errors?.required" severity="error" text="Ingrese url"></p-message>
+                                
+                                                </div>
+                                            </div>
+                                 
+    
+                                </div>
+                            
+                            
+            
+                        </div> -->
+
+        </div>
+
+
+
+
+
+        <!-- <div class="ui-g-4">
+                <img style="width: 100%;" *ngIf="avatarUrl.value" [src]="avatarUrl.value">
+            </div> -->
+
+        <div style="text-align: center; margin-top: 1rem;">
+            <button style="margin-right: 0.4rem" pButton type="submit" [label]="'Actualizar datos'"></button>
+        </div>
+
+    </form>
+</p-card>

@@ -1,16 +1,22 @@
 
 import {Autority} from './autority.model';
 import {Perfil} from './perfil.model';
+import { TipoDocumento } from './tipoDocumento.model';
+import { Ubigeo } from './ubigeo.model';
+import { Ocupacion } from './ocupacion.model';
+import { Persona } from './persona.model';
 
 export class User {
     constructor(
         public id?: number,
-        public email?: string,
-        public fullname?: string,
-        public enabled?: boolean,
-        public deleted?: boolean,
-        public type?: string,
-        public user_type?: string,
-        public profileEntity?: Perfil
+        public username?: string,
+        public passwordTrans?: string,
+        public visible?: boolean,
+        public estado?: boolean,
+        public perfil?: Perfil,
+        public persona?: Persona,
+        public password?: string
+
+ 
     ) {}
 }

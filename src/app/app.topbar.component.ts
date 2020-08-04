@@ -7,9 +7,8 @@ import { AppMainComponent } from './app.main.component';
     template: `
         <div class="topbar clearfix">
             <div class="topbar-left">
-                <img src="assets/layout/images/farmacias-logo.png" class="topbar-logo" />
+                <img src="assets/layout/images/logo2.png" class="topbar-logo" />
             </div>
-
             <div class="topbar-right">
                 <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)"
                    [ngClass]="{'menu-button-rotate': app.rotateMenuButton}">
@@ -19,45 +18,86 @@ import { AppMainComponent } from './app.main.component';
                 <a id="topbar-menu-button" href="#" (click)="app.onTopbarMenuButtonClick($event)">
                     <i class="fa fa-bars"></i>
                 </a>
+                <!-- <ul class="topbar-items fadeInDown">
+            <li  class="profile-item">
 
-                <ul class="topbar-items fadeInDown" [ngClass]="{'topbar-items-visible': app.topbarMenuActive}">
-                    <li #profile class="profile-item" *ngIf="app.profileMode==='top'||app.isHorizontal()"
-                        [ngClass]="{'active-top-menu':app.activeTopbarItem === profile}">
-
-                        <a href="#" (click)="app.onTopbarItemClick($event,profile)">
-                            <img class="profile-image" src="assets/layout/images/avatar.png" />
-                            <span class="topbar-item-name">Demo </span>
-                            <span class="topbar-item-role">Admin</span>
-                        </a>
-
-                        <ul class="layout-menu fadeInDown">
+                <a href="#" routerLink="/main">
+                    <img class="profile-image" src="assets/layout/images/registro.png" />
+                </a>
+                <ul class="layout-menu fadeInDown">
                             <li role="menuitem">
                                 <a href="#" (click)="app.onTopbarSubItemClick($event)">
-                                    <i class="fa fa-fw fa-user"></i>
-                                    <span>Profile</span>
+                                    <i class="fa fa-fw fa-paint-brush"></i>
+                                    <span>Mi Perfil</span>
                                 </a>
                             </li>
                             <li role="menuitem">
                                 <a href="#" (click)="app.onTopbarSubItemClick($event)">
-                                    <i class="fa fa-fw fa-user-secret"></i>
-                                    <span>Privacy</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#" (click)="app.onTopbarSubItemClick($event)">
-                                    <i class="fa fa-fw fa-cog"></i>
-                                    <span>Settings</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#" (click)="app.onTopbarSubItemClick($event)">
-                                    <i class="fa fa-fw fa-sign-out"></i>
-                                    <span>Logout</span>
+                                    <i class="fa fa-fw fa-star-o"></i>
+                                    <span>Cerrar session</span>
                                 </a>
                             </li>
                         </ul>
+            </li>
+            <li  class="profile-item">
+                <a href="#" routerLink="/conocenos">
+                    <img class="profile-image" src="assets/layout/images/lupa.png" />
+                </a>
+            </li>
+            <li  class="profile-item">
+                <a  href="#" routerLink="/adopta">
+                    <img class="profile-image" src="assets/layout/images/pata.png" />
+                </a>
+                
+            </li>
+        </ul> -->
+
+             <ul class="topbar-items fadeInDown" [ngClass]="{'topbar-items-visible': app.topbarMenuActive}">
+                   
+                    <li #settings [ngClass]="{'active-top-menu':app.activeTopbarItem === settings}">
+                        <a href="#" (click)="app.onTopbarItemClick($event,settings)">
+                            <i class="topbar-icon fa fa-fw fa-cog"></i>
+                            <span class="topbar-item-name">Settings</span>
+                        </a>
+               
+                        <ul class="layout-menu fadeInDown">
+                            <li role="menuitem">
+                                <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                                    <i class="fa fa-fw fa-paint-brush"></i>
+                                    <span>Perfil</span>
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                                    <i class="fa fa-fw fa-lock"></i>
+                                    <span>Cerrar Session</span>
+                                </a>
+                            </li>
+                    
+                        </ul>
                     </li>
+
+                    <li #notifications [ngClass]="{'active-top-menu':app.activeTopbarItem === notifications}">
+                        <a href="#" (click)="app.onTopbarItemClick($event,notifications)">
+                            <i class="topbar-icon fa fa-fw fa-bell-o"></i>
+                            <span class="topbar-badge animated rubberBand">4</span>
+                            <span class="topbar-item-name">Notifications</span>
+                        </a>
+                        <ul class="layout-menu fadeInDown">
+                            <li role="menuitem">
+                                <a href="#" (click)="app.onTopbarSubItemClick($event)">
+                                    <i class="fa fa-fw fa-tasks"></i>
+                                    <span>Pending tasks</span>
+                                </a>
+                            </li>
+                    
+                        </ul>
+                    </li>
+             
+              
                 </ul>
+
+
             </div>
         </div>
     `

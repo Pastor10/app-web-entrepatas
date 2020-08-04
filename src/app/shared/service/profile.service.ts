@@ -26,15 +26,16 @@ export class ProfileService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-  delete(id) {
-    return this.http.get(this.baseUrl + 'delete/' + id);
+  
+  delete(id: number) {
+    return this.http.delete(this.baseUrl + 'delete/' + id);
   }
 
   save(o: Perfil) {
-    if (o.idPerfil == undefined) {
+    if (o.id == undefined) {
       return this.http.post(this.baseUrl + 'create', o);
     } else {
-      return this.http.post(this.baseUrl + 'update', o);
+      return this.http.put(this.baseUrl + 'update', o);
     }
   }
 
