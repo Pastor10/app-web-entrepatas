@@ -9,7 +9,8 @@ import { Evento } from 'src/app/shared/model/evento.model';
 
 @Component({
     selector: 'app-eventolista',
-    templateUrl: './eventolista.component.html'
+    templateUrl: './eventolista.component.html',
+    styleUrls: ['./eventolista.component.scss']
    
 })
 

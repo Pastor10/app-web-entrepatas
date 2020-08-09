@@ -13,7 +13,8 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-locales',
-    templateUrl: './local.component.html'
+    templateUrl: './local.component.html',
+    styleUrls: ['./local.component.scss']
    
 })
 

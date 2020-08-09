@@ -15,7 +15,8 @@ import { TipoEvento } from 'src/app/shared/model/tipoevento.model';
 
 @Component({
     selector: 'app-tipoevento',
-    templateUrl: './tipoevento.component.html'
+    templateUrl: './tipoevento.component.html',
+    styleUrls: ['./tipoevento.component.scss']
    
 })
 

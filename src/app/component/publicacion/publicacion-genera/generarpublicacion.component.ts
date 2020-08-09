@@ -29,6 +29,7 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-generarpublicacion',
   templateUrl: './generarpublicacion.component.html',
+  styleUrls: ['./generarpublicacion.component.scss'],
   providers: [MessageService]
 
 })

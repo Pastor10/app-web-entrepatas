@@ -19,7 +19,8 @@ import { PersonaService } from 'src/app/shared/service/persona.service';
 
 @Component({
     selector: 'app-adopta',
-    templateUrl: './adopta.component.html'
+    templateUrl: './adopta.component.html',
+    styleUrls: ['./adopta.component.scss']
 
 })
 

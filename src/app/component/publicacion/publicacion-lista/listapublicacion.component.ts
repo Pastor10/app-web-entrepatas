@@ -21,7 +21,8 @@ import { Estado } from 'src/app/shared/model/estado.model';
 
 @Component({
     selector: 'app-eventolista',
-    templateUrl: './listapublicacion.component.html'
+    templateUrl: './listapublicacion.component.html',
+    styleUrls: ['./listapublicacion.component.scss']
 
 })
 

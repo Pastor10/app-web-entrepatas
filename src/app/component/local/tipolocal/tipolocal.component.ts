@@ -8,7 +8,8 @@ import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-tipolocal',
-  templateUrl: './tipolocal.component.html'
+  templateUrl: './tipolocal.component.html',
+  styleUrls: ['./tipolocal.component.scss']
 
 })
 

@@ -10,7 +10,8 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-veterinario',
-    templateUrl: './veterinario.component.html'
+    templateUrl: './veterinario.component.html',
+    styleUrls: ['./veterinario.component.scss']
    
 })
 

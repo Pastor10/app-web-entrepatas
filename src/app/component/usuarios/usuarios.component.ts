@@ -14,7 +14,8 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 @Component({
   selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html'
+  templateUrl: './usuarios.component.html',
+  styleUrls: ['./usuarios.component.scss']
 })
 export class UsuariosComponent implements OnInit {
 

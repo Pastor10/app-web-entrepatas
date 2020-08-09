@@ -16,6 +16,7 @@ import { RoleName } from 'src/app/enums/role';
 @Component({
     selector: 'app-profiles',
     templateUrl: './profiles.component.html',
+    styleUrls: ['./profiles.component.scss'],
     styles: [`
         /* Column Priorities */
         @media only all {

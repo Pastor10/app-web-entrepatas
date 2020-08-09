@@ -20,7 +20,8 @@ import { PersonaService } from 'src/app/shared/service/persona.service';
 
 @Component({
     selector: 'app-genera-adopcion',
-    templateUrl: './genera.component.html'
+    templateUrl: './genera.component.html',
+    styleUrls: ['./genera.component.scss']
 
 })
 

@@ -6,7 +6,8 @@ import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-adopciones',
-  templateUrl: './adopciones.component.html'
+  templateUrl: './adopciones.component.html',
+  styleUrls: ['./adopciones.component.scss']
 
 })
 

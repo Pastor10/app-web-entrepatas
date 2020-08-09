@@ -12,7 +12,8 @@ import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-cita',
-    templateUrl: './cita.component.html'
+    templateUrl: './cita.component.html',
+    styleUrls: ['./cita.component.scss']
 
 })
 

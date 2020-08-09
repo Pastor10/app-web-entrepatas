@@ -14,7 +14,8 @@ import { Estado } from 'src/app/shared/model/estado.model';
 
 @Component({
     selector: 'app-aprobaciones',
-    templateUrl: './aprobaciones.component.html'
+    templateUrl: './aprobaciones.component.html',
+    styleUrls: ['./aprobaciones.component.scss']
    
 })
 

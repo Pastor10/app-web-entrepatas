@@ -11,7 +11,8 @@ import { TamanoAnimal } from 'src/app/shared/model/tamanoanimal.model';
 
 @Component({
     selector: 'app-tamanoanimal',
-    templateUrl: './tamanoanimal.component.html'
+    templateUrl: './tamanoanimal.component.html',
+    styleUrls: ['./tamanoanimal.component.scss']
    
 })
 

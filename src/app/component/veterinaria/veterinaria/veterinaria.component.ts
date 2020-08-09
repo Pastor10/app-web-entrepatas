@@ -1,12 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuarioService } from 'src/app/shared/service/usuario.service';
-import { User } from 'src/app/shared/model/User.model';
 import { Ubigeo } from 'src/app/shared/model/ubigeo.model';
 import { UbigeoService } from 'src/app/shared/service/ubigeo.service';
 import { FormGroup } from '@angular/forms';
-import { TipoLocal } from 'src/app/shared/model/tipolocal.model';
-import { TipoLocalService } from 'src/app/shared/service/tipolocal.service';
-import { Local } from 'src/app/shared/model/local.model';
 import { LocalService } from 'src/app/shared/service/local.service';
 import { MessageService, LazyLoadEvent } from 'primeng/api';
 import { VeterinariaService } from 'src/app/shared/service/veterinaria.service';
@@ -15,7 +11,8 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-veterinaria',
-    templateUrl: './veterinaria.component.html'
+    templateUrl: './veterinaria.component.html',
+    styleUrls: ['./veterinaria.component.scss']
    
 })
 

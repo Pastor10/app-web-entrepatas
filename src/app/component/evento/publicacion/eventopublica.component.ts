@@ -14,7 +14,8 @@ import { UbigeoService } from 'src/app/shared/service/ubigeo.service';
 
 @Component({
     selector: 'app-eventopublica',
-    templateUrl: './eventopublica.component.html'
+    templateUrl: './eventopublica.component.html',
+    styleUrls: ['./eventopublica.component.scss']
    
 })
 

@@ -10,7 +10,8 @@ import { TipoAnimalService } from 'src/app/shared/service/tipoanimal.service';
 
 @Component({
     selector: 'app-tipoanimal',
-    templateUrl: './tipoanimal.component.html'
+    templateUrl: './tipoanimal.component.html',
+    styleUrls: ['./tipoanimal.component.scss']
    
 })
 
