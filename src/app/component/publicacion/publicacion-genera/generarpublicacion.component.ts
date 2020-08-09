@@ -73,6 +73,7 @@ export class GenerarPublicacionComponent implements OnInit {
   imagenUp: string;
   msgs: Message[] = [];
   isCompleted: boolean;
+  
 
   @ViewChild('dt', { static: true }) public tabla: Table;
 
@@ -109,11 +110,12 @@ export class GenerarPublicacionComponent implements OnInit {
     ];
 
     this.listaEdad = [
-      { name: '0 - 11 Meses', code: '0' },
+      { name: 'Menor a 1 Año', code: '0' },
       { name: '1 - 2 Años', code: '1' },
       { name: '2 - 3 Años', code: '2' },
-      { name: '4 - 5 Años', code: '3' },
-      { name: '6 - ? Años', code: '4' }
+      { name: '3 - 4 Años', code: '3' },
+      { name: '4 - 5 Años', code: '4' },
+      { name: 'Mayor a 6 Años', code: '5' }
     ];
   }
 
@@ -465,9 +467,11 @@ export class GenerarPublicacionComponent implements OnInit {
       return;
     }
 
-    if (this.local == null) {
-      this.showMsg('info', 'Seleccione un  local');
-      return;
+    if(this.usuario.perfil.nombre!='VISITANTE'){
+      if (this.local == null) {
+        this.showMsg('info', 'Seleccione un  local');
+        return;
+      }
     }
 
     if (this.edad == null) {

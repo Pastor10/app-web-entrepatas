@@ -1,9 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from 'src/app/shared/model/User.model';
-import { Ubigeo } from 'src/app/shared/model/ubigeo.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TipoLocal } from 'src/app/shared/model/tipolocal.model';
-import { Local } from 'src/app/shared/model/local.model';
 import { MessageService, LazyLoadEvent } from 'primeng/api';
 import { TipoAnimal } from 'src/app/shared/model/tipoanimal.model';
 import { Raza } from 'src/app/shared/model/raza.model';
@@ -13,7 +9,8 @@ import { Table } from 'primeng/table';
 
 @Component({
     selector: 'app-raza',
-    templateUrl: './raza.component.html'
+    templateUrl: './raza.component.html',
+    styleUrls: ['./raza.component.scss']
    
 })
 

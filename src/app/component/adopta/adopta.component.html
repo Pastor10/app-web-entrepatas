@@ -7,7 +7,7 @@
                 <h2 class="col-12 text-center pag_principal esp_arriba mb-4">
                     ADOPTA Y SALVA DOS VIDAS
                 </h2>
-                <p-dataView #dv [value]="publicaciones" [paginator]="true" [rows]="20" paginatorPosition="both"
+                <!-- <p-dataView #dv [value]="publicaciones" [paginator]="true" [rows]="20" paginatorPosition="both"
                     filterBy="brand" [sortField]="sortField" [sortOrder]="sortOrder">
                     <p-header>
                         <div class="ui-helper-clearfix">
@@ -49,17 +49,77 @@
                         <div style="padding:.5em" class="ui-g-12 ui-md-3">
                             <p-panel [header]="data.animal.nombre" [style]="{'text-align':'center'}">
                                 <img src="{{data.animal.foto}}" width="180px"
-                                    height="200px">
-                                <div class="car-detail">{{data.animal.edad}} </div>
+                                    height="200px" (click)="getPublicacion($event, data)">
+                                <div class="car-detail">{{data.animal.sexo}} </div>
                                 <hr class="ui-widget-content" style="border-top:0">
-                                <button pButton type="button" icon="pi pi-search" (click)="getPublicacion($event, data)"
-                                    style="margin-top:0"></button>
+                                <span *ngIf="data.condicion.nombre=='ENCONTRADO'" class="label arrowed label-info">
+                                    {{data.condicion.nombre}}
+                                </span>
+                                <span *ngIf="data.condicion.nombre=='PERDIDO'"  class="label arrowed label-warning">
+                                    {{data.condicion.nombre}}
+                                 </span>
+                                 <span  *ngIf="data.condicion.nombre=='ADOPCION'" class="label arrowed label-succes">
+                                  {{data.condicion.nombre}}
+                               </span>
                             </p-panel>
                         </div>
                     </ng-template>
-                </p-dataView>
+                </p-dataView> -->
 
-
+                <p-dataView #dv [value]="publicaciones" [paginator]="true" [rows]="9" filterBy="name"
+                [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+                <ng-template pTemplate="header">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                        <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                        </span>
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </ng-template>
+        
+                <ng-template let-data pTemplate="gridItem">
+                    <!-- <div class="p-col-12 p-md-4">
+                        <div class="product-grid-item card">
+                            <div class="product-grid-item-top">
+                                <div>
+                                    <i class="pi pi-tag product-category-icon"></i>
+                                    <span class="product-category">{{data.animal.nombre}}</span>
+                                </div>
+                                <span [class]="'product-badge status-' + data.animal.nombre.toLowerCase()">{{data.animal.nombre}}</span>
+                            </div>
+                            <div class="product-grid-item-content">
+                                <img [src]=" data.animal.foto" width="180px" height="200px"/>
+                                <div class="product-name">{{data.name}}</div>
+                                <div class="product-description">{{data.description}}</div>
+                                <p-rating [ngModel]="data.rating" [readonly]="true" [cancel]="false"></p-rating>
+                            </div>
+                            <div class="product-grid-item-bottom">
+                                <span class="product-price">${{data.price}}</span>
+                                <p-button icon="pi pi-shopping-cart" [disabled]="data.inventoryStatus === 'OUTOFSTOCK'"></p-button>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                        <p-panel [header]="data.animal.nombre" [style]="{'text-align':'center'}">
+                            <img src="{{data.animal.foto}}" width="180px"
+                                height="200px" (click)="getPublicacion($event, data)">
+                            <div class="car-detail">{{data.animal.sexo}} </div>
+                            <hr class="ui-widget-content" style="border-top:0">
+                            <span *ngIf="data.condicion.nombre=='ENCONTRADO'" class="label arrowed label-info">
+                                {{data.condicion.nombre}}
+                            </span>
+                            <span *ngIf="data.condicion.nombre=='PERDIDO'"  class="label arrowed label-warning">
+                                {{data.condicion.nombre}}
+                             </span>
+                             <span  *ngIf="data.condicion.nombre=='ADOPCION'" class="label arrowed label-succes">
+                              {{data.condicion.nombre}}
+                           </span>
+                        </p-panel>
+                    </div>
+                </ng-template>
+            </p-dataView>
                 <p-dialog header="Hola, Gracias por considerarme" [(visible)]="displayDialog" [style]="{width: '50vw'}"
                     [baseZIndex]="10000" [responsive]="true">
                     <div class="ui-g" *ngIf="selectPublicacion">
@@ -94,13 +154,6 @@
                                                 <div class="ui-g">
                                                     <div class="ui-g-6">
                                                         <h5 class="label-custom">Tipo Documento (*)</h5>
-                                                        <!-- <p-dropdown [style]="{'width':'100%'}"
-                                                            [options]="listTipoDocumento"
-                                                            placeholder="Seleccione tipo documento" name="tipoDocumento"
-                                                            [(ngModel)]="tipoDocumento" optionLabel="abreviatura"
-                                                            [showClear]="true">
-
-                                                        </p-dropdown> -->
 
                                                         <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
                                                         field="abreviatura" name="perfilSelected" [size]="15"
@@ -112,7 +165,7 @@
                                                     <div class="ui-g-6">
                                                         <h5 class="label-custom">Documento (*) [PRESS ENTER]</h5>
                                                         <input style="width: 100%;" type="text" name="documento"
-                                                            [(ngModel)]="documento" (keydown.enter)="getPersona()"  pInputText />
+                                                            [(ngModel)]="documento" (keydown.enter)="getPersona()" [textMask]="{mask: numberMask}" pInputText />
 
                                                     </div>
 
@@ -160,9 +213,9 @@
 
                                                     </div>
                                                     <div class="ui-g-6">
-                                                        <h5 class="label-custom">Celular (*)</h5>
+                                                        <h5 class="label-custom">Celular </h5>
                                                         <input style="width: 100%;" type="text" name="celular"
-                                                            [(ngModel)]="celular" pInputText />
+                                                            [(ngModel)]="celular" [textMask]="{mask: numberMask}" pInputText />
 
                                                     </div>
 

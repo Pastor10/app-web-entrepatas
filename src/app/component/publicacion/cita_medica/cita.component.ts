@@ -128,6 +128,17 @@ export class CitaMedicaComponent implements OnInit {
 
     }
 
+    getAnimalFindById(id){
+        this.animalService.getFindId(id).subscribe((data: Animal) => {
+            if (data) {   
+                this.animal = data;
+                console.log("model actualizad0 ", this.animal);
+                //this.modelToForm(data);
+            }
+        });
+
+    }
+
     modelToForm(data) {
         // this.fechaVisita = data.fechaVisita ;
         // this.veterinario = data.veterinario;
@@ -148,10 +159,26 @@ export class CitaMedicaComponent implements OnInit {
     }
 
     addTratamiento() {
-
         let tratamientos = [...this.tratamientos];
-        if (this.newTratamiento)
+        if (this.newTratamiento){
+            if(this.tratamiento.medicina==undefined || this.tratamiento.medicina.trim()==''){
+                this.showMsg('info', 'Ingrese una medicina', 'Tratamiento');
+                return;
+            }
+
+            if(this.tratamiento.unidadMedida==undefined || this.tratamiento.unidadMedida.trim()==''){
+                this.showMsg('info', 'Ingrese unidad medida', 'Tratamiento');
+                return;
+            }
+
+            if(this.tratamiento.cantidad==undefined || this.tratamiento.cantidad<1){
+                this.showMsg('info', 'Ingrese cantidad mayor a cero', 'Tratamiento');
+                return;
+            }
+            
             tratamientos.push(this.tratamiento);
+        }
+           
         else
             tratamientos[this.tratamientos.indexOf(this.selectTratamiento)] = this.tratamiento;
 
@@ -192,6 +219,7 @@ export class CitaMedicaComponent implements OnInit {
         this.citaMedicaService.save(this.model).subscribe(
             data => {
                 if (data != null) {
+                    this.getAnimalFindById(this.animal.id);
                     this.showMsg('success', 'Se guardó correctamente', 'Cita Medica');
                     this.limpiarData();
                 }
@@ -240,6 +268,27 @@ export class CitaMedicaComponent implements OnInit {
         this.tratamientos = this.tratamientos.filter((val, i) => i != index);
         this.tratamiento = null;
         this.displayDialog = false;
+    }
+
+    deleteCita(id){
+        this.citaMedicaService.delete(id).subscribe(
+            data => {
+
+                    this.getAnimalFindById(this.animal.id);
+                    this.showMsg('success', 'Se elimino cita', 'Cita Medica');
+                    //this.limpiarData();
+                
+                
+            },
+            error => {
+                const errorMessage =
+                    error.message != undefined
+                        ? error.message
+                        : 'No se pudo procesar la petición';
+                this.showMsg('danger', errorMessage);
+            }
+        );
+
     }
 
     changeEstado() {

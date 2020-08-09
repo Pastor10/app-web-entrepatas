@@ -15,6 +15,7 @@ import { PostulanteService } from 'src/app/shared/service/postulante.service';
 import { Postulante } from 'src/app/shared/model/postulante.model';
 import { Persona } from 'src/app/shared/model/persona.model';
 import { PersonaService } from 'src/app/shared/service/persona.service';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 
 @Component({
@@ -51,6 +52,20 @@ export class AdoptaComponent implements OnInit {
     sortOrder: number;
     publicaciones: Publicacion[];
     persona: Persona;
+
+    public numberMask = createNumberMask({
+		prefix: '',
+		suffix: '',
+		includeThousandsSeparator: true,
+		thousandsSeparatorSymbol: '',
+		allowDecimal: false,
+		decimalSymbol: '.',
+		decimalLimit: 1,
+		integerLimit: 12,
+		requireDecimal: false,
+		allowNegative: false,
+		allowLeadingZeroes: true
+	});
 
     constructor(public animalService: AnimalService, public tipoDocumentoService: TipoDocumentoService,
         public ubigeoService: UbigeoService, public solicitudAdopcionService: SolicitudAdopcionService,
@@ -151,6 +166,58 @@ export class AdoptaComponent implements OnInit {
     }
 
     save() {
+
+        let documento = this.documento== undefined?'':this.documento;
+        let nombres = this.nombres== undefined?'':this.nombres;
+        let apePaterno = this.apePaterno== undefined?'':this.apePaterno;
+        let apeMaterno = this.apeMaterno== undefined?'':this.apeMaterno;
+        let email = this.email== undefined?'':this.email;
+        let direccion = this.direccion== undefined?'':this.direccion;
+        let ubigeo =this.ubigeo!=undefined?this.ubigeo.nombre:undefined;
+    
+
+        if(this.tipoDocumento==null){
+            this.showMsg('info', 'Seleccione tipo documento', 'Solicitud');
+            return;
+        }
+
+        if(documento.trim()==''){
+            this.showMsg('info', 'Ingrese un documento de identidad', 'Solicitud');
+            return;
+        }
+
+        if(nombres.trim()==''){
+            this.showMsg('info', 'Ingrese nombres', 'Solicitud');
+            return;
+        }
+
+        if(apePaterno.trim()==''){
+            this.showMsg('info', 'Ingrese apellido paterno', 'Solicitud');
+            return;
+        }
+
+        if(apeMaterno.trim()==''){
+            this.showMsg('info', 'Ingrese apellido materno', 'Solicitud');
+            return;
+        }
+
+        if(email.trim()==''){
+            this.showMsg('info', 'Ingrese un correo', 'Solicitud');
+            return;
+        }
+
+        if(ubigeo==undefined){
+            this.showMsg('info', 'Ingrese un ciudad de residencia', 'Solicitud');
+            return;
+        }
+
+        if(direccion.trim()==''){
+            this.showMsg('info', 'Ingrese una dirección', 'Solicitud');
+            return;
+        }
+
+
+
         this.formToModel();
         let message;
 
@@ -238,20 +305,13 @@ export class AdoptaComponent implements OnInit {
         return filtered;
     }
 
-    // filterListTipoDocumento(event) {
-    //     const query = event.query;
-    //     this.tipoDocumentoService.getAll().subscribe( (data: TipoDocumento[]) => {
-    //         this.listTipoDocumento = data;
-    //     });
-    // }
-
     limpiarData() {
         this.displayDialog = false;
         this.nombres = '';
         this.apeMaterno = '';
         this.apePaterno = '';
         this.direccion = '';
-        this.documento = null;
+        this.documento = '';
         this.tipoDocumento = null;
         this.ubigeo = null;
         this.email = '';

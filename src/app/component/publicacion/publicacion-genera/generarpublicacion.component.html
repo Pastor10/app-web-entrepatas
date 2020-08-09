@@ -99,7 +99,7 @@
                     
                                         </p-autoComplete>
                                     </div>
-                                    <div class="ui-g-4">
+                                    <div class="ui-g-4" *ngIf="usuario.perfil.nombre!='VISITANTE'">
                                         <h5 class="label-custom">Local Asignado (*)</h5>
                                         <p-autoComplete [(ngModel)]="local" [suggestions]="listaLocales"
                                         field="nombre" name="local" [size]="15" 
@@ -109,7 +109,7 @@
                                     </p-autoComplete>
                 
                                     </div>
-                                        <div class="ui-g-4">
+                                        <div class="ui-g-5">
                                                 <h5 class="label-custom">Edad aprox.(*)</h5>
                                                 <p-listbox [options]="listaEdad" [(ngModel)]="edad" optionLabel="name"  name="edad" ></p-listbox>
                                                 <p>Edad seleccionado: {{edad ? edad.name : edad }}</p>
@@ -117,9 +117,9 @@
                                         
                        
                 
-                                        <div class="ui-g-8">
+                                        <div class="ui-g-7">
                                             <h5 class="label-custom">Descripción </h5>
-                                            <textarea rows="8" cols="30" pInputTextarea name="descripcion" [(ngModel)]="descripcion" maxlength="200"></textarea>
+                                            <textarea rows="10" cols="30" pInputTextarea name="descripcion" [(ngModel)]="descripcion" maxlength="200"></textarea>
                           
                                         </div>
                                    
