@@ -96,6 +96,8 @@ ngOnInit(){
     }
 
     calificar(data){
+        console.log('data', data);
+        
         let message;
         if(data.puntuacion==null){
             message = 'Selecione al menos una estrella de puntuación';

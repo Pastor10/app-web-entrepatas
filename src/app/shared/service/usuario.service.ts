@@ -7,8 +7,9 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/User.model';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UsuarioService {
   constructor(private http: HttpClient) {
   }
@@ -41,27 +42,15 @@ export class UsuarioService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-  // save(o: User) {
-  //     return this.http.post(this.baseUrl + 'create', o).
-  //     toPromise().then(res => res).then(data => data).catch(err => console.log(err));
-
-  // }
 
   save(o: User) {
     if (o.id == undefined) {
-      return this.http.post(this.baseUrl + 'create', o).
-        toPromise().then(res => res).then(data => data).catch(err => console.log(err));
+      return this.http.post(this.baseUrl + 'create', o);
     } else {
-      return this.http.put(this.baseUrl + 'update', o).
-        toPromise().then(res => res).then(data => data).catch(err => console.log(err));
+      return this.http.put(this.baseUrl + 'update', o);
     }
   }
 
-  // saveVisitante(o: User) {
-  //     return this.http.post(this.baseUrl + 'create-visitante', o).
-  //     toPromise().then(res => res).then(data => data).catch(err => console.log(err));
-
-  // }
 
   public saveVisitante(o: User) {
     return this.http.post(this.baseUrl + 'create-visitante', o).pipe(
@@ -76,7 +65,7 @@ export class UsuarioService {
   }
 
   delete(id) {
-    return this.http.get(this.baseUrl + 'delete/' + id);
+    return this.http.delete(this.baseUrl + 'delete/' + id);
   }
 
 }

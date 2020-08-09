@@ -606,7 +606,15 @@ export class ProfilesComponent implements OnInit {
           rolesToSaved.push(role);
 
         }
+
+        if(rolesToSaved.length==0){
+          this.showMsg('info', 'Seleccione al menos un rol', 'Perfil');
+          return;
+        }
+
         perfil.roles = rolesToSaved;
+
+        
         console.log(perfil.roles);
         
 

@@ -23,10 +23,13 @@ import { toBase64 } from 'src/app/shared/utils/util-functions';
 import { Archivo } from 'src/app/shared/model/archivo.model';
 import { Local } from 'src/app/shared/model/local.model';
 import { LocalService } from 'src/app/shared/service/local.service';
+import { FileService } from 'src/app/shared/service/file.service';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-generarpublicacion',
-  templateUrl: './generarpublicacion.component.html'
+  templateUrl: './generarpublicacion.component.html',
+  providers: [MessageService]
 
 })
 
@@ -67,6 +70,8 @@ export class GenerarPublicacionComponent implements OnInit {
   pl;
   archivo: any;
   imagenUp: string;
+  msgs: Message[] = [];
+  isCompleted: boolean;
 
   @ViewChild('dt', { static: true }) public tabla: Table;
 
@@ -74,12 +79,13 @@ export class GenerarPublicacionComponent implements OnInit {
     private router: Router,
     private messageService: MessageService, public fb: FormBuilder,
     public tipoAnimalService: TipoAnimalService, public publicacionService: PublicacionService,
-    public razaService: RazaService, public tamanoAnimalService: TamanoAnimalService,
+    public razaService: RazaService, public tamanoAnimalService: TamanoAnimalService, public fileService: FileService,
     public condicionService: CondicionService, public usuarioService: UsuarioService, public localService: LocalService) {
 
     this.token = localStorage.getItem("userLogin");
     this.pl = JSON.parse(this.token);
     this.usuario = this.getUserId(this.pl.user.id);
+    
   }
 
   ngOnInit() {
@@ -120,10 +126,25 @@ export class GenerarPublicacionComponent implements OnInit {
     }
   }
 
+  onFileUpload(data: { files: File }): void {
+    const formData: FormData = new FormData();
+    const file = data.files[0];
+    formData.append('file', file, file.name);
+    this.fileService.uploadImage(formData).subscribe(resp => {
+      this.imagenUp = resp.url;
+      this.showMsg('success', 'Imganen subida', 'Publicación');
+    });
+  }
+
   getUserId(id) {
     this.usuarioService.getUserId(id).subscribe((data: User) => {
       this.usuario = data;
-
+      this.isCompleted = this.usuario.persona.isCompleted;
+      console.log('user', this.usuario);
+      if(!this.isCompleted){
+          this.showWarn();
+      }
+      
     });
     return this.usuario;
   }
@@ -139,22 +160,28 @@ export class GenerarPublicacionComponent implements OnInit {
             console.log("model ", data);
 
             this.modelToForm(data);
+
+            // cargamos razas segun tipo animal
+            this.getRazaId(this.model.animal.raza.tipoAnimal.id);
           }
         });
       });
+
+
     }
-    
+
   }
 
   modelToForm(data) {
-    
+
     this.nombre = data.animal.nombre;
     this.tipoAnimal = data.animal.raza.tipoAnimal;
     this.raza = data.animal.raza;
     this.sexo = data.animal.sexo
     this.tamanoAnimal = data.animal.tamanoAnimal;
+    this.imagenUp = data.animal.foto;
     this.listaEdad.forEach(edad => {
-      if(edad.name ==data.animal.edad ){
+      if (edad.name == data.animal.edad) {
         this.edad = edad;
       }
     });
@@ -172,7 +199,7 @@ export class GenerarPublicacionComponent implements OnInit {
       (data: Raza[]) => {
         this.listaRazas = data;
         console.log(data);
-        
+
       },
       error => {
         this.listaRazas = [];
@@ -187,6 +214,7 @@ export class GenerarPublicacionComponent implements OnInit {
 
   changeTipoAnimal() {
     this.getRazaId(this.tipoAnimal.id);
+    this.raza = null;
 
   }
 
@@ -247,7 +275,7 @@ export class GenerarPublicacionComponent implements OnInit {
       (data: Local[]) => {
         this.listaLocales = data;
         console.log('locales', data);
-        
+
       },
       error => {
         this.listaLocales = [];
@@ -312,15 +340,11 @@ export class GenerarPublicacionComponent implements OnInit {
     this.animal.sexo = this.sexo;
     this.animal.estado = true;
     this.animal.local = this.local;
+    this.animal.foto = this.imagenUp;
     this.model.descripcion = this.descripcion;
     this.model.estado = this.estadoSelected;
     this.model.animal = this.animal;
 
-      this.getBase64File();
-      this.model.archivo = this.archivo;
-      this.model.nombreArchivo = this.file.name;
-    
-          
     this.model.usuarioPublica = this.usuario;
 
     this.model.condicion = this.condicion;
@@ -337,16 +361,10 @@ export class GenerarPublicacionComponent implements OnInit {
     this.model.animal.raza = this.raza;
     this.model.animal.tamanoAnimal = this.tamanoAnimal;
     this.model.animal.sexo = this.sexo;
+    this.model.animal.foto = this.imagenUp;
     this.model.animal.local = this.local;
     this.model.descripcion = this.descripcion;
     this.model.estado = this.estadoSelected;
-
-    // if(!this.isEdit){
-    //   this.getBase64File();
-    //   this.model.archivo = this.archivo;
-    //   this.model.nombreArchivo = this.file.name;
-    // }
-          
 
     this.model.usuarioPublica = this.usuario;
 
@@ -378,8 +396,14 @@ export class GenerarPublicacionComponent implements OnInit {
     this.tipoAnimal = null;
     this.raza = null;
     this.tamanoAnimal = null;
+    this.file = null;
 
   }
+
+  returnpublicaciones() {
+    return `/main/publicacion-lista`;
+  }
+
 
   showConshowConfirmDeletefirm(data) {
     this.messageService.clear();
@@ -399,26 +423,72 @@ export class GenerarPublicacionComponent implements OnInit {
 
 
   save() {
+    console.log('file', this.file);
+
     let message;
     if (this.nombre == '' || this.nombre == undefined) {
-      this.showMsg('warn', 'Escriba un nombre', 'Publicación');
+      this.showMsg('info', 'Escriba un nombre', 'Publicación');
       return;
     }
 
-   
+    if (this.imagenUp == null) {
+      this.showMsg('info', 'Suba una imagen', 'Publicación');
+      return;
+    }
 
-    if(this.isEdit){
+    if (this.tipoAnimal == null) {
+      this.showMsg('info', 'Seleccione un tipo animal', 'Publicación');
+      return;
+    }
+
+
+    if (this.raza == null) {
+      this.showMsg('info', 'Seleccione una raza', 'Publicación');
+      return;
+    }
+
+
+    if (this.tamanoAnimal == null) {
+      this.showMsg('info', 'Seleccione un tamaño');
+      return;
+    }
+
+
+    if (this.sexo == null) {
+      this.showMsg('info', 'Seleccione un sexo');
+      return;
+    }
+
+    if (this.condicion == null) {
+      this.showMsg('info', 'Seleccione una condición');
+      return;
+    }
+
+    if (this.local == null) {
+      this.showMsg('info', 'Seleccione un  local');
+      return;
+    }
+
+    if (this.edad == null) {
+      this.showMsg('info', 'Seleccione una edad');
+      return;
+    }
+
+
+
+    if (this.isEdit) {
       this.formToModelUpdate();
-    }else{
+    } else {
       this.formToModel();
     }
-    
+
 
     this.publicacionService.save(this.model).subscribe(
       data => {
         if (data != null) {
           this.showMsg('success', 'Se guardó correctamente', 'Publicación');
           this.limpiarData();
+
         }
 
       },
@@ -431,6 +501,7 @@ export class GenerarPublicacionComponent implements OnInit {
         this.showMsg('danger', errorMessage);
       }
     );
+    this.router.navigate(['/main/publicacion-lista']);
 
   }
 
@@ -438,92 +509,101 @@ export class GenerarPublicacionComponent implements OnInit {
     let query = event.query
     this.listaTipoAnimal = this.filterTipoAnimal(query, this.listaTipoAnimal);
 
-}
+  }
 
-filterTipoAnimal(query, lista: TipoAnimal[]): TipoAnimal[] {
+  filterTipoAnimal(query, lista: TipoAnimal[]): TipoAnimal[] {
     let filtered: TipoAnimal[] = [];
     for (let i = 0; i < lista.length; i++) {
-        let model = lista[i];
-        if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(model);
-        }
+      let model = lista[i];
+      if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(model);
+      }
     }
     return filtered;
-}
+  }
 
 
-public filterListRaza(event) {
-  let query = event.query
-  this.listaRazas = this.filterRaza(query, this.listaRazas);
+  public filterListRaza(event) {
+    let query = event.query
+    this.listaRazas = this.filterRaza(query, this.listaRazas);
 
-}
+  }
 
-filterRaza(query, lista: Raza[]): Raza[] {
-  let filtered: Raza[] = [];
-  for (let i = 0; i < lista.length; i++) {
+  filterRaza(query, lista: Raza[]): Raza[] {
+    let filtered: Raza[] = [];
+    for (let i = 0; i < lista.length; i++) {
       let model = lista[i];
       if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          filtered.push(model);
+        filtered.push(model);
       }
+    }
+    return filtered;
   }
-  return filtered;
-}
 
 
 
-public filterListTamano(event) {
-  let query = event.query
-  this.listaTamanoAnimal = this.filterTamano(query, this.listaTamanoAnimal);
+  public filterListTamano(event) {
+    let query = event.query
+    this.listaTamanoAnimal = this.filterTamano(query, this.listaTamanoAnimal);
 
-}
+  }
 
-filterTamano(query, lista: TamanoAnimal[]): TamanoAnimal[] {
-  let filtered: TamanoAnimal[] = [];
-  for (let i = 0; i < lista.length; i++) {
+  filterTamano(query, lista: TamanoAnimal[]): TamanoAnimal[] {
+    let filtered: TamanoAnimal[] = [];
+    for (let i = 0; i < lista.length; i++) {
       let model = lista[i];
       if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          filtered.push(model);
+        filtered.push(model);
       }
+    }
+    return filtered;
   }
-  return filtered;
-}
 
-public filterListCondicion(event) {
-  let query = event.query
-  this.listaCondicion = this.filterTamano(query, this.listaCondicion);
+  public filterListCondicion(event) {
+    let query = event.query
+    this.listaCondicion = this.filterTamano(query, this.listaCondicion);
 
-}
+  }
 
-filterCondicion(query, lista: Condicion[]): Condicion[] {
-  let filtered: Condicion[] = [];
-  for (let i = 0; i < lista.length; i++) {
+  filterCondicion(query, lista: Condicion[]): Condicion[] {
+    let filtered: Condicion[] = [];
+    for (let i = 0; i < lista.length; i++) {
       let model = lista[i];
       if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          filtered.push(model);
+        filtered.push(model);
       }
+    }
+    return filtered;
   }
-  return filtered;
-}
 
-public filterListLocal(event) {
-  let query = event.query
-  this.listaLocales = this.filterLocal(query, this.listaLocales);
+  public filterListLocal(event) {
+    let query = event.query
+    this.listaLocales = this.filterLocal(query, this.listaLocales);
 
-}
+  }
 
-filterLocal(query, lista: Local[]): Local[] {
-  let filtered: Local[] = [];
-  for (let i = 0; i < lista.length; i++) {
+  filterLocal(query, lista: Local[]): Local[] {
+    let filtered: Local[] = [];
+    for (let i = 0; i < lista.length; i++) {
       let model = lista[i];
       if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          filtered.push(model);
+        filtered.push(model);
       }
+    }
+    return filtered;
   }
-  return filtered;
-}
 
-  showMsg(type: string, msg: string, title: string = 'Tipo Local') {
+  showMsg(type: string, msg: string, title: string = 'Publicación') {
     this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
   }
+
+  get textButtonAction() {
+    return this.isEdit ? 'ACTUALIZAR' : 'GUARDAR';
+  }
+
+  showWarn() {
+    this.messageService.add({severity:'warn', summary:'ADVERTENCIA', detail:'Complete sus datos para poder realizar publicaciones'});
+    //this.msgs.push({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
+}
 
 }

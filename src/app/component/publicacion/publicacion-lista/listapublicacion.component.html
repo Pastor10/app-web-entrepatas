@@ -68,6 +68,13 @@
             </td>
             <td>
                 <span>
+                    <img src="{{rowData.animal.foto}}"
+                    width="60px" height="60px">
+                   
+                </span>
+            </td>
+            <td>
+                <span>
                    {{rowData.animal.raza.tipoAnimal.nombre}} - {{rowData.animal.sexo}}
                 </span>
              </td>
@@ -89,9 +96,9 @@
                </span>
              </td>
             <td style="text-align: center">
-              <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'APROBADO');">
+              <!-- <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'APROBADO');">
                 <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Aprobar"></button>
-              </a>&nbsp;
+              </a>&nbsp; -->
               <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'RECHAZADO');">
                 <button  pButton type="button" icon="pi pi-ban" class="ui-button-danger space-buttons" tooltip="Rechazar" ></button>
               </a> &nbsp;

@@ -74,7 +74,7 @@ import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
-
+import { TextMaskModule } from 'angular2-text-mask';
 
 import {AppComponent} from './app.component';
 import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
@@ -144,6 +144,10 @@ import { AprobacionPublicacionComponent } from './component/publicacion/aprobaci
 import { GeneraAdopcionComponent } from './component/adopcion/genera-adopcion/genera.component';
 import { DevolucionComponent } from './component/adopcion/devolucion/devolucion.component';
 import { PersonaService } from './shared/service/persona.service';
+import { soloLetras } from './shared/directive/letras.directive';
+import { soloNumeros } from './shared/directive/numero.directive';
+import { FileService } from './shared/service/file.service';
+
 
 
 
@@ -222,6 +226,7 @@ import { PersonaService } from './shared/service/persona.service';
         TreeTableModule,
         VirtualScrollerModule,
         ReactiveFormsModule,
+        TextMaskModule,
         NgxsModule.forRoot()
     ],
     declarations: [
@@ -260,7 +265,9 @@ import { PersonaService } from './shared/service/persona.service';
         CitaMedicaComponent,
         AprobacionPublicacionComponent,
         GeneraAdopcionComponent,
-        DevolucionComponent
+        DevolucionComponent,
+        soloLetras,
+        soloNumeros
 
 
 
@@ -272,11 +279,12 @@ import { PersonaService } from './shared/service/persona.service';
             useClass: TokenInterceptor,
             multi: true
         },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: LoaderInterceptor,
-            multi: true
-        },
+        // {
+        //     provide: HTTP_INTERCEPTORS,
+        //     useClass: LoaderInterceptor,
+        //     multi: true
+        // },
+  
         ReporteF7Service,
         MessageService,
         AuthService,
@@ -303,7 +311,8 @@ import { PersonaService } from './shared/service/persona.service';
         PostulanteService,
         AdopcionService,
         CitaMedicaService,
-        PersonaService
+        PersonaService,
+        FileService
     ],
     bootstrap: [AppComponent]
 })

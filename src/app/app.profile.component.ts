@@ -9,7 +9,7 @@ import { User } from './shared/model/User.model';
     template: `
         <div class="profile" [ngClass]="{'profile-expanded':active}">
             <a href="#" (click)="onClick($event)">
-                <img class="profile-image" src="assets/layout/images/default-avatar.png" />
+                <img class="profile-image" src="{{foto}}" />
                 <span class="profile-name">Bienvenido</span>
                 <i class="fa fa-fw fa-caret-down"></i>
                 <span class="profile-role">{{name}}</span>
@@ -59,6 +59,7 @@ export class AppProfileComponent {
     public tkn;
     public pl;
     public name;
+    public foto;
     public perfil;
     usuario: User;
 
@@ -77,6 +78,7 @@ constructor(public usuarioService: UsuarioService){
          
          this.name = this.pl.user.name;
          //this.perfil = this.pl.user.per
+         this.getUserId(this.pl.user.id);
 
          
     
@@ -85,6 +87,9 @@ constructor(public usuarioService: UsuarioService){
 getUserId(id){
     this.usuarioService.getUserId(id).subscribe((data: User) =>{
     this.usuario = data;
+    this.foto = this.usuario.persona.foto;
+    console.log('resp user ', this.usuario);
+    
     });
     return this.usuario;
 }

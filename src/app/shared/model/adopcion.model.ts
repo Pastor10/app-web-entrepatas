@@ -15,7 +15,6 @@ export class Adopcion {
         public fechaCreacion?: Date,
         public fechaModificacion?: Date,
         public persona?: Persona,
-        public fechaAdopcion?: Date,
         public createUser?: boolean
 
 

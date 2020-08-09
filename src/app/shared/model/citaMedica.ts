@@ -10,7 +10,8 @@ export class CitaMedica{
         public diagnostico?: string,
         public estadoClinico?: string,
         public listaTratamiento?: TratamientoMedico[],
-        public animal?: Animal 
+        public animal?: Animal,
+        public numero?: string 
     ) {}
 
 }

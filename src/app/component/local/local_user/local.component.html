@@ -115,25 +115,30 @@
           <input name="id" type="hidden" pInputText/>
           <div class="ui-g ">
               <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 5px"> <strong>Encargado: </strong> </label>
+                <label for="form-control" style="padding-right: 5px"> <strong>Encargado (*): </strong> </label>
                 <p-autoComplete [(ngModel)]="user" name="user" [suggestions]="filterUser" (completeMethod)="filterUsers($event)" 
                 field="persona.nombreCompleto" [size]="29"
                 placeholder="Ingresar usuario" [minLength]="1"></p-autoComplete>
                       
               </div>
               <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 10px"> <strong>Tipo local: </strong> </label>
+                  <label for="form-control" style="padding-right: 15px"> <strong>Nombre local (*): </strong> </label>
+                  <input   mdbInputDirective type="text" class="form-control"
+                  name="nombreLocal" [(ngModel)]="nombreLocal" pInputText placeholder="Ingresar un nombre" size="30" >
+              </div>
+              <div class="row ui-g-12" >
+                  <label for="form-control" style="padding-right: 10px"> <strong>Tipo local (*): </strong> </label>
                   <p-dropdown [options]="tipoLocales" name="tipoLocal" [(ngModel)]="tipoLocal" placeholder="Seleccione tipo local" 
                   optionLabel="nombre" [style]="{'width':'70%'}" [showClear]="true" ></p-dropdown>
               </div>
               <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 5px"> <strong>Capacidad: </strong> </label>
+                  <label for="form-control" style="padding-right: 5px"> <strong>Capacidad (*): </strong> </label>
                   <input   mdbInputDirective type="number" class="form-control" [min]="0" [max]="100" 
                   name="capacidad" [(ngModel)]="capacidad" pInputText size="5" >
                   <!-- <p-spinner  [min]="0" [max]="500" [size]="5" [(ngModel)]="capacidad" name="capacidad"></p-spinner> -->
               </div>
               <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 30px"> <strong>Ciudad: </strong> </label>
+                  <label for="form-control" style="padding-right: 30px"> <strong>Ciudad (*): </strong> </label>
                   <p-autoComplete field="descripcion"
                                       [(ngModel)]="ubigeo" name="ubigeo" 
                                       [suggestions]="filteredCities"
@@ -145,7 +150,7 @@
                       </p-autoComplete>
               </div>
               <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 15px"> <strong>Direccíon: </strong> </label>
+                  <label for="form-control" style="padding-right: 15px"> <strong>Direccíon (*): </strong> </label>
                   <input   mdbInputDirective type="text" class="form-control"
                   name="direccion" [(ngModel)]="direccion" pInputText placeholder="Ingresar direccíon" size="30" >
               </div>

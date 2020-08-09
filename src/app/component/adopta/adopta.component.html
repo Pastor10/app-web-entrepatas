@@ -32,7 +32,7 @@
                         <div class="ui-g-12">
                             <div class="car-details">
                                 <div>
-                                    <img src="http://entrepatasch.us-east-2.elasticbeanstalk.com/api/animal/upload/img/{{data.animal.foto}}"
+                                    <img src="{{data.animal.foto}}"
                                         width="80px" height="90px">
                                     <div class="ui-g">
                                         <div class="ui-g-12">Edad: <b>{{data.animal.edad}}</b></div>
@@ -48,8 +48,8 @@
                     <ng-template let-data pTemplate="gridItem">
                         <div style="padding:.5em" class="ui-g-12 ui-md-3">
                             <p-panel [header]="data.animal.nombre" [style]="{'text-align':'center'}">
-                                <img src="http://entrepatasch.us-east-2.elasticbeanstalk.com/api/animal/upload/img/{{data.animal.foto}}" width="80px"
-                                    height="90px">
+                                <img src="{{data.animal.foto}}" width="180px"
+                                    height="200px">
                                 <div class="car-detail">{{data.animal.edad}} </div>
                                 <hr class="ui-widget-content" style="border-top:0">
                                 <button pButton type="button" icon="pi pi-search" (click)="getPublicacion($event, data)"
@@ -65,7 +65,7 @@
                     <div class="ui-g" *ngIf="selectPublicacion">
                         <div class=" ui-g-12 ui-md-4">
                             <div class="ui-g-12" style="text-align:center">
-                                <img src="http://entrepatasch.us-east-2.elasticbeanstalk.com/api/animal/upload/img/{{selectPublicacion.animal.foto}}"
+                                <img src="{{selectPublicacion.animal.foto}}"
                                     width="200px" height="250px">
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                                         <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
                                                         field="abreviatura" name="perfilSelected" [size]="15"
                                                         (completeMethod)="filterListTipoDocumento($event)" [minLength]="1"
-                                                        placeholder="Seleccione tipo documento" [dropdown]="true">
+                                                        placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">
                                 
                                                     </p-autoComplete>
                                                     </div>

@@ -38,7 +38,7 @@
                 <div class="row ui-g-12">
                     <div style="text-align: center;" class="ui-g-12 ui-md-6">
                         <div *ngIf="animal.raza!=null">
-                            <img src="http://entrepatasch.us-east-2.elasticbeanstalk.comapi/animal/upload/img/{{animal.foto}}" width="300px"
+                            <img src="{{animal.foto}}" width="250px"
                                 height="300px">
                         </div>
 
@@ -88,17 +88,12 @@
                 <span class="ui-panel-title">Generar adopción</span>
             </p-header>
             <div class="ui-g ">
-                <div class="ui-g-4">
+                <div class="ui-g-5">
                     <h5 class="label-custom">Tipo documento(*)</h5>
-                    <!-- <p-dropdown [style]="{'width':'100%'}" [options]="listTipoDocumento"
-                        placeholder="Seleccione tipo documento" name="persona.tipoDocumento"
-                        [(ngModel)]="persona.tipoDocumento" optionLabel="abreviatura" [showClear]="true">
-
-                    </p-dropdown> -->
                     <p-autoComplete [(ngModel)]="persona.tipoDocumento" [suggestions]="listTipoDocumento"
                         field="abreviatura" name="perfilSelected" [size]="15"
                         (completeMethod)="filterListTipoDocumento($event)" [minLength]="1"
-                        placeholder="Seleccione tipo documento" [dropdown]="true">
+                        placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">
 
                     </p-autoComplete>
                 </div>
@@ -108,7 +103,7 @@
                         (keydown.enter)="getPersona()" pInputText />
                 </div>
 
-                <div class="ui-g-5">
+                <div class="ui-g-4">
                     <h5 class="label-custom">Nombres</h5>
                     <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.nombre" pInputText />
                 </div>
@@ -164,9 +159,9 @@
                 <div class="ui-g-12">
                     <h5 class="label-custom">Otros (*)</h5>
 
-                    <textarea rows="3" cols="75" pInputTextarea name="descripcion" [(ngModel)]="diagnostico"></textarea>
+                    <textarea rows="3" cols="70" pInputTextarea name="descripcion" [(ngModel)]="diagnostico"></textarea>
                 </div>
-                <div class="ui-g" style="width:250px;margin-bottom:10px">
+                <div class="ui-g" style="width:250px;margin-bottom:10px" *ngIf="!isEdit">
                     <div class="ui-g-12">
                         <p-checkbox binary="true" label="CREAR USUARIO" name="createUser" [(ngModel)]="createUser">
                         </p-checkbox>
@@ -174,7 +169,7 @@
                 </div>
                 <div class="ui-g-12" text-align: center style="text-align: center;">
                     <button style="width: auto; margin-top: 1.2rem;  font-size: 15px;" pButton type="submit"
-                        label="Registrar" class="ui-button-rounded ui-button-success"
+                    [label]="textButtonAction"  class="ui-button-rounded ui-button-success"
                         (click)="saveGeneraAdopcion()"></button>
 
                 </div>
@@ -249,7 +244,7 @@
                 </div>
 
                 <div class="ui-g-12">
-                    <p-table [columns]="cols" [value]="cita.listaTratamiento" [paginator]="true" [rows]="5">
+                    <p-table [columns]="cols" [value]="cita.listaTratamiento"  [rows]="5">
                         <ng-template pTemplate="caption">
                             Tratamiento
                         </ng-template>

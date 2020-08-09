@@ -12,11 +12,13 @@ import { TipoDocumento } from 'src/app/shared/model/tipoDocumento.model';
 import { UbigeoService } from 'src/app/shared/service/ubigeo.service';
 import { Ubigeo } from 'src/app/shared/model/ubigeo.model';
 import { PersonaService } from 'src/app/shared/service/persona.service';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 
 @Component({
     selector: 'app-perfil',
-    templateUrl: './perfil.component.html'
+    templateUrl: './perfil.component.html',
+    styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
 
@@ -42,6 +44,19 @@ export class PerfilComponent implements OnInit {
     filteredCities: Ubigeo[];
     mf: FormGroup;
 
+    public numberMask = createNumberMask({
+		prefix: '',
+		suffix: '',
+		includeThousandsSeparator: true,
+		thousandsSeparatorSymbol: '',
+		allowDecimal: false,
+		decimalSymbol: '.',
+		decimalLimit: 1,
+		integerLimit: 12,
+		requireDecimal: false,
+		allowNegative: false,
+		allowLeadingZeroes: true
+	});
 
     constructor(private messageService: MessageService,
         public fb: FormBuilder,
@@ -84,7 +99,10 @@ export class PerfilComponent implements OnInit {
     getUserById(id) {
         this.usuarioService.getUserId(id).subscribe(data => {
             this.usuario = data;
-            this.getCity(this.usuario.persona.ubigeo);
+            if(this.usuario.persona.ubigeo!=null){
+                this.getCity(this.usuario.persona.ubigeo);
+            }
+            
             console.log('usuario', this.usuario);
             //this.modelToForm(data);
 
@@ -104,6 +122,7 @@ export class PerfilComponent implements OnInit {
         this.correo = data.persona.correo;
         this.celular = data.persona.celular;
         this.getCity(data.persona.ubigeo);
+       
 
     }
 
@@ -124,6 +143,15 @@ export class PerfilComponent implements OnInit {
 
     }
 
+    onFileUpload(data: { files: File }): void {
+        const formData: FormData = new FormData();
+        const file = data.files[0];
+        formData.append('file', file, file.name);
+        this.personaService.uploadImage(formData).subscribe(resp => {
+          this.usuario.persona.foto = resp.url;
+          this.showMsg('success', 'Imganen subida', 'Perfil de usuario');
+        });
+      }
     
 
     filterCitiesByNombre(event) {
@@ -143,6 +171,43 @@ export class PerfilComponent implements OnInit {
 
     save(){
         console.log('guardado', this.usuario);
+        let ubigeo = this.usuario.persona.ubigeo.nombre;
+
+        if(this.usuario.persona.tipoDocumento==null){
+            this.showMsg('info', 'Seleccione tipo documento', 'Perfil de usuario');
+            return;
+        }
+        if(this.usuario.persona.nombre.trim()==''){
+            this.showMsg('info', 'Escriba un nombre', 'Perfil de usuario');
+            return;
+        }
+
+        if(this.usuario.persona.apePaterno.trim()==''){
+            this.showMsg('info', 'Escriba un apellido paterno', 'Perfil de usuario');
+            return;
+        }
+        if(this.usuario.persona.apeMaterno.trim()==''){
+            this.showMsg('info', 'Escriba un apellido materno', 'Perfil de usuario');
+            return;
+        }
+
+        if(this.usuario.persona.correo.trim()==''){
+            this.showMsg('info', 'Escriba un correo', 'Perfil de usuario');
+            return;
+        }
+
+        
+        if(ubigeo==undefined){
+            this.showMsg('info', 'Escriba la ciudad donde reside', 'Perfil de usuario');
+            return;
+        }
+
+        if(this.usuario.persona.direccion.trim()==''){
+            this.showMsg('info', 'Escriba su dirección donde reside', 'Perfil de usuario');
+            return;
+        }
+
+
         this.personaService.update(this.usuario.persona).then(data => {
             if(data!=null){
               let  message = 'Datos actualizados.';

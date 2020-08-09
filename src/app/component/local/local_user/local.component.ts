@@ -34,6 +34,7 @@ export class LocalComponent implements OnInit{
     id: number;
     capacidad: number;
     direccion: string;
+    nombreLocal: string;
     estado: boolean=true;
     data: User;
     ubigeoAux: any;
@@ -147,6 +148,7 @@ export class LocalComponent implements OnInit{
         this.model.capacidad = this.capacidad;
         this.model.estado = this.estado;
         this.model.direccion = this.direccion; 
+        this.model.nombre = this.nombreLocal;
 
         console.log('local ', this.model);
         
@@ -186,6 +188,7 @@ export class LocalComponent implements OnInit{
         this.direccion = '';
         this.estado = true;
         this.tipoLocal = null;
+        this.nombreLocal=null;
       }
 
       refreshTable() {
@@ -226,6 +229,7 @@ export class LocalComponent implements OnInit{
              this.user = data.usuario;
              this.estado = data.estado;
              this.tipoLocal = data.tipoLocal;
+             this.nombreLocal = data.nombre;
              this.getCity(data.ubigeo);             
 
         }

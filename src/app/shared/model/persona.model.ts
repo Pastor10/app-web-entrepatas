@@ -18,7 +18,9 @@ export class Persona {
         public tipoDocumento?: TipoDocumento,
         public ubigeo?: Ubigeo,
         public nombreCompleto?: string,
-        public ocupacion?: string
+        public ocupacion?: string,
+        public isCompleted?: boolean,
+        public foto?: string
 
     ) {}
 }

@@ -66,9 +66,10 @@ export class PublicacionListaComponent implements OnInit {
             { field: 'fecha', header: 'Fecha', width: '70px' },
             { field: 'hora', header: 'Hora', width: '70px' },
             { field: 'usuario', header: 'Usuario', width: '250px' },
-            { field: 'nombre', header: 'Nombre Mascota', width: '150px' },
+            { field: 'nombre', header: 'Mascota', width: '120px' },
+            { field: 'foto', header: 'Foto', width: '100px' },
             { field: 'sexo', header: 'Tipo/Sexo', width: '120px' },
-            { field: 'condicion', header: 'Condicion', width: '150px' },
+            { field: 'condicion', header: 'Condicion', width: '120px' },
             { field: 'estado', header: 'Estado', width: '100px' },
         ];
         // this.getAllTipoevento();

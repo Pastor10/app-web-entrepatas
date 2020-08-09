@@ -30,15 +30,25 @@
                 <div class="row ui-g-12">
                     <label for="form-control" style="padding-right: 25px"> <strong>Nombre Mascota: </strong>
                     </label>
-                    <p-autoComplete [(ngModel)]="animal" name="animal" [suggestions]="filterAnimal"
+                    <!-- <p-autoComplete [(ngModel)]="animal" name="animal" [suggestions]="filterAnimal"
                         (completeMethod)="filterAnimales($event)" field="nombre" [size]="29"
-                        placeholder="buscar mascota" [minLength]="1" [disabled]="isEdit"></p-autoComplete>
+                        placeholder="buscar mascota" [minLength]="1" [disabled]="isEdit"></p-autoComplete> -->
+
+                        <p-autoComplete [(ngModel)]="animal" [suggestions]="filterAnimal" (completeMethod)="filterAnimales($event)" [size]="29"
+                        [minLength]="1" placeholder="buscar mascota" [dropdown]="true" field="nombre">
+                        <ng-template let-animal pTemplate="item">
+                            <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                                <img src="{{animal.foto}}" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
+                                <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{animal.nombre}}</div>
+                            </div>
+                        </ng-template>
+                    </p-autoComplete>
 
                 </div>
                 <div class="row ui-g-12">
                     <div style="text-align: center;" class="ui-g-12 ui-md-6">
                         <div *ngIf="animal.raza!=null">
-                            <img src="http://entrepatasch.us-east-2.elasticbeanstalk.com/api/animal/upload/img/{{animal.foto}}" width="300px"
+                            <img src="{{animal.foto}}" width="250px"
                                 height="300px">
                         </div>
 
@@ -99,12 +109,12 @@
                 </div>
                 <div class="ui-g-6">
                     <h5 class="label-custom">Fecha visita (*)</h5>
-                    <p-calendar [(ngModel)]="fechaVisita" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+                    <p-calendar [(ngModel)]="fechaVisita" [locale]="es" dateFormat="dd/mm/yy" [maxDate]="today"></p-calendar>
                 </div>
                 <div class="ui-g-12">
                     <h5 class="label-custom">Diagnostico(*)</h5>
 
-                    <textarea rows="5" cols="75" pInputTextarea name="descripcion" [(ngModel)]="diagnostico"></textarea>
+                    <textarea rows="5" cols="70" pInputTextarea name="descripcion" [(ngModel)]="diagnostico"></textarea>
                 </div>
                 <div class="ui-g-12">
                     <div class="head-items">
@@ -115,7 +125,7 @@
                                 icon="fa fa-plus"></button>
                         </h5>
                         <p-table [columns]="cols" [value]="tratamientos" selectionMode="single"
-                            [(selection)]="selectTratamiento" (onRowSelect)="onRowSelect($event)" [paginator]="true"
+                            [(selection)]="selectTratamiento" (onRowSelect)="onRowSelect($event)" 
                             [rows]="15">
                             <ng-template pTemplate="caption">
                                 Medicamentos a utilizar
@@ -194,14 +204,14 @@
                 <label for="brand">Cantidad</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="brand" [(ngModel)]="tratamiento.cantidad" />
+                <input pInputText id="brand" [(ngModel)]="tratamiento.cantidad" min="1" type="number" />
             </div>
         </div>
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
-            <button type="button" pButton icon="fa fa-check" (click)="addTratamiento()" label="Save"></button>
+            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Quitar"></button>
+            <button type="button" pButton icon="fa fa-check" (click)="addTratamiento()" label="Agregar"></button>
         </div>
     </p-footer>
 </p-dialog>
@@ -212,7 +222,7 @@
         <p-scrollPanel [style]="{width: '100%', height: '400px'}">
             <div *ngFor="let cita of animal.citasMedicas">
                 <div class="ui-g-12">
-                    <label for="form-control">Cita Medica N {{cita.id}}</label>
+                    <label for="form-control">Cita Medica N {{cita.numero}}</label>
                 </div>
                 <div class="ui-g-4">
                     <label for="form-control">Fecha visita: {{cita.fechaVisita}}</label>
@@ -231,7 +241,7 @@
                 </div>
 
                 <div class="ui-g-12">
-                    <p-table [columns]="cols" [value]="cita.listaTratamiento" [paginator]="true" [rows]="5">
+                    <p-table [columns]="cols" [value]="cita.listaTratamiento"  [rows]="5">
                         <ng-template pTemplate="caption">
                             Tratamiento
                         </ng-template>

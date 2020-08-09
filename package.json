@@ -28,6 +28,7 @@
         "@fullcalendar/timegrid": "4.0.1",
         "@ngxs/store": "^3.6.0",
         "@types/jquery": "^3.3.31",
+        "angular2-text-mask": "^9.0.0",
         "chart.js": "2.7.3",
         "font-awesome": "4.7.0",
         "intl": "1.2.5",
@@ -38,6 +39,7 @@
         "primeng": "8.0.0",
         "quill": "1.1.8",
         "rxjs": "6.4.0",
+        "text-mask-addons": "^3.8.0",
         "web-animations-js": "github:angular/web-animations-js#release_pr208",
         "zone.js": "0.9.1"
     },

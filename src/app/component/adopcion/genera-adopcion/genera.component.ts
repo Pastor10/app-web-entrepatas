@@ -6,7 +6,7 @@ import { CitaMedica } from 'src/app/shared/model/citaMedica';
 import { CitaMedicaService } from 'src/app/shared/service/cita.service';
 import { AnimalService } from 'src/app/shared/service/animal.service';
 import { Animal } from 'src/app/shared/model/animal.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Persona } from 'src/app/shared/model/persona.model';
 import { TipoDocumento } from 'src/app/shared/model/tipoDocumento.model';
@@ -47,15 +47,15 @@ export class GeneraAdopcionComponent implements OnInit {
     veterinario: Veterinario;
 
     estadosClinico: any[];
-    createUser: boolean;
+    createUser: boolean=false;
     fechaAdopcion: Date;
     model = new Adopcion()
     animal: Animal;
     historialDialog: boolean;
     persona: Persona;
     listTipoDocumento: TipoDocumento[];
-
-    constructor(private route: ActivatedRoute, public tipoDocumentoService: TipoDocumentoService,
+    
+    constructor(private route: ActivatedRoute, private router: Router,public tipoDocumentoService: TipoDocumentoService,
         public citaMedicaService: CitaMedicaService, private messageService: MessageService, public personaService: PersonaService,
         public animalService: AnimalService, public ubigeoService: UbigeoService, public adopcionService: AdopcionService) {
         this.tratamientos = [];
@@ -66,7 +66,7 @@ export class GeneraAdopcionComponent implements OnInit {
     ngOnInit(): void {
 
         this.getAllTipoDocumento();
-
+        this.loadModel();
         this.es = {
             firstDayOfWeek: 1,
             dayNames: ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"],
@@ -111,7 +111,7 @@ export class GeneraAdopcionComponent implements OnInit {
 
         this.model.persona = this.persona;
         this.model.animal = this.animal;
-        this.model.fechaAdopcion = this.fechaAdopcion
+        this.model.fechaCreacion = this.fechaAdopcion
         this.model.createUser = this.createUser;
 
         console.log('adopcion ', this.model);
@@ -119,8 +119,6 @@ export class GeneraAdopcionComponent implements OnInit {
     }
 
     modelToForm(data) {
-        console.log(data.tipoDocumento);
-
         this.persona.nombre = data.nombre;
         this.persona.apePaterno = data.apePaterno;
         this.persona.apeMaterno = data.apeMaterno;
@@ -129,6 +127,62 @@ export class GeneraAdopcionComponent implements OnInit {
         this.persona.tipoDocumento = data.tipoDocumento;
         this.persona.direccion = data.direccion;
         this.persona.celular = data.celular;
+
+
+    }
+
+    modelAdopcionToForm(data) {
+
+        //animal
+        this.animal = data.animal;
+        this.persona.nombre = data.persona.nombre;
+        this.persona.apePaterno = data.persona.apePaterno;
+        this.persona.apeMaterno = data.persona.apeMaterno;
+        this.persona.correo = data.persona.correo;
+        this.persona.numeroDocumento= data.persona.numeroDocumento;
+        this.persona.fechaNacimiento = data.persona.fechaNacimiento;
+        this.persona.tipoDocumento = data.persona.tipoDocumento;
+        this.persona.direccion = data.persona.direccion;
+        this.persona.celular = data.persona.celular;
+        this.getCity(data.persona.ubigeo);
+
+    }
+
+    loadModel() {
+        this.isEdit = this.route.snapshot.data.isEdit;
+        if (this.isEdit) {
+          this.route.params.subscribe(p => {
+            const id = p['id'];
+            this.adopcionService.getFindId(id).subscribe((data: Adopcion) => {
+              if (data) {
+                //this.model = data;
+                console.log("model ", data);
+    
+                this.modelAdopcionToForm(data);
+    
+              }
+            });
+          });
+    
+    
+        }
+        
+      }
+
+      getCity(ubigeo: Ubigeo) {
+        const params = [
+            `codDepartamento=${ubigeo.codDepartamento}`,
+            `codProvincia=${ubigeo.codProvincia}`,
+            `codDistrito=${ubigeo.codDistrito}`
+        ];
+        this.ubigeoService.getCity(params.join('&')).subscribe(
+            data => {
+                if (data != null) {
+                    this.persona.ubigeo = data;
+                }
+               
+            }
+        );
 
     }
 
@@ -141,22 +195,29 @@ export class GeneraAdopcionComponent implements OnInit {
     saveGeneraAdopcion() {
         console.log('persona', this.persona);
 
-        this.formToModel();
-        this.adopcionService.save(this.model).subscribe(
-            data => {
-                if (data != null) {
-                    this.showMsg('success', 'Se guardó correctamente', 'Adopción');
+        if(this.isEdit){
+            this.router.navigate(['/main/adopciones']);
+            //this.returnAdopciones();
+        }else{
+            this.formToModel();
+            this.adopcionService.save(this.model).subscribe(
+                data => {
+                    if (data != null) {
+                        this.showMsg('success', 'Se guardó correctamente', 'Adopción');
+                    }
+    
+                },
+                error => {
+                    const errorMessage =
+                        error.message != undefined
+                            ? error.message
+                            : 'No se pudo procesar la petición';
+                    this.showMsg('danger', errorMessage);
                 }
+            );
+        }
 
-            },
-            error => {
-                const errorMessage =
-                    error.message != undefined
-                        ? error.message
-                        : 'No se pudo procesar la petición';
-                this.showMsg('danger', errorMessage);
-            }
-        );
+   
 
     }
 
@@ -208,4 +269,11 @@ export class GeneraAdopcionComponent implements OnInit {
         this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
     }
 
+    get textButtonAction() {
+        return this.isEdit ? 'REGRESAR' : 'GUARDAR';
+    }
+
+    returnAdopciones() {
+        return `/main/adopciones`;
+      }
 }

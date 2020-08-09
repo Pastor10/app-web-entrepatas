@@ -74,6 +74,11 @@ export const routes: Routes = [
             {path: 'postulante', component: PostulanteComponent, canActivate: [AuthGuard]},
             {path: 'genera-adopcion', component: GeneraAdopcionComponent, canActivate: [AuthGuard]},
             {path: 'adopciones', component: AdopcionComponent, canActivate: [AuthGuard]},
+            {path: 'adopcion-usuario/:id', component: GeneraAdopcionComponent,data: {
+                modeRoot: false,
+                isEdit: true,
+                title: 'Adopcion usuario',
+            } , canActivate: [AuthGuard]},
             {path: 'devoluciones', component: DevolucionComponent, canActivate: [AuthGuard]},
             
             {path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard]},

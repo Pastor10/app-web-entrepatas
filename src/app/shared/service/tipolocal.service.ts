@@ -1,14 +1,15 @@
 
-import {throwError as observableThrowError, Observable} from 'rxjs';
+import { throwError as observableThrowError, Observable } from 'rxjs';
 
-import {timeoutWith} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {environment} from 'src/environments/environment';
-import {HttpClient} from '@angular/common/http';
-import { Perfil } from '../model/perfil.model';
+import { timeoutWith } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { TipoLocal } from '../model/tipolocal.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TipoLocalService {
   constructor(private http: HttpClient) {
   }
@@ -27,12 +28,13 @@ export class TipoLocalService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-  
+
   delete(id: number) {
     return this.http.delete(this.baseUrl + 'delete/' + id);
   }
 
-  save(o: TipoLocal) {
+
+  save(o: TipoLocal){
     if (o.id == undefined) {
       return this.http.post(this.baseUrl + 'create', o);
     } else {

@@ -1,18 +1,20 @@
 import { Router } from '@angular/router';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Input, ElementRef } from '@angular/core';
 
 //import {AlertService} from 'ngx-alerts';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { LoginResponse } from 'src/app/shared/model/loginResponse.model';
 import { LocalStorageService } from 'src/app/shared/service/localstorage.service';
-import { AppConstant } from 'src/app/shared/constant/app.constant';
 import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import { User } from 'src/app/shared/model/User.model';
 import { Perfil } from 'src/app/shared/model/perfil.model';
 import { Persona } from 'src/app/shared/model/persona.model';
 import { TipoDocumentoService } from 'src/app/shared/service/tipodocumento.service';
 import { TipoDocumento } from 'src/app/shared/model/tipoDocumento.model';
+import { PersonaService } from 'src/app/shared/service/persona.service';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+
 
 @Component({
   selector: 'app-login',
@@ -22,10 +24,10 @@ import { TipoDocumento } from 'src/app/shared/model/tipoDocumento.model';
 
 export class LoginComponent implements OnInit, AfterViewInit {
 
-  constructor(public router: Router,
+  constructor(public router: Router, 
     public messageService: MessageService,
     public authenticationService: AuthService, public tipoDocumentoService: TipoDocumentoService,
-    public localStorageService: LocalStorageService, public usuarioService: UsuarioService) {
+    public localStorageService: LocalStorageService, public usuarioService: UsuarioService, public personaService: PersonaService) {
   }
 
   public username: string;
@@ -46,6 +48,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
   numeroDocumento: string;
   correo: string;
   correoRepite: string;
+
+  public numberMask = createNumberMask({
+		prefix: '',
+		suffix: '',
+		includeThousandsSeparator: true,
+		thousandsSeparatorSymbol: '',
+		allowDecimal: false,
+		decimalSymbol: '.',
+		decimalLimit: 1,
+		integerLimit: 12,
+		requireDecimal: false,
+		allowNegative: false,
+		allowLeadingZeroes: true
+	});
 
   ngOnInit() {
     this.username = '';
@@ -130,7 +146,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.persona.nombreCompleto = this.nombres + ' ' + this.apPaterno + ' ' + this.apMaterno;
     this.persona.tipoDocumento = this.tipoDocumento;
     this.persona.numeroDocumento = this.numeroDocumento;
-    this.persona.correo= this.correo;
+    this.persona.correo = this.correo;
 
     this.data.username = this.correo;
     this.data.password = this.numeroDocumento;
@@ -155,15 +171,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.apMaterno = '';
     this.apPaterno = '';
     this.userCrea = '';
-    this.passwordCrea = '';
-    this.repetPassword = '';
+    this.correo = '';
+    this.correoRepite = '';
 
   }
 
   save() {
     let message;
     this.formToModel();
-    if(this.correo!= this.correoRepite){
+    if (this.correo != this.correoRepite) {
       message = 'Los correos ingresados no coinciden';
       this.showMsg('info', message, 'Usuario');
       return;
@@ -188,14 +204,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
     } else {
       this.authenticationService.login(this.username, this.password).subscribe(
         data => {
-          if(data!=null){
+          if (data != null) {
             this.loginResponse = new LoginResponse();
             this.loginResponse = <LoginResponse>data;
-  
+
             this.localStorageService.set('userLogin', data);
             this.router.navigate(['/main']);
           }
-       
+
 
         },
         error => {
@@ -209,6 +225,59 @@ export class LoginComponent implements OnInit, AfterViewInit {
           }
         });
     }
+  }
+
+  public filterListTipoDocumento(event) {
+    let query = event.query
+    this.listTipoDocumento = this.filterDocumento(query, this.listTipoDocumento);
+
+}
+
+filterDocumento(query, lista: TipoDocumento[]): TipoDocumento[] {
+    let filtered: TipoDocumento[] = [];
+    for (let i = 0; i < lista.length; i++) {
+        let model = lista[i];
+        if (model.abreviatura.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            filtered.push(model);
+        }
+    }
+    return filtered;
+}
+
+  getPersona() {
+    const params = [
+      `documento=${this.numeroDocumento}`
+    ];
+    this.personaService.getByDocumento(params.join('&')).subscribe(
+      data => {
+        if (data != null) {
+          this.modelToForm(data);
+
+        }
+      }, error => {
+        const errorMessage = error.error.mensaje != undefined ? error.error.mensaje : 'No se pudo procesar la petición. Error ' + error.status;
+        // this.showMsg('error', errorMessage, 'Solicitud');
+        console.log('error', errorMessage);
+
+        //this.limpiarDataBusqueda();
+
+      }
+    );
+
+  }
+
+
+  modelToForm(data) {
+
+    this.nombres = data.nombre;
+    this.apMaterno = data.apeMaterno
+    this.apPaterno = data.apePaterno
+    this.correo = data.correo;
+    this.correoRepite = data.correo;
+    this.numeroDocumento = data.numeroDocumento;
+    this.tipoDocumento = data.tipoDocumento;
+    console.log(this.data);
+
   }
 
   showMsg(type: string, msg: string, title: string) {

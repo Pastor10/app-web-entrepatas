@@ -20,7 +20,7 @@
 </p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 <div class="ui-g">
-  <div class="ui-g-12 ui-lg-7">
+  <div class="ui-g-12 ui-lg-9">
     <p-panel [style]="{'margin-bottom':'20px'}">
       <p-header>
         <span  class="ui-panel-title">Usuarios</span>
@@ -99,80 +99,77 @@
   </p-panel>
   </div>
 
-  <div class="ui-g-12 ui-lg-5"> 
+  <div class="ui-g-12 ui-lg-3"> 
+      <p-panel [style]="{'margin-bottom':'20px'}">
+          <p-header>
+              <span  class="ui-panel-title">Agregar / Editar usuarios</span>
+            </p-header>
+            <form  (ngSubmit)="save()" >
+                <input [(ngModel)]="id" name="id" type="hidden" pInputText/>
+            <div class="ui-g ">
+                <div class="row ui-g-12" >
+                    <label for="form-control" style="padding-right: 5px"> <strong>Tipo documento (*): </strong> </label>
+                    <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"  field="abreviatura"
+                          name="tipoDocumento" (completeMethod)="filterListTipoDocumento($event)" [size]="15"
+                          [minLength]="1" placeholder="Seleccionar tipo documento" [dropdown]="true" [readonly]="true">
+                    
+                      </p-autoComplete>
+                </div>
+                <div class="row ui-g-12" >
+                    <label for="form-control" style="padding-right: 25px"> <strong>Documento (*): </strong> </label>
+                          <input   mdbInputDirective type="text" id="nombre" class="form-control"
+                          [(ngModel)]="documento" name="documento" pInputText placeholder="Ingresar documento" [textMask]="{mask: numberMask}" minlength="8" maxlength="12">
+                  </div>
+                <div class="row ui-g-12" >
+                  <label for="form-control" style="padding-right: 25px"> <strong>Nombres (*): </strong> </label>
+                        <input   mdbInputDirective type="text" id="nombre" class="form-control"
+                        [(ngModel)]="nombre" name="nombre" pInputText placeholder="Ingresar nombres" >
+                </div>
+                <div class="row ui-g-12">
+                    <label for="form-control" style="padding-right: 10px"> <strong>Ap. Paterno (*): </strong> </label>
+                    <input   mdbInputDirective type="text" id="apePaterno" class="form-control"
+                    [(ngModel)]="apePaterno" name="apePaterno" pInputText placeholder="Ingresar apellido paterno" >
+                    
+                </div>
+                <div class="row ui-g-12" >
+                    <label for="form-control" style="padding-right: 10px"> <strong>Ap. Materno (*): </strong> </label>
+                    <input   mdbInputDirective type="text" id="apeMaterno" class="form-control"
+                    [(ngModel)]="apeMaterno" name="apeMaterno" pInputText placeholder="Ingresar apellido materno" >
+                </div>
+                <div class="row ui-g-12" >
+                    <label for="form-control" style="padding-right: 45px"> <strong>Correo (*): </strong> </label>
+                    <input   mdbInputDirective type="text" id="correo" class="form-control"
+                    [(ngModel)]="correo" name="correo" pInputText placeholder="Ingresar correo" >
+                </div>
+                <div class="row ui-g-12" >
+                    <label for="form-control" style="padding-right: 45px"> <strong>Celular: </strong> </label>
+                    <input   mdbInputDirective type="text" id="celular" class="form-control"
+                    [(ngModel)]="celular" name="celular" pInputText placeholder="Ingresar celular" [textMask]="{mask: numberMask}" minlength="9" maxlength="9">
+                </div>
+    
+                <div class="row ui-g-12" >
+                    <label for="form-control" style="padding-right: 60px"> <strong>Perfil (*): </strong> </label>
+                    <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
+                          name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
+                          [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" [readonly]="true">
+                    
+                      </p-autoComplete>
+                </div>
+                <div class="ui-g" style="width:250px;margin-bottom:10px">
+                    <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected"></p-checkbox></div>
+                </div>
+                  <div class="ui-g-12 ui-md-6">
+                      <button pButton  label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
+                  </div>
+                  <div class="ui-g-12 ui-md-6">
+                    <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary" (click)="limpiarData()"></button>
+                  </div>
+    
+            </div>
+            </form>
+      </p-panel>
 
-      <div class="card card-w-title">
-        <div class="ui-g">
-          <div class="ui-g-12">
-           <h1><strong>Agregar / Editar usuarios</strong> </h1>
-          </div>
-        </div>
-
-
-        <form  (ngSubmit)="save()" >
-            <input [(ngModel)]="id" name="id" type="hidden" pInputText/>
-        <div class="ui-g ">
-            <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 5px"> <strong>Tipo documento: </strong> </label>
-                <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
-                      name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
-                      [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" >
-                
-                  </p-autoComplete>
-            </div>
-            <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 25px"> <strong>Documento: </strong> </label>
-                      <input   mdbInputDirective type="text" id="nombre" class="form-control"
-                      [(ngModel)]="nombre" name="nombre" pInputText placeholder="Ingresar nombres" >
-              </div>
-            <div class="row ui-g-12" >
-              <label for="form-control" style="padding-right: 25px"> <strong>Nombres: </strong> </label>
-                    <input   mdbInputDirective type="text" id="nombre" class="form-control"
-                    [(ngModel)]="nombre" name="nombre" pInputText placeholder="Ingresar nombres" >
-            </div>
-            <div class="row ui-g-12">
-                <label for="form-control" style="padding-right: 10px"> <strong>Ap. Paterno: </strong> </label>
-                <input   mdbInputDirective type="text" id="apePaterno" class="form-control"
-                [(ngModel)]="apePaterno" name="apePaterno" pInputText placeholder="Ingresar apellido paterno" >
-                
-            </div>
-            <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 10px"> <strong>Ap. Materno: </strong> </label>
-                <input   mdbInputDirective type="text" id="apeMaterno" class="form-control"
-                [(ngModel)]="apeMaterno" name="apeMaterno" pInputText placeholder="Ingresar apellido materno" >
-            </div>
-            <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 45px"> <strong>Correo: </strong> </label>
-                <input   mdbInputDirective type="text" id="correo" class="form-control"
-                [(ngModel)]="correo" name="correo" pInputText placeholder="Ingresar correo" >
-            </div>
-            <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 45px"> <strong>Celular: </strong> </label>
-                <input   mdbInputDirective type="text" id="celular" class="form-control"
-                [(ngModel)]="celular" name="celular" pInputText placeholder="Ingresar celular" >
-            </div>
-
-            <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 60px"> <strong>Perfil: </strong> </label>
-                <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
-                      name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
-                      [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" >
-                
-                  </p-autoComplete>
-            </div>
-            <div class="ui-g" style="width:250px;margin-bottom:10px">
-                <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected"></p-checkbox></div>
-            </div>
-              <div class="ui-g-12 ui-md-6">
-                  <button pButton  label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
-              </div>
-              <div class="ui-g-12 ui-md-6">
-                <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary" (click)="limpiarData()"></button>
-              </div>
-
-        </div>
-        </form>
-      </div>
+    
 
   </div> -->
 

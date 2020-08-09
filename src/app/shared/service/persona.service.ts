@@ -31,6 +31,8 @@ export class PersonaService {
 
   }
 
- 
+  uploadImage(formData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}upload`, formData);
+}
 
 }
