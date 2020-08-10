@@ -66,7 +66,7 @@
                     </ng-template>
                 </p-dataView> -->
 
-                <p-dataView #dv [value]="publicaciones" [paginator]="true" [rows]="9" filterBy="name"
+                <p-dataView #dv [value]="publicaciones" [paginator]="true" [rows]="16" filterBy="name"
                 [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
                 <ng-template pTemplate="header">
                     <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
@@ -131,7 +131,7 @@
                         </div>
                         <div class=" ui-g-12 ui-md-8">
                             <p-tabView>
-                                <p-tabPanel header="Mis datos" leftIcon="fa fa-info-circle">
+                                <p-tabPanel header="Datos Mascota" leftIcon="fa fa-info-circle">
                                     <div class="ui-g-4">Nombre: </div>
                                     <div class="ui-g-8">{{selectPublicacion.animal.nombre}}</div>
 
@@ -146,13 +146,14 @@
 
                                     <div class="ui-g-4">Tamaño: </div>
                                     <div class="ui-g-8">{{selectPublicacion.animal.tamanoAnimal.nombre}}</div>
+                
                                 </p-tabPanel>
-                                <p-tabPanel header="Solicitar adopción" leftIcon="fa fa-file-text-o">
+                                <p-tabPanel header="Solicitar adopción" leftIcon="fa fa-file-text-o" *ngIf="selectPublicacion.condicion.nombre=='ADOPCION'">
                                     <div class="ui-g ui-fluid">
                                         <div class=" ui-g-12 ui-md-12">
                                             <p-card>
                                                 <div class="ui-g">
-                                                    <div class="ui-g-6">
+                                                    <div class="ui-g-6" >
                                                         <h5 class="label-custom">Tipo Documento (*)</h5>
 
                                                         <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
@@ -231,6 +232,21 @@
                                                 </div>
 
                                             </p-card>
+                                        </div>
+
+                                    </div>
+                                </p-tabPanel>
+                                <p-tabPanel header="Información del contacto" leftIcon="fa fa-file-text-o" *ngIf="selectPublicacion.condicion.nombre!='ADOPCION'">
+                                    <div class="ui-g ui-fluid">
+                                        <div class=" ui-g-12 ui-md-12">
+                                            <div class="ui-g-4">Contacto: </div>
+                                            <div class="ui-g-8">{{selectPublicacion.usuarioPublica.persona.nombreCompleto}}</div>
+        
+                                            <div class="ui-g-4">Celular: </div>
+                                            <div class="ui-g-8">{{selectPublicacion.usuarioPublica.persona.celular}}</div>
+        
+                                            <div class="ui-g-4">Correo: </div>
+                                            <div class="ui-g-8">{{selectPublicacion.usuarioPublica.persona.correo}}</div>
                                         </div>
 
                                     </div>

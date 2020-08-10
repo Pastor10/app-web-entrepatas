@@ -273,7 +273,7 @@ import { FileService } from './shared/service/file.service';
 
     ],
     providers: [
-        {provide: LocationStrategy, useClass: PathLocationStrategy},
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
