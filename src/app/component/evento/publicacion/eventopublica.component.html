@@ -1,6 +1,6 @@
 <p-card>
         <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
-        <form (ngSubmit)="save()">
+
     
             <div class="ui-g ui-fluid">
                 <div class=" ui-g-12 ui-md-6">
@@ -27,6 +27,33 @@
                                 <input style="width: 100%;" type="text" name="nombre" [(ngModel)]="nombre" pInputText/>
         
                             </div>
+                            <div class="ui-g-12">
+                                <h5 class="label-custom">Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</h5>
+
+                               <p-fileUpload accept="image/*"
+                               chooseLabel="Selecciona una imagen" uploadLabel="Subir imagen" accept="image/*" 
+                               cancelLabel="Cancelar" name="file" 
+                               (uploadHandler)="onFileUpload($event)" [customUpload]="true"
+                               [multiple]="false" maxFileSize="5000000">
+                                 <ng-template pTemplate="content">
+                                     <ul *ngIf="uploadedFiles.length">
+                                         <li *ngFor="let file of uploadedFiles">{{file.name}} -
+                                             {{file.size}}
+                                             bytes
+                                         </li>
+                                     </ul>
+                                 </ng-template>
+                             </p-fileUpload>
+
+                             <div style="margin-top: 0.5rem;">
+                                    <h5 class="label-custom">Imagen</h5>
+                                    <input 
+                                           style="width: 100%; margin-bottom: 0.2em"
+                                           [(ngModel)]="imagenUp" class="form-control" name="imagenUp"
+                                           id="imagenUp" type="text" disabled pInputText/>
+              
+                                  </div>
+                        </div>
     
                             <div class="ui-g-12">
                                 <h5 class="label-custom">Descripcíon (*)</h5>
@@ -55,18 +82,18 @@
                                     <h5 class="label-custom">Direccíon(*)</h5>
                                     <input style="width: 100%;" type="text" [(ngModel)]="direccion" name="direccion" pInputText/>
                             </div>
-                            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                            <!-- <div class="ui-g" style="width:250px;margin-bottom:10px">
                                     <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected"></p-checkbox></div>
-                            </div>
+                            </div> -->
     
                             <div class="ui-g-12" text-align: center style="text-align: center;">
                                     <button 
                                     style="width: auto; margin-top: 1.2rem;  padding: 5px ; font-size: 15px;" pButton
-                                    type="submit" [label]="labelButtonAction" class="ui-button-rounded ui-button-success"></button>
+                                    type="submit" [label]="textButtonAction" class="ui-button-rounded ui-button-success" (click)="save()" ></button>
 
                                     <button 
                                     style="width: auto; margin-top: 1.2rem; margin-left: 20px ;   padding: 5px ; font-size: 15px;" pButton
-                                    type="submit" label="Cancelar" class="ui-button-rounded ui-button-secondary" (click)="limpiarData()"></button>
+                                    type="submit" label="Cancelar" class="ui-button-rounded ui-button-secondary" (click)="returnListaEventos()"></button>
                             </div>
                         </div>
     
@@ -75,8 +102,9 @@
     
                 <div style="text-align: center;" class="ui-g-12 ui-md-6">
                     <p-card>
-                        <div *ngIf="tipoEvento!=null">
-                                <img  src="http://entrepatasch.us-east-2.elasticbeanstalk.com/api/tipoEvento/upload/img/{{tipoEvento.imagen}}" width="350px"  height="300px" >  
+                        <div >
+                                <img src="{{imagenUp}}"
+                                width="350px" height="400px">
                         </div>
 
                     </p-card>
@@ -86,6 +114,6 @@
             </div>
     
     
-        </form>
+
     </p-card>
     

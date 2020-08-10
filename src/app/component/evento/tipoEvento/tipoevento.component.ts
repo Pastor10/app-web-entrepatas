@@ -48,7 +48,6 @@ export class TipoEventoComponent implements OnInit{
     ngOnInit(){
         this.cols = [
             {field: 'tipnombreo', header: 'Tipo', width: '170px'},
-            {field: 'imagen', header: 'Imagen', width: '150px'},
             {field: 'estado', header: 'Estado', width: '80px'},
         ];
        // this.getAllTipoevento();
@@ -99,7 +98,6 @@ export class TipoEventoComponent implements OnInit{
     formToModel(): void {
         this.model.id = this.id;
         this.model.nombre = this.nombre;
-        this.model.file = this.file;
         this.model.estado = this.estado;
         
     }
@@ -154,11 +152,11 @@ export class TipoEventoComponent implements OnInit{
       onConfirm(data) {
           console.log(data);
           
-        this.deleteRaza(data, 'Tipo Evento eliminado correctamente');
+        this.deleteTipoEvento(data, 'Tipo Evento eliminado correctamente');
         this.messageService.clear('c');
       }
 
-      public deleteRaza(data, message): void {
+      public deleteTipoEvento(data, message): void {
         this.tipoEventoService.delete(data.id).subscribe(
           data => {
             this.showMsg('success', message, 'Tipo Evento');

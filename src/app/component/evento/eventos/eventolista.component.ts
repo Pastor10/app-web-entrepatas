@@ -31,6 +31,7 @@ export class EventoListaComponent implements OnInit{
     data: TipoEvento;
     uploadedFiles: any[] = [];
     file:File;
+    
 
     @ViewChild('dt', {static: true}) public tabla: Table;
     lastLazyLoadEvent: LazyLoadEvent;
@@ -146,14 +147,14 @@ export class EventoListaComponent implements OnInit{
       onConfirm(data) {
           console.log(data);
           
-        this.deleteRaza(data, 'Tipo Evento eliminado correctamente');
+        this.deleteEvento(data, 'Evento eliminado correctamente');
         this.messageService.clear('c');
       }
 
-      public deleteRaza(data, message): void {
-        this.tipoEventoService.delete(data.id).subscribe(
+      public deleteEvento(data, message): void {
+        this.eventoService.delete(data.id).subscribe(
           data => {
-            this.showMsg('success', message, 'Tipo Evento');
+            this.showMsg('success', message, 'Evento');
             this.refreshTable();
           },
           error => {
@@ -166,6 +167,8 @@ export class EventoListaComponent implements OnInit{
           }
         );
       }
+
+      
 
       doAction(data, accion) {
         if (accion =='state') {
@@ -192,6 +195,10 @@ export class EventoListaComponent implements OnInit{
         }
 
 
+    }
+
+    linkUpdate(id) {
+        return `/main/evento-editar/${id}`;
     }
 
     showMsg( type: string, msg: string, title: string = 'Tipo Evento') {

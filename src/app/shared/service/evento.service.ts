@@ -31,6 +31,10 @@ export class EventoService {
     return this.http.delete(this.baseUrl + 'delete/' + id);
   }
 
+  uploadImage(formData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}upload`, formData);
+}
+
   save(o: Evento) {
     if (o.id == undefined) {
       return this.http.post(this.baseUrl + 'create', o);

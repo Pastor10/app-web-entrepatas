@@ -33,14 +33,9 @@ export class TipoEventoService {
 
 
   save(o :TipoEvento) {
-    const formData = new FormData()
-    formData.append('id', o.id==null?'0':o.id.toString());
-    formData.append('file', o.file);
-    formData.append('nombre', o.nombre);
 
-    //return this.http.get<any>(`${this.baseUrl}/create?${params}`);
     if (o.id == undefined) {
-      return this.http.post(this.baseUrl + 'create', formData);
+      return this.http.post(this.baseUrl + 'create', o);
     } else {
       return this.http.put(this.baseUrl + 'update', o);
     }

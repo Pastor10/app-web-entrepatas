@@ -6,7 +6,6 @@ import { Table } from 'primeng/table';
 import { TamanoAnimal } from 'src/app/shared/model/tamanoanimal.model';
 import { TipoEventoService } from 'src/app/shared/service/tipoevento.service';
 import { TipoEvento } from 'src/app/shared/model/tipoevento.model';
-import { Time } from '@angular/common';
 import { Evento } from 'src/app/shared/model/evento.model';
 import { EventoService } from 'src/app/shared/service/evento.service';
 import { Ubigeo } from 'src/app/shared/model/ubigeo.model';
@@ -36,19 +35,22 @@ export class EventoPublicaComponent implements OnInit{
     ubigeo: Ubigeo;
     lastLazyLoadEvent: LazyLoadEvent;
     public saveProfile = true;
-    public edit = false;
     mf: FormGroup;
+    imagenUp: string;
+    uploadedFiles: any[] = [];
+    isEdit: boolean;
 
     cols: any[];
     @ViewChild('dt', {static: true}) public tabla: Table;
 
-    constructor(private messageService: MessageService, public fb: FormBuilder, public ubigeoService: UbigeoService,
+    constructor(private route: ActivatedRoute,private messageService: MessageService, public fb: FormBuilder, private router: Router, public ubigeoService: UbigeoService,
         public tipoEventoService: TipoEventoService, public eventoService: EventoService) {
     }
 
     ngOnInit(){
         this.getAllTipoEvento();
         this.builderForm();
+        this.loadModel();
         this.tipoEvento = new TipoEvento();
 
         this.cols = [
@@ -65,10 +67,6 @@ export class EventoPublicaComponent implements OnInit{
 
     }
  
-
-    get labelButtonAction() {
-        return 'Registrar Evento';
-    }
 
     onSelectCiudad(e: Ubigeo) {
         console.log("city ", e);
@@ -150,6 +148,7 @@ export class EventoPublicaComponent implements OnInit{
         this.model.estado = this.estadoSelected;
         this.model.ubigeo = this.ubigeo;
         this.model.tipoEvento = this.tipoEvento;
+        this.model.banner = this.imagenUp;
         console.log(this.model);
         
         
@@ -163,6 +162,7 @@ export class EventoPublicaComponent implements OnInit{
         this.tipoEvento = null;
         this.fecha= null;
         this.descripcion = '';
+        this.imagenUp='';
     
       }
 
@@ -199,6 +199,16 @@ export class EventoPublicaComponent implements OnInit{
     //     );
     //   }
 
+    onFileUpload(data: { files: File }): void {
+        const formData: FormData = new FormData();
+        const file = data.files[0];
+        formData.append('file', file, file.name);
+        this.eventoService.uploadImage(formData).subscribe(resp => {
+          this.imagenUp = resp.url;
+          this.showMsg('success', 'Imganen subida', 'Evento');
+        });
+      }
+
     save() {
         let message;
         this.formToModel();
@@ -208,20 +218,6 @@ export class EventoPublicaComponent implements OnInit{
             return;
           }
 
-          if (this.id != undefined) {
-            this.model.id = this.id;
-            this.edit = true;
-          } else {
-            this.model.id = undefined;
-            this.edit = false;
-          }
-   
-        this.listaTipoEvento.forEach(item => {
-            if (item.nombre.toUpperCase() === this.nombre.toUpperCase() && !this.edit) {
-            this.saveProfile = false;
-            }
-        });
-        if (this.saveProfile) {
             this.eventoService.save(this.model).subscribe(
             data => {
                 if(data!=null){
@@ -237,16 +233,80 @@ export class EventoPublicaComponent implements OnInit{
                 this.showMsg('danger', errorMessage);
             }
             );
-        } else {
-            this.showMsg('warn', 'Evento ya existe', 'Evento');
-            this.saveProfile = true;
-        }
+
+        
         this.limpiarData();
+        this.returnListaEventos();
+       
+        //
+        //this.returnAdopciones();
 
     }
 
+    modelToForm(data) {
+
+        this.tipoEvento = data.tipoEvento;
+        this.imagenUp = data.banner;
+        this.descripcion = data.descripcion;
+        this.fecha = new Date(data.fecha);
+        this.direccion = data.direccion;
+        this.nombre= data.titulo;
+        this.id= data.id;
+        this.getCity(data.ubigeo);
+    
+      }
+
+      getCity(ubigeo: Ubigeo) {
+        const params = [
+            `codDepartamento=${ubigeo.codDepartamento}`,
+            `codProvincia=${ubigeo.codProvincia}`,
+            `codDistrito=${ubigeo.codDistrito}`
+        ];
+        this.ubigeoService.getCity(params.join('&')).subscribe(
+            data => {
+                if (data != null) {
+                    this.ubigeo = data;
+                }
+               
+            }
+        );
+
+    }
+
+    loadModel() {
+        this.isEdit = this.route.snapshot.data.isEdit;
+        if (this.isEdit) {
+          this.route.params.subscribe(p => {
+            const id = p['id'];
+            this.eventoService.getFindId(id).subscribe((data: Evento) => {
+              if (data) {
+                this.model = data;
+                console.log("model ", data);
+    
+                this.modelToForm(data);
+    
+                // cargamos razas segun tipo animal
+               // this.getRazaId(this.model.animal.raza.tipoAnimal.id);
+              }
+            });
+          });
+    
+    
+        }
+    
+      }
+
     showMsg( type: string, msg: string, title: string = 'Evento') {
         this.messageService.add( { key: 'tst', severity: type, summary: title, detail: msg } );
+      }
+
+      returnListaEventos(){
+        this.router.navigate(['/main/evento-lista']);
+
+      }
+
+      get textButtonAction() {
+        return this.isEdit ? 'ACTUALIZAR' : 'GUARDAR';
       }
 
 }

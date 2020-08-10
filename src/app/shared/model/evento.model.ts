@@ -13,6 +13,7 @@ export class Evento {
         public direccion?: string,
         public fecha?: Date,
         public estado?: boolean,
-        public fechaCreacion?: Date
+        public fechaCreacion?: Date,
+        public banner?: string
     ) {}
 }

@@ -64,6 +64,13 @@ export const routes: Routes = [
             { path: 'tipo-evento', component: TipoEventoComponent, canActivate: [AuthGuard] },
             { path: 'evento-publica', component: EventoPublicaComponent, canActivate: [AuthGuard] },
             { path: 'evento-lista', component: EventoListaComponent, canActivate: [AuthGuard] },
+            {
+                path: 'evento-editar/:id', component: EventoPublicaComponent, data: {
+                    modeRoot: false,
+                    isEdit: true,
+                    title: 'Editar Evento',
+                }, canActivate: [AuthGuard]
+            },
             { path: 'publicacion-lista', component: PublicacionListaComponent, canActivate: [AuthGuard] },
             { path: 'publicacion-cita', component: CitaMedicaComponent, canActivate: [AuthGuard] },
             { path: 'publicacion-aprobacion', component: AprobacionPublicacionComponent, canActivate: [AuthGuard] },

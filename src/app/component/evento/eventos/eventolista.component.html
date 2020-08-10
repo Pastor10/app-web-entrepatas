@@ -92,7 +92,7 @@
               <a *ngIf="rowData.estado==false" (click)="doAction(rowData, 'state');">
                 <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Activar" style="background-color: #a09898;"></button>
               </a> &nbsp;
-              <a (click)="doAction(rowData, 'edit');"  class="hand">
+              <a [routerLink]="linkUpdate(rowData['id'])"  class="hand">
                 <button  pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons" tooltip="Editar"></button>
               </a> &nbsp;
               <a (click)="showConfirmDelete(rowData)"  class="hand">
