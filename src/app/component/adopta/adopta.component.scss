@@ -1,7 +1,58 @@
-.ui-dataview-list  {
-    display: none !important;
+// .ui-dataview-list  {
+//     display: none !important;
+// }
+
+// .ui-dataview-grid  {
+//     display: block !important;
+// }
+// .ui-card{
+// 	border:none !important;
+// }
+// .ui-dataview-content{
+// 	border:none !important;
+// }
+// .ui-dataview-header{
+// 	display: hidden !important;
+// }
+.titulo{
+	font-size: 30px;
+	font-weight: bold;
+	color:#E91E63;
+}
+.tamanio{
+	border: none;
+	border-radius: 50%;
+	width: 175px;
+	height: 175px;
+	padding-top:10px;
+	padding-bottom:10px;
+	&:hover{
+		cursor: pointer;
+		animation: pulso 1s infinite alternate;
+	}
 }
 
-.ui-dataview-grid  {
-    display: block !important;
+@keyframes pulso {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+// .pulso_infinito{
+//   /*margin-left: 45px;*/
+//   animation: pulso 1.5s infinite alternate;
+// }
+@media screen and (min-width: 40.063em){
+	.ui-md-3 {
+		width: 20% !important;
+		margin:0 auto !important;
+	}
 }

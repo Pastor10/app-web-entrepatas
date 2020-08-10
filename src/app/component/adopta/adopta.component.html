@@ -4,7 +4,7 @@
 
         <div class="ui-g-12">
             <div class="row justify-content-center">
-                <h2 class="col-12 text-center pag_principal esp_arriba mb-4">
+                <h2 class="col-12 text-center titulo">
                     ADOPTA Y SALVA DOS VIDAS
                 </h2>
                 <!-- <p-dataView #dv [value]="publicaciones" [paginator]="true" [rows]="20" paginatorPosition="both"
@@ -103,8 +103,8 @@
                     </div> -->
                     <div style="padding:.5em" class="ui-g-12 ui-md-3">
                         <p-panel [header]="data.animal.nombre" [style]="{'text-align':'center'}">
-                            <img src="{{data.animal.foto}}" width="180px"
-                                height="200px" (click)="getPublicacion($event, data)">
+                            <img class='tamanio'src="{{data.animal.foto}}" 
+                             (click)="getPublicacion($event, data)">
                             <div class="car-detail">{{data.animal.sexo}} </div>
                             <hr class="ui-widget-content" style="border-top:0">
                             <span *ngIf="data.condicion.nombre=='ENCONTRADO'" class="label arrowed label-info">

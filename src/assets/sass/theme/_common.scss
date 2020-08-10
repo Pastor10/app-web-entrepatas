@@ -3,17 +3,19 @@ body {
     .ui-widget .ui-widget {
         font-family: $fontFamily;
         text-decoration: none;
+        border: none!important;
     }
 
     .ui-widget-content {
-        background-color: $contentBgColor;
-        border: 1px solid $contentBorderColor;
+        // background-color: $contentBgColor;
+        box-shadow: 0 5px 7px rgba(0,0,0,.3);
     }
     
     .ui-widget-header {
         background-color: $headerBgColor;
         color: $headerTextColor;
-        border: 1px solid $headerBorderColor;
+        // border: 1px solid $headerBorderColor;
+        border: none;
         font-weight: bold;
     }
 
@@ -37,7 +39,8 @@ body {
     }
 
     .ui-corner-all {
-        @include border-radius($borderRadius);
+        // @include border-radius($borderRadius);
+        border:none;
     }
 
     .ui-corner-top {
