@@ -1,125 +1,84 @@
 <p-card>
-            <div class="ui-g ui-fluid">
-                <div class=" ui-g-12 ui-md-6">
-                    <p-card>
-    
-                        <div class="ui-g">
+    <div class="ui-g ui-fluid">
+        <div class=" ui-g-12 ui-md-6">
+            <p-card>
 
-                            <div class="ui-g-6">
-                                <h1 class="label-custom">Misión</h1>
-        
-                            </div>
-                            <div class="ui-g-12">
-                                <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Architecto velit odit ipsa ducimus harum fugit voluptatibus rerum nemo nulla voluptates illum, 
-                                        totam quos blanditiis error quam consequuntur, in voluptatum aut?
-                                </p>
-            
-                            </div>
-                            <div class="ui-g-6">
-                                    <h1 class="label-custom">Visión</h1>
-            
-                            </div>
-                            <div class="ui-g-12">
-                                    <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            Architecto velit odit ipsa ducimus harum fugit voluptatibus rerum nemo nulla voluptates illum, 
-                                            totam quos blanditiis error quam consequuntur, in voluptatum aut?
-                                    </p>
-                
-                                </div>
-                            <div class="col-12 text-center esp_arriba">
-                                    <h2 class="titulo pulso_infinito">¡PONTE EN CONTACTO!</h2>
-                                    <p>Llamanos al celular N°: 978457846</p>
-                                    <p>Escribenos al correo: entrepatas@hotmail.com</p>
-                            </div>
+                <div class="ui-g">
 
-                         
-                     
-    
-                        </div>
-    
-                    </p-card>
-                    
+                    <div class="ui-g-6">
+                        <h1 class="label-custom">Misión</h1>
+
+                    </div>
+                    <div class="ui-g-12">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Architecto velit odit ipsa ducimus harum fugit voluptatibus rerum nemo nulla voluptates
+                            illum,
+                            totam quos blanditiis error quam consequuntur, in voluptatum aut?
+                        </p>
+
+                    </div>
+                    <div class="ui-g-6">
+                        <h1 class="label-custom">Visión</h1>
+
+                    </div>
+                    <div class="ui-g-12">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Architecto velit odit ipsa ducimus harum fugit voluptatibus rerum nemo nulla voluptates
+                            illum,
+                            totam quos blanditiis error quam consequuntur, in voluptatum aut?
+                        </p>
+
+                    </div>
+                    <div class="col-12 text-center esp_arriba">
+                        <h2 class="titulo pulso_infinito">¡PONTE EN CONTACTO!</h2>
+                        <p>Llamanos al celular N°: 978457846</p>
+                        <p>Escribenos al correo: entrepatas@hotmail.com</p>
+                    </div>
+
+
+
+
                 </div>
-             
-                    <div style="text-align: center;" class="ui-g-12 ui-md-6">      
-                            <img  src="assets/layout/images/perro2.png" width="250px"  height="300px" >  
-                    </div>
+
+            </p-card>
+
+        </div>
+
+        <div style="text-align: center;" class="ui-g-12 ui-md-6">
+            <img src="assets/layout/images/perro2.png" width="250px" height="300px">
+        </div>
 
 
-                    <div class="ui-g-12">
-                        <div class="row justify-content-center">
-                                <h2 class="col-12 text-center pag_principal esp_arriba mb-4">
-                                    INTEGRANTES
-                                </h2>
-                        </div>
-                   
-                                <p-carousel [value]="users" class="custom-carousel" [numVisible]="2" [circular]="true" numScroll="1" [autoplayInterval]="3000" responsiveOptions="responsiveOptions">
-                                        <ng-template let-user pTemplate="item">
-                                            <div class="user-details">
-                                                <div class="p-grid p-nogutter">
-                                                    <div class="p-col-12">
-                                                        <img src="assets/layout/images/perro2.png" width="100px"  height="150px" />
-                                                    </div>
-                                                    <div class="p-col-12 car-data">
-                                                        <div class="car-title">{{user.nombreCompleto}}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ng-template>
-                                    </p-carousel>
-
-                      
-
-                    </div>
-
-                    <div class="ui-g-12">
-                            <div class="row justify-content-center">
-                                    <h2 class="col-12 text-center pag_principal esp_arriba mb-4">
-                                        PÁGINAS DE INTERÉS
-                                    </h2>
-                                    <div class="ui-g-2">
-                                        <a href="http://entrepatasch.com/entrepatas/proceso_adopcion">
-                                            <img class="pag_imagen" src="assets/layout/images/proceso.png" alt="">
-                                            <h3 class="pag_titulo">NUESTRO PROCESO</h3>
-                                            <p>Enteráte de todos nuestros eventos realizados.</p>
-                                        </a>
-                                    </div>
-                                    <div class="ui-g-2">
-                                        <a href="http://entrepatasch.com/entrepatas/evento/eventosPaginasInteres">
-                                            <img class="pag_imagen" src="assets/layout/images/evento.png" alt="">
-                                            <h3 class="pag_titulo">EVENTOS</h3>
-                                            <p>Enteráte de todos nuestros eventos realizados.</p>
-                                        </a>
-                                    </div>
-                                    <div class="ui-g-2">
-                                        <a href="http://entrepatasch.com/entrepatas/colabora">
-                                            <img class="pag_imagen" src="assets/layout/images/colabora.png" alt="">
-                                            <h3 class="pag_titulo">COLABORA CON EL REFUGIO</h3>
-                                            <p>Enteráte de todos nuestros eventos realizados.</p>
-                                        </a>
-                                    </div>
-                                    <div class="ui-g-2">
-                                        <a href="http://entrepatasch.com/entrepatas/unete">
-                                            <img class="pag_imagen" src="assets/layout/images/unete.png" alt="">
-                                            <h3 class="pag_titulo">ÚNETE</h3>
-                                            <p>Enteráte de todos nuestros eventos realizados.</p>
-                                        </a>
-                                    </div>
-
-                                    <div class="ui-g-2">
-                                        <a href="http://entrepatasch.com/entrepatas/webamigas">
-                                            <img class="pag_imagen" src="assets/layout/images/webamigas.png" alt="">
-                                            <h3 class="pag_titulo">WEB AMIGAS</h3>
-                                            <p>Enteráte de todos nuestros eventos realizados.</p>
-                                        </a>
-                                    </div>
-                                </div>
-
-                        </div>
-    
+        <div class="ui-g-12">
+            <div class="row justify-content-center">
+                <h2 class="col-12 text-center pag_principal esp_arriba mb-4">
+                    INTEGRANTES
+                </h2>
             </div>
-    </p-card>
-    
+
+            <p-carousel [value]="users" class="custom-carousel" [numVisible]="2" [circular]="true" numScroll="1"
+                [autoplayInterval]="3000" responsiveOptions="responsiveOptions">
+                <ng-template let-user pTemplate="item">
+                    <div class="user-details">
+                        <div class="p-grid p-nogutter">
+                            <div class="p-col-12">
+                                <img src="assets/layout/images/perro2.png" width="100px" height="150px" />
+                            </div>
+                            <div class="p-col-12 car-data">
+                                <div class="car-title">{{user.nombreCompleto}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+
+
+
+        </div>
+
+        <app-pagina-interes></app-pagina-interes>
+
+    </div>
+</p-card>

@@ -147,6 +147,7 @@ import { PersonaService } from './shared/service/persona.service';
 import { soloLetras } from './shared/directive/letras.directive';
 import { soloNumeros } from './shared/directive/numero.directive';
 import { FileService } from './shared/service/file.service';
+import { PaginaInteresComponent } from './component/paginas-interes/interes.component';
 
 
 
@@ -267,7 +268,8 @@ import { FileService } from './shared/service/file.service';
         GeneraAdopcionComponent,
         DevolucionComponent,
         soloLetras,
-        soloNumeros
+        soloNumeros,
+        PaginaInteresComponent
 
 
 

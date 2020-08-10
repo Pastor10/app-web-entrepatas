@@ -94,6 +94,9 @@
                  <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label arrowed label-important">
                   {{rowData.estadoPublicacion}}
                </span>
+               <span *ngIf="rowData.estadoPublicacion=='FINALIZADO'" class="label arrowed label-warning">
+                {{rowData.estadoPublicacion}}
+             </span>
              </td>
             <td style="text-align: center">
               <!-- <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'APROBADO');">

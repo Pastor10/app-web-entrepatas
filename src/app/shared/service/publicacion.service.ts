@@ -27,6 +27,12 @@ export class PublicacionService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
+  getAllCondicionAdopcion() {
+    return this.http.get(this.baseUrl + 'publicacion-adopcion').pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
   getFindById(id) {
     return this.http.get(this.baseUrl + 'findById/' + id).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(

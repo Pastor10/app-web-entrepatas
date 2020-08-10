@@ -38,6 +38,7 @@ adopcion: Adopcion;
 estadoAdopcion: Estado;
 user: User;
 perfil: Perfil;
+display: boolean = false;
 
   constructor(public publicacionService: PublicacionService,
      public postulanteService: PostulanteService, public messageService: MessageService, 
@@ -68,7 +69,8 @@ ngOnInit(){
         {field: 'fecha', header: 'Fecha', width: '70px'},
         {field: 'hora', header: 'Hora', width: '70px'},
         {field: 'usuario', header: 'Usuario publica', width: '250px'},
-        {field: 'nombre', header: 'Nombre Mascota', width: '150px'},
+        {field: 'nombre', header: 'Mascota', width: '100px'},
+        {field: 'foto', header: 'Foto', width: '80px'},
         {field: 'sexo', header: 'Tipo/Sexo', width: '120px'},
         {field: 'condicion', header: 'Condicion', width: '150px'},
         {field: 'estado', header: 'Estado', width: '100px'},
@@ -77,7 +79,7 @@ ngOnInit(){
 
 
     getAllPublicacion(){
-        this.publicacionService.getAll().subscribe((data: Publicacion[]) =>{
+        this.publicacionService.getAllCondicionAdopcion().subscribe((data: Publicacion[]) =>{
             this.publicaciones = data;
             console.log(this.publicaciones );
             
@@ -93,6 +95,7 @@ ngOnInit(){
             
             
         });
+        this.display = true;
     }
 
     calificar(data){
@@ -195,6 +198,10 @@ ngOnInit(){
         this.messageService.clear();
         //this.data = data;
         this.messageService.add({key: 'c', sticky: true, severity: 'warn', summary: 'Esta seguro de generar adopción?'});
+    }
+
+    showPostulantes(){
+        this.display = true;
     }
     
 }
