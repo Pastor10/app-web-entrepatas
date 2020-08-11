@@ -1,35 +1,36 @@
-// .ui-dataview-list  {
-//     display: none !important;
-// }
 
-// .ui-dataview-grid  {
-//     display: block !important;
-// }
-// .ui-card{
-// 	border:none !important;
-// }
-// .ui-dataview-content{
-// 	border:none !important;
-// }
-// .ui-dataview-header{
-// 	display: hidden !important;
-// }
 .titulo{
-	font-size: 30px;
+	font-size: 28px;
 	font-weight: bold;
 	color:#E91E63;
+	margin: 0;
 }
 .tamanio{
 	border: none;
 	border-radius: 50%;
-	width: 175px;
-	height: 175px;
+	width: 85%;
+	height: 185px;
 	padding-top:10px;
 	padding-bottom:10px;
 	&:hover{
 		cursor: pointer;
 		animation: pulso 1s infinite alternate;
 	}
+}
+.cont-tarjeta{
+	padding: 15px;
+}
+.tarjeta{
+	box-shadow: 0 5px 7px rgba(0,0,0,.15); //Sombra de las mascota en la publicacion
+	border: none;
+	border-radius: 5px;
+	border-top: 5px solid #0D47A1;
+	padding-bottom: 1.5px;
+}
+
+span{
+	margin:0 5px;
+	text-transform: uppercase;
 }
 
 @keyframes pulso {
@@ -46,13 +47,56 @@
   }
 }
 
-// .pulso_infinito{
-//   /*margin-left: 45px;*/
-//   animation: pulso 1.5s infinite alternate;
-// }
-@media screen and (min-width: 40.063em){
+ .flipInY2 {
+	-webkit-backface-visibility: visible !important;
+	backface-visibility: visible !important;
+	animation:flipInY 2s infinite alternate;
+}
+
+
+@keyframes flipInY {
+  from {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  }
+
+  to {
+    transform: perspective(400px);
+  }
+}
+
+@media screen and (min-width: 380px){
+	.ui-md-3 {
+		width: 50% !important;
+		margin:0 auto !important;
+	}
+}
+@media screen and (min-width: 768px){
+	.ui-md-3 {
+		width: 30% !important;
+	}
+}
+@media screen and (min-width: 1300px){
 	.ui-md-3 {
 		width: 20% !important;
-		margin:0 auto !important;
+	}
+	.tamanio{
+	width: 185px;
+	height: 185px;
 	}
 }
