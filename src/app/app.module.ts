@@ -75,6 +75,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { TextMaskModule } from 'angular2-text-mask';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import {AppComponent} from './app.component';
 import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
@@ -149,6 +150,8 @@ import { soloNumeros } from './shared/directive/numero.directive';
 import { FileService } from './shared/service/file.service';
 import { PaginaInteresComponent } from './component/paginas-interes/interes.component';
 import { ColaboraComponent } from './component/colabora/colabora.component';
+import { LoaderComponent } from './shared/loader/loader.component';
+import { LoaderRequestService } from './shared/service/locader-request.service';
 
 
 
@@ -229,6 +232,7 @@ import { ColaboraComponent } from './component/colabora/colabora.component';
         VirtualScrollerModule,
         ReactiveFormsModule,
         TextMaskModule,
+        NgxSpinnerModule,
         NgxsModule.forRoot()
     ],
     declarations: [
@@ -271,7 +275,8 @@ import { ColaboraComponent } from './component/colabora/colabora.component';
         soloLetras,
         soloNumeros,
         PaginaInteresComponent,
-        ColaboraComponent
+        ColaboraComponent,
+        LoaderComponent
 
 
 
@@ -283,11 +288,11 @@ import { ColaboraComponent } from './component/colabora/colabora.component';
             useClass: TokenInterceptor,
             multi: true
         },
-        // {
-        //     provide: HTTP_INTERCEPTORS,
-        //     useClass: LoaderInterceptor,
-        //     multi: true
-        // },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptor,
+            multi: true
+        },
   
         ReporteF7Service,
         MessageService,
@@ -316,7 +321,8 @@ import { ColaboraComponent } from './component/colabora/colabora.component';
         AdopcionService,
         CitaMedicaService,
         PersonaService,
-        FileService
+        FileService,
+        LoaderRequestService
     ],
     bootstrap: [AppComponent]
 })

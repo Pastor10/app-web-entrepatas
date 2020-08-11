@@ -4,25 +4,29 @@ import {Observable, throwError} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {catchError} from 'rxjs/internal/operators';
 import {MessageService} from 'primeng/api';
-// import {LoaderRequestService} from '../service/loader-request.service';
 import {Router} from '@angular/router';
 import { AuthService } from '../shared/service/auth.service';
+import { LoaderRequestService } from '../shared/service/locader-request.service';
 
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(public auth: AuthService, private messageService: MessageService,
-                /*private loaderService: LoaderRequestService*/ private router: Router) {
+                private loaderService: LoaderRequestService, private router: Router) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+        let hideLoader;
         if (this.auth.getToken()) {
             request = request.clone({
                 setHeaders: {
                     Authorization: `${this.auth.getToken()}`
                 }
             });
+        }
+
+        if (!hideLoader) {
+            this.showLoader();
         }
 
         return next.handle(request).pipe(
@@ -57,14 +61,14 @@ export class TokenInterceptor implements HttpInterceptor {
 
 
     private onEnd(): void {
-        // this.hideLoader();
+         this.hideLoader();
     }
 
     private showLoader(): void {
-        // this.loaderService.show();
+         this.loaderService.show();
     }
 
     private hideLoader(): void {
-        // this.loaderService.hide();
+         this.loaderService.hide();
     }
 }
