@@ -148,6 +148,7 @@ import { soloLetras } from './shared/directive/letras.directive';
 import { soloNumeros } from './shared/directive/numero.directive';
 import { FileService } from './shared/service/file.service';
 import { PaginaInteresComponent } from './component/paginas-interes/interes.component';
+import { ColaboraComponent } from './component/colabora/colabora.component';
 
 
 
@@ -269,7 +270,8 @@ import { PaginaInteresComponent } from './component/paginas-interes/interes.comp
         DevolucionComponent,
         soloLetras,
         soloNumeros,
-        PaginaInteresComponent
+        PaginaInteresComponent,
+        ColaboraComponent
 
 
 

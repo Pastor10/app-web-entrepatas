@@ -29,6 +29,7 @@ import { CitaMedicaComponent } from './component/publicacion/cita_medica/cita.co
 import { AprobacionPublicacionComponent } from './component/publicacion/aprobaciones/aprobaciones.component';
 import { GeneraAdopcionComponent } from './component/adopcion/genera-adopcion/genera.component';
 import { DevolucionComponent } from './component/adopcion/devolucion/devolucion.component';
+import { ColaboraComponent } from './component/colabora/colabora.component';
 
 export const routes: Routes = [
 
@@ -101,6 +102,7 @@ export const routes: Routes = [
             { path: 'devoluciones', component: DevolucionComponent, canActivate: [AuthGuard] },
 
             { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+            { path: 'colabora', component: ColaboraComponent, canActivate: [AuthGuard] },
         ]
     },
 

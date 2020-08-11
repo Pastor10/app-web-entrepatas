@@ -152,8 +152,8 @@ export class AppMenuComponent implements OnInit {
                 icon: 'fa fa-handshake-o',
                 items: [
                     {label: 'Colaborar',
-                    icon: 'fa fa-list-alt',
-                    routerLink: ['/main/reporteF7-general'],
+                    icon: 'fa fa-gift',
+                    routerLink: ['/main/colabora'],
                     role:'ROLE_COLABORA_REFUGIO',
                     state: false
                     }
