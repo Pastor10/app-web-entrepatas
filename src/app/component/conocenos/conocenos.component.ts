@@ -41,7 +41,7 @@ ngOnInit(){
 }
 
 getAllUsers(){
-this.userService.getUsers().subscribe((data: User[]) =>{
+this.userService.getAllIntegrantes().subscribe((data: User[]) =>{
 this.users = data;
 console.log(this.users);
 

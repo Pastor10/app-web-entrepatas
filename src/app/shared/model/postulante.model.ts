@@ -1,8 +1,7 @@
 
-import { TipoDocumento } from './tipoDocumento.model';
-import { Ubigeo } from './ubigeo.model';
 import { Publicacion } from './publicacion.model';
 import { Persona } from './persona.model';
+import { Cuestionario } from './cuestionario.model';
 
 export class Postulante {
     constructor(
@@ -10,7 +9,8 @@ export class Postulante {
         public estado?: boolean,
         public puntuacion?: number,
         public publicacion?: Publicacion,
-        public persona?: Persona
+        public persona?: Persona,
+        public listaCuestionario?: Cuestionario[]
 
     ) {}
 }

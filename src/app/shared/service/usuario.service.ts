@@ -36,6 +36,12 @@ export class UsuarioService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
+  getAllIntegrantes() {
+    return this.http.get(this.baseUrl + 'integrantes').pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
   getUserId(id) {
     return this.http.get(this.baseUrl + 'findById/' + id).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(

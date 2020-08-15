@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/shared/model/User.model';
-import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import { Publicacion } from 'src/app/shared/model/publicacion.model';
 import { PublicacionService } from 'src/app/shared/service/publicacion.service';
 import { PostulanteService } from 'src/app/shared/service/postulante.service';
 import { Postulante } from 'src/app/shared/model/postulante.model';
-import { PathLocationStrategy } from '@angular/common';
 import { MessageService, ConfirmationService, Message } from 'primeng/api';
 import { AdopcionService } from 'src/app/shared/service/adopcion.service';
 import { Adopcion } from 'src/app/shared/model/adopcion.model';
 import { Estado } from 'src/app/shared/model/estado.model';
 import { Perfil } from 'src/app/shared/model/perfil.model';
+import { Pregunta } from 'src/app/shared/model/pregunta.model';
+import { Opcion } from 'src/app/shared/model/opcion.model';
+import { Cuestionario } from 'src/app/shared/model/cuestionario.model';
+import { CuestionarioService } from 'src/app/shared/service/cuestionario.service';
 
 
 @Component({
@@ -39,9 +41,19 @@ estadoAdopcion: Estado;
 user: User;
 perfil: Perfil;
 display: boolean = false;
+mayorEdad: number;
+vivencia: number;
+propiedad: number;
+acuerdo: number;
+pregunta: Pregunta;
+opcion: Opcion;
+listCuestionario: Cuestionario[];
+cuestionario: Cuestionario;
+showCuestionario: boolean= false;
+nombrePostulante: string;
 
   constructor(public publicacionService: PublicacionService,
-     public postulanteService: PostulanteService, public messageService: MessageService, 
+     public postulanteService: PostulanteService, public messageService: MessageService, public cuestionarioService: CuestionarioService,
      private confirmationService: ConfirmationService, public adopcionService: AdopcionService){
     this.responsiveOptions = [
         {
@@ -100,21 +112,10 @@ ngOnInit(){
 
     calificar(data){
         console.log('data', data);
-        
-        let message;
-        if(data.puntuacion==null){
-            message = 'Selecione al menos una estrella de puntuación';
-            this.showMsg('info', message, 'Postulante');
-            return;
-
-        }
-        this.postulanteService.save(data).subscribe( res =>{
-            if(res!=null){
-                message = 'Se realizo la calificación';
-                this.showMsg('success', message, 'Postulante');
-            }
-        });
-        
+        this.postulante = data;
+        this.showCuestionario = true;
+        this.nombrePostulante = this.postulante.persona.nombreCompleto.toUpperCase();
+     
     }
 
     confirm1() {
@@ -202,6 +203,56 @@ ngOnInit(){
 
     showPostulantes(){
         this.display = true;
+    }
+
+    salirDialog(){
+        this.display = false;
+        this.showCuestionario = false;
+    }
+
+    guardarCuestionario(){
+       
+       // console.log('postulante', data);
+        //this.postulante = data;
+        this.listCuestionario = [];
+        
+        for(let i=1; i<=4; i++){
+            this.cuestionario = new Cuestionario();
+            this.cuestionario.postulante = this.postulante;
+            this.opcion = new Opcion();
+            this.pregunta = new Pregunta();
+            this.pregunta.id = i;
+            if(i==1){
+                this.opcion.id = this.mayorEdad
+            }
+            if(i==2){
+                this.opcion.id = this.vivencia;
+            }
+            if(i==3){
+                this.opcion.id = this.propiedad
+            }
+            if(i==4){
+                this.opcion.id = this.acuerdo;
+            }
+            this.cuestionario.opcion= this.opcion;
+            this.cuestionario.pregunta = this.pregunta;
+            this.listCuestionario.push(this.cuestionario);
+
+        }
+
+        let message;
+         this.cuestionarioService.save(this.listCuestionario).subscribe( res =>{
+            if(res!=null){
+                console.log('respuesta', res);
+                
+                message = 'Se guardo correctamente';
+                this.showMsg('success', message, 'Postulante');
+            }
+        });
+    
+        console.log('opcion elegida', this.opcion);
+        console.log('listCuestionario ', this.listCuestionario);
+        
     }
     
 }
