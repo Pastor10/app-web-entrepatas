@@ -23,9 +23,7 @@
                 </ng-template>
         
                 <ng-template let-data pTemplate="gridItem">
-                    
-
-                    <div class="ui-g-12 ui-md-3 cont-tarjeta">
+                    <div class="ui-g-12 ui-md-3 ui-lg-2 cont-tarjeta">
                         <div class='tarjeta'>
                         <p-panel [header]="data.animal.nombre" [style]="{'text-align':'center'}">
                             <img class='tamanio'src="{{data.animal.foto}}" 
@@ -52,78 +50,83 @@
                     </div>
                 </ng-template>
             </p-dataView>
-                <p-dialog header="Hola, Gracias por considerarme" [(visible)]="displayDialog" [style]="{width: '50vw'}"
+                <p-dialog header="Hola, Gracias por considerarme" [(visible)]="displayDialog" [style]="{width: '70vw'}"
                     [baseZIndex]="10000" [responsive]="true">
                     <div class="ui-g" *ngIf="selectPublicacion">
-                        <div class=" ui-g-12 ui-md-4">
-                            <div class="ui-g-12" style="text-align:center">
+                        <div class="ui-g-6">
+                            <!-- <div class="ui-g-12" style="text-align:center"> -->
                                 <img src="{{selectPublicacion.animal.foto}}"
-                                    width="200px" height="250px">
-                            </div>
+                                    width="90%" >
+                            <!-- </div> -->
                         </div>
-                        <div class=" ui-g-12 ui-md-8">
+                        <div class=" ui-g-12 ui-md-6">
                             <p-tabView>
                                 <p-tabPanel header="Datos Mascota" leftIcon="fa fa-info-circle">
-                                    <div class="ui-g-4">Nombre: </div>
-                                    <div class="ui-g-8">{{selectPublicacion.animal.nombre}}</div>
+                                    <div class="ui-g-6 tar_titulo"><b>NOMBRE</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.animal.nombre}} </div>
+                                    </div>
+                                    <!-- <div class="ui-g-8">{{selectPublicacion.animal.nombre}}</div> -->
 
-                                    <div class="ui-g-4">Edad: </div>
-                                    <div class="ui-g-8">{{selectPublicacion.animal.edad}}</div>
+                                    <div class="ui-g-6 tar_titulo"><b>EDAD</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.animal.edad}}</div>
+                                    </div>
 
-                                    <div class="ui-g-4">Raza: </div>
-                                    <div class="ui-g-8">{{selectPublicacion.animal.raza.nombre}}</div>
+                                    <div class="ui-g-6 tar_titulo"><b>RAZA</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.animal.raza.nombre}}</div>
+                                    </div>
 
-                                    <div class="ui-g-4">sexo: </div>
-                                    <div class="ui-g-8">{{selectPublicacion.animal.sexo}}</div>
+                                    <div class="ui-g-6 tar_titulo"><b>SEXO</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.animal.sexo}}</div>
+                                    </div>
 
-                                    <div class="ui-g-4">Tamaño: </div>
-                                    <div class="ui-g-8">{{selectPublicacion.animal.tamanoAnimal.nombre}}</div>
-                
+                                    <div class="ui-g-6 tar_titulo"><b>TAMAÑO</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.animal.tamanoAnimal.nombre}}</div>
+                                    </div>
                                 </p-tabPanel>
+
                                 <p-tabPanel header="Solicitar adopción" leftIcon="fa fa-file-text-o" *ngIf="selectPublicacion.condicion.nombre=='ADOPCION'">
                                     <div class="ui-g ui-fluid">
-                                        <div class=" ui-g-12 ui-md-12">
+                                        <div class=" ui-g-12 tarjeta2">
                                             <p-card>
                                                 <div class="ui-g">
                                                     <div class="ui-g-6" >
                                                         <h5 class="label-custom">Tipo Documento (*)</h5>
-
-                                                        <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
-                                                        field="abreviatura" name="perfilSelected" [size]="15"
+                                                    <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
+                                                        field="abreviatura"  name="perfilSelected" [size]="15"
                                                         (completeMethod)="filterListTipoDocumento($event)" [minLength]="1"
-                                                        placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">
-                                
+                                                        placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">     
                                                     </p-autoComplete>
                                                     </div>
+
                                                     <div class="ui-g-6">
                                                         <h5 class="label-custom">Documento (*) [PRESS ENTER]</h5>
-                                                        <input style="width: 100%;" type="text" name="documento"
+                                                        <input style="width: 100%;" type="text" name="documento" placeholder="7859624"
                                                             [(ngModel)]="documento" (keydown.enter)="getPersona()" [textMask]="{mask: numberMask}" pInputText />
 
                                                     </div>
 
                                                     <div class="ui-g-4">
                                                         <h5 class="label-custom">Nombres (*)</h5>
-                                                        <input style="width: 100%;" type="text" name="nombres"
+                                                        <input style="width: 100%;" type="text" name="nombres" placeholder="Juan Carlos"
                                                             [(ngModel)]="nombres" pInputText />
 
                                                     </div>
                                                     <div class="ui-g-4">
                                                         <h5 class="label-custom">Apellido Paterno (*)</h5>
-                                                        <input style="width: 100%;" type="text" name="apePaterno"
+                                                        <input style="width: 100%;" type="text" name="apePaterno" placeholder="Perez"
                                                             [(ngModel)]="apePaterno" pInputText />
 
                                                     </div>
                                                     <div class="ui-g-4">
                                                         <h5 class="label-custom">Apellido Materno (*)</h5>
-                                                        <input style="width: 100%;" type="text" name="apeMaterno"
+                                                        <input style="width: 100%;" type="text" name="apeMaterno" placeholder="Villa"
                                                             [(ngModel)]="apeMaterno" pInputText />
 
                                                     </div>
 
                                                     <div class="ui-g-6">
                                                         <h5 class="label-custom">Email (*)</h5>
-                                                        <input style="width: 100%;" type="text" name="email"
+                                                        <input style="width: 100%;" type="text" name="email" placeholder="tucorreo@server.com"
                                                             [(ngModel)]="email" pInputText />
 
                                                     </div>
@@ -131,8 +134,8 @@
                                                         <h5 class="label-custom">Ciudad (*)</h5>
                                                         <p-autoComplete field="descripcion" [(ngModel)]="ubigeo"
                                                             name="ubigeo" [suggestions]="filteredCities"
-                                                            (completeMethod)="filterCitiesByNombre($event)" [size]="40"
-                                                            placeholder="Ingrese ubigeo" [minLength]="1">
+                                                            (completeMethod)="filterCitiesByNombre($event)" [size]="40" 
+                                                            placeholder="Chepen" [minLength]="1">
                                                             <ng-template let-d pTemplate="item">
                                                                 {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}}
                                                                 - {{d.descripcion}}
@@ -141,13 +144,13 @@
                                                     </div>
                                                     <div class="ui-g-6">
                                                         <h5 class="label-custom">Dirección (*)</h5>
-                                                        <input style="width: 100%;" type="text" name="direccion"
+                                                        <input style="width: 100%;" type="text" name="direccion" placeholder="Calle Las Rosas 145"
                                                             [(ngModel)]="direccion" pInputText />
 
                                                     </div>
                                                     <div class="ui-g-6">
                                                         <h5 class="label-custom">Celular </h5>
-                                                        <input style="width: 100%;" type="text" name="celular"
+                                                        <input style="width: 100%;" type="text" name="celular" placeholder="988795623"
                                                             [(ngModel)]="celular" [textMask]="{mask: numberMask}" pInputText />
 
                                                     </div>
@@ -155,7 +158,7 @@
                                                     <div class="ui-g-12" text-align: center style="text-align: center;">
                                                         <button
                                                             style="width: auto; margin-top: 1.2rem;  font-size: 15px;"
-                                                            pButton label="Enviar Solicitud" (click)="save()"
+                                                            pButton label="ENVIAR" (click)="save()"
                                                             class="ui-button-rounded ui-button-success"></button>
 
                                                     </div>
@@ -171,17 +174,24 @@
                                 <p-tabPanel header="Información del contacto" leftIcon="fa fa-file-text-o" *ngIf="selectPublicacion.condicion.nombre!='ADOPCION'">
                                     <div class="ui-g ui-fluid">
                                         <div class=" ui-g-12 ui-md-12">
-                                            <div class="ui-g-4">Contacto: </div>
-                                            <div class="ui-g-8">{{selectPublicacion.usuarioPublica.persona.nombreCompleto}}</div>
-        
-                                            <div class="ui-g-4">Celular: </div>
-                                            <div class="ui-g-8">{{selectPublicacion.usuarioPublica.persona.celular}}</div>
-        
-                                            <div class="ui-g-4">Correo: </div>
-                                            <div class="ui-g-8">{{selectPublicacion.usuarioPublica.persona.correo}}</div>
-                                        </div>
+
+                                    <div class="ui-g-12 tar_titulo"><b>PUBLICADO POR</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.usuarioPublica.persona.nombreCompleto}}
+                                    </div>
+                                    </div>
+
+                                    <div class="ui-g-6 tar_titulo"><b>CELULAR</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.usuarioPublica.persona.celular}}
+                                    </div>
+                                    </div>
+
+                                    <div class="ui-g-6 tar_titulo"><b>EMAIL</b> <br>
+                                    <div class="tar_concepto">{{selectPublicacion.usuarioPublica.persona.correo}}
+                                    </div>
+                                    </div>
 
                                     </div>
+                                </div>
                                 </p-tabPanel>
 
                             </p-tabView>
@@ -190,10 +200,10 @@
 
 
                     </div>
-                    <p-footer>
+                   <!--  <p-footer>
                         <button type="button" pButton icon="pi pi-times"  label="Cerrar"
                             class="ui-button-secondary" (click)="limpiarData()"></button>
-                    </p-footer>
+                    </p-footer> -->
                 </p-dialog>
             </div>
 

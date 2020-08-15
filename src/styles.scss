@@ -2734,7 +2734,7 @@
     text-transform: uppercase;
     margin-bottom: 0.2rem;
     margin-top: 0;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 body .ui-table .ui-table-thead > tr > th,
@@ -2760,12 +2760,12 @@ body .ui-widget-header { /*Contenedor de todas las publicaciones*/
     border: none;
     // border-top: 5px solid #0D47A1;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 body .ui-panel .ui-panel-content {
     border:none;
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px;
     line-height: 1.43;
     padding: 5px;
     // box-shadow: 0 7px 5px rgba(0,0,0,.15); //Sombra de las mascota en la publicacion
@@ -2785,3 +2785,37 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem .ui-menuitem-link {
     }
 }
 
+
+/****BARRA DE DESPLAZAMIENTO**/
+::-webkit-scrollbar{
+	width:12px;
+	height:10px;
+	background:#fff;
+}
+::-webkit-scrollbar:active{ 
+}
+::-webkit-scrollbar-thumb{ /*BARRITA ACTIVA*/
+	background-color:rgba(1,0,0,0.2);
+	border-radius: 5px;
+	padding:0 2px;
+}
+::-webkit-scrollbar-thumb:active{ /*BARRITA*/
+	-webkit-box-shadow:inset 1px 1px 3px rgba(0,0,0,0.25);
+	background-color:rgba(0,0,0,0.25)
+}
+
+::-webkit-scrollbar-thumb:window-inactive{
+	background-color:rgba(1,0,0,0.2);
+	border-radius: 5px;
+	padding-right:0 2px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+::selection{
+	background:#7fcffc;color:#fff;text-shadow:0 1px 1px #000}
+::-moz-selection{
+	background:#7fcffc;color:#fff;text-shadow:0 1px 1px #000}
+::-webkit-selection{
+	background:#7fcffc;color:#fff;text-shadow:0 1px 1px #000}
