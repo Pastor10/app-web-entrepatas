@@ -1,14 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/shared/model/User.model';
-import { Ubigeo } from 'src/app/shared/model/ubigeo.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TipoLocal } from 'src/app/shared/model/tipolocal.model';
-import { Local } from 'src/app/shared/model/local.model';
 import { MessageService, LazyLoadEvent } from 'primeng/api';
-import { TipoAnimal } from 'src/app/shared/model/tipoanimal.model';
-import { Raza } from 'src/app/shared/model/raza.model';
-import { TipoAnimalService } from 'src/app/shared/service/tipoanimal.service';
-import { RazaService } from 'src/app/shared/service/raza.service';
 import { Table } from 'primeng/table';
 import { TipoEventoService } from 'src/app/shared/service/tipoevento.service';
 import { TipoEvento } from 'src/app/shared/model/tipoevento.model';
@@ -48,6 +41,9 @@ export class PublicacionListaComponent implements OnInit {
     token;
     pl;
     usuario: User;
+    modalRechazo: boolean = false;
+    publicacion: Publicacion;
+    observacion: string;
 
     @ViewChild('dt', { static: true }) public tabla: Table;
     lastLazyLoadEvent: LazyLoadEvent;
@@ -56,7 +52,7 @@ export class PublicacionListaComponent implements OnInit {
 
         this.token = localStorage.getItem("userLogin");
         this.pl = JSON.parse(this.token);
-
+        this.publicacion = new Publicacion();
 
 
     }
@@ -170,7 +166,7 @@ export class PublicacionListaComponent implements OnInit {
         let message;
         this.publicacionService.save(publicacion).subscribe((res) => {
             if (res != null) {
-                message = 'Publicación actualizada correctamente.';
+                message = 'Datos guardados correctamente.';
                 this.showMsg('success', message);
                 this.limpiarData();
                 this.refreshTable();
@@ -202,6 +198,7 @@ export class PublicacionListaComponent implements OnInit {
         this.id = undefined;
         this.tipoEvento = null;
         this.nombre = '';
+        this.observacion= '';
     }
 
     onReject() {
@@ -236,13 +233,15 @@ export class PublicacionListaComponent implements OnInit {
 
         data.estadoPublicacion = accion;
         data.usuarioEvalua = this.usuario;
-
-
+        data.observacion = this.observacion;
         this.udpdatePublicacion(data);
+        this.modalRechazo = false;
 
-        console.log(data);
+    }
 
-
+    showDialogRechazo(data){
+        this.publicacion = data;
+        this.modalRechazo = true;
     }
 
     linkUpdate(id) {

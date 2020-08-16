@@ -62,15 +62,9 @@ import { AppMainComponent } from './app.main.component';
                
                         <ul class="layout-menu fadeInDown">
                             <li role="menuitem">
-                                <a href="#" (click)="app.onTopbarSubItemClick($event)">
-                                    <i class="fa fa-fw fa-paint-brush"></i>
-                                    <span>Perfil</span>
-                                </a>
-                            </li>
-                            <li role="menuitem">
-                                <a href="#" (click)="app.onTopbarSubItemClick($event)">
-                                    <i class="fa fa-fw fa-lock"></i>
-                                    <span>Cerrar Session</span>
+                                <a href="#" (click)="logout()">
+                                    <i class="fa fa-sign-in"></i>
+                                    <span>Cerrar Sesion</span>
                                 </a>
                             </li>
                     
@@ -105,5 +99,8 @@ import { AppMainComponent } from './app.main.component';
 export class AppTopBarComponent {
 
     constructor(public app: AppMainComponent) {}
+    logout(){
+        localStorage.removeItem("userLogin");
+       }
 
 }

@@ -16,6 +16,7 @@ export class Publicacion {
         public fechaCreacion?: Date,
         public fechaModificacion?: Date,
         public archivo?: any,
-        public nombreArchivo?: string
+        public nombreArchivo?: string,
+        public observacion?: string
     ) {}
 }

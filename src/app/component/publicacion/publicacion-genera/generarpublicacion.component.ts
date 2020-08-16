@@ -73,6 +73,7 @@ export class GenerarPublicacionComponent implements OnInit {
   imagenUp: string;
   msgs: Message[] = [];
   isCompleted: boolean;
+  isDisabled: boolean = false;
   
 
   @ViewChild('dt', { static: true }) public tabla: Table;
@@ -160,6 +161,9 @@ export class GenerarPublicacionComponent implements OnInit {
         this.publicacionService.getFindById(id).subscribe((data: Publicacion) => {
           if (data) {
             this.model = data;
+            if(this.model.estadoPublicacion!='PENDIENTE'){
+              this.isDisabled = true;
+            }
             console.log("model ", data);
 
             this.modelToForm(data);

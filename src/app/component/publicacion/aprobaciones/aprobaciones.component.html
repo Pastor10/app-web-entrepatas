@@ -76,6 +76,12 @@
                     {{rowData.condicion.nombre}}
                 </span>
              </td>
+
+             <td>
+              <span>
+                  {{rowData.observacion}}
+              </span>
+           </td>
              
             <td >
                 <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label arrowed label-succes">
@@ -89,10 +95,10 @@
                </span>
              </td>
             <td style="text-align: center">
-              <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'aprobar');">
+              <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'APROBADO');">
                 <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Aprobar"></button>
               </a>&nbsp;
-              <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'rechazar');">
+              <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="showDialogRechazo(rowData)">
                 <button  pButton type="button" icon="pi pi-ban" class="ui-button-danger space-buttons" tooltip="Rechazar" ></button>
               </a> &nbsp;
               <a  class="hand">
@@ -104,5 +110,15 @@
       </p-table>
   </p-panel>
   </div>
-
+  <p-dialog header="ESTA SEGURO DE RECHAZAR?" [(visible)]="modalRechazo" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
+       [baseZIndex]="10000">
+    <p-toast key="rechazo" [style]="{marginTop: '70px'}"></p-toast>
+    <p>Ingrese una observación de rechazo</p>
+    <input type="hidden" [(ngModel)]="publicacion">
+    <textarea rows="4" cols="40" pInputTextarea name="observacion" [(ngModel)]="observacion" maxlength="400"></textarea>
+        <p-footer>
+            <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR" class="ui-button-danger"></button>
+            <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR" class="ui-button-secondary"></button>
+        </p-footer>
+</p-dialog>
 </div>

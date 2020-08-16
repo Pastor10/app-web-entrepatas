@@ -228,124 +228,136 @@
 </div>
 
 
-<p-dialog header="Postulantes" [(visible)]="display" [modal]="true" [responsive]="true" 
-  [style]="{width: '950px', minWidth: '400px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-  <p-table [value]="postulantes" [paginator]="true" [rows]="10">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Nombres</th>
-        <th>Correo</th>
-        <th>Dirección</th>
-        <th>Celular</th>
-        <th>Documento</th>
-        <th>Puntuación</th>
-        <th>Acción</th>
-      </tr>
-    </ng-template>
 
-    <ng-template pTemplate="body" let-b>
-      <tr>
-        <td>{{b.persona.nombreCompleto}}</td>
-        <td>{{b.persona.correo}}</td>
-        <td>{{b.persona.ubigeo.nombre}}-{{b.persona.direccion}}</td>
-        <td>{{b.persona.celular}}</td>
-        <td>{{b.persona.numeroDocumento}}</td>
-        <td>
-          <p-rating [(ngModel)]="b.puntuacion" name="puntuacion" stars="5" readonly="true" id="puntuacion"></p-rating>
-        </td>
-        <td style="text-align: center">
-          <button pButton type="button" (click)="calificar(b)" icon="fa fa-file-o"
-            class="ui-button-success space-buttons" tooltip="Ficha técnica"></button>&nbsp;
-          <button pButton type="button" (click)="showConfirm(b)" icon="fa fa-paperclip"
-            class="ui-button-primary space-buttons" tooltip="Generar Adopción"></button>
+<p-dialog header="Postulantes" [(visible)]="display" [modal]="true" [responsive]="true"
+  [style]="{width: '950px', minWidth: '400px'}" [minY]="70"  [baseZIndex]="10000">
 
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <p-scrollPanel [style]="{width: '100%', height: '400px'}">
+      <p-toast key="tst" key="cuestionario" [style]="{marginTop: '70px'}"></p-toast>
+      <p-table [value]="postulantes" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Nombres</th>
+              <th>Correo</th>
+              <th>Dirección</th>
+              <th>Celular</th>
+              <th>Documento</th>
+              <th>Puntuación</th>
+              <th>Acción</th>
+            </tr>
+          </ng-template>
+      
+          <ng-template pTemplate="body" let-b>
+            <tr>
+              <td>{{b.persona.nombreCompleto}}</td>
+              <td>{{b.persona.correo}}</td>
+              <td>{{b.persona.ubigeo.nombre}}-{{b.persona.direccion}}</td>
+              <td>{{b.persona.celular}}</td>
+              <td>{{b.persona.numeroDocumento}}</td>
+              <td>
+                <p-rating [(ngModel)]="b.puntuacion" name="puntuacion" stars="5" readonly="true" id="puntuacion"></p-rating>
+              </td>
+              <td style="text-align: center">
+                <button pButton type="button" (click)="calificar(b)" icon="fa fa-file-o"
+                  class="ui-button-success space-buttons" tooltip="Ficha técnica"></button>&nbsp;
+                <button pButton type="button" (click)="showConfirm(b)" icon="fa fa-paperclip"
+                  class="ui-button-primary space-buttons" tooltip="Generar Adopción"></button>
+      
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <div *ngIf="showCuestionario">
 
-  <div *ngIf="showCuestionario">
-  <p-fieldset legend="CUESTIONARIO DE {{nombrePostulante}}">
-      <div class="ui-g ">
-        <div class="ui-g-3">
-          <h5 class="label-custom">ERES MAYOR DE EDAD?</h5>
-          <div class="ui-g" style="width:250px;margin-bottom:10px">
-            <div class="ui-g-12">
-              <p-radioButton name="mayorEdad" value="1" label="SI SOY MAYOR DE EDAD" [(ngModel)]="mayorEdad"
-                inputId="1"></p-radioButton>
-            </div>
-            <div class="ui-g-12">
-              <p-radioButton name="mayorEdad" value="2" label="NO SOY MAYOR DE EDAD" [(ngModel)]="mayorEdad"
-                inputId="2"></p-radioButton>
-            </div>
+            <p-fieldset legend="CUESTIONARIO DE {{nombrePostulante}}">
+              <div class="ui-g ">
+                <div class="ui-g-3">
+                  <h5 class="label-custom">ERES MAYOR DE EDAD?</h5>
+                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                    <div class="ui-g-12">
+                      <p-radioButton name="mayorEdad" value="1" label="SI SOY MAYOR DE EDAD" [(ngModel)]="mayorEdad"
+                        inputId="1"></p-radioButton>
+                    </div>
+                    <div class="ui-g-12">
+                      <p-radioButton name="mayorEdad" value="2" label="NO SOY MAYOR DE EDAD" [(ngModel)]="mayorEdad"
+                        inputId="2"></p-radioButton>
+                    </div>
+                  </div>
+                </div>
+        
+                <div class="ui-g-3">
+                  <h5 class="label-custom">CON QUIEN VIVES?</h5>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="3" label="FAMILIA NUCLEAR" [(ngModel)]="vivencia" inputId="3">
+                    </p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="4" label="SOLO PADRES" [(ngModel)]="vivencia" inputId="4">
+                    </p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="5" label="PAREJA" [(ngModel)]="vivencia" inputId="5"></p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="6" label="PAREJA E HIJOS" [(ngModel)]="vivencia" inputId="6">
+                    </p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="7" label="SOLO HIJOS" [(ngModel)]="vivencia" inputId="7">
+                    </p-radioButton>
+                  </div>
+                </div>
+                <div class="ui-g-3">
+                  <h5 class="label-custom">VIVES EN CASA PROPIA O ALQUILADA?</h5>
+                  <div class="ui-g-12">
+                    <p-radioButton name="propiedad" value="8" label="CASA PROPIA" [(ngModel)]="propiedad" inputId="8">
+                    </p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="propiedad" value="9" label="CASA ALQUILADA" [(ngModel)]="propiedad" inputId="9">
+                    </p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="propiedad" value="10" label="CUARTO O DEPARTAMENTO ALQUILADO" [(ngModel)]="propiedad"
+                      inputId="10"></p-radioButton>
+                  </div>
+                </div>
+                <div class="ui-g-3">
+                  <h5 class="label-custom">ESTA DE ACUERDO CON LA ESTERILIZACION?</h5>
+                  <div class="ui-g-12">
+                    <p-radioButton name="acuerdo" value="11" label="SI ESTOY DE ACUERDO" [(ngModel)]="acuerdo" inputId="11">
+                    </p-radioButton>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="acuerdo" value="12" label="NO ESTOY DE ACUERDO" [(ngModel)]="acuerdo" inputId="12">
+                    </p-radioButton>
+                  </div>
+                </div>
+        
+        
+        
+                <div class="ui-g-12" text-align: center style="text-align: center;">
+                  <button style="width: auto; margin-top: 1.2rem;  font-size: 15px;" pButton type="submit" label="GUARDAR"
+                    class="ui-button-rounded ui-button-success" (click)="guardarCuestionario()"></button>
+                  <button type="button" pButton icon="fa fa-times-circle" (click)="showCuestionario=false"
+                    label="CERRAR CUESTIONARIO" class="ui-button-secondary"></button>
+        
+                </div>
+        
+              </div>
+            </p-fieldset>
           </div>
-        </div>
+  </p-scrollPanel>
 
-        <div class="ui-g-3">
-          <h5 class="label-custom">CON QUIEN VIVES?</h5>
-          <div class="ui-g-12">
-            <p-radioButton name="vivencia" value="3" label="FAMILIA NUCLEAR" [(ngModel)]="vivencia" inputId="3">
-            </p-radioButton>
-          </div>
-          <div class="ui-g-12">
-            <p-radioButton name="vivencia" value="4" label="SOLO PADRES" [(ngModel)]="vivencia" inputId="4">
-            </p-radioButton>
-          </div>
-          <div class="ui-g-12">
-            <p-radioButton name="vivencia" value="5" label="PAREJA" [(ngModel)]="vivencia" inputId="5"></p-radioButton>
-          </div>
-          <div class="ui-g-12">
-            <p-radioButton name="vivencia" value="6" label="PAREJA E HIJOS" [(ngModel)]="vivencia" inputId="6">
-            </p-radioButton>
-          </div>
-          <div class="ui-g-12">
-            <p-radioButton name="vivencia" value="7" label="SOLO HIJOS" [(ngModel)]="vivencia" inputId="7">
-            </p-radioButton>
-          </div>
-        </div>
-        <div class="ui-g-3">
-          <h5 class="label-custom">VIVES EN CASA PROPIA O ALQUILADA?</h5>
-          <div class="ui-g-12">
-            <p-radioButton name="propiedad" value="8" label="CASA PROPIA" [(ngModel)]="propiedad" inputId="8">
-            </p-radioButton>
-          </div>
-          <div class="ui-g-12">
-            <p-radioButton name="propiedad" value="9" label="CASA ALQUILADA" [(ngModel)]="propiedad" inputId="9">
-            </p-radioButton>
-          </div>
-          <div class="ui-g-12">
-            <p-radioButton name="propiedad" value="10" label="CUARTO O DEPARTAMENTO ALQUILADO" [(ngModel)]="propiedad"
-              inputId="10"></p-radioButton>
-          </div>
-        </div>
-        <div class="ui-g-3">
-          <h5 class="label-custom">ESTA DE ACUERDO CON LA ESTERILIZACION?</h5>
-          <div class="ui-g-12">
-            <p-radioButton name="acuerdo" value="11" label="SI ESTOY DE ACUERDO" [(ngModel)]="acuerdo" inputId="11">
-            </p-radioButton>
-          </div>
-          <div class="ui-g-12">
-            <p-radioButton name="acuerdo" value="12" label="NO ESTOY DE ACUERDO" [(ngModel)]="acuerdo" inputId="12">
-            </p-radioButton>
-          </div>
-        </div>
 
 
 
-        <div class="ui-g-12" text-align: center style="text-align: center;">
-          <button style="width: auto; margin-top: 1.2rem;  font-size: 15px;" pButton type="submit" label="GUARDAR"
-            class="ui-button-rounded ui-button-success" (click)="guardarCuestionario()"></button>
-            <button type="button" pButton icon="fa fa-times-circle" (click)="showCuestionario=false" label="CERRAR CUESTIONARIO"
-            class="ui-button-secondary"></button>
 
-        </div>
-
-      </div>
-    </p-fieldset>
-  </div>
+  
 
   <p-footer>
     <button type="button" pButton icon="fa fa-times-circle" (click)="salirDialog()" label="SALIR"
       class="ui-button-secondary"></button>
   </p-footer>
 </p-dialog>
+

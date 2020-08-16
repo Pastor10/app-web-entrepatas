@@ -41,6 +41,9 @@ export class AprobacionPublicacionComponent implements OnInit{
     token;
     pl;
     usuario: User;
+    publicacion = new Publicacion();
+    modalRechazo: boolean = false;
+    observacion: string;
 
     @ViewChild('dt', {static: true}) public tabla: Table;
     lastLazyLoadEvent: LazyLoadEvent;
@@ -59,10 +62,11 @@ export class AprobacionPublicacionComponent implements OnInit{
         this.cols = [
             {field: 'fecha', header: 'Fecha', width: '70px'},
             {field: 'hora', header: 'Hora', width: '70px'},
-            {field: 'usuario', header: 'Usuario', width: '250px'},
-            {field: 'nombre', header: 'Nombre Mascota', width: '150px'},
+            {field: 'usuario', header: 'Usuario', width: '220px'},
+            {field: 'nombre', header: 'Mascota', width: '120px'},
             {field: 'sexo', header: 'Tipo/Sexo', width: '120px'},
-            {field: 'condicion', header: 'Condicion', width: '150px'},
+            {field: 'condicion', header: 'Condicion', width: '100px'},
+            {field: 'observacion', header: 'Observación', width: '200px'},
             {field: 'estado', header: 'Estado', width: '100px'},
         ];
        // this.getAllTipoevento();
@@ -162,7 +166,7 @@ export class AprobacionPublicacionComponent implements OnInit{
         let message;
         this.publicacionService.save(publicacion).subscribe((res) => {
           if (res != null) {
-            message = 'Publicacion actualizada correctamente.';
+            message = 'Datos guardados correctamente.';
             this.showMsg('success', message);
             this.limpiarData();
             this.refreshTable();
@@ -194,6 +198,7 @@ export class AprobacionPublicacionComponent implements OnInit{
         this.id = undefined;
         this.tipoEvento = null;
         this.nombre = '';
+        this.observacion ='';
       }
 
       onReject() {
@@ -225,38 +230,11 @@ export class AprobacionPublicacionComponent implements OnInit{
       }
 
       doAction(data, accion) {
-        let message;
-        message = 'Publicación actualizado correctamente.';
-        if (accion =='aprobar') {
-        
-            this.estadoPublicacion = new Estado();
-            this.estadoPublicacion.id = 2;
-            this.estadoPublicacion.nombre = 'Aprobado'
-            this.estadoPublicacion.estado = true;
-
-            data.estadoPublicacion = 'APROBADO';
-            data.usuarioEvalua = this.usuario;
-
-     
-            this.udpdatePublicacion(data);
-
-        } else if(accion =='rechazar'){
-            this.estadoPublicacion = new Estado();
-            this.estadoPublicacion.id = 3;
-            this.estadoPublicacion.nombre = 'Rechazado'
-            this.estadoPublicacion.estado = true;
-            
-            data.estadoPublicacion = 'RECHAZADO';
-            data.usuarioEvalua = this.usuario;
-            this.udpdatePublicacion(data);
-            
-
-        } else {
-            console.log(data);
-            
-        }
-
-
+        data.estadoPublicacion = accion;
+        data.usuarioEvalua = this.usuario;
+        data.observacion = this.observacion;
+        this.udpdatePublicacion(data);
+        this.modalRechazo = false;
     }
 
     linkUpdate(id) {
@@ -266,4 +244,9 @@ export class AprobacionPublicacionComponent implements OnInit{
     showMsg( type: string, msg: string, title: string = 'publicacion') {
         this.messageService.add( { key: 'tst', severity: type, summary: title, detail: msg } );
       }
+
+      showDialogRechazo(data){
+        this.publicacion = data;
+        this.modalRechazo = true;
+    }
 }

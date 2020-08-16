@@ -201,6 +201,10 @@ ngOnInit(){
         this.messageService.add({key: 'c', sticky: true, severity: 'warn', summary: 'Esta seguro de generar adopción?'});
     }
 
+    showSaveCuestionario(type: string, msg: string, title: string) {
+        this.messageService.add( { key: 'cuestionario', severity: type, summary: title, detail: msg } );
+    }
+
     showPostulantes(){
         this.display = true;
     }
@@ -245,8 +249,10 @@ ngOnInit(){
             if(res!=null){
                 console.log('respuesta', res);
                 
-                message = 'Se guardo correctamente';
-                this.showMsg('success', message, 'Postulante');
+                message = 'El cuestionario guardo correctamente';
+                this.showSaveCuestionario('success', message, 'Postulante');
+                this.getAllPostulantesByPublicacion(this.postulante.publicacion)
+                //this.showMsg('success', message, 'Postulante');
             }
         });
     
