@@ -1,269 +1,194 @@
-
 <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
 <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
   <ng-template let-message pTemplate="message">
-      <div style="text-align: center">
-          <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
-          <h3>{{message.summary}}</h3>
-          <input type="hidden" [(ngModel)]="data">
-          <p>{{message.detail}}</p>
+    <div style="text-align: center">
+      <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+      <h3>{{message.summary}}</h3>
+      <input type="hidden" [(ngModel)]="data">
+      <p>{{message.detail}}</p>
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
       </div>
-      <div class="ui-g ui-fluid">
-          <div class="ui-g-6">
-              <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
-          </div>
-          <div class="ui-g-6">
-              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
-          </div>
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
       </div>
+    </div>
   </ng-template>
 </p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-<div class="ui-g">  
+<div class="ui-g">
   <div class="ui-g-12 ui-lg-8 cont-tarjeta">
     <p-panel>
       <div class="tarjeta_adm">
-      <p-header>
-        <h2>Usuarios</h2>
-      </p-header>
+        <p-header>
+          <h2>Usuarios</h2>
+        </p-header>
 
-      <!-- loader -->
-      <!-- <div style="text-align:center" *ngIf="loadingResult;">
+        <!-- loader -->
+        <!-- <div style="text-align:center" *ngIf="loadingResult;">
           <p>Espere un momento</p>
           <p-progressSpinner></p-progressSpinner>
       </div> -->
-      <!-- loader -->
+        <!-- loader -->
 
-      <p-table #dt [columns]="cols" [value]="listaUsuariosApp"  dataKey="idDirectorio"
-        [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
-        
-        <ng-template pTemplate="colgroup" let-columns>
-          <colgroup>
-            <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-            <col style="width: 150px" > <!--check -->
-          </colgroup>
-        </ng-template>
+        <p-table #dt [columns]="cols" [value]="listaUsuariosApp" dataKey="idDirectorio" [paginator]="true" [rows]="10"
+          [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
 
-        <ng-template pTemplate="header" let-columns let-pro>
-          <tr>
-            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
-              {{col.header}}
-              <p-sortIcon [field]="col.field"></p-sortIcon>
-            </th>
-            <th style="width:15em" id="">Acciones</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-          <tr [pSelectableRow]="rowData">
-            <td>
-               <span>
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+              <col style="width: 150px">
+              <!--check -->
+            </colgroup>
+          </ng-template>
+
+          <ng-template pTemplate="header" let-columns let-pro>
+            <tr>
+              <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th style="width:15em" id="">Acciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td>
+                <span>
                   {{rowData.persona.nombre}} {{rowData.persona.apePaterno}} {{rowData.persona.apeMaterno}}
-               </span>
-            </td>
-            <td>
-                <span>
-                   {{rowData.persona.correo}}
                 </span>
-             </td>
-             <td>
+              </td>
+              <td>
                 <span>
-                    {{rowData.perfil.nombre}}
+                  {{rowData.persona.correo}}
                 </span>
-             </td>
-             <td >
+              </td>
+              <td>
+                <span>
+                  {{rowData.perfil.nombre}}
+                </span>
+              </td>
+              <td>
                 <span *ngIf="rowData.estado" class="label arrowed label-succes">
-                    Activo
+                  Activo
                 </span>
                 <span *ngIf="!rowData.estado" class="label arrowed label-important">
-                    Desactivo
-                 </span>
-                 
-             </td>
-    
-            <td style="text-align: center">
-              <a *ngIf="rowData.estado==true" (click)="doAction(rowData, 'state');">
-                <button  pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons" tooltip="Desactivar"></button>
-              </a>
-              <a *ngIf="rowData.estado==false" (click)="doAction(rowData, 'state');">
-                <button  pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons" tooltip="Activar" style="background-color: #a09898;"></button>
-              </a> &nbsp;
-              <a (click)="doAction(rowData, 'edit');"  class="hand">
-                <button  pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons" tooltip="Editar"></button>
-              </a> &nbsp;
-              <a (click)="showConfirmDelete(rowData)"  class="hand">
-                <button  pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons" tooltip="Eliminar"></button>
-              </a>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+                  Desactivo
+                </span>
+
+              </td>
+
+              <td style="text-align: center">
+                <a *ngIf="rowData.estado==true" (click)="doAction(rowData, 'state');">
+                  <button pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons"
+                    tooltip="Desactivar"></button>
+                </a>
+                <a *ngIf="rowData.estado==false" (click)="doAction(rowData, 'state');">
+                  <button pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons"
+                    tooltip="Activar" style="background-color: #a09898;"></button>
+                </a> &nbsp;
+                <a (click)="doAction(rowData, 'edit');" class="hand">
+                  <button pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons"
+                    tooltip="Editar"></button>
+                </a> &nbsp;
+                <a (click)="showConfirmDelete(rowData)" class="hand">
+                  <button pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons"
+                    tooltip="Eliminar"></button>
+                </a>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
-  </p-panel>
+    </p-panel>
   </div>
 
   <div class="ui-g-12 ui-lg-4 cont-tarjeta">
     <p-panel>
       <div class="tarjeta_adm">
-          <p-header>
-              <h2>Crear/Editar usuarios</h2>
-            </p-header>
+        <p-header>
+          <h2>Crear/Editar usuarios</h2>
+        </p-header>
 
-            <form  (ngSubmit)="save()" >
-                <input [(ngModel)]="id" name="id" type="hidden" pInputText/>
-            <div class="ui-g-12">
-              <p-scrollPanel [style]="{height: '65vh'}" >
-                <div class="form-group mt-2">
-                    <label><b>Perfil (*): </b></label>
-                    <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
-                          name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
-                          [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" [readonly]="true">                    
-                      </p-autoComplete>
-                </div>
+        <form (ngSubmit)="save()">
+          <input [(ngModel)]="id" name="id" type="hidden" pInputText />
+          <div class="ui-g-12">
+            <p-scrollPanel [style]="{height: '65vh'}">
+              <div class="form-group mt-2">
+                <label><b>Perfil (*): </b></label>
+                <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil" field="nombre"
+                  name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15" [minLength]="1"
+                  placeholder="Seleccionar perfil" [dropdown]="true" [readonly]="true">
+                </p-autoComplete>
+              </div>
 
-                <div class="form-group mt-2">
-                  <label for="form-control"> <b>Nombres (*): </b> </label>
-                  <input   mdbInputDirective type="text" id="nombre" class="form-control"
-                        [(ngModel)]="nombre" name="nombre" pInputText placeholder="Ingresar nombres" >
-                </div>
+              <div class="form-group mt-2">
+                <label for="form-control"> <b>Nombres (*): </b> </label>
+                <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="nombre" name="nombre"
+                  pInputText placeholder="Ingresar nombres">
+              </div>
 
-                <div class="form-group mt-2">
-                    <label for="form-control"> <b>Ap. Paterno (*): </b> </label>
-                    <input   mdbInputDirective type="text" id="apePaterno" class="form-control"
-                    [(ngModel)]="apePaterno" name="apePaterno" pInputText placeholder="Ingresar apellido paterno" >
-                    
-                </div>
-                <div class="form-group mt-2">
-                    <label for="form-control"> <b>Ap. Materno (*): </b> </label>
-                    <input   mdbInputDirective type="text" id="apeMaterno" class="form-control"
-                    [(ngModel)]="apeMaterno" name="apeMaterno" pInputText placeholder="Ingresar apellido materno" >
-                </div>
+              <div class="form-group mt-2">
+                <label for="form-control"> <b>Ap. Paterno (*): </b> </label>
+                <input mdbInputDirective type="text" id="apePaterno" class="form-control" [(ngModel)]="apePaterno"
+                  name="apePaterno" pInputText placeholder="Ingresar apellido paterno">
 
-                <div class="form-group mt-2">
-                    <label for="form-control"> <b>Correo (*): </b> </label>
-                    <input   mdbInputDirective type="text" id="correo" class="form-control"
-                    [(ngModel)]="correo" name="correo" pInputText placeholder="Ingresar correo" >
-                </div>
+              </div>
+              <div class="form-group mt-2">
+                <label for="form-control"> <b>Ap. Materno (*): </b> </label>
+                <input mdbInputDirective type="text" id="apeMaterno" class="form-control" [(ngModel)]="apeMaterno"
+                  name="apeMaterno" pInputText placeholder="Ingresar apellido materno">
+              </div>
 
-                <div class="form-group mt-2">
-                    <label for="form-control"> <b>Celular: </b> </label>
-                    <input   mdbInputDirective type="text" id="celular" class="form-control"
-                    [(ngModel)]="celular" name="celular" pInputText placeholder="Ingresar celular" [textMask]="{mask: numberMask}" minlength="9" maxlength="9">
-                </div>
-                
-                <div class="form-group mt-2">
-                    <label for="form-control"> <b>Tipo documento (*): </b> </label>
-                    <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"  field="abreviatura" 
-                          name="tipoDocumento" (completeMethod)="filterListTipoDocumento($event)" [size]="15"
-                          [minLength]="1" placeholder="Seleccionar tipo documento" [dropdown]="true" [readonly]="true">
-                      </p-autoComplete>
-                </div>
+              <div class="form-group mt-2">
+                <label for="form-control"> <b>Correo (*): </b> </label>
+                <input mdbInputDirective type="text" id="correo" class="form-control" [(ngModel)]="correo" name="correo"
+                  pInputText placeholder="Ingresar correo">
+              </div>
+              <div class="row ui-g-12">
+                <label for="form-control" style="padding-right: 45px"> <strong>Celular (*): </strong> </label>
+                <input mdbInputDirective type="text" id="celular" class="form-control" [(ngModel)]="celular"
+                  name="celular" pInputText placeholder="Ingresar celular" [textMask]="{mask: numberMask}" minlength="9"
+                  maxlength="9">
+              </div>
 
-                <div class="form-group mt-2">
-                    <label for="form-control"> <b>Documento (*): </b> </label>
-                          <input   mdbInputDirective type="text" id="nombre" class="form-control"
-                          [(ngModel)]="documento" name="documento" pInputText placeholder="Ingresar documento" [textMask]="{mask: numberMask}" minlength="8" maxlength="12">
-                  </div>
+              <div class="form-group mt-2">
+                <label for="form-control"> <b>Tipo documento (*): </b> </label>
+                <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento" field="abreviatura"
+                  name="tipoDocumento" (completeMethod)="filterListTipoDocumento($event)" [size]="15" [minLength]="1"
+                  placeholder="Seleccionar tipo documento" [dropdown]="true" [readonly]="true">
+                </p-autoComplete>
+              </div>
 
-                <div class="ui-g-12">
-                    <p-checkbox  binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected"></p-checkbox>
-                </div>
+              <div class="form-group mt-2">
+                <label for="form-control"> <b>Documento (*): </b> </label>
+                <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="documento"
+                  name="documento" pInputText placeholder="Ingresar documento" [textMask]="{mask: numberMask}"
+                  minlength="8" maxlength="12">
+              </div>
 
-                  <div class="ui-g-12 ">
-                      <button pButton  label="Guardar" style="margin-bottom:10px" class="btn " type="submit"></button>
-                  </div>
-                  <div class="ui-g-12 ">
-                    <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="btn" (click)="limpiarData()"></button>
-                  </div>
+              <div class="ui-g-12">
+                <p-checkbox binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected">
+                </p-checkbox>
+              </div>
 
-    </p-scrollPanel>
-            </div>
-            </form>
+              <div class="ui-g-12 ">
+                <button pButton label="Guardar" style="margin-bottom:10px" class="btn " type="submit"></button>
+              </div>
+              <div class="ui-g-12 ">
+                <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="btn"
+                  (click)="limpiarData()"></button>
+              </div>
+
+            </p-scrollPanel>
           </div>
-      </p-panel>
-
-    
-
-  </div> 
-  <!-- <div class="ui-g-12 ui-lg-5">
-      <p-panel [style]="{'margin-bottom':'20px'}">
-          <p-header>
-              <span class="ui-panel-title">Crear / editar usuario</span>
-          </p-header>
-          <div class="ui-g ">
-              <div class="ui-g-4">
-                  <h5 class="label-custom">Tipo documento(*)</h5>
-            
-                  <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
-                      field="abreviatura" name="perfilSelected" [size]="15"
-                      (completeMethod)="filterListTipoDocumento($event)" [minLength]="1"
-                      placeholder="Seleccione tipo documento" [dropdown]="true">
-
-                  </p-autoComplete>
-              </div>
-              <div class="ui-g-3">
-                  <h5 class="label-custom">Num. documento</h5>
-                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.numeroDocumento"
-                      (keydown.enter)="getPersona()" pInputText />
-              </div>
-
-              <div class="ui-g-5">
-                  <h5 class="label-custom">Nombres</h5>
-                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.nombre" pInputText />
-              </div>
-              <div class="ui-g-3">
-                  <h5 class="label-custom">Ape. Paterno</h5>
-                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.apePaterno"
-                      pInputText />
-              </div>
-              <div class="ui-g-3">
-                  <h5 class="label-custom">Ape. Materno</h5>
-                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.apeMaterno"
-                      pInputText />
-              </div>
+        </form>
+      </div>
+    </p-panel>
 
 
-              <div class="ui-g-4">
-                  <h5 class="label-custom">Correo</h5>
-                  <input   mdbInputDirective type="text" id="correo" class="form-control"
-                  [(ngModel)]="correo" name="correo" pInputText placeholder="Ingresar correo" >
-              </div>
 
-              <div class="ui-g-4">
-                  <label for="form-control"> <strong>Celular: </strong> </label>
-                  <input   mdbInputDirective type="text" id="celular" class="form-control"
-                  [(ngModel)]="celular" name="celular" pInputText placeholder="Ingresar celular" >
-              </div>
-
-              <div class="ui-g-4">
-                  <h5 class="label-custom">Celular (*)</h5>
-                  <input style="width: 100%;" type="text" name="nombres" [(ngModel)]="persona.celular" pInputText />
-              </div>
-
-              <div class="ui-g-4">
-                  <label for="form-control" style="padding-right: 60px"> <strong>Perfil: </strong> </label>
-                <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil"  field="nombre"
-                      name="perfilSelected" (completeMethod)="filterListPerfil($event)" [size]="15"
-                      [minLength]="1" placeholder="Seleccionar perfil" [dropdown]="true" >
-                
-                  </p-autoComplete>
-              </div>
-   
-              <div class="ui-g" style="width:250px;margin-bottom:10px">
-                  <div class="ui-g-12">
-                      <p-checkbox binary="true" label="CREAR USUARIO" name="createUser" [(ngModel)]="createUser">
-                      </p-checkbox>
-                  </div>
-              </div>
-              <div class="ui-g-12" text-align: center style="text-align: center;">
-                  <button style="width: auto; margin-top: 1.2rem;  font-size: 15px;" pButton type="submit"
-                      label="Registrar" class="ui-button-rounded ui-button-success"
-                      (click)="saveGeneraAdopcion()"></button>
-
-              </div>
-
-          </div>
-
-
-      </p-panel>
-  </div> -->
+  </div>
 </div>

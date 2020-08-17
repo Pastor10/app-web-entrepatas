@@ -38,7 +38,7 @@ export class AdoptaComponent implements OnInit {
     apePaterno: string;
     apeMaterno: string;
     documento: string;
-    celular: number;
+    celular: number= undefined;
     email: string;
     direccion: string;
     tipoDocumento: TipoDocumento;
@@ -54,18 +54,18 @@ export class AdoptaComponent implements OnInit {
     persona: Persona;
 
     public numberMask = createNumberMask({
-		prefix: '',
-		suffix: '',
-		includeThousandsSeparator: true,
-		thousandsSeparatorSymbol: '',
-		allowDecimal: false,
-		decimalSymbol: '.',
-		decimalLimit: 1,
-		integerLimit: 12,
-		requireDecimal: false,
-		allowNegative: false,
-		allowLeadingZeroes: true
-	});
+        prefix: '',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: '',
+        allowDecimal: false,
+        decimalSymbol: '.',
+        decimalLimit: 1,
+        integerLimit: 12,
+        requireDecimal: false,
+        allowNegative: false,
+        allowLeadingZeroes: true
+    });
 
     constructor(public animalService: AnimalService, public tipoDocumentoService: TipoDocumentoService,
         public ubigeoService: UbigeoService, public solicitudAdopcionService: SolicitudAdopcionService,
@@ -142,6 +142,7 @@ export class AdoptaComponent implements OnInit {
     }
 
     getPublicacion(event: Event, publicacion: Publicacion) {
+        this.limpiarData();
         this.selectPublicacion = publicacion;
         this.displayDialog = true;
         event.preventDefault();
@@ -167,55 +168,61 @@ export class AdoptaComponent implements OnInit {
 
     save() {
 
-        let documento = this.documento== undefined?'':this.documento;
-        let nombres = this.nombres== undefined?'':this.nombres;
-        let apePaterno = this.apePaterno== undefined?'':this.apePaterno;
-        let apeMaterno = this.apeMaterno== undefined?'':this.apeMaterno;
-        let email = this.email== undefined?'':this.email;
-        let direccion = this.direccion== undefined?'':this.direccion;
-        let ubigeo =this.ubigeo!=undefined?this.ubigeo.nombre:undefined;
-    
+        let documento = this.documento == undefined ? '' : this.documento;
+        let nombres = this.nombres == undefined ? '' : this.nombres;
+        let apePaterno = this.apePaterno == undefined ? '' : this.apePaterno;
+        let apeMaterno = this.apeMaterno == undefined ? '' : this.apeMaterno;
+        let email = this.email == undefined ? '' : this.email;
+        let direccion = this.direccion == undefined ? '' : this.direccion;
+        let ubigeo = this.ubigeo != undefined ? this.ubigeo.nombre : undefined;
+        let celular = this.celular;
 
-        if(this.tipoDocumento==null){
+
+
+        if (this.tipoDocumento == null) {
             this.showMsg('info', 'Seleccione tipo documento', 'Solicitud');
             return;
         }
 
-        if(documento.trim()==''){
+        if (documento.trim() == '') {
             this.showMsg('info', 'Ingrese un documento de identidad', 'Solicitud');
             return;
         }
 
-        if(nombres.trim()==''){
+        if (nombres.trim() == '') {
             this.showMsg('info', 'Ingrese nombres', 'Solicitud');
             return;
         }
 
-        if(apePaterno.trim()==''){
+        if (apePaterno.trim() == '') {
             this.showMsg('info', 'Ingrese apellido paterno', 'Solicitud');
             return;
         }
 
-        if(apeMaterno.trim()==''){
+        if (apeMaterno.trim() == '') {
             this.showMsg('info', 'Ingrese apellido materno', 'Solicitud');
             return;
         }
 
-        if(email.trim()==''){
+        if (email.trim() == '') {
             this.showMsg('info', 'Ingrese un correo', 'Solicitud');
             return;
         }
 
-        if(ubigeo==undefined){
+        if (ubigeo == undefined) {
             this.showMsg('info', 'Ingrese un ciudad de residencia', 'Solicitud');
             return;
         }
 
-        if(direccion.trim()==''){
+        if (direccion.trim() == '') {
             this.showMsg('info', 'Ingrese una dirección', 'Solicitud');
             return;
         }
 
+        if(celular == undefined || celular==0){
+            this.showMsg('info', 'Ingrese número de celular', 'Solicitud');
+            return;
+        }
 
 
         this.formToModel();
@@ -228,10 +235,10 @@ export class AdoptaComponent implements OnInit {
                 this.limpiarData();
             }
         }, error => {
-              const errorMessage = error.error.mensaje != undefined ? error.error.mensaje : 'No se pudo procesar la petición. Error ' + error.status;
-              this.showMsg('error', errorMessage, 'Solicitud');
-            
-          });
+            const errorMessage = error.error.mensaje != undefined ? error.error.mensaje : 'No se pudo procesar la petición. Error ' + error.status;
+            this.showMsg('error', errorMessage, 'Solicitud');
+
+        });
     }
 
     getPersona() {
@@ -243,13 +250,13 @@ export class AdoptaComponent implements OnInit {
                 if (data != null) {
                     this.modelToForm(data);
                 }
-            },error => {
+            }, error => {
                 const errorMessage = error.error.mensaje != undefined ? error.error.mensaje : 'No se pudo procesar la petición. Error ' + error.status;
-               // this.showMsg('error', errorMessage, 'Solicitud');
-               console.log('error', errorMessage);
-               
+                // this.showMsg('error', errorMessage, 'Solicitud');
+                console.log('error', errorMessage);
+
                 this.limpiarDataBusqueda();
-              
+
             }
         );
 
@@ -263,7 +270,7 @@ export class AdoptaComponent implements OnInit {
         this.persona.ubigeo = this.ubigeo;
         this.direccion = data.direccion
         this.email = data.correo;
-        this.celular= data.celular;
+        this.celular = data.celular;
         this.documento = data.numeroDocumento;
         this.tipoDocumento = data.tipoDocumento;
         this.getCity(data.ubigeo);
@@ -282,7 +289,7 @@ export class AdoptaComponent implements OnInit {
                 if (data != null) {
                     this.ubigeo = data;
                 }
-               
+
             }
         );
 

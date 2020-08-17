@@ -30,6 +30,7 @@ import { AprobacionPublicacionComponent } from './component/publicacion/aprobaci
 import { GeneraAdopcionComponent } from './component/adopcion/genera-adopcion/genera.component';
 import { DevolucionComponent } from './component/adopcion/devolucion/devolucion.component';
 import { ColaboraComponent } from './component/colabora/colabora.component';
+import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
 
 export const routes: Routes = [
 
@@ -44,6 +45,7 @@ export const routes: Routes = [
             { path: 'login', component: LoginComponent },
             { path: 'conocenos', component: ConocenosComponent },
             { path: 'adopta', component: AdoptaComponent },
+            { path: 'proximos-eventos', component: EventoProximoComponent },
         ]
     },
     {

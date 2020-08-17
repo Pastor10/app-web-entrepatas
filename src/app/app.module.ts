@@ -152,6 +152,7 @@ import { ColaboraComponent } from './component/colabora/colabora.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { LoaderRequestService } from './shared/service/locader-request.service';
 import { CuestionarioService } from './shared/service/cuestionario.service';
+import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
 
 
 
@@ -230,7 +231,8 @@ import { CuestionarioService } from './shared/service/cuestionario.service';
         soloNumeros,
         PaginaInteresComponent,
         ColaboraComponent,
-        LoaderComponent
+        LoaderComponent,
+        EventoProximoComponent
 
 
 

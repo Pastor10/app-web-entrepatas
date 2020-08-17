@@ -37,7 +37,7 @@ export class PerfilComponent implements OnInit {
     username: string;
     passwordTrans: string;
     correo: string;
-    celular: number;
+    celular: number= null;
     token;
     pl;
     listTipoDocumento: TipoDocumento[];
@@ -172,7 +172,9 @@ export class PerfilComponent implements OnInit {
     save(){
         console.log('guardado', this.usuario);
         let ubigeo = this.usuario.persona.ubigeo.nombre;
-
+        let celular = this.usuario.persona.celular;
+        this.celular = +celular;
+        
         if(this.usuario.persona.tipoDocumento==null){
             this.showMsg('info', 'Seleccione tipo documento', 'Perfil de usuario');
             return;
@@ -188,6 +190,11 @@ export class PerfilComponent implements OnInit {
         }
         if(this.usuario.persona.apeMaterno.trim()==''){
             this.showMsg('info', 'Escriba un apellido materno', 'Perfil de usuario');
+            return;
+        }
+
+        if(this.celular==0 || this.celular == null){
+            this.showMsg('info', 'Escriba número de celular', 'Perfil de usuario');
             return;
         }
 

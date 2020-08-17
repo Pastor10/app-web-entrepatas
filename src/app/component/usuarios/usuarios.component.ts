@@ -42,7 +42,7 @@ export class UsuariosComponent implements OnInit {
   username: string;
   password: string;
   correo: string;
-  celular: number;
+  celular: number = null;
   persona: Persona;
   listTipoDocumento: TipoDocumento[];
   tipoDocumento: TipoDocumento;
@@ -63,7 +63,7 @@ export class UsuariosComponent implements OnInit {
     integerLimit: 12,
     requireDecimal: false,
     allowNegative: false,
-    allowLeadingZeroes: true
+    allowLeadingZeroes: true,
   });
 
   @ViewChild('dt', { static: true }) public tabla: Table;
@@ -181,7 +181,7 @@ export class UsuariosComponent implements OnInit {
 
 
     console.log('datos', this.model);
-    
+
 
 
   }
@@ -337,40 +337,46 @@ export class UsuariosComponent implements OnInit {
 
   save() {
     let message;
-    
-//validaciones
 
-    if(this.tipoDocumento == null){
+    //validaciones
+    let celular = +this.celular;
+
+    if (this.tipoDocumento == null) {
       this.showMsg('info', 'Seleccione tipo documento');
       return;
     }
 
-    if(this.documento == null || this.documento==''){
+    if (this.documento == null || this.documento == '') {
       this.showMsg('info', 'Ingrese documento');
       return;
     }
 
-    if(this.nombre == null  || this.nombre == ''){
+    if (this.nombre == null || this.nombre == '') {
       this.showMsg('info', 'Ingrese nombre');
       return;
     }
 
-    if(this.apePaterno == null  || this.apePaterno == ''){
+    if (this.apePaterno == null || this.apePaterno == '') {
       this.showMsg('info', 'Ingrese apellido paterno');
       return;
     }
 
-    if(this.apeMaterno == null  || this.apeMaterno == ''){
+    if (this.apeMaterno == null || this.apeMaterno == '') {
       this.showMsg('info', 'Ingrese apellido materno');
       return;
     }
 
-    if(this.correo == null){
+    if (this.correo == null) {
       this.showMsg('info', 'Ingrese un correo');
       return;
     }
 
-    if(this.perfilSelected == null){
+    if (celular == null || celular==0) {
+      this.showMsg('info', 'Ingrese número de celular');
+      return;
+    }
+
+    if (this.perfilSelected == null) {
       this.showMsg('info', 'Seleccione un perfil');
       return;
     }
@@ -391,8 +397,8 @@ export class UsuariosComponent implements OnInit {
     }, error => {
       const errorMessage = error.error.mensaje != undefined ? error.error.mensaje : 'No se pudo procesar la petición. Error ' + error.status;
       this.showMsg('error', errorMessage, 'Usuario');
-    
-  });
+
+    });
 
   }
 

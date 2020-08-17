@@ -83,6 +83,11 @@
                     {{rowData.condicion.nombre}}
                 </span>
              </td>
+             <td>
+              <span>
+                  {{rowData.observacion}}
+              </span>
+           </td>
              
             <td >
                 <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label arrowed label-succes">
@@ -128,8 +133,8 @@
     <input type="hidden" [(ngModel)]="publicacion">
     <textarea rows="4" cols="40" pInputTextarea name="observacion" [(ngModel)]="observacion" maxlength="400"></textarea>
         <p-footer>
-            <button type="button" pButton icon="pi pi-check" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR"></button>
-            <button type="button" pButton icon="pi pi-close" (click)="modalRechazo=false" label="SALIR" class="ui-button-secondary"></button>
+            <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR" class="ui-button-danger"></button>
+            <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR" class="ui-button-secondary"></button>
         </p-footer>
 </p-dialog>
 

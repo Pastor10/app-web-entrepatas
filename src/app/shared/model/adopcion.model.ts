@@ -2,7 +2,6 @@
 import { Animal } from './animal.model';
 import { User } from './User.model';
 import { Estado } from './estado.model';
-import { Postulante } from './postulante.model';
 import { Persona } from './persona.model';
 
 export class Adopcion {

@@ -31,6 +31,7 @@
         "angular2-text-mask": "^9.0.0",
         "chart.js": "2.7.3",
         "font-awesome": "4.7.0",
+        "inputmask": "^5.0.5",
         "intl": "1.2.5",
         "moment": "^2.24.0",
         "ng2-tooltip-directive": "^2.8.17",
