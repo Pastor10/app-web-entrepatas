@@ -1252,6 +1252,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  outline: 0;
 }
 
 html {
@@ -1274,6 +1275,8 @@ body {
 body a {
   text-decoration: none;
 }
+
+
 
 .layout-mask {
   position: fixed;
@@ -1300,7 +1303,7 @@ body a {
   height: 60px;
   width: 235px;
   float: left;
-  background-color: #ffffff;
+  /*background-color: #ffffff;
   background-image: -webkit-gradient(linear, left top, right top, from(#ffffff), to(#ffffff));
   background-image: -webkit-linear-gradient(to right, #ffffff, #ffffff);
   background-image: -moz-linear-gradient(to right, #ffffff, #ffffff);
@@ -1319,10 +1322,10 @@ body a {
   padding: 15px;
   height: 85px;
   background: #FFB300; /* Old browsers */
-background: -moz-linear-gradient(top, #FFB300 0%, #FFE082 100%);
-background: -webkit-linear-gradient(top, #FFB300 0%,#FFE082 100%);
-background: linear-gradient(to bottom, #FFB300 0%,#FFE082 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFB300', endColorstr='#FFE082',GradientType=0 );
+background: -moz-linear-gradient(top, #FFB300 0%, #ffecb3 100%);
+background: -webkit-linear-gradient(top, #FFB300 0%,#ffecb3 100%);
+background: linear-gradient(to bottom, #FFB300 0%,#ffecb3 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFB300', endColorstr='#ffecb3',GradientType=0 );
 box-shadow: 0 1px 10px #fff;
 
   /*height: 60px;
@@ -1473,9 +1476,10 @@ box-shadow: 0 1px 10px #fff;
 }
 .layout-wrapper .layout-menu-container .profile {
   padding: 15px;
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
+  /*-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);*/
 }
 .layout-wrapper .layout-menu-container .profile:after {
   content: "";
@@ -1487,6 +1491,7 @@ box-shadow: 0 1px 10px #fff;
   height: 45px;
   float: right;
   margin-left: 4px;
+  border-radius: 50%;
 }
 .layout-wrapper .layout-menu-container .profile > a .profile-name {
   display: block;
@@ -1526,7 +1531,7 @@ box-shadow: 0 1px 10px #fff;
   overflow: hidden;
 }
 .layout-wrapper .layout-menu-container #profile-menu li:first-child {
-  margin-top: 16px;
+  /*margin-top: 16px;*/
 }
 .layout-wrapper .layout-menu-container #profile-menu li:last-child {
   margin-bottom: 16px;

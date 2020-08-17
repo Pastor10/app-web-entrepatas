@@ -12,6 +12,9 @@
 /* Data */
 /* Panel */
 /* Add your variable customizations of theme here */
+body,html,a,input,table,span,{
+  outline:0;
+}
 body .ui-widget,
 body .ui-widget .ui-widget {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -100,25 +103,23 @@ body .ajax-loader {
   color: #337ab7;
 }
 
-body {
-  /* Validations */
-}
 body .ui-inputtext {
   font-size: 14px;
-  color: #212529;
+  /*color: #212529;*/
   background: #ffffff;
   padding: 6px 12px;
   border: 1px solid #cccccc;
-  -moz-transition: box-shadow 0.3s, border-color 0.3s;
+  /*-moz-transition: box-shadow 0.3s, border-color 0.3s;
   -o-transition: box-shadow 0.3s, border-color 0.3s;
   -webkit-transition: box-shadow 0.3s, border-color 0.3s;
-  transition: box-shadow 0.3s, border-color 0.3s;
+  transition: box-shadow 0.3s, border-color 0.3s;*/
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: none;
+  /*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);*/
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -153,15 +154,15 @@ body .ui-button {
   border: 1px solid transparent;
   font-size: 14px;
 }
-body .ui-button:enabled:hover {
+/*body .ui-button:enabled:hover {
   background-color: #2d6da3;
-}
+}*/
 body .ui-button:enabled:focus {
   outline: 0 none;
   background-color: #2d6da3;
 }
 body .ui-button:enabled:active {
-  background-color: #285f8f;
+  /*background-color: #285f8f;*/
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -1361,9 +1362,105 @@ body .ui-calendar .ui-datepicker {
 body .ui-datepicker {
   width: auto;
 }
-body ::-webkit-input-placeholder {
-  color: #777777;
+
+
+textarea::placeholder, input::-webkit-input-placeholder,input::-webkit-input-placeholder{
+color:rgba(0,0,0,0.3)!important;
+text-align: center;
 }
+textarea:focus::placeholder,input:focus::-webkit-input-placeholder,input:focus::-webkit-input-placeholder{
+  color:rgba(0,0,0,0.15)!important;
+  text-align: center;
+}
+input[type="password"],input[type="text"] {
+  text-align: center;
+  width: 75%;
+}
+input[type="password"]:focus,input[type="text"]:focus {
+  border: 1px solid skyblue;
+}
+
+.form-group {
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+.form-control {
+    /*display: block;*/
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    border-radius: .25rem;
+    transition: all .15s ease-in-out;
+}
+
+.cont-tarjeta{
+  padding: 15px;
+}
+
+.tarjeta,.tarjeta2,.tarjeta_adm{
+  text-align: center;
+  /*//box-shadow: 0 0 6px rgba(0,0,0,.3); //Sombra de las mascota en la publicacion*/
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px -1px rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+  /*// border-top: 5px solid #0D47A1;*/
+  padding-bottom: 1.5px;
+  transition:.3s;
+}
+
+.tarjeta_adm{
+  /*height: 450px;*/
+  padding: 15px;
+  padding-top: 5px;
+  border-top: 3px solid #0D47A1;
+  overflow-x: auto;
+}
+
+.tarjeta_adm h2{
+    color: #0D47A1;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.per_adm{
+  
+  text-align: left;
+  padding-left: 15px;
+}
+
+/*
 body :-moz-placeholder {
   color: #777777;
 }
@@ -1372,7 +1469,7 @@ body ::-moz-placeholder {
 }
 body :-ms-input-placeholder {
   color: #777777;
-}
+}*/
 body .ui-inputtext.ng-dirty.ng-invalid,
 body p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 body p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
@@ -1556,7 +1653,8 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li a, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li a, body .ui-tabview.ui-tabview-left .ui-tabview-nav li a, body .ui-tabview.ui-tabview-right .ui-tabview-nav li a {
   padding: 10px 15px;
-  color: #337ab7;
+  color: #BDBDBD;
+  /*color: #337ab7;*/
   font-weight: normal;
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-left .ui-tabview-nav li a .ui-tabview-left-icon, body .ui-tabview.ui-tabview-right .ui-tabview-nav li a .ui-tabview-left-icon {
@@ -1569,19 +1667,21 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li .ui-tabview-close, body .ui-t
   margin-top: 0.65em;
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-left .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover, body .ui-tabview.ui-tabview-right .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover {
-  background-color: #f5f5f5;
+  /*background-color: #f5f5f5;*/
+  background-color: #fff;
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .pi-times, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .pi-times, body .ui-tabview.ui-tabview-left .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .pi-times, body .ui-tabview.ui-tabview-right .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover .pi-times {
   color: #777777;
 }
-body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-left .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-right .ui-tabview-nav li.ui-state-active {
-  border: 1px solid #dddddd;
-  background-color: #ffffff;
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-left .ui-tabview-nav li.ui-state-active, body .ui-tabview.ui-tabview-right .ui-tabview-nav li.ui-state-active,
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active a{
+  /*border: 1px solid #dddddd;*/
+  color:#0D47A1!important;
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li {
   margin-right: 2px;
   border-bottom: 1px solid #dddddd;
-  -moz-border-radius-topleft: 4px;
+  /*-moz-border-radius-topleft: 4px;
   -webkit-border-top-left-radius: 4px;
   border-top-left-radius: 4px;
   -moz-border-radius-topright: 4px;
@@ -1592,10 +1692,11 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li {
   border-bottom-left-radius: 0;
   -moz-border-radius-bottomright: 0;
   -webkit-border-bottom-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;*/
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
-  border-bottom-color: #ffffff;
+  /*border-bottom-color: #ffffff;*/
+  border-bottom-color: #ddd;
 }
 body .ui-tabview.ui-tabview-top .ui-tabview-panels {
   border-top: 1px solid #dddddd;
