@@ -67,7 +67,7 @@
                 <div class="form-group mt-2">
                         <label>Nombres (*)</label>
                     <!-- <div class="validate-input" data-validate="Falta Nombres"> -->
-                        <input type="text" class="form-control" name="nombres" [(ngModel)]="nombres"placeholder="Juan" required pInputText/>
+                        <input type="text" class="form-control" name="nombres" [(ngModel)]="nombres"placeholder="Juan" (keypress)="soloLetras($event)" required pInputText/>
                     <!-- </div> -->
                 </div>
 
@@ -75,14 +75,14 @@
                 <div class="ui-g-6">
                         <label>Ape. Paterno (*)</label>
                     <!-- <div style="margin-bottom:10px;" class="validate-input" data-validate="Falta Apellido Paterno"> -->
-                    <input type="text" class="form-control" name="apPaterno" placeholder="Perez" [(ngModel)]="apPaterno"required pInputText />
+                    <input type="text" class="form-control" name="apPaterno" placeholder="Perez" [(ngModel)]="apPaterno" (keypress)="soloLetras($event)" required pInputText />
                     <!-- </div> -->
                 </div>
 
                 <div class="ui-g-6">
                         <label>Ape. Materno (*)</label>
                     <!-- <div class="validate-input" data-validate="Falta Apellido Materno"> -->
-                    <input type="text" class="form-control" name="apMaterno" placeholder="Hozo" [(ngModel)]="apMaterno"required pInputText />
+                    <input type="text" class="form-control" name="apMaterno" placeholder="Hozo" [(ngModel)]="apMaterno" (keypress)="soloLetras($event)"  required pInputText />
                     <!-- </div> -->
                 </div>
                 </div>
@@ -104,7 +104,7 @@
                         <label>Repetir Email (*)</label>
                     <!-- <div class="validate-input"
                         data-validate="Se requiere contraseña"> -->
-                        <input type="text" class="form-control" name="correoRepite" [(ngModel)]="correoRepite" placeholder="tucorreo@tuservicio.com" required pInputText />
+                        <input type="text" class="form-control" onpaste="return false" name="correoRepite" [(ngModel)]="correoRepite" placeholder="tucorreo@tuservicio.com" required pInputText />
                     <!-- </div> -->
                 </div>
 

@@ -178,12 +178,50 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   save() {
     let message;
-    this.formToModel();
+
+    if (this.tipoDocumento == undefined) {
+      message = 'Seleccione tipo documento';
+      this.showMsg('info', message, 'Usuario');
+      return;
+    }
+
+    if (this.numeroDocumento== null || this.numeroDocumento == '') {
+      message = 'Escriba número documento';
+      this.showMsg('info', message, 'Usuario');
+      return;
+    }
+
+    if (this.nombres == null || this.nombres == '') {
+      message = 'Escriba su nombre';
+      this.showMsg('info', message, 'Usuario');
+      return;
+    }
+
+
+    if (this.apPaterno == null || this.apPaterno == '') {
+      message = 'Escriba apellido paterno';
+      this.showMsg('info', message, 'Usuario');
+      return;
+    }
+
+    if (this.apMaterno == null || this.apMaterno == '') {
+      message = 'Escriba apellido materno';
+      this.showMsg('info', message, 'Usuario');
+      return;
+    }
+
+    if (this.correo == null || this.correo == '') {
+      message = 'Escriba un correo ';
+      this.showMsg('info', message, 'Usuario');
+      return;
+    }
+   
     if (this.correo != this.correoRepite) {
       message = 'Los correos ingresados no coinciden';
       this.showMsg('info', message, 'Usuario');
       return;
     }
+    this.formToModel();
     this.usuarioService.saveVisitante(this.data).subscribe((res) => {
       if (res != null) {
         message = 'Usuario creado correctamente.';
@@ -279,6 +317,18 @@ filterDocumento(query, lista: TipoDocumento[]): TipoDocumento[] {
     console.log(this.data);
 
   }
+
+   soloLetras(e) {
+    var tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla == 8) {
+        return true;
+    }
+    var patron = /[A-Za-z ]/;
+    var tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
 
   showMsg(type: string, msg: string, title: string) {
     this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });

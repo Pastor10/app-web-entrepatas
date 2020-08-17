@@ -79,9 +79,12 @@ export class UsuariosComponent implements OnInit {
     this.cols = [
       { field: 'nombre', header: 'Nombres y Apellidos', width: '220px' },
       { field: 'correo', header: 'Email', width: '150px' },
+      { field: 'celular', header: 'Celular', width: '150px' },
       { field: 'profile', header: 'Perfil', width: '100px' },
       { field: 'estado', header: 'Estado', width: '100px' }
     ];
+
+  
     this.getUsers();
     this.listarPerfiles();
     this.loading = true;
