@@ -147,8 +147,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.persona.tipoDocumento = this.tipoDocumento;
     this.persona.numeroDocumento = this.numeroDocumento;
     this.persona.correo = this.correo;
-
-    this.data.username = this.correo;
+    this.data.username = this.numeroDocumento;
     this.data.password = this.numeroDocumento;
 
     this.data.persona = this.persona;
@@ -167,6 +166,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
   limpiarData() {
+    this.nombres = '';
+    this.apMaterno = '';
+    this.apPaterno = '';
+    this.userCrea = '';
+    this.correo = '';
+    this.correoRepite = '';
+    this.numeroDocumento='';
+    this.tipoDocumento=null;
+  }
+
+  limpiarDataBusqueda() {
     this.nombres = '';
     this.apMaterno = '';
     this.apPaterno = '';
@@ -240,7 +250,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.showMsg('info', 'Ingrese su usuario y password', 'Usuario');
       // this.alertService.warning('Ingrese su usuario y password');
     } else {
-      this.authenticationService.login(this.username, this.password).subscribe(
+      this.authenticationService.login(this.username.trim(), this.password.trim()).subscribe(
         data => {
           if (data != null) {
             this.loginResponse = new LoginResponse();
@@ -283,6 +293,7 @@ filterDocumento(query, lista: TipoDocumento[]): TipoDocumento[] {
 }
 
   getPersona() {
+    
     const params = [
       `documento=${this.numeroDocumento}`
     ];
@@ -296,8 +307,7 @@ filterDocumento(query, lista: TipoDocumento[]): TipoDocumento[] {
         const errorMessage = error.error.mensaje != undefined ? error.error.mensaje : 'No se pudo procesar la petición. Error ' + error.status;
         // this.showMsg('error', errorMessage, 'Solicitud');
         console.log('error', errorMessage);
-
-        //this.limpiarDataBusqueda();
+        this.limpiarDataBusqueda();
 
       }
     );

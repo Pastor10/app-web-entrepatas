@@ -5,7 +5,6 @@ import {timeoutWith} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
-import { Local } from '../model/local.model';
 import { Publicacion } from '../model/publicacion.model';
 
 @Injectable()
@@ -15,8 +14,14 @@ export class PublicacionService {
 
   baseUrl: string = environment.END_POINT + 'api/publicacion/';
 
-  getAll() {
-    return this.http.get(this.baseUrl + 'findAll').pipe(
+  getAll(params) {
+    return this.http.get(this.baseUrl + 'findAll?'+params).pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
+  getAllVisitantes(params) {
+    return this.http.get(this.baseUrl + 'findAll-visitantes?'+params).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }

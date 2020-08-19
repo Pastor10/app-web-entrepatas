@@ -1,20 +1,20 @@
 <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
 <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
   <ng-template let-message pTemplate="message">
-      <div style="text-align: center">
-          <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
-          <h3>{{message.summary}}</h3>
-          <input type="hidden" [(ngModel)]="data">
-          <p>{{message.detail}}</p>
+    <div style="text-align: center">
+      <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+      <h3>{{message.summary}}</h3>
+      <input type="hidden" [(ngModel)]="data">
+      <p>{{message.detail}}</p>
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
       </div>
-      <div class="ui-g ui-fluid">
-          <div class="ui-g-6">
-              <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
-          </div>
-          <div class="ui-g-6">
-              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
-          </div>
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
       </div>
+    </div>
   </ng-template>
 </p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
@@ -22,16 +22,16 @@
   <div class="ui-g-12 ui-lg-12">
     <p-panel [style]="{'margin-bottom':'20px'}">
       <p-header>
-        <span  class="ui-panel-title">Devoluciones</span>
+        <span class="ui-panel-title">Devoluciones</span>
       </p-header>
 
-      <p-table #dt [columns]="cols" [value]="adopciones"  dataKey="idDirectorio"
-        [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
-        
+      <p-table #dt [columns]="cols" [value]="adopciones"  [paginator]="true" [rows]="perPage" [totalRecords]="totalRecords"
+        [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
+
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
             <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-            <col style="width: 150px" >
+            <col style="width: 150px">
           </colgroup>
         </ng-template>
 
@@ -41,63 +41,69 @@
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th style="width:15em" id="">Acciones</th>
+            <!-- <th style="width:5em" id="">Acciones</th> -->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [pSelectableRow]="rowData">
             <td>
-               <span>
-                    {{rowData.fechaAdopcion | date:'dd/MM/yyyy'}} 
-               </span>
+              <span>
+                {{rowData.fechaDevolucion | date:'dd/MM/yyyy'}}
+              </span>
+            </td>
+
+            <td>
+              <span>
+                {{rowData.persona.nombreCompleto}}
+              </span>
             </td>
             <td>
-                <span>
-                    {{rowData.fechaAdopcion | date:'h:mm a'}} 
-                </span>
+              <span>
+                {{rowData.persona.numeroDocumento}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.persona.ubigeo.nombre}} - {{rowData.persona.direccion}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.persona.celular}}
+              </span>
             </td>
 
-                <td >
-                    <span>
-                    {{rowData.persona.nombreCompleto}}
-                    </span>
-                </td>
-                <td > 
-                    <span>
-                        {{rowData.persona.numeroDocumento}}
-                    </span>
-                </td>
-                <td >
-                    <span>
-                        {{rowData.persona.ubigeo.nombre}} - {{rowData.persona.direccion}}
-                    </span>
-                </td>
-                <td >
-                    <span>
-                        {{rowData.persona.celular}}
-                    </span>
-                </td>
+            <td>
+              <span>
+                {{rowData.animal.nombre}} / {{rowData.animal.sexo}}
+              </span>
+            </td>
+            <td>
 
-             <td>
-                <span>
-                    {{rowData.animal.nombre}} / {{rowData.animal.sexo}}
-                </span>
-             </td>
-             
-            <td >
-                <span *ngIf="rowData.estadoAdopcion=='DEVUELTO'" class="label arrowed label-important">
-                    {{rowData.estadoAdopcion}} 
-                 </span>
-             </td>
+              <img src="{{rowData.animal.foto}}" width="60px" height="60px">
+
+            </td>
+            <td>
+              <span>
+                {{rowData.motivoDevolucion}}
+              </span>
+            </td>
+
+            <td>
+              <span class="label arrowed label-important">
+                {{rowData.estadoAdopcion}}
+              </span>
+            </td>
             <td style="text-align: center">
-              <a (click)="doAction(rowData, 'edit');"  class="hand">
-                <button  pButton type="button" icon="fa fa-eye" class="ui-button-secondary space-buttons" tooltip="Ver"></button>
+              <a (click)="doAction(rowData, 'edit');" class="hand">
+                <button pButton type="button" icon="fa fa-eye" class="ui-button-secondary space-buttons"
+                  tooltip="Ver"></button>
               </a>
             </td>
           </tr>
         </ng-template>
       </p-table>
-  </p-panel>
+    </p-panel>
   </div>
 
 </div>

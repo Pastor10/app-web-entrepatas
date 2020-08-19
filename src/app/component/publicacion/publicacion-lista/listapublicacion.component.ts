@@ -21,7 +21,7 @@ import { Estado } from 'src/app/shared/model/estado.model';
 
 export class PublicacionListaComponent implements OnInit {
 
-    totalRecords: 10;
+    totalRecords: number;
     perPage = 10;
     cols: any[];
 
@@ -44,9 +44,9 @@ export class PublicacionListaComponent implements OnInit {
     modalRechazo: boolean = false;
     publicacion: Publicacion;
     observacion: string;
+    lastLazyLoadEvent: LazyLoadEvent;
 
     @ViewChild('dt', { static: true }) public tabla: Table;
-    lastLazyLoadEvent: LazyLoadEvent;
     constructor(public messageService: MessageService, public fb: FormBuilder, public tipoEventoService: TipoEventoService,
         public eventoService: EventoService, public publicacionService: PublicacionService, public usuarioService: UsuarioService) {
 
@@ -85,20 +85,35 @@ export class PublicacionListaComponent implements OnInit {
 
     }
 
-    getAllPublicacion() {
-        this.publicacionService.getAll().subscribe((data: Publicacion[]) => {
-            // this.publicaciones = data;
-            this.publicaciones = data.filter(item => {
-                return item.usuarioPublica.perfil.nombre != 'VISITANTE'
-            });
+    getAllPublicacion(event) {
+        const params = [];
+        this.lastLazyLoadEvent = event;
+        const pageNumber = event.first / this.perPage;
+    
+        params.push(`page=${pageNumber}`);
+        params.push(`perPage=${this.perPage}`);
+
+        this.publicacionService.getAll(params.join('&')).subscribe((data: Publicacion[]) => {
+            this.totalRecords = data['totalElements'];
+            this.publicaciones = data['content'];
             console.log(this.publicaciones);
 
         });
 
     }
 
-    getAllPublicacionUser(idUser) {
+    getAllPublicacionUser(idUser, event) {
+        const params = [];
+        this.lastLazyLoadEvent = event;
+        const pageNumber = event.first / this.perPage;
+    
+        params.push(`page=${pageNumber}`);
+        params.push(`perPage=${this.perPage}`);
+        params.push(`id=${idUser}`);
+
         this.publicacionService.getAllFindById(idUser).subscribe((data: Publicacion[]) => {
+            //this.publicaciones = data;
+            //this.totalRecords = data['totalElements'];
             this.publicaciones = data;
             console.log(this.publicaciones);
 
@@ -113,12 +128,13 @@ export class PublicacionListaComponent implements OnInit {
     }
 
     loadLazy(event: LazyLoadEvent) {
+
         this.usuarioService.getUserId(this.pl.user.id).subscribe((data: User) => {
             this.usuario = data;
             if (this.usuario.perfil.nombre == 'VISITANTE') {
-                this.getAllPublicacionUser(this.usuario.id);
+                this.getAllPublicacionUser(this.usuario.id, event);
             } else {
-                this.getAllPublicacion();
+                this.getAllPublicacion(event);
             }
         });
     }

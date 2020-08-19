@@ -153,6 +153,7 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { LoaderRequestService } from './shared/service/locader-request.service';
 import { CuestionarioService } from './shared/service/cuestionario.service';
 import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
+import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
 
 
 
@@ -232,7 +233,8 @@ import { EventoProximoComponent } from './component/evento/proximos-eventos/even
         PaginaInteresComponent,
         ColaboraComponent,
         LoaderComponent,
-        EventoProximoComponent
+        EventoProximoComponent,
+        ActiveCuentaComponent
 
 
 

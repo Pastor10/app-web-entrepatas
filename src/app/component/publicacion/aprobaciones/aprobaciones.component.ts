@@ -21,7 +21,7 @@ import { Estado } from 'src/app/shared/model/estado.model';
 
 export class AprobacionPublicacionComponent implements OnInit{
 
-    totalRecords: 10;
+    totalRecords: number;
     perPage = 10;
     cols: any[];
 
@@ -84,12 +84,20 @@ export class AprobacionPublicacionComponent implements OnInit{
 
     }
 
-    getAllPublicacion(){
-        this.publicacionService.getAll().subscribe((data: Publicacion[]) =>{
-            //this.publicaciones = data;
-            this.publicaciones = data.filter( item => {
-                return item.usuarioPublica.perfil.nombre === 'VISITANTE'
-            });
+    getAllPublicacion(event){
+        const params = [];
+        this.lastLazyLoadEvent = event;
+        const pageNumber = event.first / this.perPage;
+    
+        params.push(`page=${pageNumber}`);
+        params.push(`perPage=${this.perPage}`);
+
+        this.publicacionService.getAllVisitantes(params.join('&')).subscribe((data: Publicacion[]) =>{
+            this.totalRecords = data['totalElements'];
+            this.publicaciones = data['content'];
+            // this.publicaciones = data.filter( item => {
+            //     return item.usuarioPublica.perfil.nombre === 'VISITANTE'
+            // });
             
         });
 
@@ -117,7 +125,7 @@ export class AprobacionPublicacionComponent implements OnInit{
         if(this.usuario.perfil.nombre=='VISITANTE'){
                 this.getAllPublicacionUser(this.usuario.id);
         } else {
-                 this.getAllPublicacion();
+                 this.getAllPublicacion(event);
                 }
         });         
     }

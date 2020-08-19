@@ -14,14 +14,14 @@ export class AdopcionService {
 
   baseUrl: string = environment.END_POINT + 'api/adopcion/';
 
-  getAll() {
-    return this.http.get(this.baseUrl + 'findAll').pipe(
+  getAll(params) {
+    return this.http.get(this.baseUrl + 'findAll?'+params).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-  getAllDevoluciones() {
-    return this.http.get(this.baseUrl + 'findAllDevoluciones').pipe(
+  getAllDevoluciones(params) {
+    return this.http.get(this.baseUrl + 'findAllDevoluciones?'+params).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
