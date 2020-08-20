@@ -1,134 +1,78 @@
 <p-card>
-
     <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
-
-
     <div class="ui-g ui-fluid">
-
-        <div class=" ui-g-12 ui-md-12">
+        <div class=" ui-g-12 ui-md-12 cont-tarjeta">
             <p-messages [(value)]="msgs" [closable]="false"></p-messages>
         </div>
         <div *ngIf="isCompleted">
-            <div class=" ui-g-12 ui-md-6">
+            <div class=" ui-g-12 tarjeta_adm">
                 <p-card>
+                    <p-header>
+                    <h2>Generar Publicacion</h2>
+                    </p-header>
 
-
-                    <div style="text-align: center; margin-bottom: 0.5em;">
-                        <button style="width: auto; font-size: 20px;" pButton type="button"
-                            label="Generar una Publicación" class="ui-button-rounded"></button>
-                    </div>
-
-                    <div class="ui-g">
-
-                        <div class="ui-g-6">
-                            <h5 class="label-custom">Nombre (*)</h5>
-                            <input style="width: 100%;" type="text" name="nombre" [(ngModel)]="nombre" [disabled]="isDisabled" pInputText />
-
-                        </div>
+                    <div class="ui-g-12 ui-md-6">
                         <div class="ui-g-12">
-                            <h5 class="label-custom">Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</h5>
-
-                            <p-fileUpload accept="image/*" chooseLabel="Selecciona una imagen" [disabled]="isDisabled"
-                                uploadLabel="Subir imagen" accept="image/*" cancelLabel="Cancelar" name="file"
-                                (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false"
-                                maxFileSize="5000000">
-                                <ng-template pTemplate="content">
-                                    <ul *ngIf="uploadedFiles.length">
-                                        <li *ngFor="let file of uploadedFiles">{{file.name}} -
-                                            {{file.size}}
-                                            bytes
-                                        </li>
-                                    </ul>
-                                </ng-template>
-                            </p-fileUpload>
-
-                            <div style="margin-top: 0.5rem;">
-                                <h5 class="label-custom">Imagen</h5>
-                                <input style="width: 100%; margin-bottom: 0.2em" [(ngModel)]="imagenUp"
-                                    class="form-control" name="imagenUp" id="imagenUp" type="text" [disabled]="isDisabled"
-                                    pInputText />
-
-                            </div>
+                            <label><b>Nombre (*)</b></label>
+                            <input type="text" name="nombre" [(ngModel)]="nombre" [disabled]="isDisabled" pInputText focus()/>
                         </div>
 
-                        <div class="ui-g-4">
-                            <h5 class="label-custom">Tipo Animal (*)</h5>
-                            <p-autoComplete [(ngModel)]="tipoAnimal" [suggestions]="listaTipoAnimal" field="nombre" [disabled]="isDisabled"
-                                name="tipoAnimal" [size]="15" (onSelect)="changeTipoAnimal()"
-                                (completeMethod)="filterListTipoAnimal($event)" [minLength]="1"
-                                placeholder="Seleccione tipo animal" [dropdown]="true" [readonly]="true">
-
+                        <div class="ui-g-12">
+                            <label><b>Tipo Animal (*)</b></label>
+                            <p-autoComplete [(ngModel)]="tipoAnimal" [suggestions]="listaTipoAnimal" field="nombre" [disabled]="isDisabled" name="tipoAnimal" [size]="15" (onSelect)="changeTipoAnimal()" (completeMethod)="filterListTipoAnimal($event)" [minLength]="1" placeholder="Seleccione tipo animal" [dropdown]="true" [readonly]="true">
                             </p-autoComplete>
                         </div>
-                        <div class="ui-g-4">
-                            <h5 class="label-custom">Raza (*)</h5>
-                            <p-autoComplete [(ngModel)]="raza" [suggestions]="listaRazas" field="nombre" name="raza" [disabled]="isDisabled"
-                                [size]="15" (completeMethod)="filterListRaza($event)" [minLength]="1"
-                                placeholder="Seleccione raza" [dropdown]="true" [readonly]="true">
 
+                        <div class="ui-g-12">
+                            <label><b>Raza (*)</b></label>
+                            <p-autoComplete [(ngModel)]="raza" [suggestions]="listaRazas" field="nombre" name="raza" [disabled]="isDisabled" [size]="15" (completeMethod)="filterListRaza($event)" [minLength]="1"  placeholder="Seleccione raza" [dropdown]="true" [readonly]="true">
                             </p-autoComplete>
                         </div>
-                        <div class="ui-g-4">
-                            <h5 class="label-custom">Tamaño (*)</h5>
+
+                        <div class="ui-g-12">
+                            <label><b>Tamaño (*)</b></label>
                             <p-autoComplete [(ngModel)]="tamanoAnimal" [suggestions]="listaTamanoAnimal" field="nombre" [disabled]="isDisabled"
-                                name="tamano" [size]="15" (completeMethod)="filterListTamano($event)" [minLength]="1"
-                                placeholder="Seleccione tamaño" [dropdown]="true" [readonly]="true">
-
+                                name="tamano" [size]="15" (completeMethod)="filterListTamano($event)" [minLength]="1" placeholder="Seleccione tamaño" [dropdown]="true" [readonly]="true">
                             </p-autoComplete>
                         </div>
-                        <div class="ui-g-4">
-                            <h5 class="label-custom">Sexo (*)</h5>
 
-                            <div class="ui-g" style="width:200px;margin-bottom:10px">
+                        <div class="ui-g-12">
+                            <label><b>Sexo (*)</b></label>
+                            <div class="ui-g">
                                 <div class="ui-g-6">
-                                    <p-radioButton name="sexo" value="Macho" label="Macho" [(ngModel)]="sexo" [disabled]="isDisabled"
-                                        inputId="opt1"></p-radioButton>
+                                    <p-radioButton name="sexo" value="Macho" label="Macho" [(ngModel)]="sexo" [disabled]="isDisabled" inputId="opt1">
+                                    </p-radioButton>
                                 </div>
                                 <div class="ui-g-6">
-                                    <p-radioButton name="sexo" value="Hembra" label="Hembra" [(ngModel)]="sexo" [disabled]="isDisabled"
-                                        inputId="opt2"></p-radioButton>
+                                    <p-radioButton name="sexo" value="Hembra" label="Hembra" [(ngModel)]="sexo" [disabled]="isDisabled" inputId="opt2">
+                                    </p-radioButton>
                                 </div>
                             </div>
                         </div>
-                        <div class="ui-g-4">
-                            <h5 class="label-custom">Condición (*)</h5>
 
-
-                            <p-autoComplete [(ngModel)]="condicion" [suggestions]="listaCondicion" field="nombre" [disabled]="isDisabled"
-                                name="condicion" [size]="15" (completeMethod)="filterListCondicion($event)"
-                                [minLength]="1" placeholder="Seleccione condición" [dropdown]="true" [readonly]="true">
-
+                        <div class="ui-g-12">
+                            <label><b>Condición (*)</b></label>
+                            <p-autoComplete [(ngModel)]="condicion" [suggestions]="listaCondicion" field="nombre" [disabled]="isDisabled" name="condicion" [size]="15" (completeMethod)="filterListCondicion($event)" [minLength]="1" placeholder="Seleccione condición" [dropdown]="true" [readonly]="true">
                             </p-autoComplete>
                         </div>
+
                         <div class="ui-g-4" *ngIf="usuario.perfil.nombre!='VISITANTE'">
-                            <h5 class="label-custom">Local Asignado (*)</h5>
-                            <p-autoComplete [(ngModel)]="local" [suggestions]="listaLocales" field="nombre" name="local" [disabled]="isDisabled"
-                                [size]="15" (completeMethod)="filterListLocal($event)" [minLength]="1"
-                                placeholder="Seleccione Local" [dropdown]="true" [readonly]="true">
-
+                            <label><b>Local Asignado (*)</b></label>
+                            <p-autoComplete [(ngModel)]="local" [suggestions]="listaLocales" field="nombre" name="local" [disabled]="isDisabled" [size]="15" (completeMethod)="filterListLocal($event)" [minLength]="1" placeholder="Seleccione Local" [dropdown]="true" [readonly]="true">
                             </p-autoComplete>
-
                         </div>
+
                         <div class="ui-g-5">
-                            <h5 class="label-custom">Edad aprox.(*)</h5>
+                            <label><b>Edad aprox.(*)</b></label>
                             <p-listbox [options]="listaEdad" [(ngModel)]="edad" optionLabel="name" name="edad" [disabled]="isDisabled">
                             </p-listbox>
                             <p>Edad seleccionado: {{edad ? edad.name : edad }}</p>
                         </div>
 
-
-
                         <div class="ui-g-7">
-                            <h5 class="label-custom">Descripción </h5>
-                            <textarea rows="10" cols="30" pInputTextarea name="descripcion" [(ngModel)]="descripcion" [disabled]="isDisabled"
-                                maxlength="200"></textarea>
-
+                            <label><b>Descripción </b></label>
+                            <textarea rows="10" cols="30" pInputTextarea name="descripcion" [(ngModel)]="descripcion" [disabled]="isDisabled" maxlength="200"></textarea>
                         </div>
-
-
-                        <!-- <div class="ui-g" style="width:250px;margin-bottom:10px">
-                                                <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected"></p-checkbox></div>
-                                        </div> -->
 
                         <div class="ui-g-12" text-align: center style="text-align: center;">
                             <button style="width: auto; margin-top: 1.2rem;  padding: 5px ; font-size: 15px;" pButton
@@ -141,19 +85,28 @@
                                 [routerLink]="returnpublicaciones()"></button>
                         </div>
                     </div>
-
                 </p-card>
-            </div>
+            <!-- </div> -->
 
-            <div style="text-align: center;" class="ui-g-12 ui-md-6">
-                <img src="{{imagenUp}}" width="350px" height="400px">
-            </div>
+            <div class="ui-g-12 ui-md-6">
+                <img src="{{imagenUp}}" width="300px" height="300px">
+                    <h2>Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</h2>
+                        <p-fileUpload accept="image/*" chooseLabel="Selecciona una imagen" [disabled]="isDisabled" uploadLabel="Subir imagen" accept="image/*" cancelLabel="Cancelar" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
+                            <ng-template pTemplate="content">
+                                <ul *ngIf="uploadedFiles.length">
+                                    <li *ngFor="let file of uploadedFiles">{{file.name}} -
+                                        {{file.size}} bytes
+                                    </li>
+                                </ul>
+                            </ng-template>
+                        </p-fileUpload>
 
+                        <div style="margin-top: 0.5rem;">
+                                <label><b>Imagen</b></label>
+                                <input style="width: 100%; margin-bottom: 0.2em" [(ngModel)]="imagenUp" class="form-control" name="imagenUp" id="imagenUp" type="text" [disabled]="isDisabled" pInputText />
+                        </div>
+            </div>
+            </div>
         </div>
-
-
     </div>
-
-
-
 </p-card>

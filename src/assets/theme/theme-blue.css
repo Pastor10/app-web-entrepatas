@@ -404,6 +404,7 @@ body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
   line-height: 18px;
 }
 body .ui-chkbox-label {
+  display: inline-block;
   margin: 0 0 0 0.5em;
 }
 body .ui-radiobutton {
@@ -1387,7 +1388,7 @@ input[type="password"]:focus,input[type="text"]:focus {
 }
 
 label {
-    display: inline-block;
+    display: block;
     margin-bottom: .5rem;
 }
 
@@ -1455,11 +1456,20 @@ label {
 }
 
 .per_adm{
-  
   text-align: left;
   padding-left: 15px;
 }
 
+.img_adm{
+  width: 40px
+  height:40px;
+}
+.img_adm:hover{
+  cursor: pointer;
+  transform: scale(3)
+  border 2px solid #ddd;
+  border-radius:5px;
+}
 /*
 body :-moz-placeholder {
   color: #777777;
