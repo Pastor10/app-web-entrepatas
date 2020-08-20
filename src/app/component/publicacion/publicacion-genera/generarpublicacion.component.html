@@ -28,8 +28,8 @@
                         <div class="ui-g-12">
                             <h5 class="label-custom">Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</h5>
 
-                            <p-fileUpload accept="image/*" chooseLabel="Selecciona una imagen" [disabled]="isDisabled" [showCancelButton]="false"
-                                uploadLabel="Subir imagen" accept="image/*"  name="file"
+                            <p-fileUpload accept="image/*" chooseLabel="Selecciona una imagen" [disabled]="isDisabled"
+                                uploadLabel="Subir imagen" accept="image/*" cancelLabel="Cancelar" name="file"
                                 (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false"
                                 maxFileSize="5000000">
                                 <ng-template pTemplate="content">
@@ -43,9 +43,9 @@
                             </p-fileUpload>
 
                             <div style="margin-top: 0.5rem;">
-                                <h5 class="label-custom">URL Imagen</h5>
+                                <h5 class="label-custom">Imagen</h5>
                                 <input style="width: 100%; margin-bottom: 0.2em" [(ngModel)]="imagenUp"
-                                    class="form-control" name="imagenUp" id="imagenUp" type="text" [disabled]="true"
+                                    class="form-control" name="imagenUp" id="imagenUp" type="text" [disabled]="isDisabled"
                                     pInputText />
 
                             </div>

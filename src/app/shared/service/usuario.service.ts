@@ -30,16 +30,10 @@ export class UsuarioService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
-
-
-  getUsers(params) {
-    return this.http.get(this.baseUrl + 'findAll?' + params).
-      pipe(timeoutWith(environment.TIMEOUT, observableThrowError(
+  getUsers() {
+    return this.http.get(this.baseUrl + 'findAll').pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
-  }
-
-  validateCuenta(uuid) {
-    return this.http.put(`${this.baseUrl}validate-uuid/${uuid}`, uuid);
   }
 
   getAllIntegrantes() {

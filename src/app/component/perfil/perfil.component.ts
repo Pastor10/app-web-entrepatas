@@ -170,8 +170,8 @@ export class PerfilComponent implements OnInit {
     }
 
     save(){
-     
-        let ubigeo = this.usuario.persona.ubigeo != undefined ? this.usuario.persona.ubigeo.nombre : undefined;
+        console.log('guardado', this.usuario);
+        let ubigeo = this.usuario.persona.ubigeo.nombre;
         let celular = this.usuario.persona.celular;
         this.celular = +celular;
         
@@ -209,7 +209,7 @@ export class PerfilComponent implements OnInit {
             return;
         }
 
-        if(this.usuario.persona.direccion==null || this.usuario.persona.direccion==''){
+        if(this.usuario.persona.direccion.trim()==''){
             this.showMsg('info', 'Escriba su dirección donde reside', 'Perfil de usuario');
             return;
         }
@@ -229,15 +229,4 @@ export class PerfilComponent implements OnInit {
         this.messageService.add( { key: 'tst', severity: type, summary: title, detail: msg } );
       }
 
-      soloLetras(e) {
-        var tecla = (document.all) ? e.keyCode : e.which;
-    
-        //Tecla de retroceso para borrar, siempre la permite
-        if (tecla == 8) {
-            return true;
-        }
-        var patron = /[A-Za-z ]/;
-        var tecla_final = String.fromCharCode(tecla);
-        return patron.test(tecla_final);
-    }
 }

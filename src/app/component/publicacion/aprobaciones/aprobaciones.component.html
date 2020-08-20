@@ -25,8 +25,8 @@
         <span  class="ui-panel-title">Publicaciones</span>
       </p-header>
 
-      <p-table #dt [columns]="cols" [value]="publicaciones"  dataKey="idDirectorio" [totalRecords]="totalRecords" 
-        [paginator]="true" [rows]="perPage" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
+      <p-table #dt [columns]="cols" [value]="publicaciones"  dataKey="idDirectorio"
+        [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
         
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>

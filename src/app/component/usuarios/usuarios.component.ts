@@ -19,16 +19,17 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 })
 export class UsuariosComponent implements OnInit {
 
-  totalRecords: number;
+  totalRecords: 10;
   perPage = 10;
   cols: any[];
   loading: boolean;
   tokenGenerated: any;
   modelForm: FormGroup;
   visibleTokenGenerado = false;
-  public listaUsuarios: User[]= [];
+  public listaUsuarios: User[];
   public listFilterUser: User[];
   public listaPerfil: Perfil[];
+  public listaUsuariosApp: User[];
   model = new User();
   emailSelected: User;
   perfilSelected: Perfil;
@@ -41,7 +42,7 @@ export class UsuariosComponent implements OnInit {
   username: string;
   password: string;
   correo: string;
-  celular: number = undefined;
+  celular: number = null;
   persona: Persona;
   listTipoDocumento: TipoDocumento[];
   tipoDocumento: TipoDocumento;
@@ -77,16 +78,16 @@ export class UsuariosComponent implements OnInit {
     this.getAllTipoDocumento();
     this.cols = [
       { field: 'nombre', header: 'Nombres y Apellidos', width: '220px' },
-      { field: 'correo', header: 'Email', width: '170px' },
-      { field: 'documento', header: 'Documento', width: '120px' },
-      { field: 'celular', header: 'Celular', width: '100px' },
+      { field: 'correo', header: 'Email', width: '150px' },
+      { field: 'celular', header: 'Celular', width: '150px' },
       { field: 'profile', header: 'Perfil', width: '100px' },
       { field: 'estado', header: 'Estado', width: '100px' }
     ];
 
-
-    //this.getUsers();
+  
+    this.getUsers();
     this.listarPerfiles();
+    this.loading = true;
     this.builderForm();
 
 
@@ -198,10 +199,13 @@ export class UsuariosComponent implements OnInit {
   refreshTable() {
     this.tabla.reset();
     if (this.lastLazyLoadEvent) {
-      this.getUsers(this.lastLazyLoadEvent);
+      this.loadLazy(this.lastLazyLoadEvent);
     }
   }
 
+  loadLazy(event: LazyLoadEvent) {
+    this.getUsers();
+  }
 
 
   updateUser(data, message) {
@@ -215,7 +219,6 @@ export class UsuariosComponent implements OnInit {
         this.refreshTable();
       }
     });
-    //this.getUsers();
   }
 
   doAction(data, accion) {
@@ -305,23 +308,14 @@ export class UsuariosComponent implements OnInit {
       });
   }
 
-  getUsers(event: LazyLoadEvent) {
-    const params = [];
-    this.lastLazyLoadEvent = event;
-    const pageNumber = event.first / this.perPage;
-
-    params.push(`page=${pageNumber}`);
-    params.push(`perPage=${this.perPage}`);
-    this.listaUsuarios = [];
-    
-    this.usuarioService.getUsers(params.join('&')).subscribe(
+  getUsers() {
+    this.listaUsuariosApp = [];
+    this.usuarioService.getUsers().subscribe(
       (data: User[]) => {
-        console.log('data', data);
-        this.totalRecords = data['totalElements'];
-        this.listaUsuarios = data['content'];
+        this.listaUsuariosApp = data;
       },
       error => {
-        this.listaUsuarios = [];
+        this.listaUsuariosApp = [];
         const errorMessage =
           error.message != undefined
             ? error.message
@@ -348,7 +342,7 @@ export class UsuariosComponent implements OnInit {
     let message;
 
     //validaciones
-    let celular = this.celular;
+    let celular = +this.celular;
 
     if (this.tipoDocumento == null) {
       this.showMsg('info', 'Seleccione tipo documento');
@@ -380,7 +374,7 @@ export class UsuariosComponent implements OnInit {
       return;
     }
 
-    if (this.celular == undefined || this.celular == 0) {
+    if (celular == null || celular==0) {
       this.showMsg('info', 'Ingrese número de celular');
       return;
     }
@@ -430,7 +424,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.delete(data.id).subscribe(
       data => {
         this.showMsg('success', message, 'Usuario');
-        //this.getUsers();
+        this.getUsers();
       },
       error => {
         const errorMessage =
@@ -443,15 +437,5 @@ export class UsuariosComponent implements OnInit {
     );
   }
 
-  soloLetras(e) {
-    var tecla = (document.all) ? e.keyCode : e.which;
 
-    //Tecla de retroceso para borrar, siempre la permite
-    if (tecla == 8) {
-      return true;
-    }
-    var patron = /[A-Za-z ]/;
-    var tecla_final = String.fromCharCode(tecla);
-    return patron.test(tecla_final);
-  }
 }

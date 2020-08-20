@@ -31,7 +31,6 @@ import { GeneraAdopcionComponent } from './component/adopcion/genera-adopcion/ge
 import { DevolucionComponent } from './component/adopcion/devolucion/devolucion.component';
 import { ColaboraComponent } from './component/colabora/colabora.component';
 import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
-import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
 
 export const routes: Routes = [
 
@@ -47,7 +46,6 @@ export const routes: Routes = [
             { path: 'conocenos', component: ConocenosComponent },
             { path: 'adopta', component: AdoptaComponent },
             { path: 'proximos-eventos', component: EventoProximoComponent },
-            { path: 'active-acount', component: ActiveCuentaComponent },
         ]
     },
     {

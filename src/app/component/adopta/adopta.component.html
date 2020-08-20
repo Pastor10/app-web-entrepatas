@@ -83,10 +83,6 @@
                                     <div class="ui-g-6 tar_titulo"><b>TAMAÑO</b> <br>
                                         <div class="tar_concepto">{{selectPublicacion.animal.tamanoAnimal.nombre}}</div>
                                     </div>
-
-                                    <div class="ui-g-12 tar_titulo"><b>DESCRIPCIÓN</b> <br>
-                                        <div class="tar_concepto">{{selectPublicacion.descripcion}}</div>
-                                    </div>
                                 </p-tabPanel>
 
                                 <p-tabPanel header="Solicitar adopción" leftIcon="fa fa-file-text-o"
@@ -118,20 +114,20 @@
                                                     <div class="ui-g-4">
                                                         <h5 class="label-custom">Nombres (*)</h5>
                                                         <input style="width: 100%;" type="text" name="nombres"
-                                                            placeholder="Juan Carlos" [(ngModel)]="nombres" (keypress)="soloLetras($event)" 
+                                                            placeholder="Juan Carlos" [(ngModel)]="nombres"
                                                             pInputText />
 
                                                     </div>
                                                     <div class="ui-g-4">
                                                         <h5 class="label-custom">Apellido Paterno (*)</h5>
                                                         <input style="width: 100%;" type="text" name="apePaterno"
-                                                            placeholder="Perez" [(ngModel)]="apePaterno" (keypress)="soloLetras($event)"  pInputText />
+                                                            placeholder="Perez" [(ngModel)]="apePaterno" pInputText />
 
                                                     </div>
                                                     <div class="ui-g-4">
                                                         <h5 class="label-custom">Apellido Materno (*)</h5>
                                                         <input style="width: 100%;" type="text" name="apeMaterno"
-                                                            placeholder="Villa" [(ngModel)]="apeMaterno" (keypress)="soloLetras($event)"  pInputText />
+                                                            placeholder="Villa" [(ngModel)]="apeMaterno" pInputText />
 
                                                     </div>
 
@@ -144,7 +140,7 @@
                                                     </div>
                                                     <div class="ui-g-6">
                                                         <h5 class="label-custom">Ciudad (*)</h5>
-                                                        <p-autoComplete field="descripcion" [(ngModel)]="ubigeo" (keypress)="soloLetras($event)" 
+                                                        <p-autoComplete field="descripcion" [(ngModel)]="ubigeo"
                                                             name="ubigeo" [suggestions]="filteredCities"
                                                             (completeMethod)="filterCitiesByNombre($event)" [size]="40"
                                                             placeholder="Chepen" [minLength]="1">

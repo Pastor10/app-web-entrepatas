@@ -611,7 +611,7 @@ export class GenerarPublicacionComponent implements OnInit {
   }
 
   showWarn() {
-    this.messageService.add({severity:'warn', summary:'ADVERTENCIA, INGRESE A MI PERFIL Y COMPLETE SUS DATOS PARA PODER REALIZAR PUBLICACIONES'});
+    this.messageService.add({severity:'warn', summary:'ADVERTENCIA', detail:'Complete sus datos para poder realizar publicaciones'});
     //this.msgs.push({severity:'warn', summary:'Warn Message', detail:'There are unsaved changes'});
 }
 

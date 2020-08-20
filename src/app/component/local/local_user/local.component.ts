@@ -90,7 +90,7 @@ export class LocalComponent implements OnInit{
 
     filterUsers(event) {
         let query = event.query;
-        this.usuarioService.getAllIntegrantes().subscribe((users: User[]) => {
+        this.usuarioService.getUsers().subscribe((users: User[]) => {
             this.filterUser = this.filterUsuario(query, users);
         });
     }

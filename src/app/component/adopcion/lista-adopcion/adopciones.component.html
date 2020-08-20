@@ -25,7 +25,7 @@
         <span class="ui-panel-title">Adopciones</span>
       </p-header>
 
-      <p-table #dt [columns]="cols" [value]="adopciones" dataKey="idDirectorio" [paginator]="true" [rows]="perPage" [totalRecords]="totalRecords" 
+      <p-table #dt [columns]="cols" [value]="adopciones" dataKey="idDirectorio" [paginator]="true" [rows]="10"
         [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
 
         <ng-template pTemplate="colgroup" let-columns>
@@ -46,6 +46,16 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [pSelectableRow]="rowData">
+            <td>
+              <span>
+                {{rowData.fechaCreacion | date:'dd/MM/yyyy'}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.fechaCreacion | date:'h:mm a'}}
+              </span>
+            </td>
 
             <td>
               <span>
@@ -76,11 +86,6 @@
             <td>
               <img src="{{rowData.animal.foto}}" width="60px" height="60px">
             </td>
-            <td>
-              <span>
-                {{rowData.fechaEntrega | date:'dd/MM/yyyy'}}
-              </span>
-            </td>
 
             <td>
               <span *ngIf="rowData.estadoAdopcion=='RESERVADO'" class="label arrowed label-primary">
@@ -95,11 +100,11 @@
                 <button pButton type="button" icon="pi pi-ban" class="ui-button-danger space-buttons"
                   tooltip="Anular"></button>
               </a> &nbsp;
-              <a *ngIf="rowData.estadoAdopcion=='RESERVADO'" (click)="showDialogEntrega(rowData)">
+              <a *ngIf="rowData.estadoAdopcion=='RESERVADO'" (click)="doAction(rowData, 'ENTREGADO');">
                 <button pButton type="button" icon="fa fa-handshake-o" class="ui-button-success space-buttons"
                   tooltip="Entregar"></button>
               </a> &nbsp;
-              <a *ngIf="rowData.estadoAdopcion=='ENTREGADO'" (click)="showDialogDevolucion(rowData)">
+              <a *ngIf="rowData.estadoAdopcion=='ENTREGADO'" (click)="doAction(rowData, 'DEVUELTO');">
                 <button pButton type="button" icon="fa fa-thumbs-down" class="ui-button-warning space-buttons"
                   tooltip="Devolver"></button>
               </a> &nbsp;
@@ -114,38 +119,64 @@
     </p-panel>
   </div>
 
-  <p-dialog header="ESTA SEGURO DE ENTREGAR?" [(visible)]="modalEntrega" [modal]="true" [responsive]="true"
-    [style]="{width: '350px',  height: '500px'}" [baseZIndex]="10000">
-    <div>
-      <label for="">Ingrese la fecha de entrega de la mascota</label>
-      <input type="hidden" [(ngModel)]="adopcion">
-      <p-calendar [(ngModel)]="fechaEntrega" [locale]="es" dateFormat="dd/mm/yy" [inline]="true"></p-calendar>
-    </div>
+  <!-- <div class="ui-g-12 ui-lg-4">
+      <div class="card card-w-title">
+        <div class="ui-g">
+          <div class="ui-g-12">
+           <h1><strong>Agregar / Editar locales</strong> </h1>
+          </div>
+        </div>
 
-    <p-footer>
-      <button type="button" pButton icon="fa fa-handshake-o" (click)="doAction(adopcion, 'ENTREGADO')" label="ENTREGAR"
-        class="ui-button-success"></button>
-      <button type="button" pButton icon="fa fa-times-circle" (click)="modalEntrega=false" label="SALIR"
-        class="ui-button-secondary"></button>
-    </p-footer>
-  </p-dialog>
+        <form  (ngSubmit)="save()" >
+          <input name="id" type="hidden" pInputText/>
+          <div class="ui-g ">
+              <div class="row ui-g-12" >
+                <label for="form-control" style="padding-right: 5px"> <strong>Encargado: </strong> </label>
+                <p-autoComplete [(ngModel)]="user" name="user" [suggestions]="filterUser" (completeMethod)="filterUsers($event)" 
+                field="nombreCompleto" [size]="29"
+                placeholder="Ingresar usuario" [minLength]="1"></p-autoComplete>
+                      
+              </div>
+              <div class="row ui-g-12" >
+                  <label for="form-control" style="padding-right: 10px"> <strong>Tipo local: </strong> </label>
+                  <p-dropdown [options]="tipoLocales" name="tipoLocal" [(ngModel)]="tipoLocal" placeholder="Seleccione tipo local" 
+                  optionLabel="nombre" [showClear]="true" ></p-dropdown>
+              </div>
+              <div class="row ui-g-12" >
+                  <label for="form-control" style="padding-right: 5px"> <strong>Capacidad: </strong> </label>
+                  <p-spinner  [min]="0" [max]="500" [size]="5" [(ngModel)]="capacidad" name="capacidad"></p-spinner>
+              </div>
+              <div class="row ui-g-12" >
+                  <label for="form-control" style="padding-right: 30px"> <strong>Ciudad: </strong> </label>
+                  <p-autoComplete field="descripcion"
+                                      [(ngModel)]="ubigeo" name="ubigeo" (onSelect)="onSelectCiudad($event)"
+                                      [suggestions]="filteredCities"
+                                      (completeMethod)="filterCitiesByNombre($event)" [size]="29"
+                                      placeholder="Ingrese ubigeo" [minLength]="1">
+                          <ng-template let-d pTemplate="item">
+                              {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}} - {{d.descripcion}}
+                          </ng-template>
+                      </p-autoComplete>
+              </div>
+              <div class="row ui-g-12" >
+                  <label for="form-control" style="padding-right: 15px"> <strong>Direccíon: </strong> </label>
+                  <input   mdbInputDirective type="text" class="form-control"
+                  name="direccion" [(ngModel)]="direccion" pInputText placeholder="Ingresar direccíon" size="30" >
+              </div>
+              <div class="ui-g" style="width:250px;margin-bottom:10px">
+                  <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estado" 
+                   [(ngModel)]="estado" ></p-checkbox></div>
+              </div>
+                <div class="ui-g-12 ui-md-6">
+                    <button pButton  label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
+                </div>
+                <div class="ui-g-12 ui-md-6">
+                  <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary" ></button>
+                </div>
 
-  <p-dialog header="ESTA SEGURO DE DEVOLVER?" [(visible)]="modalDevolucion" [modal]="true" [responsive]="true"
-    [style]="{width: '400px',  height: '500px'}" [baseZIndex]="10000">
-    <div>
-      <label for="">Ingrese la fecha de devolución de la mascota</label>
-      <input type="hidden" [(ngModel)]="adopcion">
-      <p-calendar [(ngModel)]="fechaDevolucion" [locale]="es" dateFormat="dd/mm/yy" [inline]="true"></p-calendar>
-      <label for="">Ingrese el motivo</label>
-      <textarea rows="5" cols="20" pInputTextarea name="descripcion" [(ngModel)]="motivoDevolucion" 
-      maxlength="200"></textarea>
-    </div>
-
-    <p-footer>
-      <button type="button" pButton icon="fa fa-thumbs-down" (click)="doAction(adopcion, 'DEVUELTO')" label="DEVOLVER"
-        class="ui-button-success"></button>
-      <button type="button" pButton icon="fa fa-times-circle" (click)="modalDevolucion=false" label="SALIR"
-        class="ui-button-secondary"></button>
-    </p-footer>
-  </p-dialog>
+          </div>
+        </form>
+      </div>
+  
+  </div> -->
 </div>

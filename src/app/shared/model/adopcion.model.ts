@@ -14,11 +14,7 @@ export class Adopcion {
         public fechaCreacion?: Date,
         public fechaModificacion?: Date,
         public persona?: Persona,
-        public createUser?: boolean,
-        public fechaEntrega?: Date,
-        public fechaDevolucion?: Date,
-        public motivoDevolucion?: String
-
+        public createUser?: boolean
 
 
     ) {}

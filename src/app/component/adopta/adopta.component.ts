@@ -230,7 +230,7 @@ export class AdoptaComponent implements OnInit {
 
         this.postulanteService.save(this.data).subscribe((res) => {
             if (res != null) {
-                message = 'Solicitud enviada correctamente, se le enviara información a su correo.';
+                message = 'Solicitud enviada correctamente.';
                 this.showMsg('success', message, 'Solicitud');
                 this.limpiarData();
             }
@@ -313,7 +313,7 @@ export class AdoptaComponent implements OnInit {
     }
 
     limpiarData() {
-       // this.displayDialog = false;
+        this.displayDialog = false;
         this.nombres = '';
         this.apeMaterno = '';
         this.apePaterno = '';
@@ -338,17 +338,5 @@ export class AdoptaComponent implements OnInit {
 
     showMsg(type: string, msg: string, title: string) {
         this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
-    }
-
-    soloLetras(e) {
-        var tecla = (document.all) ? e.keyCode : e.which;
-    
-        //Tecla de retroceso para borrar, siempre la permite
-        if (tecla == 8) {
-            return true;
-        }
-        var patron = /[A-Za-z ]/;
-        var tecla_final = String.fromCharCode(tecla);
-        return patron.test(tecla_final);
     }
 }

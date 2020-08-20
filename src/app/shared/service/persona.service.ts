@@ -1,10 +1,13 @@
 
 import { throwError as observableThrowError, Observable } from 'rxjs';
+
+import { timeoutWith } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Local } from '../model/local.model';
 import { Persona } from '../model/persona.model';
-
+import { User } from '../model/User.model';
 
 @Injectable()
 export class PersonaService {
