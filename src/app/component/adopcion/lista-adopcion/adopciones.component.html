@@ -18,15 +18,17 @@
   </ng-template>
 </p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-<div class="ui-g">
-  <div class="ui-g-12 ui-lg-12">
-    <p-panel [style]="{'margin-bottom':'20px'}">
+<div class="ui-g cont-tarjeta">
+  <div class="ui-g-12 ui-lg-12 tarjeta_adm">
+    <p-panel>
       <p-header>
         <span class="ui-panel-title">Adopciones</span>
       </p-header>
 
-      <p-table #dt [columns]="cols" [value]="adopciones" dataKey="idDirectorio" [paginator]="true" [rows]="perPage" [totalRecords]="totalRecords" 
-        [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
+
+      <p-table #dt [columns]="cols" [value]="adopciones" dataKey="idDirectorio" [paginator]="true" [rows]="perPage"
+        [totalRecords]="totalRecords" [responsive]="true" paginatorPosition="bottom" [lazy]="true" [scrollable]="true" 
+        (onLazyLoad)="loadLazy($event)">
 
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
@@ -137,8 +139,8 @@
       <input type="hidden" [(ngModel)]="adopcion">
       <p-calendar [(ngModel)]="fechaDevolucion" [locale]="es" dateFormat="dd/mm/yy" [inline]="true"></p-calendar>
       <label for="">Ingrese el motivo</label>
-      <textarea rows="5" cols="20" pInputTextarea name="descripcion" [(ngModel)]="motivoDevolucion" 
-      maxlength="200"></textarea>
+      <textarea rows="5" cols="20" pInputTextarea name="descripcion" [(ngModel)]="motivoDevolucion"
+        maxlength="200"></textarea>
     </div>
 
     <p-footer>
@@ -148,4 +150,5 @@
         class="ui-button-secondary"></button>
     </p-footer>
   </p-dialog>
+
 </div>
