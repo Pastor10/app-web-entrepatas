@@ -13,10 +13,11 @@
 
                     <div class="ui-g-12 ui-md-6">
                         <div class="ui-g-12">
-                            <label><b>Nombre (*)</b></label>
-                            <input type="text" name="nombre" [(ngModel)]="nombre" [disabled]="isDisabled" pInputText focus()/>
+                            <label><b>Nombre de Mascota(*)</b></label>
+                            <input type="text" autofocus name="nombre" [(ngModel)]="nombre" [disabled]="isDisabled"  pInputText/>
                         </div>
 
+                        <div class="ui-g-12 ui-md-6">
                         <div class="ui-g-12">
                             <label><b>Tipo Animal (*)</b></label>
                             <p-autoComplete [(ngModel)]="tipoAnimal" [suggestions]="listaTipoAnimal" field="nombre" [disabled]="isDisabled" name="tipoAnimal" [size]="15" (onSelect)="changeTipoAnimal()" (completeMethod)="filterListTipoAnimal($event)" [minLength]="1" placeholder="Seleccione tipo animal" [dropdown]="true" [readonly]="true">
@@ -49,63 +50,63 @@
                                 </div>
                             </div>
                         </div>
-
+                        </div>
+                        
+                        <div class="ui-g-12 ui-md-6">
                         <div class="ui-g-12">
                             <label><b>Condición (*)</b></label>
                             <p-autoComplete [(ngModel)]="condicion" [suggestions]="listaCondicion" field="nombre" [disabled]="isDisabled" name="condicion" [size]="15" (completeMethod)="filterListCondicion($event)" [minLength]="1" placeholder="Seleccione condición" [dropdown]="true" [readonly]="true">
                             </p-autoComplete>
                         </div>
 
-                        <div class="ui-g-4" *ngIf="usuario.perfil.nombre!='VISITANTE'">
+                        <div class="ui-g-12" *ngIf="usuario.perfil.nombre!='VISITANTE'">
                             <label><b>Local Asignado (*)</b></label>
                             <p-autoComplete [(ngModel)]="local" [suggestions]="listaLocales" field="nombre" name="local" [disabled]="isDisabled" [size]="15" (completeMethod)="filterListLocal($event)" [minLength]="1" placeholder="Seleccione Local" [dropdown]="true" [readonly]="true">
                             </p-autoComplete>
                         </div>
 
-                        <div class="ui-g-5">
+                        <div class="ui-g-12">
                             <label><b>Edad aprox.(*)</b></label>
                             <p-listbox [options]="listaEdad" [(ngModel)]="edad" optionLabel="name" name="edad" [disabled]="isDisabled">
                             </p-listbox>
                             <p>Edad seleccionado: {{edad ? edad.name : edad }}</p>
                         </div>
+                        </div>
 
-                        <div class="ui-g-7">
+                        <div class="ui-g-12">
                             <label><b>Descripción </b></label>
-                            <textarea rows="10" cols="30" pInputTextarea name="descripcion" [(ngModel)]="descripcion" [disabled]="isDisabled" maxlength="200"></textarea>
+                            <textarea cols="30" rows="3" pInputTextarea name="descripcion" [(ngModel)]="descripcion" [disabled]="isDisabled" maxlength="200"></textarea>
                         </div>
 
-                        <div class="ui-g-12" text-align: center style="text-align: center;">
-                            <button style="width: auto; margin-top: 1.2rem;  padding: 5px ; font-size: 15px;" pButton
-                                type="submit" [label]="textButtonAction" class="ui-button-rounded ui-button-success"
-                                (click)="save()" [disabled]="isDisabled"></button>
-
-                            <button
-                                style="width: auto; margin-top: 1.2rem; margin-left: 20px ;   padding: 5px ; font-size: 15px;"
-                                pButton type="submit" label="Cancelar" class="ui-button-rounded ui-button-secondary"
-                                [routerLink]="returnpublicaciones()"></button>
-                        </div>
                     </div>
                 </p-card>
             <!-- </div> -->
 
             <div class="ui-g-12 ui-md-6">
-                <img src="{{imagenUp}}" width="300px" height="300px">
-                    <h2>Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</h2>
-                        <p-fileUpload accept="image/*" chooseLabel="Selecciona una imagen" [disabled]="isDisabled" uploadLabel="Subir imagen" accept="image/*" cancelLabel="Cancelar" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
-                            <ng-template pTemplate="content">
+                <div class="ui-g-12">
+                <label><b>Foto (*) [SELECCIONE IMAGEN Y CARGUELA]</b></label>
+                    <p-fileUpload accept="image/*" chooseLabel="BUSCAR" [disabled]="isDisabled" uploadLabel="CARGAR" accept="image/*" cancelLabel="CLOSE" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
+                    <ng-template pTemplate="content">
                                 <ul *ngIf="uploadedFiles.length">
                                     <li *ngFor="let file of uploadedFiles">{{file.name}} -
                                         {{file.size}} bytes
                                     </li>
                                 </ul>
                             </ng-template>
-                        </p-fileUpload>
+                    </p-fileUpload>
 
-                        <div style="margin-top: 0.5rem;">
-                                <label><b>Imagen</b></label>
-                                <input style="width: 100%; margin-bottom: 0.2em" [(ngModel)]="imagenUp" class="form-control" name="imagenUp" id="imagenUp" type="text" [disabled]="isDisabled" pInputText />
-                        </div>
+                <img src="{{imagenUp}}" width="250px" height="250px">
+
+                <label><b>Imagen</b></label>
+                <input [(ngModel)]="imagenUp" disabled class="form-control" name="imagenUp" id="imagenUp" type="text" [disabled]="isDisabled" pInputText />
             </div>
+            </div>
+
+            <div class="ui-g-12" text-align: center style="text-align: center;">
+                <button style="width: auto; margin-top: 1.2rem;  padding: 5px ; font-size: 15px;" pButton type="submit" [label]="textButtonAction" class="ui-button-rounded ui-button-success" (click)="save()" [disabled]="isDisabled"></button>
+                <button style="width: auto; margin-top: 1.2rem; margin-left: 20px ;   padding: 5px ; font-size: 15px;" pButton type="submit" label="Cancelar" class="ui-button-rounded ui-button-secondary" [routerLink]="returnpublicaciones()"></button>
+            </div>
+            
             </div>
         </div>
     </div>

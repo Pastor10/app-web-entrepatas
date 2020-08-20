@@ -1364,6 +1364,9 @@ body .ui-datepicker {
   width: auto;
 }
 
+textarea{
+  resize: none;
+}
 
 textarea::placeholder, input::-webkit-input-placeholder,input::-webkit-input-placeholder{
 color:rgba(0,0,0,0.3)!important;
