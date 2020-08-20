@@ -124,23 +124,24 @@
                 </p-autoComplete>
               </div>
 
+
               <div class="form-group mt-2">
                 <label> <b>Nombres (*): </b> </label>
                 <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="nombre" name="nombre"
-                  pInputText placeholder="Ingresar nombres">
+                  pInputText placeholder="Ingresar nombres" (keypress)="soloLetras($event)" >
               </div>
+
 
               <div class="form-group mt-2">
                 <label> <b>Ap. Paterno (*): </b> </label>
                 <input mdbInputDirective type="text" id="apePaterno" class="form-control" [(ngModel)]="apePaterno" (keypress)="soloLetras($event)"  name="apePaterno" pInputText placeholder="Ingresar apellido paterno">
-<!-- >>>>>>> Stashed changes -->
 
               </div>
 
               <div class="form-group mt-2">
                 <label> <b>Ap. Materno (*): </b> </label>
                 <input mdbInputDirective type="text" id="apeMaterno" class="form-control" [(ngModel)]="apeMaterno"
-                  name="apeMaterno" pInputText placeholder="Ingresar apellido materno">
+                  name="apeMaterno" pInputText placeholder="Ingresar apellido materno" (keypress)="soloLetras($event)">
               </div>
 
               <div class="form-group mt-2">
@@ -148,7 +149,6 @@
                 <input mdbInputDirective type="text" id="correo" class="form-control" [(ngModel)]="correo" name="correo"
                   pInputText placeholder="Ingresar correo">
               </div>
-              
               <div class="form-group mt-2">
                 <label> <b>Celular (*): </b> </label>
 
@@ -165,12 +165,15 @@
                 </p-autoComplete>
               </div>
 
+
               <div class="form-group mt-2">
                 <label> <b>Documento (*): </b> </label>
                 <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="documento"
                   name="documento" pInputText placeholder="Ingresar documento" [textMask]="{mask: numberMask}"
                   minlength="8" maxlength="12">
               </div>
+
+           
 
               <div class="ui-g-12">
                 <p-checkbox binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected">
