@@ -122,6 +122,7 @@
           <input [(ngModel)]="id" name="id" type="hidden" pInputText />
           <div class="ui-g-12">
             <p-scrollPanel [style]="{height: '65vh'}">
+
               <div class="form-group mt-2">
                 <label><b>Perfil (*): </b></label>
                 <p-autoComplete [(ngModel)]="perfilSelected" [suggestions]="listFilterPerfil" field="nombre"
@@ -130,50 +131,57 @@
                 </p-autoComplete>
               </div>
 
+
               <div class="form-group mt-2">
-                <label for="form-control"> <b>Nombres (*): </b> </label>
+                <label> <b>Nombres (*): </b> </label>
                 <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="nombre" name="nombre"
-                (keypress)="soloLetras($event)"  pInputText placeholder="Ingresar nombres">
+                  pInputText placeholder="Ingresar nombres" (keypress)="soloLetras($event)" >
+              </div>
+
+
+              <div class="form-group mt-2">
+                <label> <b>Ap. Paterno (*): </b> </label>
+                <input mdbInputDirective type="text" id="apePaterno" class="form-control" [(ngModel)]="apePaterno" (keypress)="soloLetras($event)"  name="apePaterno" pInputText placeholder="Ingresar apellido paterno">
+
               </div>
 
               <div class="form-group mt-2">
-                <label for="form-control"> <b>Ap. Paterno (*): </b> </label>
-                <input mdbInputDirective type="text" id="apePaterno" class="form-control" [(ngModel)]="apePaterno"
-                (keypress)="soloLetras($event)"  name="apePaterno" pInputText placeholder="Ingresar apellido paterno">
-
-              </div>
-              <div class="form-group mt-2">
-                <label for="form-control"> <b>Ap. Materno (*): </b> </label>
+                <label> <b>Ap. Materno (*): </b> </label>
                 <input mdbInputDirective type="text" id="apeMaterno" class="form-control" [(ngModel)]="apeMaterno"
-                (keypress)="soloLetras($event)"  name="apeMaterno" pInputText placeholder="Ingresar apellido materno">
+                  name="apeMaterno" pInputText placeholder="Ingresar apellido materno" (keypress)="soloLetras($event)">
               </div>
 
               <div class="form-group mt-2">
-                <label for="form-control"> <b>Correo (*): </b> </label>
+                <label> <b>Correo (*): </b> </label>
                 <input mdbInputDirective type="text" id="correo" class="form-control" [(ngModel)]="correo" name="correo"
                   pInputText placeholder="Ingresar correo">
               </div>
-              <div class="row ui-g-12">
-                <label for="form-control" style="padding-right: 45px"> <strong>Celular (*): </strong> </label>
+
+              <div class="form-group mt-2">
+                <label> <b>Celular (*): </b> </label>
+
                 <input mdbInputDirective type="text" id="celular" class="form-control" [(ngModel)]="celular"
                   name="celular" pInputText placeholder="Ingresar celular" [textMask]="{mask: numberMask}" minlength="9"
                   maxlength="9">
               </div>
 
               <div class="form-group mt-2">
-                <label for="form-control"> <b>Tipo documento (*): </b> </label>
+                <label> <b>Tipo documento (*): </b> </label>
                 <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento" field="abreviatura"
                   name="tipoDocumento" (completeMethod)="filterListTipoDocumento($event)" [size]="15" [minLength]="1"
                   placeholder="Seleccionar tipo documento" [dropdown]="true" [readonly]="true">
                 </p-autoComplete>
               </div>
 
+
               <div class="form-group mt-2">
-                <label for="form-control"> <b>Documento (*): </b> </label>
+                <label> <b>Documento (*): </b> </label>
                 <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="documento"
                   name="documento" pInputText placeholder="Ingresar documento" [textMask]="{mask: numberMask}"
                   minlength="8" maxlength="12">
               </div>
+
+           
 
               <div class="ui-g-12">
                 <p-checkbox binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected">
