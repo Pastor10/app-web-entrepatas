@@ -25,15 +25,39 @@
         <p-header>
           <h2>Usuarios</h2>
         </p-header>
+        <div class="ui-g form-group">
+          <div class="row ui-g-12">
+            <div class="ui-g-2 ui-md-1">
+              <label for="dropdown">Filtrar</label>
+            </div>
+            <div class="ui-g-2 ui-md-2">
+              <p-dropdown [options]="filtro" [(ngModel)]="filtroSelected" placeholder="TODOS" optionLabel="name"
+                (onChange)="onChangeFilter()"></p-dropdown>
+            </div>
 
-        <p-table #dt [columns]="cols" [value]="listaUsuarios"  [paginator]="true" [rows]="perPage"  [totalRecords]="totalRecords" 
-          [responsive]="true" [lazy]="true"  (onLazyLoad)="getUsers($event)" [scrollable]="true" >
+            <div class="ui-g-2 ui-md-4" *ngIf="isSearch">
+              <input mdbInputDirective type="text" id="celular" class="form-control" [(ngModel)]="search" name="celular"
+                pInputText placeholder="Ingrese valor">
+
+            </div>
+            <div class="ui-g-2 ui-md-2">
+              <button pButton label="Aceptar" (click)="refreshTable()"
+                style="background: #eb0000;color: white;"></button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <p-table #dt [columns]="cols" [value]="listaUsuarios" [paginator]="true" [rows]="perPage"
+          [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="getUsers($event)"
+          [scrollable]="true">
 
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
               <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
               <col style="width: 150px">
-      
+
             </colgroup>
           </ng-template>
 
@@ -46,7 +70,7 @@
               <th style="width:15em" id="">Acciones</th>
             </tr>
           </ng-template>
-  
+
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
               <td>
@@ -60,15 +84,15 @@
                 </span>
               </td>
               <td>
-                  <span>
-                    {{rowData.persona.numeroDocumento}}
-                  </span>
-                </td>
+                <span>
+                  {{rowData.persona.numeroDocumento}}
+                </span>
+              </td>
               <td>
-                  <span>
-                    {{rowData.persona.celular}}
-                  </span>
-                </td>
+                <span>
+                  {{rowData.persona.celular}}
+                </span>
+              </td>
               <td>
                 <span>
                   {{rowData.perfil.nombre}}
@@ -135,13 +159,14 @@
               <div class="form-group mt-2">
                 <label> <b>Nombres (*): </b> </label>
                 <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="nombre" name="nombre"
-                  pInputText placeholder="Ingresar nombres" (keypress)="soloLetras($event)" >
+                  pInputText placeholder="Ingresar nombres" (keypress)="soloLetras($event)">
               </div>
 
 
               <div class="form-group mt-2">
                 <label> <b>Ap. Paterno (*): </b> </label>
-                <input mdbInputDirective type="text" id="apePaterno" class="form-control" [(ngModel)]="apePaterno" (keypress)="soloLetras($event)"  name="apePaterno" pInputText placeholder="Ingresar apellido paterno">
+                <input mdbInputDirective type="text" id="apePaterno" class="form-control" [(ngModel)]="apePaterno"
+                  (keypress)="soloLetras($event)" name="apePaterno" pInputText placeholder="Ingresar apellido paterno">
 
               </div>
 
@@ -181,7 +206,7 @@
                   minlength="8" maxlength="12">
               </div>
 
-           
+
 
               <div class="ui-g-12">
                 <p-checkbox binary="true" label="Activo" name="estadoSelected" [(ngModel)]="estadoSelected">

@@ -17,12 +17,12 @@
       </div>
   </ng-template>
 </p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-<div class="ui-g">
-  <div class="ui-g-12 ui-lg-12">
+<!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
+<div class="ui-g cont-tarjeta">
+  <div class="ui-g-12 ui-lg-12 tarjeta_adm">
     <p-panel [style]="{'margin-bottom':'20px'}">
       <p-header>
-        <span  class="ui-panel-title">Eventos</span>
+        <span  class="ui-panel-title">Eventos realizados</span>
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="eventos"  dataKey="idDirectorio"
@@ -105,64 +105,6 @@
   </p-panel>
   </div>
 
-  <!-- <div class="ui-g-12 ui-lg-4">
-      <div class="card card-w-title">
-        <div class="ui-g">
-          <div class="ui-g-12">
-           <h1><strong>Agregar / Editar locales</strong> </h1>
-          </div>
-        </div>
 
-        <form  (ngSubmit)="save()" >
-          <input name="id" type="hidden" pInputText/>
-          <div class="ui-g ">
-              <div class="row ui-g-12" >
-                <label for="form-control" style="padding-right: 5px"> <strong>Encargado: </strong> </label>
-                <p-autoComplete [(ngModel)]="user" name="user" [suggestions]="filterUser" (completeMethod)="filterUsers($event)" 
-                field="nombreCompleto" [size]="29"
-                placeholder="Ingresar usuario" [minLength]="1"></p-autoComplete>
-                      
-              </div>
-              <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 10px"> <strong>Tipo local: </strong> </label>
-                  <p-dropdown [options]="tipoLocales" name="tipoLocal" [(ngModel)]="tipoLocal" placeholder="Seleccione tipo local" 
-                  optionLabel="nombre" [showClear]="true" ></p-dropdown>
-              </div>
-              <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 5px"> <strong>Capacidad: </strong> </label>
-                  <p-spinner  [min]="0" [max]="500" [size]="5" [(ngModel)]="capacidad" name="capacidad"></p-spinner>
-              </div>
-              <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 30px"> <strong>Ciudad: </strong> </label>
-                  <p-autoComplete field="descripcion"
-                                      [(ngModel)]="ubigeo" name="ubigeo" (onSelect)="onSelectCiudad($event)"
-                                      [suggestions]="filteredCities"
-                                      (completeMethod)="filterCitiesByNombre($event)" [size]="29"
-                                      placeholder="Ingrese ubigeo" [minLength]="1">
-                          <ng-template let-d pTemplate="item">
-                              {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}} - {{d.descripcion}}
-                          </ng-template>
-                      </p-autoComplete>
-              </div>
-              <div class="row ui-g-12" >
-                  <label for="form-control" style="padding-right: 15px"> <strong>Direccíon: </strong> </label>
-                  <input   mdbInputDirective type="text" class="form-control"
-                  name="direccion" [(ngModel)]="direccion" pInputText placeholder="Ingresar direccíon" size="30" >
-              </div>
-              <div class="ui-g" style="width:250px;margin-bottom:10px">
-                  <div class="ui-g-12"><p-checkbox  binary="true" label="Activo" name="estado" 
-                   [(ngModel)]="estado" ></p-checkbox></div>
-              </div>
-                <div class="ui-g-12 ui-md-6">
-                    <button pButton  label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
-                </div>
-                <div class="ui-g-12 ui-md-6">
-                  <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary" ></button>
-                </div>
 
-          </div>
-        </form>
-      </div>
-  
-  </div> -->
 </div>

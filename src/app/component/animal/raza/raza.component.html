@@ -17,21 +17,21 @@
     </div>
   </ng-template>
 </p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!--<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>-->
 <div class="ui-g">
-  <div class="ui-g-12 ui-lg-8">
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-8 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Razas</span>
+        <h2>Razas</h2>
       </p-header>
 
-      <p-table #dt [columns]="cols" [value]="razas" [paginator]="true" [rows]="perPage" [totalRecords]="totalRecords"
-        [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
+      <p-table #dt [columns]="cols" [value]="razas" [paginator]="true" [rows]="perPage" [totalRecords]="totalRecords" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
 
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
             <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-            <col style="width: 150px">
+            <col style="width: 100px">
           </colgroup>
         </ng-template>
 
@@ -41,7 +41,7 @@
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th style="width:15em" id="">Acciones</th>
+            <th style="width:100px" id="">Acciones</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -85,45 +85,50 @@
           </tr>
         </ng-template>
       </p-table>
+    </div>
     </p-panel>
   </div>
 
-  <div class="ui-g-12 ui-lg-4">
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Agregar / Editar raza</span>
+        <h2>Crear/Editar Razas</h2>
       </p-header>
       <form (ngSubmit)="save()">
+        <div class="ui-g">
         <input name="id" type="hidden" pInputText />
-        <div class="ui-g ">
-
-          <div class="row ui-g-12">
-            <label for="form-control" style="padding-right: 10px"> <strong>Tipo animal: </strong> </label>
+        
+        <p-scrollPanel [style]="{height: '50vh'}" >
+          <div class="ui-g-12">
+            <label><b>Tipo animal:</b> </label>
             <p-dropdown [options]="tipoAnimales" name="tipoAnimal" [(ngModel)]="tipoAnimal"
               placeholder="Seleccione tipo animal" optionLabel="nombre" [showClear]="true"></p-dropdown>
           </div>
-          <div class="row ui-g-12">
-            <label for="form-control" style="padding-right: 45px"> <strong>Raza: </strong> </label>
+
+          <div class="ui-g-12">
+            <label><b>Raza:</b></label>
             <input mdbInputDirective type="text" id="celular" class="form-control" [(ngModel)]="nombre" name="nombre"
               pInputText placeholder="Ingresar raza">
           </div>
 
-          <div class="ui-g" style="width:250px;margin-bottom:10px">
+          
             <div class="ui-g-12">
               <p-checkbox binary="true" label="Activo" name="estado" [(ngModel)]="estado"></p-checkbox>
             </div>
-          </div>
-          <div class="ui-g-12 ui-md-6">
+
+          <div class="ui-g-6">
             <button pButton label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
           </div>
-          <div class="ui-g-12 ui-md-6">
+          <div class="ui-g-6">
             <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary"
               (click)="limpiarData()"></button>
           </div>
-
+</p-scrollPanel>
         </div>
       </form>
+    </div>
     </p-panel>
-
+    <!-- {{theForm.value | json}} -->
   </div>
 </div>

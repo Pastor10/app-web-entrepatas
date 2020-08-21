@@ -17,12 +17,13 @@
     </div>
   </ng-template>
 </p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
 <div class="ui-g">
-  <div class="ui-g-12 ui-lg-7">
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-8 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Tipo de Eventos</span>
+        <h2>Tipo de Eventos</h2>
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="tipoEventos" [paginator]="true" [rows]="10" [responsive]="true"
@@ -81,34 +82,38 @@
           </tr>
         </ng-template>
       </p-table>
+    </div>
     </p-panel>
   </div>
 
-  <div class="ui-g-12 ui-lg-5">
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Agregar / Editar Tipo Evento</span>
+        <h2>Crear/Editar Tipo Evento</h2>
       </p-header>
       <form (ngSubmit)="save()" enctype="multipart/form-data">
-        <input [(ngModel)]="id" name="id" type="hidden" pInputText />
         <div class="ui-g ">
-          <div class="row ui-g-12">
-            <label for="form-control" style="padding-right: 25px"> <strong>Tipo Evento: </strong> </label>
+        <input [(ngModel)]="id" name="id" type="hidden" pInputText />
+          <p-scrollPanel [style]="{height: '30vh'}" >
+            <div class="ui-g-12">
+            <label><b>Tipo Evento:</b></label>
             <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="nombre" name="nombre"
               pInputText placeholder="Ingresar tipo evento">
           </div>
-          <div class="ui-g-12 ui-md-3">
+
+          <div class="ui-g-6">
             <button pButton label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
           </div>
-          <div class="ui-g-12 ui-md-6">
+          <div class="ui-g-6">
             <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary"
               (click)="limpiarData()"></button>
           </div>
-
+</p-scrollPanel>
         </div>
       </form>
+    </div>
     </p-panel>
-
-
+    <!-- {{theForm.value | json}} -->
   </div>
 </div>

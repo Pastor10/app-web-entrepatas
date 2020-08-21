@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/shared/model/User.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MessageService, LazyLoadEvent } from 'primeng/api';
+import { MessageService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { TipoEventoService } from 'src/app/shared/service/tipoevento.service';
-import { TipoEvento } from 'src/app/shared/model/tipoevento.model';
-import { EventoService } from 'src/app/shared/service/evento.service';
-import { Evento } from 'src/app/shared/model/evento.model';
 import { PublicacionService } from 'src/app/shared/service/publicacion.service';
 import { Publicacion } from 'src/app/shared/model/publicacion.model';
 import { UsuarioService } from 'src/app/shared/service/usuario.service';
 import { Estado } from 'src/app/shared/model/estado.model';
+import { Condicion } from 'src/app/shared/model/condicion.model';
+import { CondicionService } from 'src/app/shared/service/condicion.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'app-eventolista',
@@ -26,14 +25,9 @@ export class PublicacionListaComponent implements OnInit {
     cols: any[];
 
     mf: FormGroup;
-    tipoEventos: TipoEvento[];
-    tipoEvento: TipoEvento;
-    model = new TipoEvento();
     id: number;
-    eventos: Evento[];
     nombre: string;
     estado: boolean = true;
-    data: TipoEvento;
     uploadedFiles: any[] = [];
     file: File;
     publicaciones: Publicacion[];
@@ -45,10 +39,13 @@ export class PublicacionListaComponent implements OnInit {
     publicacion: Publicacion;
     observacion: string;
     lastLazyLoadEvent: LazyLoadEvent;
+    listaCondicion: Condicion[];
+    condicionSelected: any;
+    fechaSearch: Date;
 
     @ViewChild('dt', { static: true }) public tabla: Table;
-    constructor(public messageService: MessageService, public fb: FormBuilder, public tipoEventoService: TipoEventoService,
-        public eventoService: EventoService, public publicacionService: PublicacionService, public usuarioService: UsuarioService) {
+    constructor(public messageService: MessageService, public fb: FormBuilder, public publicacionService: PublicacionService,
+        public usuarioService: UsuarioService, public condicionService: CondicionService) {
 
         this.token = localStorage.getItem("userLogin");
         this.pl = JSON.parse(this.token);
@@ -70,8 +67,9 @@ export class PublicacionListaComponent implements OnInit {
             { field: 'observacion', header: 'Observación', width: '120px' },
             { field: 'estado', header: 'Estado', width: '100px' },
         ];
-        // this.getAllTipoevento();
+
         this.builderForm();
+        this.getAllCondiciones();
 
     }
 
@@ -89,9 +87,21 @@ export class PublicacionListaComponent implements OnInit {
         const params = [];
         this.lastLazyLoadEvent = event;
         const pageNumber = event.first / this.perPage;
-    
+
         params.push(`page=${pageNumber}`);
         params.push(`perPage=${this.perPage}`);
+
+        if (this.condicionSelected != undefined) {
+            this.condicionSelected.forEach(element => {
+                params.push(`condicion=${element.nombre}`);
+
+            });
+
+        }
+
+        // if(this.fechaSearch!=undefined){
+        //     params.push(`fecha=${this.fechaSearch}`);
+        // }
 
         this.publicacionService.getAll(params.join('&')).subscribe((data: Publicacion[]) => {
             this.totalRecords = data['totalElements'];
@@ -102,11 +112,19 @@ export class PublicacionListaComponent implements OnInit {
 
     }
 
+    getAllCondiciones() {
+        this.condicionService.getAll().subscribe(
+            (data: Condicion[]) => {
+                this.listaCondicion = data;
+            }
+        )
+    }
+
     getAllPublicacionUser(idUser, event) {
         const params = [];
         this.lastLazyLoadEvent = event;
         const pageNumber = event.first / this.perPage;
-    
+
         params.push(`page=${pageNumber}`);
         params.push(`perPage=${this.perPage}`);
         params.push(`id=${idUser}`);
@@ -151,32 +169,15 @@ export class PublicacionListaComponent implements OnInit {
         console.log('this.file', this.file);
     }
 
-    formToModel(): void {
-        this.model.id = this.id;
-        this.model.nombre = this.nombre;
-        this.model.file = this.file;
-        this.model.estado = this.estado;
+    // formToModel(): void {
+    //     this.model.id = this.id;
+    //     this.model.nombre = this.nombre;
+    //     this.model.file = this.file;
+    //     this.model.estado = this.estado;
 
-    }
+    // }
 
 
-
-    save() {
-        let message;
-        this.formToModel();
-
-        //params.join('&')
-        this.tipoEventoService.save(this.model).subscribe((res) => {
-            if (res != null) {
-                message = 'Tipo Evento creado correctamente.';
-                this.showMsg('success', message);
-                this.limpiarData();
-                this.refreshTable();
-
-            }
-        });
-
-    }
 
 
     udpdatePublicacion(publicacion) {
@@ -199,52 +200,19 @@ export class PublicacionListaComponent implements OnInit {
     }
 
     refreshTable() {
-        this.tabla.reset();
+        //this.tabla.reset();
         if (this.lastLazyLoadEvent) {
             this.loadLazy(this.lastLazyLoadEvent);
         }
     }
 
-    showConfirmDelete(data) {
-        this.messageService.clear();
-        this.data = data;
-        this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Seguro que desea eliminar?' });
-    }
 
     limpiarData() {
         this.id = undefined;
-        this.tipoEvento = null;
         this.nombre = '';
-        this.observacion= '';
+        this.observacion = '';
     }
 
-    onReject() {
-        this.messageService.clear('c');
-    }
-
-    onConfirm(data) {
-        console.log(data);
-
-        this.deleteRaza(data, 'Tipo Evento eliminado correctamente');
-        this.messageService.clear('c');
-    }
-
-    public deleteRaza(data, message): void {
-        this.tipoEventoService.delete(data.id).subscribe(
-            data => {
-                this.showMsg('success', message, 'Tipo Evento');
-                this.refreshTable();
-            },
-            error => {
-                const errorMessage =
-                    error.message != undefined
-                        ? error.message
-                        : 'No se pudo procesar la petición';
-                this.showMsg('error', errorMessage, 'Raza');
-
-            }
-        );
-    }
 
     doAction(data, accion) {
 
@@ -256,7 +224,7 @@ export class PublicacionListaComponent implements OnInit {
 
     }
 
-    showDialogRechazo(data){
+    showDialogRechazo(data) {
         this.publicacion = data;
         this.modalRechazo = true;
     }
