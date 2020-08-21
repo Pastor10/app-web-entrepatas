@@ -17,12 +17,13 @@
     </div>
   </ng-template>
 </p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
 <div class="ui-g">
-  <div class="ui-g-12 ui-lg-8">
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-8 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Veterinarios</span>
+        <h2>Veterinarios</h2>
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="veterinarios" dataKey="idDirectorio" [paginator]="true" [rows]="10"
@@ -85,45 +86,49 @@
           </tr>
         </ng-template>
       </p-table>
+    </div>
     </p-panel>
   </div>
 
-  <div class="ui-g-12 ui-lg-4">
-
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Agregar / Editar veterinario</span>
+        <h2>Crear/Editar Veterinario</h2>
       </p-header>
       <form (ngSubmit)="save()">
-        <input name="id" type="hidden" pInputText />
         <div class="ui-g ">
-          <div class="row ui-g-12">
-            <label for="form-control" style="padding-right: 15px"> <strong>Nombre: </strong> </label>
-            <input mdbInputDirective type="text" class="form-control" name="nombre" [(ngModel)]="nombre" pInputText
-              placeholder="Ingresar nombre" size="30">
+        <input name="id" type="hidden" pInputText />
+          <p-scrollPanel [style]="{height: '50vh'}" >
+
+            <div class="ui-g-12">
+            <label><b>Nombre:</b></label>
+            <input mdbInputDirective type="text" class="form-control" name="nombre" [(ngModel)]="nombre" pInputText placeholder="Ingresar nombre">
 
           </div>
-          <div class="row ui-g-12">
-            <label for="form-control"> <strong>Veterinaria: </strong> </label>
+          <div class="ui-g-12">
+            <label><b>Veterinaria:</b></label>
             <p-dropdown [options]="veterinarias" name="veterinaria" [(ngModel)]="veterinaria"
-              placeholder="Seleccione veterinaria" optionLabel="nombre" [showClear]="true" autoWidth="false"
-              [style]="{'width':'75%'}"></p-dropdown>
+              placeholder="Seleccione veterinaria" optionLabel="nombre" [showClear]="true" autoWidth="false" [style]="{'width':'75%'}"></p-dropdown>
           </div>
-          <div class="ui-g" style="width:250px;margin-bottom:10px">
+          
             <div class="ui-g-12">
               <p-checkbox binary="true" label="Activo" name="estado" [(ngModel)]="estado"></p-checkbox>
             </div>
-          </div>
-          <div class="ui-g-12 ui-md-6">
+        
+          <div class="ui-g-6">
             <button pButton label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
           </div>
-          <div class="ui-g-12 ui-md-6">
+          <div class="ui-g-6">
             <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary"
               (click)="limpiarData()"></button>
           </div>
 
+</p-scrollPanel>
         </div>
       </form>
+    </div>
     </p-panel>
+    <!-- {{theForm.value | json}} -->
   </div>
 </div>

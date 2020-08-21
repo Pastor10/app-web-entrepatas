@@ -26,13 +26,11 @@
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="listProfile" [lazy]="true" [paginator]="true"
-        (onLazyLoad)="loadLazy($event)" [rows]="perPage" [totalRecords]="totalRecords" dataKey="id" [responsive]="true"
-        [autoLayout]="true">
+        (onLazyLoad)="loadLazy($event)" [rows]="perPage" [totalRecords]="totalRecords" dataKey="id" [responsive]="true" [autoLayout]="true">
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
             <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
             <col style="width: 100px">
-            <!--check -->
           </colgroup>
         </ng-template>
 
