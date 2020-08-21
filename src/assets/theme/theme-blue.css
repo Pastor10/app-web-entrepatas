@@ -1376,11 +1376,11 @@ textarea:focus::placeholder,input:focus::-webkit-input-placeholder,input:focus::
   color:rgba(0,0,0,0.15)!important;
   text-align: center;
 }
-input[type="password"],input[type="text"] {
+input[type="password"],input[type="text"], input[type="number"] {
   text-align: center;
   width: 75%;
 }
-input[type="password"]:focus,input[type="text"]:focus {
+input[type="password"]:focus,input[type="text"]:focus,input[type="number"]:focus {
   border: 1px solid skyblue;
 }
 
@@ -1472,16 +1472,26 @@ label {
   cursor: pointer;
   transform: scale(3);
 }
-/*
-body :-moz-placeholder {
-  color: #777777;
+.boton_act{
+  background: #689F38;
+  cursor: pointer;
+  color: white;
+  margin: 20px 0;
 }
-body ::-moz-placeholder {
-  color: #777777;
+.boton_act:hover{
+    background: #558B2F;
+    color:white;
 }
-body :-ms-input-placeholder {
-  color: #777777;
-}*/
+.img_act{
+  height: 60px;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.img_act:hover{
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
+}
+
 body .ui-inputtext.ng-dirty.ng-invalid,
 body p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 body p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,

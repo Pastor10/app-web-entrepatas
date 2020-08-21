@@ -11,6 +11,8 @@ import { Persona } from 'src/app/shared/model/persona.model';
 import { TipoDocumento } from 'src/app/shared/model/tipoDocumento.model';
 import { TipoDocumentoService } from 'src/app/shared/service/tipodocumento.service';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import { Item } from 'src/app/shared/model/item.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-usuarios',
@@ -26,7 +28,7 @@ export class UsuariosComponent implements OnInit {
   tokenGenerated: any;
   modelForm: FormGroup;
   visibleTokenGenerado = false;
-  public listaUsuarios: User[]= [];
+  public listaUsuarios: User[] = [];
   public listFilterUser: User[];
   public listaPerfil: Perfil[];
   model = new User();
@@ -50,6 +52,10 @@ export class UsuariosComponent implements OnInit {
   lastLazyLoadEvent: LazyLoadEvent;
   public listFilterPerfil: Perfil[];
   public data: User;
+  filtro: Item[];
+  filtroSelected: Item;
+  search: string;
+  isSearch: boolean = false;
 
   public numberMask = createNumberMask({
     prefix: '',
@@ -83,6 +89,8 @@ export class UsuariosComponent implements OnInit {
       { field: 'profile', header: 'Perfil', width: '100px' },
       { field: 'estado', header: 'Estado', width: '100px' }
     ];
+
+    this.filtro = [new Item('TODOS', 'TODOS'), new Item('DOCUMENTO', 'DOCUMENTO'), new Item('NOMBRES', 'NOMBRES')];
 
 
     //this.getUsers();
@@ -196,7 +204,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   refreshTable() {
-    this.tabla.reset();
+    //this.tabla.reset();
     if (this.lastLazyLoadEvent) {
       this.getUsers(this.lastLazyLoadEvent);
     }
@@ -305,6 +313,16 @@ export class UsuariosComponent implements OnInit {
       });
   }
 
+  onChangeFilter() {
+    if (this.filtroSelected.name != 'TODOS') {
+      this.isSearch = true;
+
+    } else {
+      this.isSearch = false;
+    }
+    console.log('filtro sele ', this.filtroSelected);
+  }
+
   getUsers(event: LazyLoadEvent) {
     const params = [];
     this.lastLazyLoadEvent = event;
@@ -312,8 +330,23 @@ export class UsuariosComponent implements OnInit {
 
     params.push(`page=${pageNumber}`);
     params.push(`perPage=${this.perPage}`);
+
+    if (this.filtroSelected != undefined) {
+      if (this.filtroSelected.name == 'DOCUMENTO') {
+        params.push(`documento=${this.search}`);
+      }
+
+      if (this.filtroSelected.name == 'NOMBRES') {
+        params.push(`nombres=${this.search}`);
+      }
+
+    }
+
+
+
+
     this.listaUsuarios = [];
-    
+
     this.usuarioService.getUsers(params.join('&')).subscribe(
       (data: User[]) => {
         console.log('data', data);

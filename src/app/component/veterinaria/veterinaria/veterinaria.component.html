@@ -17,12 +17,13 @@
     </div>
   </ng-template>
 </p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
 <div class="ui-g">
-  <div class="ui-g-12 ui-lg-8">
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-8 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Veterinarias</span>
+        <h2>Veterinarias</h2>
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="veterinarias" dataKey="idDirectorio" [paginator]="true" [rows]="10"
@@ -85,55 +86,57 @@
           </tr>
         </ng-template>
       </p-table>
+    </div>
     </p-panel>
   </div>
 
-  <div class="ui-g-12 ui-lg-4">
-
-    <p-panel [style]="{'margin-bottom':'20px'}">
+  <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
+    <p-panel>
+      <div class="tarjeta_adm">
       <p-header>
-        <span class="ui-panel-title">Agregar / Editar veterinaria</span>
+        <h2>Crear/Editar Veterinaria</h2>
       </p-header>
       <form (ngSubmit)="save()">
+        <div class="ui-g">
         <input name="id" type="hidden" pInputText />
-        <div class="ui-g ">
-          <div class="row ui-g-12">
-            <label for="form-control" style="padding-right: 15px"> <strong>Nombre: </strong> </label>
-            <input mdbInputDirective type="text" class="form-control" name="nombre" [(ngModel)]="nombre" pInputText
-              placeholder="Ingresar nombre" size="31">
-
+        
+        <p-scrollPanel [style]="{height: '50vh'}" >
+          <div class="ui-g-12">
+            <label><b>Nombre: </b> </label>
+            <input mdbInputDirective type="text" class="form-control" name="nombre" [(ngModel)]="nombre" pInputText placeholder="Ingresar nombre">
           </div>
-          <div class="row ui-g-12">
-            <label for="form-control" style="padding-right: 25px"> <strong>Ciudad: </strong> </label>
-            <p-autoComplete field="descripcion" [(ngModel)]="ubigeo" name="ubigeo" [suggestions]="filteredCities"
-              (completeMethod)="filterCitiesByNombre($event)" [size]="30" placeholder="Ingrese ubigeo" [minLength]="1">
-              <ng-template let-d pTemplate="item">
+
+          <div class="ui-g-12">
+            <label><b>Ciudad:</b></label>
+            <p-autoComplete field="descripcion" [(ngModel)]="ubigeo" name="ubigeo" [suggestions]="filteredCities" (completeMethod)="filterCitiesByNombre($event)" placeholder="Ingrese ubigeo" [minLength]="1"[style]="{'width':'75%'}">
+            <ng-template let-d pTemplate="item">
                 {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}} - {{d.descripcion}}
-              </ng-template>
+            </ng-template>
             </p-autoComplete>
           </div>
-          <div class="row ui-g-12">
-            <label for="form-control" style="padding-right: 10px"> <strong>Direccíon: </strong> </label>
-            <input mdbInputDirective type="text" class="form-control" name="direccion" [(ngModel)]="direccion"
-              pInputText placeholder="Ingresar direccíon" size="31">
+
+          <div class="ui-g-12">
+            <label><b>Direccíon:</b></label>
+            <input mdbInputDirective type="text" class="form-control" name="direccion" [(ngModel)]="direccion" pInputText placeholder="Ingresar direccíon">
           </div>
-          <div class="ui-g" style="width:250px;margin-bottom:10px">
+
             <div class="ui-g-12">
               <p-checkbox binary="true" label="Activo" name="estado" [(ngModel)]="estado"></p-checkbox>
             </div>
-          </div>
-          <div class="ui-g-12 ui-md-6">
+
+          
+          <div class="ui-g-6">
             <button pButton label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
           </div>
-          <div class="ui-g-12 ui-md-6">
+          <div class="ui-g-6">
             <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary"
               (click)="limpiarData()"></button>
           </div>
-
+</p-scrollPanel>
         </div>
       </form>
+    </div>
     </p-panel>
-
-
+    <!-- {{theForm.value | json}} -->
   </div>
 </div>

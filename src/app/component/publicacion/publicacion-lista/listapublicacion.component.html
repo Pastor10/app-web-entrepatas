@@ -1,38 +1,36 @@
-
 <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
-<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
-  <ng-template let-message pTemplate="message">
-      <div style="text-align: center">
-          <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
-          <h3>{{message.summary}}</h3>
-          <input type="hidden" [(ngModel)]="data">
-          <p>{{message.detail}}</p>
-      </div>
-      <div class="ui-g ui-fluid">
-          <div class="ui-g-6">
-              <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
-          </div>
-          <div class="ui-g-6">
-              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
-          </div>
-      </div>
-  </ng-template>
-</p-toast>
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 <div class="ui-g cont-tarjeta">
   <div class="ui-g-12 ui-lg-12 tarjeta_adm">
     <p-panel [style]="{'margin-bottom':'20px'}">
       <p-header>
-        <span  class="ui-panel-title">Publicaciones</span>
+        <span class="ui-panel-title">Publicaciones de Terceros</span>
       </p-header>
+      <div class="ui-g form-group">
+        <div class="row ui-g-12">
+          <div class="ui-g-2 ui-md-1">
+            <label for="dropdown">CONDICION</label>
+          </div>
+          <div class="ui-g-2 ui-md-2">
+            <p-multiSelect [options]="listaCondicion" optionLabel="nombre" [(ngModel)]="condicionSelected"
+              filterPlaceHolder="seleccionar" defaultLabel="buscar" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+          </div>
+          <div class="ui-g-2 ui-md-2">
+            <button pButton label="Aceptar" (click)="refreshTable()" style="background: #eb0000;color: white;"></button>
+          </div>
 
-      <p-table #dt [columns]="cols" [value]="publicaciones"  dataKey="idDirectorio" [totalRecords]="totalRecords" [scrollable]="true"
-        [paginator]="true" [rows]="perPage" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
-        
+        </div>
+
+      </div>
+
+      <p-table #dt [columns]="cols" [value]="publicaciones" dataKey="idDirectorio" [totalRecords]="totalRecords"
+        [scrollable]="true" [paginator]="true" [rows]="perPage" [responsive]="true" paginatorPosition="bottom"
+        [lazy]="true" (onLazyLoad)="loadLazy($event)">
+
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
             <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-            <col style="width: 150px" >
+            <col style="width: 150px">
           </colgroup>
         </ng-template>
 
@@ -48,87 +46,92 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [pSelectableRow]="rowData">
             <td>
-               <span>
-                    {{rowData.fechaCreacion | date:'dd/MM/yyyy'}} 
-               </span>
-            </td>
-            <td>
-                <span>
-                    {{rowData.fechaCreacion | date:'h:mm a'}} 
-                </span>
-            </td>
-            <td>
-                <span>
-                    {{rowData.usuarioPublica.persona.nombreCompleto}}
-                </span>
-            </td>
-            <td>
-                <span>
-                    {{rowData.animal.nombre}}
-                </span>
-            </td>
-            <td>
-                <span>
-                    <img class="img_adm" src="{{rowData.animal.foto}}" >                   
-                </span>
-            </td>
-            <td>
-                <span>
-                   {{rowData.animal.raza.tipoAnimal.nombre}} - {{rowData.animal.sexo}}
-                </span>
-             </td>
-             <td>
-                <span>
-                    {{rowData.condicion.nombre}}
-                </span>
-             </td>
-             <td>
               <span>
-                  {{rowData.observacion}}
+                {{rowData.fechaCreacion | date:'dd/MM/yyyy'}}
               </span>
-           </td>
-             
-            <td >
-                <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label arrowed label-succes">
-                    {{rowData.estadoPublicacion}}
-                </span>
-                <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label arrowed label-info">
-                    {{rowData.estadoPublicacion}}
-                 </span>
-                 <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label arrowed label-important">
-                  {{rowData.estadoPublicacion}}
-               </span>
-               <span *ngIf="rowData.estadoPublicacion=='FINALIZADO'" class="label arrowed label-warning">
+            </td>
+            <td>
+              <span>
+                {{rowData.fechaCreacion | date:'h:mm a'}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.usuarioPublica.persona.nombreCompleto}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.animal.nombre}}
+              </span>
+            </td>
+            <td>
+              <span>
+                <img class="img_adm" src="{{rowData.animal.foto}}">
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.animal.raza.tipoAnimal.nombre}} - {{rowData.animal.sexo}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.condicion.nombre}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.observacion}}
+              </span>
+            </td>
+
+            <td>
+              <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label arrowed label-succes">
                 {{rowData.estadoPublicacion}}
-             </span>
-             </td>
+              </span>
+              <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label arrowed label-info">
+                {{rowData.estadoPublicacion}}
+              </span>
+              <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label arrowed label-important">
+                {{rowData.estadoPublicacion}}
+              </span>
+              <span *ngIf="rowData.estadoPublicacion=='FINALIZADO'" class="label arrowed label-warning">
+                {{rowData.estadoPublicacion}}
+              </span>
+            </td>
             <td style="text-align: center">
               <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="showDialogRechazo(rowData)">
-                <button  pButton type="button" icon="pi pi-ban" class="ui-button-danger space-buttons" tooltip="Rechazar" ></button>
+                <button pButton type="button" icon="pi pi-ban" class="ui-button-danger space-buttons"
+                  tooltip="Rechazar"></button>
               </a> &nbsp;
-              <a  class="hand">
-                <button   pButton [routerLink]="linkUpdate(rowData['id'])"  type="button" icon="pi pi-pencil"  class="ui-button-secondary space-buttons" tooltip="Editar"></button>
+              <a class="hand">
+                <button pButton [routerLink]="linkUpdate(rowData['id'])" type="button" icon="pi pi-pencil"
+                  class="ui-button-secondary space-buttons" tooltip="Editar"></button>
               </a> &nbsp;
-              <a  class="hand" *ngIf="usuario.perfil.nombre!=='VISITANTE'">
-                  <button   pButton [routerLink]="linkCitaMedica(rowData.animal['id'])"  type="button" icon="fa fa-heartbeat"  class="ui-button-secondary space-buttons" tooltip="Historial médico"></button>
-                </a> 
-            </td> 
+              <a class="hand" *ngIf="usuario.perfil.nombre!=='VISITANTE'">
+                <button pButton [routerLink]="linkCitaMedica(rowData.animal['id'])" type="button" icon="fa fa-heartbeat"
+                  class="ui-button-secondary space-buttons" tooltip="Historial médico"></button>
+              </a>
+            </td>
           </tr>
         </ng-template>
       </p-table>
-  </p-panel>
+    </p-panel>
   </div>
 
 
-<p-dialog header="ESTA SEGURO DE RECHAZAR?" [(visible)]="modalRechazo" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
-[baseZIndex]="10000">
-<p>Ingrese una observación de rechazo</p>
-<input type="hidden" [(ngModel)]="publicacion">
-<textarea rows="4" cols="40" pInputTextarea name="observacion" [(ngModel)]="observacion" maxlength="400"></textarea>
- <p-footer>
-     <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR" class="ui-button-danger"></button>
-     <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR" class="ui-button-secondary"></button>
- </p-footer>
-</p-dialog>
+  <p-dialog header="ESTA SEGURO DE RECHAZAR?" [(visible)]="modalRechazo" [modal]="true" [responsive]="true"
+    [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000">
+    <p>Ingrese una observación de rechazo</p>
+    <input type="hidden" [(ngModel)]="publicacion">
+    <textarea rows="4" cols="40" pInputTextarea name="observacion" [(ngModel)]="observacion" maxlength="400"></textarea>
+    <p-footer>
+      <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR"
+        class="ui-button-danger"></button>
+      <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR"
+        class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
 
 </div>

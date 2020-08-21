@@ -41,7 +41,7 @@ import { ListboxModule } from 'primeng/listbox';
 // import { MenubarModule } from 'primeng/menubar';
 // import { MessagesModule } from 'primeng/messages';
 // import { MessageModule } from 'primeng/message';
-// import { MultiSelectModule } from 'primeng/multiselect';
+ import { MultiSelectModule } from 'primeng/multiselect';
 // import { OrderListModule } from 'primeng/orderlist';
 // import { OrganizationChartModule } from 'primeng/organizationchart';
 // import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -189,6 +189,7 @@ import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecu
         TextMaskModule,
         NgxSpinnerModule,
         FieldsetModule,
+        MultiSelectModule,
         NgxsModule.forRoot()
     ],
     declarations: [
