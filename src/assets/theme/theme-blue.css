@@ -1464,14 +1464,14 @@ label {
 }
 
 .img_adm{
-  width: 40px;
+  width: 40px
   height:40px;
-  border-radius:50%;
 }
 .img_adm:hover{
   cursor: pointer;
-  transform: scale(3);
-  z-index:999999;
+  transform: scale(3)
+  border 2px solid #ddd;
+  border-radius:5px;
 }
 /*
 body :-moz-placeholder {
