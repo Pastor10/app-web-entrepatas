@@ -9,10 +9,10 @@
     </div>
     <div class="ui-g ui-fluid">
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
+        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success btn"></button>
       </div>
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-danger btn"></button>
       </div>
     </div>
   </ng-template>
@@ -54,11 +54,11 @@
               </span>
             </td>
             <td style="text-align: center">
-              <span *ngIf="rowData.estado==true" class="label arrowed label-succes">
+              <span *ngIf="rowData.estado==true" class="label label-success">
                 Activo
               </span>
-              <span *ngIf="rowData.estado==false" class="label arrowed label-important">
-                Desactivo
+              <span *ngIf="rowData.estado==false" class="label label-secondari">
+                Inactivo
               </span>
             </td>
             <td style="text-align: center">
@@ -67,15 +67,13 @@
                   tooltip="Desactivar"></button>
               </a>
               <a *ngIf="rowData.enabled==false" (click)="doAction(rowData, 'state');">
-                <button pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons"
-                  tooltip="Activar" style="background-color: #a09898;"></button>
+                <button pButton type="button" icon="pi pi-ban" class="ui-button-success" tooltip="Activar"></button>
               </a> &nbsp;
               <a (click)="doAction(rowData, 'edit');" class="hand">
-                <button pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons"
-                  tooltip="Editar"></button>
+                <button pButton type="button" icon="pi pi-pencil" class="ui-button-warning" tooltip="Editar"></button>
               </a> &nbsp;
               <a (click)="showConfirmDelete(rowData)" class="hand">
-                <button pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons"
+                <button pButton type="button" icon="pi pi-trash" class="ui-button-danger"
                   tooltip="Eliminar"></button>
               </a>
             </td>
@@ -98,15 +96,14 @@
           <p-scrollPanel [style]="{height: '30vh'}" >
             <div class="ui-g-12">
             <label><b>Tipo Evento:</b></label>
-            <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="nombre" name="nombre"
-              pInputText placeholder="Ingresar tipo evento">
+            <input mdbInputDirective type="text" id="nombre" class="form-control" [(ngModel)]="nombre" name="nombre" pInputText placeholder="Ingresar tipo evento">
           </div>
 
           <div class="ui-g-6">
-            <button pButton label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
+            <button pButton label="Guardar" class="ui-button-success btn" type="submit"></button>
           </div>
           <div class="ui-g-6">
-            <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary"
+            <button pButton type="button" label="Limpiar" class="ui-button-danger btn"
               (click)="limpiarData()"></button>
           </div>
 </p-scrollPanel>

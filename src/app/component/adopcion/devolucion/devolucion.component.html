@@ -10,10 +10,10 @@
       </div>
       <div class="ui-g ui-fluid">
           <div class="ui-g-6">
-              <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
+              <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success btn"></button>
           </div>
           <div class="ui-g-6">
-              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-danger btn"></button>
           </div>
       </div>
   </ng-template>
@@ -80,7 +80,7 @@
           </td>
           <td>
 
-            <img src="{{rowData.animal.foto}}" width="60px" height="60px">
+            <img clase="img_adm" src="{{rowData.animal.foto}}">
 
           </td>
           <td>
@@ -90,14 +90,13 @@
           </td>
 
           <td>
-            <span class="label arrowed label-important">
+            <span class="label-success">
               {{rowData.estadoAdopcion}}
             </span>
           </td>
           <td style="text-align: center">
             <a (click)="doAction(rowData, 'edit');" class="hand">
-              <button pButton type="button" icon="fa fa-eye" class="ui-button-secondary space-buttons"
-                tooltip="Ver"></button>
+              <button pButton type="button" icon="fa fa-eye" class="ui-button-info" tooltip="Ver"></button>
             </a>
           </td>
         </tr>

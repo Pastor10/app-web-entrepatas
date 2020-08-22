@@ -38,7 +38,7 @@
 
         <ng-template pTemplate="header" let-columns let-pro>
           <tr>
-            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
+            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center">
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
@@ -85,28 +85,28 @@
             </td>
 
             <td>
-              <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label arrowed label-succes">
+              <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label label-secondari">
                 {{rowData.estadoPublicacion}}
               </span>
-              <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label arrowed label-info">
+              <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label label-success">
                 {{rowData.estadoPublicacion}}
               </span>
-              <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label arrowed label-important">
+              <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label label-danger">
                 {{rowData.estadoPublicacion}}
               </span>
             </td>
             <td style="text-align: center">
               <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="doAction(rowData, 'APROBADO');">
-                <button pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons"
+                <button pButton type="button" icon="pi pi-check" class="ui-button-success"
                   tooltip="Aprobar"></button>
               </a>&nbsp;
               <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="showDialogRechazo(rowData)">
-                <button pButton type="button" icon="pi pi-ban" class="ui-button-danger space-buttons"
+                <button pButton type="button" icon="pi pi-ban" class="ui-button-danger"
                   tooltip="Rechazar"></button>
               </a> &nbsp;
               <a class="hand">
                 <button pButton [routerLink]="linkUpdate(rowData['id'])" type="button" icon="pi pi-eye"
-                  class="ui-button-secondary space-buttons" tooltip="Ver"></button>
+                  class="ui-button-info" tooltip="Ver"></button>
               </a>
             </td>
           </tr>
@@ -121,10 +121,8 @@
     <input type="hidden" [(ngModel)]="publicacion">
     <textarea rows="4" cols="40" pInputTextarea name="observacion" [(ngModel)]="observacion" maxlength="400"></textarea>
     <p-footer>
-      <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR"
-        class="ui-button-danger"></button>
-      <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR"
-        class="ui-button-secondary"></button>
+      <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR" class="ui-button-danger btn"></button>
+      <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR" class="ui-button-info btn"></button>
     </p-footer>
   </p-dialog>
 </div>

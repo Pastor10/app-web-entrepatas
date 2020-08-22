@@ -17,7 +17,7 @@
 
               <div class="ui-g-12 ui-md-6">
                 <label><b>Fecha y Hora(*)</b></label>
-                <p-calendar [(ngModel)]="fecha" name="fecha" [showTime]="true" dateFormat="dd/mm/yy" hourFormat="12"> </p-calendar>
+                <p-calendar [(ngModel)]="fecha" name="fecha" [showTime]="true" dateFormat="dd/mm/yy" hourFormat="12" placeholder="dd/mm/yy"> </p-calendar>
               </div>
               
               <div class="ui-g-12">
@@ -41,12 +41,12 @@
 
               <div class="ui-g-12 ui-md-6">
                 <label><b>Direccíon(*)</b></label>
-                  <input type="text" [(ngModel)]="direccion" name="direccion" pInputText/>
+                  <input type="text" [(ngModel)]="direccion" placeholder="Direccion del evento" name="direccion" pInputText/>
               </div>
 
           <div class="ui-g-12">
                 <label><b>Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</b></label>
-                  <p-fileUpload accept="image/*" chooseLabel="Selecciona una imagen" uploadLabel="Subir imagen" accept="image/*" cancelLabel="Cancelar" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
+                  <p-fileUpload accept="image/*" chooseLabel="BUSCAR" uploadLabel="CARGAR" accept="image/*" cancelLabel="CANCELAR" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
                   <ng-template pTemplate="content">
                   <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -66,16 +66,16 @@
                   <input [(ngModel)]="imagenUp" class="form-control" name="imagenUp" id="imagenUp" type="text" disabled pInputText/>
               </div>
 
+        </div>
+        
           <div class="ui-g-12">
           <div class="ui-g-6">
-            <button pButton type="submit" [label]="textButtonAction" class="btn" (click)="save()" ></button> 
+            <button pButton type="submit" label="Cancelar" class="ui-button-danger btn" (click)="returnListaEventos()"></button>
           </div>
-                
           <div class="ui-g-6">
-            <button pButton type="submit" label="Cancelar" class="btn" (click)="returnListaEventos()"></button>
+            <button pButton type="submit" [label]="textButtonAction" class="ui-button-success btn" (click)="save()" ></button> 
           </div>
           </div>
-        </div>
 
     </div>
     </div>
