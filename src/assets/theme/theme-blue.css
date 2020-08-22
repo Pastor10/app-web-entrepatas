@@ -593,10 +593,11 @@ body .ui-autocomplete.ui-autocomplete-multiple.ui-autocomplete-dd.ui-autocomplet
   border-right: 0 none;
 }
 body .ui-autocomplete-panel {
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  /*-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  border: 1px solid #cccccc;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);*/
+  box-shadow: 0 5px 10px -5px rgba(0,0,0,.2), 0 5px 10px 0 rgba(0,0,0,.14), 0 5px 10px 0 rgba(0,0,0,.12);
+  border-top: 1.5px solid #ccc;
 }
 body .ui-autocomplete-panel .ui-autocomplete-items {
   padding: 0;
@@ -1366,6 +1367,7 @@ body .ui-datepicker {
 
 textarea{
   resize: none;
+  width: 100%;
 }
 
 textarea::placeholder, input::-webkit-input-placeholder,input::-webkit-input-placeholder{
@@ -1472,6 +1474,15 @@ label {
   cursor: pointer;
   transform: scale(3);
 }
+
+.img_bus{
+  width: 250px;
+  height: 250px;
+  border:2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px -1px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
 .boton_act{
   background: #689F38;
   cursor: pointer;
@@ -1622,15 +1633,19 @@ body .ui-accordion .ui-accordion-header.ui-state-active {
   -webkit-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+
 body .ui-accordion .ui-accordion-header > a {
   padding: 10px 15px;
   font-size: 16px;
   color: #212529;
   outline: 0 none;
 }
+
 body .ui-accordion .ui-accordion-header > a:focus {
-  border-color: #c4c4c4;
+  /*border-color: #c4c4c4; Color de lista de opciones*/
+  border-color: #0D47A1;
   background-color: #dcdcdc;
+  font-weight: bold;
 }
 body .ui-accordion .ui-accordion-header > a .ui-accordion-header-text {
   vertical-align: middle;
