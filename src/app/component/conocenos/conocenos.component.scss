@@ -1,33 +1,52 @@
-
-.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-details > .p-grid {
-    border: 1px solid #b3c2ca;
-    border-radius: 3px;
-    margin: 0.3em;
+.tit_otros{
+    // font-family: 'bebas_neueregular', Arial;
+    font-size: 40px;
     text-align: center;
-    padding: 2em 0 2.25em 0;
+    color: #E91E63; /*titulo Rosado*/
+    margin-top: 20px;
 }
-.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-title {
-    font-weight: 700;
-    font-size: 20px;
-    margin-top: 24px;
+.valor{
+    margin-top: -25px;
+    text-align: center;
+    font-size: 14px;
+    line-height:20px;
 }
-.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-subtitle {
-    margin: 0.25em 0 2em 0;
+
+.fondo_principal{
+    width: 100vw;
+    height: 95vh;
+    margin-left: -45px;
+    margin-top: -75px;
+    text-align: center;
+    background: rgb(235,241,246);
+    background: url("../../../assets/layout/images/fondo_principal.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
-.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button {
-    margin-left: 0.5em;
+.fondo_principal p, .fondo_principal_unete p{
+    color: white;
+    text-align: center;
+    margin:10em 0;
+    font-size: 18px;
+    text-shadow: 0 0 10px black;
 }
-.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button:first-child {
-    margin-left: 0;
+
+@media screen and (min-width: 380px){
+    .tit_otros{
+        margin-top: 30px;
+    }
+    .fondo_principal p{
+    margin:15em 1.5%;
+    }
 }
-.carousel-demo .ui-carousel.custom-carousel .ui-carousel-dot-icon {
-    width: 16px !important;
-    height: 16px !important;
-    border-radius: 50%;
-}
-.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-start .car-details > .p-grid {
-    margin-left: 0.6em;
-}
-.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-end .car-details > .p-grid {
-    margin-right: 0.6em;
+
+@media screen and (min-width: 1024px){
+    .tit_otros{
+        margin-top: 40px;
+    }
+    .fondo_principal p{
+    margin:20em 5%;
+    }
+
 }

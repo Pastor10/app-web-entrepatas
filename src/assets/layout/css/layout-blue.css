@@ -1320,7 +1320,7 @@ body a {
 }
 .layout-wrapper .topbar .topbar-right {
   padding: 15px;
-  height: 85px;
+  height: 75px;
   background: #FFB300; /* Old browsers */
 background: -moz-linear-gradient(top, #FFB300 0%, #ffecb3 100%);
 background: -webkit-linear-gradient(top, #FFB300 0%,#ffecb3 100%);
@@ -1911,6 +1911,10 @@ box-shadow: 0 1px 10px #fff;
   .layout-wrapper.menu-layout-static .layout-main, .layout-wrapper.menu-layout-static .layout-footer {
     margin-left: 235px;
   }
+
+.layout-wrapper.menu-layout-static .layout-footer {
+    margin-left: 235px;
+  }  
   .layout-wrapper.menu-layout-static.layout-menu-static-inactive .layout-menu-container {
     margin-left: -250px;
   }

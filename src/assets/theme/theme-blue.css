@@ -12,6 +12,7 @@
 /* Data */
 /* Panel */
 /* Add your variable customizations of theme here */
+
 body,html,a,input,table,span,{
   outline:0;
 }
@@ -1578,6 +1579,19 @@ label {
   filter: grayscale(0%);
 }
 
+/*.tit_principal{
+  font-size: 35px;
+  font-weight: bold;
+  color: #212121;
+  text-align: center;
+  padding: 0;
+}
+.tit_principal2{
+  margin-top:-20px;
+  font-size: 20px
+  color: #212121;
+  text-align: center;
+}*/
 body .ui-inputtext.ng-dirty.ng-invalid,
 body p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 body p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
