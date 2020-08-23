@@ -154,6 +154,7 @@ import { LoaderRequestService } from './shared/service/locader-request.service';
 import { CuestionarioService } from './shared/service/cuestionario.service';
 import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
 import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
+import { ProcesoComponent } from './component/proceso/proceso.component';
 
 
 
@@ -235,7 +236,8 @@ import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecu
         ColaboraComponent,
         LoaderComponent,
         EventoProximoComponent,
-        ActiveCuentaComponent
+        ActiveCuentaComponent,
+        ProcesoComponent
 
 
 
