@@ -1,10 +1,4 @@
-.tit_otros{
-    // font-family: 'bebas_neueregular', Arial;
-    font-size: 40px;
-    text-align: center;
-    color: #E91E63; /*titulo Rosado*/
-    margin-top: 20px;
-}
+
 .valor{
     margin-top: -25px;
     text-align: center;
@@ -32,21 +26,8 @@
     text-shadow: 0 0 10px black;
 }
 
-@media screen and (min-width: 380px){
-    .tit_otros{
-        margin-top: 30px;
-    }
-    .fondo_principal p{
-    margin:15em 1.5%;
-    }
-}
-
 @media screen and (min-width: 1024px){
-    .tit_otros{
-        margin-top: 40px;
-    }
     .fondo_principal p{
     margin:20em 5%;
     }
-
 }
