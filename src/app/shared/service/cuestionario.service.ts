@@ -1,10 +1,7 @@
 
-import {throwError as observableThrowError, Observable} from 'rxjs';
-
-import {timeoutWith} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {environment} from 'src/environments/environment';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Cuestionario } from '../model/cuestionario.model';
 
 @Injectable()
@@ -14,9 +11,14 @@ export class CuestionarioService {
 
   baseUrl: string = environment.END_POINT + 'api/cuestionario/';
 
-  save(o: Cuestionario[]) {
+  save(o: Cuestionario) {
+    if (o.id == undefined) {
       return this.http.post(this.baseUrl + 'create', o);
-   
+    } else {
+      return this.http.put(this.baseUrl + 'update', o);
+    }
+
+
   }
 
 }
