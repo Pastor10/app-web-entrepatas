@@ -16,7 +16,7 @@
               filterPlaceHolder="seleccionar" defaultLabel="buscar" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
           </div>
           <div class="ui-g-2 ui-md-2">
-            <button pButton label="Aceptar" (click)="refreshTable()" style="background: #eb0000;color: white;"></button>
+            <button class="ui-button-info btn" pButton label="BUSCAR" (click)="refreshTable()"></button>
           </div>
 
         </div>
@@ -87,31 +87,31 @@
             </td>
 
             <td>
-              <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label arrowed label-succes">
+              <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label label-secondari">
                 {{rowData.estadoPublicacion}}
               </span>
-              <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label arrowed label-info">
+              <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label label-success">
                 {{rowData.estadoPublicacion}}
               </span>
-              <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label arrowed label-important">
+              <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label label-danger">
                 {{rowData.estadoPublicacion}}
               </span>
-              <span *ngIf="rowData.estadoPublicacion=='FINALIZADO'" class="label arrowed label-warning">
+              <span *ngIf="rowData.estadoPublicacion=='FINALIZADO'" class="label label-success">
                 {{rowData.estadoPublicacion}}
               </span>
             </td>
             <td style="text-align: center">
               <a *ngIf="usuario.perfil.nombre!=='VISITANTE'" (click)="showDialogRechazo(rowData)">
-                <button pButton type="button" icon="pi pi-ban" class="ui-button-danger space-buttons"
+                <button pButton type="button" icon="pi pi-ban" class="ui-button-danger"
                   tooltip="Rechazar"></button>
               </a> &nbsp;
               <a class="hand">
                 <button pButton [routerLink]="linkUpdate(rowData['id'])" type="button" icon="pi pi-pencil"
-                  class="ui-button-secondary space-buttons" tooltip="Editar"></button>
+                  class="ui-button-warning" tooltip="Editar"></button>
               </a> &nbsp;
               <a class="hand" *ngIf="usuario.perfil.nombre!=='VISITANTE'">
                 <button pButton [routerLink]="linkCitaMedica(rowData.animal['id'])" type="button" icon="fa fa-heartbeat"
-                  class="ui-button-secondary space-buttons" tooltip="Historial médico"></button>
+                  class="ui-button-success" tooltip="Historial médico"></button>
               </a>
             </td>
           </tr>
@@ -127,10 +127,9 @@
     <input type="hidden" [(ngModel)]="publicacion">
     <textarea rows="4" cols="40" pInputTextarea name="observacion" [(ngModel)]="observacion" maxlength="400"></textarea>
     <p-footer>
-      <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR"
-        class="ui-button-danger"></button>
-      <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR"
-        class="ui-button-secondary"></button>
+
+      <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR" class="ui-button-danger btn"></button>
+      <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR" class="ui-button-info btn"></button>
     </p-footer>
   </p-dialog>
 

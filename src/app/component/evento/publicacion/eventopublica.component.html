@@ -17,17 +17,17 @@
 
               <div class="ui-g-12 ui-md-6">
                 <label><b>Fecha y Hora(*)</b></label>
-                <p-calendar [(ngModel)]="fecha" name="fecha" [showTime]="true" dateFormat="dd/mm/yy" hourFormat="12"> </p-calendar>
+                <p-calendar [(ngModel)]="fecha" name="fecha" [showTime]="true" dateFormat="dd/mm/yy" hourFormat="12" placeholder="dd/mm/yy"> </p-calendar>
               </div>
               
               <div class="ui-g-12">
                 <label><b>Título (*)</b></label>
-                <input type="text" name="nombre" [(ngModel)]="nombre" pInputText/>
+                <input type="text" name="nombre" placeholder="Nombre Evento" [(ngModel)]="nombre" pInputText/>
               </div>
 
               <div class="ui-g-12">
                 <label><b>Descripcíon (*)</b></label>
-                <textarea rows="5" cols="30" pInputTextarea name="descripcion" [(ngModel)]="descripcion"></textarea>
+                <textarea rows="5" cols="30" pInputTextarea name="descripcion" placeholder="Descripcion del evento" [(ngModel)]="descripcion"></textarea>
               </div>
 
               <div class="ui-g-12 ui-md-6">
@@ -41,25 +41,12 @@
 
               <div class="ui-g-12 ui-md-6">
                 <label><b>Direccíon(*)</b></label>
-                  <input type="text" [(ngModel)]="direccion" name="direccion" pInputText/>
+                  <input type="text" [(ngModel)]="direccion" placeholder="Direccion del evento" name="direccion" pInputText/>
               </div>
 
-              <div class="ui-g-12">
-                <div class="ui-g-6">
-                    <button pButton type="submit" [label]="textButtonAction" class="ui-button-rounded ui-button-success" (click)="save()" ></button> 
-                </div>
-                <div class="ui-g-6">
-                    <button pButton type="submit" label="Cancelar" class="ui-button-rounded ui-button-secondary" (click)="returnListaEventos()"></button>
-                </div>
-              </div>
-
-            </div>
-          </p-card>
-
-          <div class="ui-g-12 ui-md-6">
-              <div class="ui-g-12">
+          <div class="ui-g-12">
                 <label><b>Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</b></label>
-                  <p-fileUpload accept="image/*" chooseLabel="Selecciona una imagen" uploadLabel="Subir imagen" accept="image/*" cancelLabel="Cancelar" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
+                  <p-fileUpload accept="image/*" chooseLabel="BUSCAR" uploadLabel="CARGAR" accept="image/*" cancelLabel="CANCELAR" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
                   <ng-template pTemplate="content">
                   <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -67,12 +54,29 @@
                   </ng-template>
                   </p-fileUpload>
 
+          </div>
+            </div>
+          </p-card>
+
+          <div class="ui-g-12 ui-md-6">
+              <div class="ui-g-12">
                   <img src="{{imagenUp}}" width="250px" height="250px">
 
                   <label><b>Imagen</b></label>
                   <input [(ngModel)]="imagenUp" class="form-control" name="imagenUp" id="imagenUp" type="text" disabled pInputText/>
               </div>
-          </div>
+
         </div>
+        
+          <div class="ui-g-12">
+          <div class="ui-g-6">
+            <button pButton type="submit" label="Cancelar" class="ui-button-danger btn" (click)="returnListaEventos()"></button>
+          </div>
+          <div class="ui-g-6">
+            <button pButton type="submit" [label]="textButtonAction" class="ui-button-success btn" (click)="save()" ></button> 
+          </div>
+          </div>
+
+    </div>
     </div>
 </p-card>

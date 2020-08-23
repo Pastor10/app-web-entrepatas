@@ -15,8 +15,7 @@
                     <div class="ui-g-12 ui-md-6">
                         <div class="ui-g-12">
                             <label><b>Nombre de Mascota(*)</b></label>
-                            <input type="text" autofocus name="nombre" [(ngModel)]="nombre" [disabled]="isDisabled"
-                                pInputText />
+                            <input type="text" autofocus name="nombre" [(ngModel)]="nombre" [disabled]="isDisabled" placeholder="Nombre de Mascota" pInputText />
                         </div>
 
                         <div class="ui-g-12 ui-md-6">
@@ -93,17 +92,15 @@
                             </div>
                         </div>
 
-                        <div class="ui-g-12">
-                            <label><b>Descripción </b></label>
-                            <textarea cols="30" rows="3" pInputTextarea name="descripcion" [(ngModel)]="descripcion"
-                                [disabled]="isDisabled" maxlength="200"></textarea>
-                        </div>
-
                     </div>
-                </p-card>
+                <!-- </p-card> -->
                 <!-- </div> -->
 
                 <div class="ui-g-12 ui-md-6">
+                    <div class="ui-g-12">
+                        <label><b>Descripción </b></label>
+                        <textarea rows="3" pInputTextarea placeholder="Descripcion corta" name="descripcion" [(ngModel)]="descripcion" [disabled]="isDisabled" maxlength="200"></textarea>
+                    </div>
                     <div class="ui-g-12">
                         <label><b>Foto (*) [SELECCIONE IMAGEN Y CARGUELA]</b></label>
                         <p-fileUpload accept="image/*" chooseLabel="BUSCAR" [disabled]="isDisabled" uploadLabel="CARGAR" [showCancelButton]="false"
@@ -126,17 +123,15 @@
                     </div>
                 </div>
 
-         
+         </p-card>
 
-
-                <div class="ui-g-12" text-align: center style="text-align: center;">
-                    <button style="width: auto; margin-top: 1.2rem;  padding: 5px ; font-size: 15px;" pButton
-                        type="submit" [label]="textButtonAction" class="ui-button-rounded ui-button-success"
-                        (click)="save()" [disabled]="isDisabled"></button>
-                    <button
-                        style="width: auto; margin-top: 1.2rem; margin-left: 20px ;   padding: 5px ; font-size: 15px;"
-                        pButton type="submit" label="Cancelar" class="ui-button-rounded ui-button-secondary"
-                        [routerLink]="returnpublicaciones()"></button>
+                <div class="ui-g-12">
+                    <div class="ui-g-6">
+                        <button pButton type="submit" label="Cancelar" class="ui-button-danger btn" [routerLink]="returnpublicaciones()"></button>
+                    </div>
+                    <div class="ui-g-6">
+                        <button pButton type="submit" [label]="textButtonAction" class="ui-button-success btn" (click)="save()" [disabled]="isDisabled"></button>
+                        </div>
                 </div>
 
             </div>

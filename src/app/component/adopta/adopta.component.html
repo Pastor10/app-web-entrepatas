@@ -96,7 +96,7 @@
                                             <p-card>
                                                 <div class="ui-g">
                                                     <div class="ui-g-6">
-                                                        <h5 class="label-custom">Tipo Documento (*)</h5>
+                                                        <label><b>Tipo Documento (*)</b></label>
                                                         <p-autoComplete [(ngModel)]="tipoDocumento"
                                                             [suggestions]="listTipoDocumento" field="abreviatura"
                                                             name="perfilSelected" [size]="15"
@@ -107,7 +107,7 @@
                                                     </div>
 
                                                     <div class="ui-g-6">
-                                                        <h5 class="label-custom">Documento (*) [PRESS ENTER]</h5>
+                                                        <label><b>Documento (*) [PRESS ENTER]</b></label>
                                                         <input style="width: 100%;" type="text" name="documento"
                                                             placeholder="7859624" [(ngModel)]="documento"
                                                             (keydown.enter)="getPersona()"
@@ -116,34 +116,34 @@
                                                     </div>
 
                                                     <div class="ui-g-4">
-                                                        <h5 class="label-custom">Nombres (*)</h5>
+                                                        <label><b>Nombres (*)</b></label>
                                                         <input style="width: 100%;" type="text" name="nombres"
                                                             placeholder="Juan Carlos" [(ngModel)]="nombres" (keypress)="soloLetras($event)" 
                                                             pInputText />
 
                                                     </div>
                                                     <div class="ui-g-4">
-                                                        <h5 class="label-custom">Apellido Paterno (*)</h5>
+                                                        <label><b>Apellido Paterno (*)</b></label>
                                                         <input style="width: 100%;" type="text" name="apePaterno"
                                                             placeholder="Perez" [(ngModel)]="apePaterno" (keypress)="soloLetras($event)"  pInputText />
 
                                                     </div>
                                                     <div class="ui-g-4">
-                                                        <h5 class="label-custom">Apellido Materno (*)</h5>
+                                                        <label><b>Apellido Materno (*)</b></label>
                                                         <input style="width: 100%;" type="text" name="apeMaterno"
                                                             placeholder="Villa" [(ngModel)]="apeMaterno" (keypress)="soloLetras($event)"  pInputText />
 
                                                     </div>
 
                                                     <div class="ui-g-6">
-                                                        <h5 class="label-custom">Email (*)</h5>
+                                                        <label><b>Email (*)</b></label>
                                                         <input style="width: 100%;" type="text" name="email"
                                                             placeholder="tucorreo@server.com" [(ngModel)]="email"
                                                             pInputText />
 
                                                     </div>
                                                     <div class="ui-g-6">
-                                                        <h5 class="label-custom">Ciudad (*)</h5>
+                                                        <label><b>Ciudad (*)</b></label>
                                                         <p-autoComplete field="descripcion" [(ngModel)]="ubigeo" (keypress)="soloLetras($event)" 
                                                             name="ubigeo" [suggestions]="filteredCities"
                                                             (completeMethod)="filterCitiesByNombre($event)" [size]="40"
@@ -155,29 +155,23 @@
                                                         </p-autoComplete>
                                                     </div>
                                                     <div class="ui-g-6">
-                                                        <h5 class="label-custom">Dirección (*)</h5>
+                                                        <label><b>Dirección (*)</b></label>
                                                         <input style="width: 100%;" type="text" name="direccion"
                                                             placeholder="Calle Las Rosas 145" [(ngModel)]="direccion"
                                                             pInputText />
 
                                                     </div>
                                                     <div class="ui-g-6">
-                                                        <h5 class="label-custom">Celular (*)</h5>
+                                                        <label><b>Celular (*)</b></label>
                                                         <input style="width: 100%;" type="text" name="celular"
                                                             placeholder="988795623" [(ngModel)]="celular"
                                                             [textMask]="{mask: numberMask}" maxlength="9" minlength="9" pInputText />
 
                                                     </div>
 
-                                                    <div class="ui-g-12" text-align: center style="text-align: center;">
-                                                        <button
-                                                            style="width: auto; margin-top: 1.2rem;  font-size: 15px;"
-                                                            pButton label="ENVIAR" (click)="save()"
-                                                            class="ui-button-rounded ui-button-success"></button>
-
+                                                    <div class="ui-g-12">
+                                                        <button pButton label="ENVIAR" (click)="save()" class="ui-button-success btn"></button>
                                                     </div>
-
-
                                                 </div>
 
                                             </p-card>

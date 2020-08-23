@@ -12,6 +12,7 @@
 /* Data */
 /* Panel */
 /* Add your variable customizations of theme here */
+
 body,html,a,input,table,span,{
   outline:0;
 }
@@ -52,8 +53,14 @@ body .ui-widget:disabled * {
 body .ui-corner-all {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  border-radius: 10px;
+  /*border-radius: 10px!important; /*PARA BORDES DEL BOTON DE SUBIR*/
 }
+body .ui-corner-all button {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
 body .ui-corner-top {
   -moz-border-radius-topleft: 4px;
   -webkit-border-top-left-radius: 4px;
@@ -150,27 +157,30 @@ body .ui-inputtext.ui-state-disabled, body .ui-inputtext:disabled {
 }
 body .ui-button {
   color: #ffffff;
-  background-color: #337ab7;
-  border: 1px solid transparent;
+  background-color: #64B5F6;
+  border: none;
   font-size: 14px;
+  padding: 1px!important;
 }
 /*body .ui-button:enabled:hover {
   background-color: #2d6da3;
 }*/
 body .ui-button:enabled:focus {
   outline: 0 none;
-  background-color: #2d6da3;
+  background-color: #2d6da3;/*Fondo de color para los combox y cargar fotos*/
 }
 body .ui-button:enabled:active {
   /*background-color: #285f8f;*/
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  /*border-radius: .3rem!important;*/
 }
 body .ui-button.ui-state-disabled, body .ui-button:disabled {
-  background-color: #337ab7;
+  background-color: #9E9E9E;
   opacity: 0.65;
   filter: alpha(opacity=65);
+  border-radius: .3rem!important;
 }
 body .ui-button.ui-button-text-only .ui-button-text {
   padding: 0.429em 0.857em;
@@ -204,150 +214,210 @@ body .ui-button.secondary-btn:enabled:active {
   background-color: #d4d4d4;
   border-color: #8c8c8c;
 }
-body .ui-button.ui-state-default.ui-button-secondary, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {
+body .ui-button.ui-state-default.ui-button-secondary, 
+body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default {
   color: #212529;
   background-color: #ffffff;
   border-color: #cccccc;
 }
-body .ui-button.ui-state-default.ui-button-secondary:enabled:hover, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover {
+body .ui-button.ui-state-default.ui-button-secondary:enabled:hover, 
+body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:hover {
   background-color: #e6e6e6;
   border-color: #adadad;
 }
-body .ui-button.ui-state-default.ui-button-secondary:enabled:focus, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {
+body .ui-button.ui-state-default.ui-button-secondary:enabled:focus, 
+body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:focus {
   background-color: #e6e6e6;
   border-color: #adadad;
 }
-body .ui-button.ui-state-default.ui-button-secondary:enabled:active, body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {
+body .ui-button.ui-state-default.ui-button-secondary:enabled:active, 
+body .ui-buttonset.ui-button-secondary > .ui-button.ui-state-default:enabled:active {
   background-color: #d4d4d4;
   border-color: #8c8c8c;
 }
+
+body .secondari-btn.ui-button,
+body .secondari-btn > .ui-button,
+body .ui-splitbutton.secondari-btn > .ui-button,
+body .ui-button.ui-state-default.ui-button-secondari,
+body .ui-buttonset.ui-button-secondari > .ui-button.ui-state-default {
+  background-color: #9E9E9E;
+  /*background-color: #5cb85c;*/
+  /*border-color: #4cae4c;*/
+  opacity: .85;
+}
+body .secondari-btn.ui-button:enabled:hover,
+body .secondari-btn > .ui-button:enabled:hover,
+body .ui-splitbutton.secondari-btn > .ui-button:enabled:hover,
+body .ui-button.ui-state-default.ui-button-secondari:enabled:hover,
+body .ui-buttonset.ui-button-secondari > .ui-button.ui-state-default:enabled:hover {
+  /*background-color: #449d44;
+  border-color: #398439;*/
+  opacity: 1;
+}
+body .secondari-btn.ui-button:enabled:focus,
+body .secondari-btn > .ui-button:enabled:focus,
+body .ui-splitbutton.secondari-btn > .ui-button:enabled:focus,
+body .ui-button.ui-state-default.ui-button-secondari:enabled:focus,
+body .ui-buttonset.ui-button-secondari > .ui-button.ui-state-default:enabled:focus {
+  /*background-color: #449d44;
+  border-color: #398439;*/
+  opacity: 1;
+}
+body .secondari-btn.ui-button:enabled:active,
+body .secondari-btn > .ui-button:enabled:active,
+body .ui-splitbutton.secondari-btn > .ui-button:enabled:active,
+body .ui-button.ui-state-default.ui-button-secondari:enabled:active,
+body .ui-buttonset.ui-button-secondari > .ui-button.ui-state-default:enabled:active {
+/*  background-color: #449d44;
+  border-color: #398439;*/
+  opacity: 1;
+}
+
 body .success-btn.ui-button,
 body .success-btn > .ui-button,
 body .ui-splitbutton.success-btn > .ui-button,
 body .ui-button.ui-state-default.ui-button-success,
 body .ui-buttonset.ui-button-success > .ui-button.ui-state-default {
-  background-color: #5cb85c;
-  border-color: #4cae4c;
+  background-color: #4CAF50;
+  /*background-color: #5cb85c;*/
+  /*border-color: #4cae4c;*/
+  opacity: .85;
 }
 body .success-btn.ui-button:enabled:hover,
 body .success-btn > .ui-button:enabled:hover,
 body .ui-splitbutton.success-btn > .ui-button:enabled:hover,
 body .ui-button.ui-state-default.ui-button-success:enabled:hover,
 body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:hover {
-  background-color: #449d44;
-  border-color: #398439;
+  /*background-color: #449d44;
+  border-color: #398439;*/
+  opacity: 1;
 }
 body .success-btn.ui-button:enabled:focus,
 body .success-btn > .ui-button:enabled:focus,
 body .ui-splitbutton.success-btn > .ui-button:enabled:focus,
 body .ui-button.ui-state-default.ui-button-success:enabled:focus,
 body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:focus {
-  background-color: #449d44;
-  border-color: #398439;
+  /*background-color: #449d44;
+  border-color: #398439;*/
+  opacity: 1;
 }
 body .success-btn.ui-button:enabled:active,
 body .success-btn > .ui-button:enabled:active,
 body .ui-splitbutton.success-btn > .ui-button:enabled:active,
 body .ui-button.ui-state-default.ui-button-success:enabled:active,
 body .ui-buttonset.ui-button-success > .ui-button.ui-state-default:enabled:active {
-  background-color: #449d44;
-  border-color: #398439;
+/*  background-color: #449d44;
+  border-color: #398439;*/
+  opacity: 1;
 }
 body .info-btn.ui-button,
 body .info-btn > .ui-button,
 body .ui-splitbutton.info-btn > .ui-button,
 body .ui-button.ui-state-default.ui-button-info,
 body .ui-buttonset.ui-button-info > .ui-button.ui-state-default {
-  background-color: #5bc0de;
-  border-color: #46b8da;
+  background-color: #039BE5;
+  opacity: .85;
+  /*border-color: #46b8da;*/
 }
 body .info-btn.ui-button:enabled:hover,
 body .info-btn > .ui-button:enabled:hover,
 body .ui-splitbutton.info-btn > .ui-button:enabled:hover,
 body .ui-button.ui-state-default.ui-button-info:enabled:hover,
 body .ui-buttonset.ui-button-info > .ui-button.ui-state-default:enabled:hover {
-  background-color: #31b0d5;
-  border-color: #269abc;
+  /*background-color: #31b0d5;
+  border-color: #269abc;*/
+  opacity: 1;
 }
 body .info-btn.ui-button:enabled:focus,
 body .info-btn > .ui-button:enabled:focus,
 body .ui-splitbutton.info-btn > .ui-button:enabled:focus,
 body .ui-button.ui-state-default.ui-button-info:enabled:focus,
 body .ui-buttonset.ui-button-info > .ui-button.ui-state-default:enabled:focus {
-  background-color: #31b0d5;
-  border-color: #269abc;
+  /*background-color: #31b0d5;
+  border-color: #269abc;*/
+  opacity: 1;
 }
 body .info-btn.ui-button:enabled:active,
 body .info-btn > .ui-button:enabled:active,
 body .ui-splitbutton.info-btn > .ui-button:enabled:active,
 body .ui-button.ui-state-default.ui-button-info:enabled:active,
 body .ui-buttonset.ui-button-info > .ui-button.ui-state-default:enabled:active {
-  background-color: #31b0d5;
-  border-color: #269abc;
+  /*background-color: #31b0d5;
+  border-color: #269abc;*/
+  opacity: 1;
 }
 body .warning-btn.ui-button,
 body .warning-btn > .ui-button,
 body .ui-splitbutton.warning-btn > .ui-button,
 body .ui-button.ui-state-default.ui-button-warning,
 body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default {
-  background-color: #f0ad4e;
-  border-color: #eea236;
+  background-color: #FFD600;
+  /*border-color: #eea236;*/
+  opacity: .85;
 }
 body .warning-btn.ui-button:enabled:hover,
 body .warning-btn > .ui-button:enabled:hover,
 body .ui-splitbutton.warning-btn > .ui-button:enabled:hover,
 body .ui-button.ui-state-default.ui-button-warning:enabled:hover,
 body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default:enabled:hover {
-  background-color: #ec971f;
-  border-color: #d58512;
+  /*background-color: #ec971f;
+  border-color: #d58512;*/
+  opacity: 1;
 }
 body .warning-btn.ui-button:enabled:focus,
 body .warning-btn > .ui-button:enabled:focus,
 body .ui-splitbutton.warning-btn > .ui-button:enabled:focus,
 body .ui-button.ui-state-default.ui-button-warning:enabled:focus,
 body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default:enabled:focus {
-  background-color: #ec971f;
-  border-color: #d58512;
+  /*background-color: #ec971f;
+  border-color: #d58512;*/
+  opacity: 1;
 }
 body .warning-btn.ui-button:enabled:active,
 body .warning-btn > .ui-button:enabled:active,
 body .ui-splitbutton.warning-btn > .ui-button:enabled:active,
 body .ui-button.ui-state-default.ui-button-warning:enabled:active,
 body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default:enabled:active {
-  background-color: #ec971f;
-  border-color: #d58512;
+  /*background-color: #ec971f;
+  border-color: #d58512;*/
+  opacity: 1;
 }
 body .danger-btn.ui-button,
 body .danger-btn > .ui-button,
 body .ui-splitbutton.danger-btn > .ui-button,
 body .ui-button.ui-state-default.ui-button-danger,
 body .ui-buttonset.ui-button-danger > .ui-button.ui-state-default {
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  background-color: #F44336;
+  /*border-color: #d43f3a;*/
+  opacity: .85;
 }
 body .danger-btn.ui-button:enabled:hover,
 body .danger-btn > .ui-button:enabled:hover,
 body .ui-splitbutton.danger-btn > .ui-button:enabled:hover,
 body .ui-button.ui-state-default.ui-button-danger:enabled:hover,
 body .ui-buttonset.ui-button-danger > .ui-button.ui-state-default:enabled:hover {
-  background-color: #c9302c;
-  border-color: #ac2925;
+  /*background-color: #c9302c;*/
+  opacity: 1;
+  /*border-color: #ac2925;*/
 }
 body .danger-btn.ui-button:enabled:focus,
 body .danger-btn > .ui-button:enabled:focus,
 body .ui-splitbutton.danger-btn > .ui-button:enabled:focus,
 body .ui-button.ui-state-default.ui-button-danger:enabled:focus,
 body .ui-buttonset.ui-button-danger > .ui-button.ui-state-default:enabled:focus {
-  background-color: #c9302c;
-  border-color: #ac2925;
+  /*background-color: #c9302c;*/
+  opacity: 1;
+  /*border-color: #ac2925;*/
 }
 body .danger-btn.ui-button:enabled:active,
 body .danger-btn > .ui-button:enabled:active,
 body .ui-splitbutton.danger-btn > .ui-button:enabled:active,
 body .ui-button.ui-state-default.ui-button-danger:enabled:active,
 body .ui-buttonset.ui-button-danger > .ui-button.ui-state-default:enabled:active {
-  background-color: #ac2925;
-  border-color: #761c19;
+  /*background-color: #ac2925;
+  border-color: #761c19;*/
+  opacity: 1;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -593,10 +663,11 @@ body .ui-autocomplete.ui-autocomplete-multiple.ui-autocomplete-dd.ui-autocomplet
   border-right: 0 none;
 }
 body .ui-autocomplete-panel {
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  /*-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  border: 1px solid #cccccc;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);*/
+  box-shadow: 0 5px 10px -5px rgba(0,0,0,.2), 0 5px 10px 0 rgba(0,0,0,.14), 0 5px 10px 0 rgba(0,0,0,.12);
+  border-top: 1.5px solid #ccc;
 }
 body .ui-autocomplete-panel .ui-autocomplete-items {
   padding: 0;
@@ -1366,6 +1437,7 @@ body .ui-datepicker {
 
 textarea{
   resize: none;
+  width: 100%;
 }
 
 textarea::placeholder, input::-webkit-input-placeholder,input::-webkit-input-placeholder{
@@ -1425,10 +1497,16 @@ label {
     padding: .5rem .75rem;
     font-size: 1rem;
     line-height: 1.25;
-    border-radius: .25rem;
+    border-radius: .3rem!important;
     transition: all .15s ease-in-out;
+    text-transform: uppercase;
 }
 
+/*.text-center{
+  text-align: center!important;
+  margin: 0 auto;
+}
+*/
 .cont-tarjeta{
   padding: 15px;
 }
@@ -1472,6 +1550,15 @@ label {
   cursor: pointer;
   transform: scale(3);
 }
+
+.img_bus{
+  width: 250px;
+  height: 250px;
+  border:2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px -1px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
 .boton_act{
   background: #689F38;
   cursor: pointer;
@@ -1492,6 +1579,19 @@ label {
   filter: grayscale(0%);
 }
 
+/*.tit_principal{
+  font-size: 35px;
+  font-weight: bold;
+  color: #212121;
+  text-align: center;
+  padding: 0;
+}
+.tit_principal2{
+  margin-top:-20px;
+  font-size: 20px
+  color: #212121;
+  text-align: center;
+}*/
 body .ui-inputtext.ng-dirty.ng-invalid,
 body p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
 body p-autocomplete.ng-dirty.ng-invalid > .ui-autocomplete > .ui-inputtext,
@@ -1622,15 +1722,19 @@ body .ui-accordion .ui-accordion-header.ui-state-active {
   -webkit-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+
 body .ui-accordion .ui-accordion-header > a {
   padding: 10px 15px;
   font-size: 16px;
   color: #212529;
   outline: 0 none;
 }
+
 body .ui-accordion .ui-accordion-header > a:focus {
-  border-color: #c4c4c4;
+  /*border-color: #c4c4c4; Color de lista de opciones*/
+  border-color: #0D47A1;
   background-color: #dcdcdc;
+  font-weight: bold;
 }
 body .ui-accordion .ui-accordion-header > a .ui-accordion-header-text {
   vertical-align: middle;
@@ -1995,7 +2099,8 @@ body .ui-table .ui-table-tbody > tr {
 }
 body .ui-table .ui-table-tbody > tr > td {
   background: inherit;
-  border: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 body .ui-table .ui-table-tbody > tr.ui-state-highlight {
   background-color: #337ab7;

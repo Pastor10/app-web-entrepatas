@@ -9,10 +9,10 @@
     </div>
     <div class="ui-g ui-fluid">
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
+        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success btn"></button>
       </div>
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-danger btn"></button>
       </div>
     </div>
   </ng-template>
@@ -38,7 +38,7 @@
 
         <ng-template pTemplate="header" let-columns let-pro>
           <tr>
-            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
+            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center">
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
@@ -68,28 +68,28 @@
               </span>
             </td>
             <td>
-              <span *ngIf="rowData.estado==true" class="label arrowed label-succes">
+              <span *ngIf="rowData.estado==true" class="label label-success">
                 Activo
               </span>
-              <span *ngIf="rowData.estado==false" class="label arrowed label-important">
-                Desactivo
+              <span *ngIf="rowData.estado==false" class="label label-important">
+                Inactivo
               </span>
             </td>
             <td style="text-align: center">
               <a *ngIf="rowData.estado==true" (click)="doAction(rowData, 'state');">
-                <button pButton type="button" icon="pi pi-ban" class="ui-button-secondary space-buttons"
+                <button pButton type="button" icon="pi pi-ban" class="ui-button-danger"
                   tooltip="Desactivar"></button>
               </a>
               <a *ngIf="rowData.estado==false" (click)="doAction(rowData, 'state');">
-                <button pButton type="button" icon="pi pi-check" class="ui-button-success space-buttons"
-                  tooltip="Activar" style="background-color: #a09898;"></button>
+                <button pButton type="button" icon="pi pi-check" class="ui-button-success"
+                  tooltip="Activar"></button>
               </a> &nbsp;
               <a (click)="doAction(rowData, 'edit');" class="hand">
-                <button pButton type="button" icon="pi pi-pencil" class="ui-button-secondary space-buttons"
+                <button pButton type="button" icon="pi pi-pencil" class="ui-button-warning"
                   tooltip="Editar"></button>
               </a> &nbsp;
               <a (click)="showConfirmDelete(rowData)" class="hand">
-                <button pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons"
+                <button pButton type="button" icon="pi pi-trash" class="ui-button-danger"
                   tooltip="Eliminar"></button>
               </a>
             </td>
@@ -142,7 +142,7 @@
           <div class="ui-g-12">
             <label><b>Direccíon (*):</b></label>
             <input mdbInputDirective type="text" class="form-control" name="direccion" [(ngModel)]="direccion"
-              pInputText placeholder="Ingresar direccíon">
+              pInputText placeholder="Ingresar dirección">
           </div>
 
             <div class="ui-g-12">
@@ -150,12 +150,13 @@
             </div>
 
           <div class="ui-g-6">
-            <button pButton label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
-          </div>
-          <div class="ui-g-6">
-            <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary"
+            <button pButton type="button" label="Limpiar" class="ui-button-danger btn"
               (click)="limpiarData()"></button>
           </div>
+          <div class="ui-g-6">
+            <button pButton label="Guardar" class="ui-button-success btn" type="submit"></button>
+          </div>
+
 </p-scrollPanel>
         </div>
       </form>

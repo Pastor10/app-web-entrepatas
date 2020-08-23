@@ -2416,19 +2416,19 @@
 
 .label-success,
 .badge-success {
-    background-color: #558B2F !important
+    background-color: #4CAF50 !important
 }
 .label-danger,
 .badge-danger {
-    background-color: #D50000 !important
+    background-color: #F44336 !important
 }
 .label-warning,
 .badge-warning {
-    background-color: #FFEA00 !important
+    background-color: #FFD600 !important
 }
 .label-info,
 .badge-info {
-    background-color: #01579B !important
+    background-color: #039BE5 !important
 }
 .label-pinki,
 .badge-pinki {
@@ -2483,22 +2483,22 @@
 }
 
 .label.arrowed,
-.label.arrowed-in {
-    position: relative;
-    margin-left: 9px
-}
+// .label.arrowed-in {
+//     position: relative;
+//     margin-left: 9px
+// }
 
-.label.arrowed:before,
-.label.arrowed-in:before {
-    display: inline-block;
-    content: "";
-    position: absolute;
-    left: -14px;
-    top: 0;
-    border: 9px solid transparent;
-    border-width: 9px 7px;
-    border-right-color: #abbac3
-}
+// .label.arrowed:before,
+// .label.arrowed-in:before {
+//     display: inline-block;
+//     content: "";
+//     position: absolute;
+//     left: -14px;
+//     top: 0;
+//     border: 9px solid transparent;
+//     border-width: 9px 7px;
+//     border-right-color: #abbac3
+// }
 
 .label.arrowed-in:before {
     border-color: #abbac3;

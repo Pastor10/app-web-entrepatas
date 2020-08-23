@@ -91,7 +91,7 @@
                     <div class="tarjeta">
                         <h2 class="label-custom">FOTO</h2>
                         <div class="ui-g-12">
-                        <img src="{{usuario.persona.foto}}" width="200px" height="200px" class="img circular">
+                        <img src="{{usuario.persona.foto}}" class="img_circular">
                         </div>
 
                     <div class="ui-g-12">
@@ -112,9 +112,7 @@
                         </p-fileUpload>
 
                         <label>URL Imagen</label>
-                        <input style="width: 100%; margin-bottom: 0.2em"
-                            [(ngModel)]="usuario.persona.foto" class="form-control" name="usuario.persona.foto"
-                            id="imagenUp" type="text" disabled pInputText/>
+                        <input [(ngModel)]="usuario.persona.foto" class="form-control" name="usuario.persona.foto" id="imagenUp" type="text" disabled pInputText/>
                         </div>
                 </div>
                 &nbsp;
@@ -122,7 +120,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 1rem;">
-            <button pButton type="submit" [label]="'Actualizar datos'" class="btn boton"></button>
+            <button pButton type="submit" [label]="'ACTUALIZAR'" class="ui-button-success btn"></button>
         </div>
 
     </form>

@@ -204,13 +204,15 @@
                   </div>
                 </div>
 
-          <div class="ui-g-12 ui-md-6">
-            <button pButton label="Guardar" style="margin-bottom:10px" class="ui-button-danger" type="submit"></button>
-          </div>
-          <div class="ui-g-12 ui-md-6">
-            <button pButton type="button" label="Limpiar" style="margin-bottom:10px;" class="ui-button-secondary"
-              (click)="limpiarData()"></button>
-          </div>
+            <div class="ui-g-12">
+              <div class="ui-g-6">
+                <button pButton type="button" label="LIMPIAR" class="ui-button-danger btn" (click)="limpiarData()"></button>
+              </div>
+              <div class="ui-g-6">
+              <button pButton label="GUARDAR" class="ui-button-success btn" type="submit"></button>
+              </div>
+            </div>
+
           </p-scrollPanel>
         </div>
       </form>
