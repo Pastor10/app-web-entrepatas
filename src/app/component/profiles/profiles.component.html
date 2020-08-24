@@ -12,7 +12,7 @@
         <button type="button" pButton (click)="onConfirm(data)" label="Si" icon ="fa fa-thumbs-up" class="ui-button-success"></button>
       </div>
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-secondary"></button>
+        <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-danger"></button>
       </div>
     </div>
   </ng-template>
@@ -36,7 +36,7 @@
 
         <ng-template pTemplate="header" let-columns let-pro>
           <tr>
-            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left"
+            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center;"
               pResizableColumn>
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>

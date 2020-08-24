@@ -2858,9 +2858,11 @@ body .ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-icon {
   color: #84c66a;
 }
 body .ui-toast .ui-toast-message.ui-toast-message-warn {
-  background-color: #fcf8e3;
-  border: 0 none;
-  color: #8a6d3b;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  /*color: #8a6d3b;*/
+
 }
 body .ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-close-icon {
   color: #8a6d3b;
