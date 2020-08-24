@@ -1,7 +1,6 @@
 <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
 <div class="container-login100">
 
-    <!-- <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33"> -->
     <div class="formulario flipInY">
         <p-tabView>
             <p-tabPanel header="Iniciar" leftIcon="fa fa-user-circle">
@@ -13,24 +12,12 @@
                 <form class="validate-form flex-sb flex-w" (submit)="login()">
                     <div class="form-group mt-2">
                         <label>Usuario</label>
-                        <!-- <div class="p-t-31 p-b-2"> -->
-                        <!-- </div> -->
-                        <!-- <div class="validate-input"
-                        data-validate="Se requiere nombre de usuario"> -->
-                        <input type="text" [(ngModel)]="username" class="form-control" name="username"
-                            placeholder="usuario" required>
-                        <!-- <span class="focus-input100"></span> -->
+                        <input type="text" [(ngModel)]="username" class="form-control" name="username" placeholder="usuario" required>
                     </div>
 
-                    <!-- <div class="p-t-20 p-b-2">
-                    </div> -->
                     <div class="form-group mt-2">
                         <label>Contraseña</label>
-                        <!-- <div style="margin-bottom:20px;" class="validate-input"
-                        data-validate="Se requiere contraseña"> -->
-                        <input type="password" [(ngModel)]="password" class="form-control" name="pass"
-                            placeholder="*****" required>
-                        <!-- <span class="focus-input100"></span> -->
+                        <input type="password" [(ngModel)]="password" class="form-control" name="pass" placeholder="*****" required>
                     </div>
 
                     <div class="container-login100-form-btn m-t-20">
@@ -48,71 +35,45 @@
 
                 <div class="form-group mt-2">
                     <label>Tipo Documento(*)</label>
-                    <!-- <div style="margin-bottom:10px; width: 100%;" data-validate="Falta Documento"> -->
                     <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento" field="abreviatura"
                         name="perfilSelected" [size]="15" (completeMethod)="filterListTipoDocumento($event)"
                         [minLength]="1" placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">
                     </p-autoComplete>
-                    <!-- </div> -->
                 </div>
 
                 <div class="form-group mt-2">
                     <label>Num Doc.[PRESS ENTER]</label>
-                    <!-- <div class="validate-input"
-                        data-validate="Se requiere Documento"> -->
-                    <input type="text" class="form-control" name="documento" [textMask]="{mask: numberMask}"
-                        [(ngModel)]="numeroDocumento" required placeholder="87598626" (keydown.enter)="getPersona()"
-                        minlength="8" maxlength="12" pInputText />
-                    <!-- </div> -->
+                    <input type="text" class="form-control" name="documento" [textMask]="{mask: numberMask}" [(ngModel)]="numeroDocumento" required placeholder="87598626" (keydown.enter)="getPersona()" minlength="8" maxlength="12" pInputText />
                 </div>
 
                 <div class="form-group mt-2">
                     <label>Nombres (*)</label>
-                    <!-- <div class="validate-input" data-validate="Falta Nombres"> -->
-                    <input type="text" class="form-control" name="nombres" [(ngModel)]="nombres" placeholder="Juan"
-                        (keypress)="soloLetras($event)" required pInputText />
-                    <!-- </div> -->
+                    <input type="text" class="form-control" name="nombres" [(ngModel)]="nombres" placeholder="Juan" (keypress)="soloLetras($event)" required pInputText />
                 </div>
 
                 <div class="form-group mt-2">
                     <div class="ui-g-6">
                         <label>Ape. Paterno (*)</label>
-                        <!-- <div style="margin-bottom:10px;" class="validate-input" data-validate="Falta Apellido Paterno"> -->
-                        <input type="text" class="form-control" name="apPaterno" placeholder="Perez"
-                            [(ngModel)]="apPaterno" (keypress)="soloLetras($event)" required pInputText />
-                        <!-- </div> -->
+                        <input type="text" class="form-control" name="apPaterno" placeholder="Perez" [(ngModel)]="apPaterno" (keypress)="soloLetras($event)" required pInputText />
                     </div>
 
                     <div class="ui-g-6">
                         <label>Ape. Materno (*)</label>
-                        <!-- <div class="validate-input" data-validate="Falta Apellido Materno"> -->
                         <input type="text" class="form-control" name="apMaterno" placeholder="Hozo"
                             [(ngModel)]="apMaterno" (keypress)="soloLetras($event)" required pInputText />
-                        <!-- </div> -->
                     </div>
                 </div>
 
                 <div class="form-group mt-2">
                     <label>Email (*)</label>
-                    <!-- <div class="validate-input"
-                        data-validate="Se requiere nombre de usuario"> -->
                     <input type="text" class="form-control" name="email" [(ngModel)]="correo"
                         placeholder="tucorreo@tuservicio.com" required pInputText />
-                    <!-- </div> -->
                 </div>
-                <!-- 
-                <div class="form-group mt-2">
-                    <label>Correo Electrónico</label>
-                    <input type="email" class="form-control" name="email" placeholder="tucorreo@servicio.com" required="">
-                </div -->
 
                 <div class="form-group mt-2">
                     <label>Repetir Email (*)</label>
-                    <!-- <div class="validate-input"
-                        data-validate="Se requiere contraseña"> -->
                     <input type="text" class="form-control" onpaste="return false" name="correoRepite"
                         [(ngModel)]="correoRepite" placeholder="tucorreo@tuservicio.com" required pInputText />
-                    <!-- </div> -->
                 </div>
 
                 <div class="form-group mt-2">
@@ -128,9 +89,8 @@
                 </div>
             </p-tabPanel>
         </p-tabView>
-
-
     </div>
+
     <p-dialog header="" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000" [modal]="true"
         styleClass="terms-and-conditions-dialog">
         <div style="padding: 0 2rem; text-align: justify;">
