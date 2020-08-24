@@ -12,7 +12,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 //import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
-//import { CarouselModule } from 'primeng/carousel';
+import { CarouselModule } from 'primeng/carousel';
 //import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 //import { ChipsModule } from 'primeng/chips';
@@ -156,6 +156,8 @@ import { EventoProximoComponent } from './component/evento/proximos-eventos/even
 import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
 import { ProcesoComponent } from './component/proceso/proceso.component';
 import { PoliticaComponent } from './component/politica/politica.component';
+import { WebAmigaComponent } from './component/web-amigas/webamigas.component';
+import { UneteComponent } from './component/unete/unete.component';
 
 
 
@@ -192,6 +194,7 @@ import { PoliticaComponent } from './component/politica/politica.component';
         NgxSpinnerModule,
         FieldsetModule,
         MultiSelectModule,
+        CarouselModule,
         NgxsModule.forRoot()
     ],
     declarations: [
@@ -239,7 +242,9 @@ import { PoliticaComponent } from './component/politica/politica.component';
         EventoProximoComponent,
         ActiveCuentaComponent,
         ProcesoComponent,
-        PoliticaComponent
+        PoliticaComponent,
+        WebAmigaComponent,
+        UneteComponent
 
 
 

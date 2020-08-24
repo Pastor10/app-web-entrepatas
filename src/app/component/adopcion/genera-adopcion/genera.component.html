@@ -11,10 +11,10 @@
         <div class="ui-g ui-fluid">
             <div class="ui-g-6">
                 <button type="button" pButton (click)="onConfirm(tipoLocal)" label="Yes"
-                    class="ui-button-success btn"></button>
+                    icon ="fa fa-thumbs-up" class="ui-button-success btn"></button>
             </div>
             <div class="ui-g-6">
-                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-danger btn"></button>
+                <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-danger btn"></button>
             </div>
         </div>
     </ng-template>
@@ -72,7 +72,7 @@
             </div>
 
         <div class="ui-g-12" *ngIf="animal.citasMedicas!=null">
-            <button pButton label="Ver historial" class="ui-button-info btn" type="submit" (click)="showHistorialDialog()"></button>
+            <button pButton label="historial" icon="fa fa-search" class="ui-button-info btn" type="submit" (click)="showHistorialDialog()"></button>
         </div>
         </div>
 
@@ -156,7 +156,7 @@
 
         </div>
         <div class="ui-g-12">
-            <button pButton type="submit" [label]="textButtonAction"  class="ui-button-success btn" (click)="saveGeneraAdopcion()"></button>
+            <button pButton type="submit" [label]="textButtonAction" icon="fa fa-save" class="ui-button-success btn" (click)="saveGeneraAdopcion()"></button>
         </div>
 
     </p-card>
@@ -194,7 +194,7 @@
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
             <button type="button" class="ui-button-danger btn" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button>
-            <button type="button" class="ui-button-success btn" pButton icon="fa fa-check" (click)="addTratamiento()" label="Save"></button>
+            <button type="button" class="ui-button-success btn" pButton icon="fa fa-save" (click)="addTratamiento()" label="Save"></button>
         </div>
     </p-footer>
 </p-dialog>
@@ -251,6 +251,6 @@
     </div>
 
     <p-footer>
-        <button type="button" class="ui-button-danger btn" pButton icon="pi pi-close" (click)="historialDialog=false" label="Cerrar"></button>
+        <button type="button" class="ui-button-danger btn" pButton icon="fa fa-times-circle" (click)="historialDialog=false" label="Cerrar"></button>
     </p-footer>
 </p-dialog>
