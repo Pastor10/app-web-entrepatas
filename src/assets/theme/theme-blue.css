@@ -1593,8 +1593,8 @@ label {
     margin-top: 20px;
 }
 .centrar{
-  margin: 0 auto;
-  text-align: center;
+  margin: 0 auto!important;
+  text-align: center!important;
 }
 body .ui-inputtext.ng-dirty.ng-invalid,
 body p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
@@ -1931,7 +1931,9 @@ body .ui-toolbar .ui-toolbar-seperator {
       font-size: 35px;
       margin-top: -10px;
     }
-
+    .hidden-xs-down{
+    display: inline;
+  }
 }
 
 @media screen and (min-width: 1024px){
