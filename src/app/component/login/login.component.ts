@@ -48,6 +48,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   numeroDocumento: string;
   correo: string;
   correoRepite: string;
+  display: boolean = false
+  politica: boolean = false;
 
   public numberMask = createNumberMask({
 		prefix: '',
@@ -231,6 +233,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.showMsg('info', message, 'Usuario');
       return;
     }
+
+    if (!this.politica) {
+      message = 'Lea la politica de privacidad y marque en el cuadro de aceptación';
+      this.showMsg('info', message, 'Usuario');
+      return;
+    }
     this.formToModel();
     this.usuarioService.saveVisitante(this.data).subscribe((res) => {
       if (res != null) {
@@ -342,5 +350,9 @@ filterDocumento(query, lista: TipoDocumento[]): TipoDocumento[] {
 
   showMsg(type: string, msg: string, title: string) {
     this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
+  }
+
+  showPolitica(){
+    this.display = true;
   }
 }
