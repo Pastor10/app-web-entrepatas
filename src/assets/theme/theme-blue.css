@@ -1560,14 +1560,16 @@ label {
 }
 
 .boton_act{
-  background: #689F38;
+  background-color: #4CAF50;
+  opacity: .85;
+  /*background: #689F38;*/
   cursor: pointer;
   color: white;
   margin: 20px 0;
 }
 .boton_act:hover{
-    background: #558B2F;
-    color:white;
+  opacity: 1;
+  color:white;
 }
 .img_act{
   height: 60px;
@@ -1580,7 +1582,7 @@ label {
 }
 .tit_otros,.tit_evento{
     /*font-family: 'bebas_neueregular', Arial;*/
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
     color: #E91E63; /*titulo Rosado*/
     margin-top: 20px;

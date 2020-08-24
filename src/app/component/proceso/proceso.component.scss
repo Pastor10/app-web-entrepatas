@@ -1,0 +1,14 @@
+.con_proceso{
+	margin: 0 auto;
+	text-align: center;
+}
+
+.pulso_infinito {
+    /* margin-left: 45px; */
+    animation: pulso 1.5s infinite alternate;
+}
+
+.pulso_infinito2{
+  /*margin-left: 45px;*/
+  animation: pulso 2s infinite alternate;
+}
