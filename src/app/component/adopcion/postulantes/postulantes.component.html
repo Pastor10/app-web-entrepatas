@@ -18,10 +18,10 @@
     </div>
     <div class="ui-g ui-fluid">
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onConfirm(postulante)" label="Si" class="ui-button-success"></button>
+        <button type="button" pButton (click)="onConfirm(postulante)" label="Si" icon ="fa fa-thumbs-up" class="ui-button-success btn"></button>
       </div>
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-danger"></button>
+        <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-danger btn"></button>
       </div>
     </div>
   </ng-template>
@@ -148,9 +148,9 @@
               </td>
               <td style="text-align: center">
                 <button pButton type="button" (click)="calificar(b)" icon="fa fa-file-o"
-                  class="ui-button-success space-buttons" tooltip="Ficha técnica"></button>&nbsp;
+                  class="ui-button-warning btn" tooltip="Ficha técnica"></button>&nbsp;
                 <button pButton type="button" (click)="showConfirm(b)" icon="fa fa-paperclip"
-                  class="ui-button-primary space-buttons" tooltip="Generar Adopción"></button>
+                  class="ui-button-success btn" tooltip="Generar Adopción"></button>
       
               </td>
             </tr>
@@ -225,11 +225,11 @@
         
         
         
-                <div class="ui-g-12" text-align: center style="text-align: center;">
-                  <button style="width: auto; margin-top: 1.2rem;  font-size: 15px;" pButton type="submit" label="GUARDAR"
-                    class="ui-button-rounded ui-button-success" (click)="guardarCuestionario()"></button>
+                <div class="ui-g-12">
+                  <button pButton type="submit" label="GUARDAR" icon ="fa fa-save"
+                    class="ui-button-success btn" (click)="guardarCuestionario()"></button>
                   <button type="button" pButton icon="fa fa-times-circle" (click)="showCuestionario=false"
-                    label="CERRAR CUESTIONARIO" class="ui-button-secondary"></button>
+                    label="CERRAR CUESTIONARIO" class="ui-button-danger btn"></button>
         
                 </div>
         
@@ -246,7 +246,7 @@
 
   <p-footer>
     <button type="button" pButton icon="fa fa-times-circle" (click)="salirDialog()" label="SALIR"
-      class="ui-button-secondary"></button>
+      class="ui-button-danger btn"></button>
   </p-footer>
 </p-dialog>
 

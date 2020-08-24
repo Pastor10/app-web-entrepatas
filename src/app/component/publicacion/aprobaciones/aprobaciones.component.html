@@ -9,10 +9,10 @@
     </div>
     <div class="ui-g ui-fluid">
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success"></button>
+        <button type="button" pButton (click)="onConfirm(data)" label="Si" icon ="fa fa-thumbs-up" class="ui-button-success"></button>
       </div>
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+        <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-secondary"></button>
       </div>
     </div>
   </ng-template>
@@ -22,7 +22,7 @@
   <div class="ui-g-12 ui-lg-12 tarjeta_adm">
     <p-panel [style]="{'margin-bottom':'20px'}">
       <p-header>
-        <span class="ui-panel-title">Publicaciones</span>
+        <span class="ui-panel-title">Publicaciones de Terceros</span>
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="publicaciones" dataKey="idDirectorio" [totalRecords]="totalRecords"
@@ -121,8 +121,9 @@
     <input type="hidden" [(ngModel)]="publicacion">
     <textarea rows="4" cols="40" pInputTextarea name="observacion" [(ngModel)]="observacion" maxlength="400"></textarea>
     <p-footer>
-      <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR" class="ui-button-danger btn"></button>
-      <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR" class="ui-button-info btn"></button>
+      
+      <button type="button" pButton icon="fa fa-ban" (click)="doAction(publicacion, 'RECHAZADO')" label="RECHAZAR" class="ui-button-success btn"></button>
+      <button type="button" pButton icon="fa fa-times-circle" (click)="modalRechazo=false" label="SALIR" class="ui-button-danger btn"></button>
     </p-footer>
   </p-dialog>
 </div>

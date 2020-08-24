@@ -9,10 +9,10 @@
     </div>
     <div class="ui-g ui-fluid">
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onConfirm(data)" label="Yes" class="ui-button-success btn"></button>
+        <button type="button" pButton (click)="onConfirm(data)" label="Si" icon ="fa fa-thumbs-up" class="ui-button-success btn"></button>
       </div>
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-danger btn"></button>
+        <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-danger btn"></button>
       </div>
     </div>
   </ng-template>
@@ -41,7 +41,7 @@
 
             </div>
             <div class="ui-g-2 ui-md-2">
-              <button pButton label="BUSCAR" (click)="refreshTable()"
+              <button pButton label="BUSCAR" (click)="refreshTable()"icon ="fa fa-search"
                 class="ui-button-info btn"></button>
             </div>
 
@@ -212,11 +212,11 @@
 
               <div class="ui-g-12">
                 <div class="ui-g-6">
-                <button pButton type="button" label="LIMPIAR"class="ui-button-danger btn" (click)="limpiarData()"></button>
+                <button pButton type="button" label="LIMPIAR" icon ="fa fa-eraser" class="ui-button-danger btn" (click)="limpiarData()"></button>
                 </div>
                 
                 <div class="ui-g-6">
-                <button pButton label="GUARDAR" class="ui-button-success btn" type="submit"></button>
+                <button pButton label="GUARDAR" icon ="fa fa-save" class="ui-button-success btn" type="submit"></button>
                 </div>
               </div>
 
