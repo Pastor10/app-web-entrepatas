@@ -155,6 +155,7 @@ import { CuestionarioService } from './shared/service/cuestionario.service';
 import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
 import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
 import { ProcesoComponent } from './component/proceso/proceso.component';
+import { PoliticaComponent } from './component/politica/politica.component';
 
 
 
@@ -237,7 +238,8 @@ import { ProcesoComponent } from './component/proceso/proceso.component';
         LoaderComponent,
         EventoProximoComponent,
         ActiveCuentaComponent,
-        ProcesoComponent
+        ProcesoComponent,
+        PoliticaComponent
 
 
 

@@ -1,5 +1,5 @@
 <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
-<div class="container-login100" >
+<div class="container-login100">
 
     <!-- <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33"> -->
     <div class="formulario flipInY">
@@ -13,11 +13,12 @@
                 <form class="validate-form flex-sb flex-w" (submit)="login()">
                     <div class="form-group mt-2">
                         <label>Usuario</label>
-                            <!-- <div class="p-t-31 p-b-2"> -->
-                    <!-- </div> -->
-                    <!-- <div class="validate-input"
+                        <!-- <div class="p-t-31 p-b-2"> -->
+                        <!-- </div> -->
+                        <!-- <div class="validate-input"
                         data-validate="Se requiere nombre de usuario"> -->
-                        <input type="text" [(ngModel)]="username" class="form-control" name="username" placeholder="usuario" required>
+                        <input type="text" [(ngModel)]="username" class="form-control" name="username"
+                            placeholder="usuario" required>
                         <!-- <span class="focus-input100"></span> -->
                     </div>
 
@@ -25,9 +26,10 @@
                     </div> -->
                     <div class="form-group mt-2">
                         <label>Contraseña</label>
-                    <!-- <div style="margin-bottom:20px;" class="validate-input"
+                        <!-- <div style="margin-bottom:20px;" class="validate-input"
                         data-validate="Se requiere contraseña"> -->
-                        <input type="password"  [(ngModel)]="password" class="form-control" name="pass" placeholder="*****" required>
+                        <input type="password" [(ngModel)]="password" class="form-control" name="pass"
+                            placeholder="*****" required>
                         <!-- <span class="focus-input100"></span> -->
                     </div>
 
@@ -47,11 +49,10 @@
                 <div class="form-group mt-2">
                     <label>Tipo Documento(*)</label>
                     <!-- <div style="margin-bottom:10px; width: 100%;" data-validate="Falta Documento"> -->
-                        <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento"
-                            field="abreviatura" name="perfilSelected" [size]="15"
-                            (completeMethod)="filterListTipoDocumento($event)" [minLength]="1" 
-                            placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">
-                        </p-autoComplete>
+                    <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento" field="abreviatura"
+                        name="perfilSelected" [size]="15" (completeMethod)="filterListTipoDocumento($event)"
+                        [minLength]="1" placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">
+                    </p-autoComplete>
                     <!-- </div> -->
                 </div>
 
@@ -59,39 +60,44 @@
                     <label>Num Doc.[PRESS ENTER]</label>
                     <!-- <div class="validate-input"
                         data-validate="Se requiere Documento"> -->
-                        <input type="text" class="form-control" name="documento" [textMask]="{mask: numberMask}" [(ngModel)]="numeroDocumento" required placeholder="87598626"
-                            (keydown.enter)="getPersona()" minlength="8" maxlength="12" pInputText />
+                    <input type="text" class="form-control" name="documento" [textMask]="{mask: numberMask}"
+                        [(ngModel)]="numeroDocumento" required placeholder="87598626" (keydown.enter)="getPersona()"
+                        minlength="8" maxlength="12" pInputText />
                     <!-- </div> -->
                 </div>
 
                 <div class="form-group mt-2">
-                        <label>Nombres (*)</label>
+                    <label>Nombres (*)</label>
                     <!-- <div class="validate-input" data-validate="Falta Nombres"> -->
-                        <input type="text" class="form-control" name="nombres" [(ngModel)]="nombres"placeholder="Juan" (keypress)="soloLetras($event)" required pInputText/>
+                    <input type="text" class="form-control" name="nombres" [(ngModel)]="nombres" placeholder="Juan"
+                        (keypress)="soloLetras($event)" required pInputText />
                     <!-- </div> -->
                 </div>
 
                 <div class="form-group mt-2">
-                <div class="ui-g-6">
+                    <div class="ui-g-6">
                         <label>Ape. Paterno (*)</label>
-                    <!-- <div style="margin-bottom:10px;" class="validate-input" data-validate="Falta Apellido Paterno"> -->
-                    <input type="text" class="form-control" name="apPaterno" placeholder="Perez" [(ngModel)]="apPaterno" (keypress)="soloLetras($event)" required pInputText />
-                    <!-- </div> -->
-                </div>
+                        <!-- <div style="margin-bottom:10px;" class="validate-input" data-validate="Falta Apellido Paterno"> -->
+                        <input type="text" class="form-control" name="apPaterno" placeholder="Perez"
+                            [(ngModel)]="apPaterno" (keypress)="soloLetras($event)" required pInputText />
+                        <!-- </div> -->
+                    </div>
 
-                <div class="ui-g-6">
+                    <div class="ui-g-6">
                         <label>Ape. Materno (*)</label>
-                    <!-- <div class="validate-input" data-validate="Falta Apellido Materno"> -->
-                    <input type="text" class="form-control" name="apMaterno" placeholder="Hozo" [(ngModel)]="apMaterno" (keypress)="soloLetras($event)"  required pInputText />
-                    <!-- </div> -->
-                </div>
+                        <!-- <div class="validate-input" data-validate="Falta Apellido Materno"> -->
+                        <input type="text" class="form-control" name="apMaterno" placeholder="Hozo"
+                            [(ngModel)]="apMaterno" (keypress)="soloLetras($event)" required pInputText />
+                        <!-- </div> -->
+                    </div>
                 </div>
 
                 <div class="form-group mt-2">
-                        <label>Email (*)</label>
+                    <label>Email (*)</label>
                     <!-- <div class="validate-input"
                         data-validate="Se requiere nombre de usuario"> -->
-                        <input type="text" class="form-control" name="email" [(ngModel)]="correo" placeholder="tucorreo@tuservicio.com" required pInputText />
+                    <input type="text" class="form-control" name="email" [(ngModel)]="correo"
+                        placeholder="tucorreo@tuservicio.com" required pInputText />
                     <!-- </div> -->
                 </div>
                 <!-- 
@@ -101,11 +107,18 @@
                 </div -->
 
                 <div class="form-group mt-2">
-                        <label>Repetir Email (*)</label>
+                    <label>Repetir Email (*)</label>
                     <!-- <div class="validate-input"
                         data-validate="Se requiere contraseña"> -->
-                        <input type="text" class="form-control" onpaste="return false" name="correoRepite" [(ngModel)]="correoRepite" placeholder="tucorreo@tuservicio.com" required pInputText />
+                    <input type="text" class="form-control" onpaste="return false" name="correoRepite"
+                        [(ngModel)]="correoRepite" placeholder="tucorreo@tuservicio.com" required pInputText />
                     <!-- </div> -->
+                </div>
+
+                <div class="form-group mt-2">
+                    <p-checkbox name="terminos" value="true" [(ngModel)]="politica"></p-checkbox>
+                    He leído y Acepto la <a class="hand" (click)="showPolitica()" style="color:#533ab3">política de
+                        privacidad</a>
                 </div>
 
                 <div class="m-t-20">
@@ -118,5 +131,18 @@
 
 
     </div>
+    <p-dialog header="" [(visible)]="display" [style]="{width: '50vw'}" [baseZIndex]="10000" [modal]="true"
+        styleClass="terms-and-conditions-dialog">
+        <div style="padding: 0 2rem; text-align: justify;">
+            <h3 style="font-size: 1.15rem; text-align: center;">POLÍTICA DE PRIVACIDAD DE DATOS PERSONALES</h3>
+            <app-politica></app-politica>
+
+        </div>
+        <p-footer>
+            <button type="button" pButton (click)="display=false" label="Cerrar" class="ui-button-secondary" style="padding: 0.5rem 1rem;
+            background: #fff;
+            border: 1px solid #ddd;"></button>
+        </p-footer>
+    </p-dialog>
 </div>
 <app-pagina-interes></app-pagina-interes>

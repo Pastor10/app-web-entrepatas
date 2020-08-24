@@ -10,7 +10,7 @@ export class Postulante {
         public puntuacion?: number,
         public publicacion?: Publicacion,
         public persona?: Persona,
-        public listaCuestionario?: Cuestionario[]
+        public cuestionario?: Cuestionario
 
     ) {}
 }

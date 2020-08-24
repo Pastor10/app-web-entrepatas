@@ -13,110 +13,121 @@ import { Pregunta } from 'src/app/shared/model/pregunta.model';
 import { Opcion } from 'src/app/shared/model/opcion.model';
 import { Cuestionario } from 'src/app/shared/model/cuestionario.model';
 import { CuestionarioService } from 'src/app/shared/service/cuestionario.service';
+import { DetalleCuestionario } from 'src/app/shared/model/detalleCuestionario.model';
 
 
 @Component({
     selector: 'app-postulantes',
     templateUrl: './postulantes.component.html',
     styleUrls: ['./postulantes.component.scss']
-   
+
 })
 
-export class PostulanteComponent implements OnInit{
+export class PostulanteComponent implements OnInit {
 
 
-responsiveOptions;
-publicaciones: Publicacion[];
-totalRecords: 10;
-perPage = 10;
-cols: any[];
-publicacionSelected: Publicacion;
-postulantes: Postulante[];
-puntuacion: number;
-postulante: Postulante;
-msgs: Message[] = [];
-creaUser: boolean= false;
-adopcion: Adopcion;
-estadoAdopcion: Estado;
-user: User;
-perfil: Perfil;
-display: boolean = false;
-mayorEdad: number;
-vivencia: number;
-propiedad: number;
-acuerdo: number;
-pregunta: Pregunta;
-opcion: Opcion;
-listCuestionario: Cuestionario[];
-cuestionario: Cuestionario;
-showCuestionario: boolean= false;
-nombrePostulante: string;
+    responsiveOptions;
+    publicaciones: Publicacion[];
+    totalRecords: 10;
+    perPage = 10;
+    cols: any[];
+    publicacionSelected: Publicacion;
+    postulantes: Postulante[];
+    puntuacion: number;
+    postulante: Postulante;
+    msgs: Message[] = [];
+    creaUser: boolean = false;
+    adopcion: Adopcion;
+    estadoAdopcion: Estado;
+    user: User;
+    perfil: Perfil;
+    display: boolean = false;
+    mayorEdad: number;
+    vivencia: number;
+    propiedad: number;
+    acuerdo: number;
+    pregunta: Pregunta;
+    opcion: Opcion;
+    listaDetalle: DetalleCuestionario[];
+    detalleCuestionario: DetalleCuestionario;
+    cuestionario: Cuestionario;
+    showCuestionario: boolean = false;
+    nombrePostulante: string;
+    nombreMascota: string;
 
-  constructor(public publicacionService: PublicacionService,
-     public postulanteService: PostulanteService, public messageService: MessageService, public cuestionarioService: CuestionarioService,
-     private confirmationService: ConfirmationService, public adopcionService: AdopcionService){
-    this.responsiveOptions = [
-        {
-            breakpoint: '1024px',
-            numVisible: 3,
-            numScroll: 3
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 2,
-            numScroll: 2
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1,
-            numScroll: 1
-        }
-    ];
+    constructor(public publicacionService: PublicacionService,
+        public postulanteService: PostulanteService, public messageService: MessageService, public cuestionarioService: CuestionarioService,
+        private confirmationService: ConfirmationService, public adopcionService: AdopcionService) {
+        this.responsiveOptions = [
+            {
+                breakpoint: '1024px',
+                numVisible: 3,
+                numScroll: 3
+            },
+            {
+                breakpoint: '768px',
+                numVisible: 2,
+                numScroll: 2
+            },
+            {
+                breakpoint: '560px',
+                numVisible: 1,
+                numScroll: 1
+            }
+        ];
 
-  }
+    }
 
-ngOnInit(){
-    this.getAllPublicacion();
-    this.cols = [
-        {field: 'fecha', header: 'Fecha', width: '70px'},
-        {field: 'hora', header: 'Hora', width: '70px'},
-        {field: 'usuario', header: 'Usuario publica', width: '250px'},
-        {field: 'nombre', header: 'Mascota', width: '100px'},
-        {field: 'foto', header: 'Foto', width: '80px'},
-        {field: 'sexo', header: 'Tipo/Sexo', width: '120px'},
-        {field: 'condicion', header: 'Condicion', width: '150px'},
-        {field: 'estado', header: 'Estado', width: '100px'},
-    ];
-}
+    ngOnInit() {
+        this.getAllPublicacion();
+        this.cols = [
+            { field: 'fecha', header: 'Fecha', width: '70px' },
+            { field: 'hora', header: 'Hora', width: '70px' },
+            { field: 'usuario', header: 'Usuario publica', width: '250px' },
+            { field: 'nombre', header: 'Mascota', width: '100px' },
+            { field: 'foto', header: 'Foto', width: '80px' },
+            { field: 'sexo', header: 'Tipo/Sexo', width: '120px' },
+            { field: 'condicion', header: 'Condicion', width: '150px' },
+            { field: 'estado', header: 'Estado', width: '100px' },
+        ];
+    }
 
 
-    getAllPublicacion(){
-        this.publicacionService.getAllCondicionAdopcion().subscribe((data: Publicacion[]) =>{
+    getAllPublicacion() {
+        this.publicacionService.getAllCondicionAdopcion().subscribe((data: Publicacion[]) => {
             this.publicaciones = data;
-            console.log(this.publicaciones );
-            
+            console.log(this.publicaciones);
+
         });
 
     }
 
-    getAllPostulantesByPublicacion(publicacion){
-        
-        this.postulanteService.getAllByPublicacionId(publicacion).subscribe( (data: Postulante[])=>{
+    getAllPostulantesByPublicacion(publicacion) {
+        this.nombreMascota = publicacion.animal.nombre;
+        this.postulanteService.getAllByPublicacionId(publicacion).subscribe((data: Postulante[]) => {
             this.postulantes = data;
-            console.log("postulantes", this.postulantes );
-            
-            
+
+            console.log("postulantes", this.postulantes);
+
+
         });
         this.display = true;
     }
 
-    calificar(data){
-        console.log('data', data);
+    calificar(data) {
+        console.log(data.cuestionario);
+        
         this.postulante = data;
         this.showCuestionario = true;
         this.nombrePostulante = this.postulante.persona.nombreCompleto.toUpperCase();
-     
+
+        if(data.cuestionario!=null){
+            this.modelCuestionarioToForm(data);
+        }
+        
     }
+
+
 
     confirm1() {
         this.confirmationService.confirm({
@@ -124,28 +135,28 @@ ngOnInit(){
             header: 'Generando adopción',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.msgs = [{severity:'info', summary:'Confirmed', detail:'You have accepted'}];
+                this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' }];
             },
             reject: () => {
-                this.msgs = [{severity:'error', summary:'Rejected', detail:'You have rejected'}];
+                this.msgs = [{ severity: 'error', summary: 'Rejected', detail: 'You have rejected' }];
             }
         });
     }
 
     onReject() {
         this.messageService.clear('c');
-      }
-      
-      formToModel(data){
-          this.adopcion = new Adopcion();
-          console.log('crea user',this.creaUser);
-          
-          if(this.creaUser){
+    }
+
+    formToModel(data) {
+        this.adopcion = new Adopcion();
+        console.log('crea user', this.creaUser);
+
+        if (this.creaUser) {
             this.user = new User();
             this.user.estado = true;
             this.user.visible = true;
             this.user.username = data.numeroDocumento;
-            this.user.passwordTrans = data.numeroDocumento; //data.nombre.substr(1,1) + data.apePaterno;
+            this.user.passwordTrans = data.numeroDocumento;
 
             this.perfil = new Perfil();
             this.perfil.id = 4;
@@ -154,111 +165,163 @@ ngOnInit(){
 
             this.user.perfil = this.perfil;
             this.adopcion.usuario = this.user;
-            
-
-
-          }else{
-            this.adopcion.persona =data.persona;
-          }
-          this.adopcion.animal = data.publicacion.animal;
-          this.adopcion.estado = true;
-          
-        //   this.estadoAdopcion = new Estado();
-        //   this.estadoAdopcion.estado = true;
-        //   this.estadoAdopcion.nombre = 'Adoptado';
-        //   this.estadoAdopcion.id = 1;
-        //   this.adopcion.estadoAdopcion = this.estadoAdopcion;
-
-          console.log("adopcion ", this.adopcion);
-          
 
 
 
-      }
+        } else {
+            this.adopcion.persona = data.persona;
+        }
+        this.adopcion.animal = data.publicacion.animal;
+        this.adopcion.estado = true;
 
-      onConfirm(data) {
-          console.log("postulanee, ", data);
-          let message;
-          this.formToModel(data);
-          this.adopcionService.save(this.adopcion).subscribe(res=>{
-              if(res!=null){
-                message = 'Se registro la adpción correctamente';
+        console.log("adopcion ", this.adopcion);
+
+
+
+
+    }
+
+    onConfirm(data) {
+        console.log("postulanee, ", data);
+        let message;
+        this.formToModel(data);
+        this.adopcionService.save(this.adopcion).subscribe(res => {
+            if (res != null) {
+                message = 'Se registro la adopción correctamente';
                 this.showMsg('success', message, 'Adopción');
-              }
-          });
+            }
+        });
         this.messageService.clear('c');
-      }
+    }
 
 
-    showMsg( type: string, msg: string, title: string) {
-        this.messageService.add( { key: 'tst', severity: type, summary: title, detail: msg } );
-      }
+    showMsg(type: string, msg: string, title: string) {
+        this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
+    }
 
-      showConfirm(data) {
+    showConfirm(data) {
         this.postulante = data;
         this.messageService.clear();
         //this.data = data;
-        this.messageService.add({key: 'c', sticky: true, severity: 'warn', summary: 'Esta seguro de generar adopción?'});
+        this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Esta seguro de generar adopción?' });
     }
 
     showSaveCuestionario(type: string, msg: string, title: string) {
-        this.messageService.add( { key: 'cuestionario', severity: type, summary: title, detail: msg } );
+        this.messageService.add({ key: 'cuestionario', severity: type, summary: title, detail: msg });
     }
 
-    showPostulantes(){
+    showPostulantes() {
         this.display = true;
     }
 
-    salirDialog(){
+    salirDialog() {
         this.display = false;
         this.showCuestionario = false;
     }
 
-    guardarCuestionario(){
-       
-       // console.log('postulante', data);
-        //this.postulante = data;
-        this.listCuestionario = [];
-        
-        for(let i=1; i<=4; i++){
-            this.cuestionario = new Cuestionario();
-            this.cuestionario.postulante = this.postulante;
-            this.opcion = new Opcion();
-            this.pregunta = new Pregunta();
-            this.pregunta.id = i;
-            if(i==1){
-                this.opcion.id = this.mayorEdad
+    modelCuestionarioToForm(data){
+        let count =1;
+        this.cuestionario = data.cuestionario;
+        data.cuestionario.listaDetalle.forEach(item => {
+            if (count == 1) {
+                this.mayorEdad = item.opcion.id;
             }
-            if(i==2){
-                this.opcion.id = this.vivencia;
+            if (count == 2) {
+                this.vivencia =item.opcion.id;
             }
-            if(i==3){
-                this.opcion.id = this.propiedad
+            if (count == 3) {
+                this.propiedad = item.opcion.id;
             }
-            if(i==4){
-                this.opcion.id = this.acuerdo;
+            if (count == 4) {
+                this.acuerdo= item.opcion.id;
             }
-            this.cuestionario.opcion= this.opcion;
-            this.cuestionario.pregunta = this.pregunta;
-            this.listCuestionario.push(this.cuestionario);
+           
+            count++;
+        });
 
-        }
+        
+    }
+
+    guardarCuestionario() {
+       
+        // console.log('postulante', data);
+        //this.postulante = data;
+        console.log('cuestionario antes ', this.cuestionario);
+        
+            if(this.cuestionario==null){
+               this.cuestionario= new Cuestionario();
+               this.cuestionario.idPostulante = this.postulante.id;
+                this.listaDetalle = [];
+                for (let i = 1; i <= 4; i++) {
+                    this.detalleCuestionario = new DetalleCuestionario();
+        
+                    this.opcion = new Opcion();
+                    this.pregunta = new Pregunta();
+                    this.pregunta.id = i;
+                    if (i == 1) {
+                        this.opcion.id = this.mayorEdad
+                    }
+                    if (i == 2) {
+                        this.opcion.id = this.vivencia;
+                    }
+                    if (i == 3) {
+                        this.opcion.id = this.propiedad
+                    }
+                    if (i == 4) {
+                        this.opcion.id = this.acuerdo;
+                    }
+                    this.detalleCuestionario.opcion = this.opcion;
+                    this.detalleCuestionario.pregunta = this.pregunta;
+                    this.listaDetalle.push(this.detalleCuestionario);
+        
+                }
+                this.cuestionario.listaDetalle = this.listaDetalle;
+            } else{
+                let count =1;
+                this.cuestionario.idPostulante = this.postulante.id;
+                this.cuestionario.listaDetalle.forEach(item => {
+                    if (count == 1) {
+                        item.opcion.id = this.mayorEdad
+                    }
+                    if (count == 2) {
+                        item.opcion.id = this.vivencia;
+                    }
+                    if (count == 3) {
+                        item.opcion.id = this.propiedad
+                    }
+                    if (count == 4) {
+                        item.opcion.id = this.acuerdo;
+                    }
+                   
+                    count++;
+                });
+            }
+
+        console.log('cuestionario despues', this.cuestionario);
+
 
         let message;
-         this.cuestionarioService.save(this.listCuestionario).subscribe( res =>{
-            if(res!=null){
+        this.cuestionarioService.save(this.cuestionario).subscribe(res => {
+            if (res != null) {
                 console.log('respuesta', res);
-                
-                message = 'El cuestionario guardo correctamente';
+
+                message = 'El cuestionario se guardo correctamente';
                 this.showSaveCuestionario('success', message, 'Postulante');
                 this.getAllPostulantesByPublicacion(this.postulante.publicacion)
                 //this.showMsg('success', message, 'Postulante');
             }
         });
-    
-        console.log('opcion elegida', this.opcion);
-        console.log('listCuestionario ', this.listCuestionario);
-        
+
+       this.limpiarOpciones();
+       this.showCuestionario = false;
+
     }
-    
+
+    limpiarOpciones() {
+        this.mayorEdad = null;
+        this.vivencia = null
+        this.propiedad = null;
+        this.acuerdo= null;
+    }
+
 }
