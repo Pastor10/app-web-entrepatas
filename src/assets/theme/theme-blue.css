@@ -1507,6 +1507,11 @@ label {
   margin: 0 auto;
 }
 */
+.pulso_infinito {
+    /* margin-left: 45px; */
+    animation: pulso 1.5s infinite alternate;
+}
+
 .cont-tarjeta{
   padding: 15px;
 }
@@ -1586,6 +1591,10 @@ label {
     text-align: center;
     color: #E91E63; /*titulo Rosado*/
     margin-top: 20px;
+}
+.centrar{
+  margin: 0 auto;
+  text-align: center;
 }
 body .ui-inputtext.ng-dirty.ng-invalid,
 body p-dropdown.ng-dirty.ng-invalid > .ui-dropdown,
