@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/shared/model/User.model';
 import { UsuarioService } from 'src/app/shared/service/usuario.service';
+import { ViewEncapsulation } from '@angular/compiler/src/core';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class ConocenosComponent implements OnInit {
     responsiveOptions;
 
     constructor(public userService: UsuarioService) {
+        this.users = [];
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',

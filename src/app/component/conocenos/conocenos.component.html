@@ -34,17 +34,35 @@
                 <div class="col-12 text-center esp_arriba">
                     <h2 class="tit_otros">INTEGRANTES</h2>
                 </div>
-                
-                <div class="container justify-content-center ">
-                    <div class="justify-content-center">
-                        <div class="col-9 nos_tarjeta">
-                            <img src="../disenio/img/integrante/integrante1.png" alt="">
-                            <div class="nos_texto mt-4">
-                                <p>SAENZ ROMERO,<br>JOSE LUIS</p>
+
+                <p-dataView #dv [value]="users" [paginator]="true" [rows]="4" filterBy="name"
+                [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+                    <ng-template pTemplate="header">
+                        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+                            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                                <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                                <i class="pi pi-search"></i>
+                                <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                                </span>
+                            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        </div>
+                    </ng-template>
+    
+                    <ng-template let-data pTemplate="gridItem">
+                        <div class="ui-g-12 ui-md-4 ui-lg-3 cont-tarjeta">
+                            <div class='card'>
+                                <img class='card-img-top img-fluid'src="{{data.persona.foto}}" >
+    
+                                <h4 class="titulo_card pulso_infinito">
+                                    {{data.persona.nombre}}
+                                    <!-- <p-panel [header]="data.titulo"> </p-panel> -->
+                                </h4>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </ng-template>
+    
+                </p-dataView>
+               
             </p-card>
         </div>
 
