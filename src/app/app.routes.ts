@@ -33,6 +33,8 @@ import { ColaboraComponent } from './component/colabora/colabora.component';
 import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
 import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
 import { ProcesoComponent } from './component/proceso/proceso.component';
+import { UneteComponent } from './component/unete/unete.component';
+import { WebAmigaComponent } from './component/web-amigas/webamigas.component';
 
 export const routes: Routes = [
 
@@ -50,6 +52,9 @@ export const routes: Routes = [
             { path: 'proximos-eventos', component: EventoProximoComponent },
             { path: 'active-acount', component: ActiveCuentaComponent },
             { path: 'proceso', component: ProcesoComponent },
+            { path: 'colaboracion', component: ColaboraComponent },
+            { path: 'unete', component: UneteComponent },
+            { path: 'web-amigas', component: WebAmigaComponent },
         ]
     },
     {

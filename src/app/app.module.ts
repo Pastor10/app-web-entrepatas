@@ -156,6 +156,8 @@ import { EventoProximoComponent } from './component/evento/proximos-eventos/even
 import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
 import { ProcesoComponent } from './component/proceso/proceso.component';
 import { PoliticaComponent } from './component/politica/politica.component';
+import { WebAmigaComponent } from './component/web-amigas/webamigas.component';
+import { UneteComponent } from './component/unete/unete.component';
 
 
 
@@ -239,7 +241,9 @@ import { PoliticaComponent } from './component/politica/politica.component';
         EventoProximoComponent,
         ActiveCuentaComponent,
         ProcesoComponent,
-        PoliticaComponent
+        PoliticaComponent,
+        WebAmigaComponent,
+        UneteComponent
 
 
 
