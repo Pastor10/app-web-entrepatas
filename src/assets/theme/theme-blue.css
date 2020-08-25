@@ -1577,6 +1577,13 @@ label {
   opacity: 1;
   color:white;
 }
+.img_colabora{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border:2px solid white;
+  box-shadow:0 16px 28px -12px rgba(0, 0, 0, 0.56), 0 4px 15px 0px rgba(0, 0, 0, 0.12), 0 8px 5px -5px rgba(0, 0, 0, 0.2);
+}
 .img_act{
   height: 60px;
   -webkit-filter: grayscale(100%);
@@ -1935,6 +1942,10 @@ body .ui-toolbar .ui-toolbar-seperator {
     .hidden-xs-down{
     display: inline;
   }
+  .img_colabora{
+  width: 120px;
+  height: 120px;
+  }
 }
 
 @media screen and (min-width: 1024px){
@@ -1944,11 +1955,19 @@ body .ui-toolbar .ui-toolbar-seperator {
     .fondo_principal p{
     margin:20em 5%;
     }
+    .img_colabora{
+  width: 175px;
+  height: 175px;
+  }
 }
 
 @media (max-width: 640px) {
   body .ui-panelgrid .ui-grid-responsive .ui-grid-row {
     border: 0 none;
+  }
+  .img_colabora{
+  width: 150px;
+  height: 150px;
   }
 }
 
