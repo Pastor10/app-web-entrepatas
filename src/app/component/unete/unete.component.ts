@@ -196,10 +196,102 @@ export class UneteComponent implements OnInit {
     }
 
     save() {
+        let message;
+        if (this.tipoDocumento == undefined) {
+            message = 'Seleccione tipo documento';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+      
+          if (this.numeroDocumento== null || this.numeroDocumento == '') {
+            message = 'Escriba número documento';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+      
+          if (this.nombres == null || this.nombres == '') {
+            message = 'Escriba su nombre';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+      
+      
+          if (this.apPaterno == null || this.apPaterno == '') {
+            message = 'Escriba apellido paterno';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+      
+          if (this.apMaterno == null || this.apMaterno == '') {
+            message = 'Escriba apellido materno';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+      
+          if (this.correo == null || this.correo == '') {
+            message = 'Escriba un correo ';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
 
-   
+          if (this.celular == null || this.celular == 0) {
+            message = 'Escriba un número de celular ';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
 
+          if (this.hogar == null || this.hogar == 0) {
+            message = 'Seleccione una opción para la preguna 1 ';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+
+          if (this.tratoAnimal == null || this.tratoAnimal == 0) {
+            message = 'Seleccione al menos una opción para la preguna 2 ';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+
+          if (this.experiencia == null || this.experiencia == 0) {
+            message = 'Seleccione al menos una opción para la preguna 3 ';
+            this.showMsg('info', message, 'Colaborador');
+            return;
+          }
+         
+  
+       
 
         this.formToModel();
+        this.postulanteService.saveColaborador(this.postulanteColaborador).subscribe((res) => {
+            if (res != null) {
+              message = 'Se envio la solicitud correctamente.';
+              this.showMsg('success', message, 'Colaborador');
+              this.limpiarData();
+            }
+          }, error => {
+            const errorMessage = error.error.mensaje != undefined ? error.error.mensaje : 'No se pudo procesar la petición. Error ' + error.status;
+           // this.showMsg('error', errorMessage, 'Usuario');
+           this.showMsg('error', errorMessage, 'Colaborador');
+      
+          });
+        
     }
+
+    limpiarData(){
+
+        this.apPaterno="";
+        this.apMaterno=""
+        this.nombres='';
+        this.tipoDocumento=null;
+        this.numeroDocumento= '';
+        this.correo='';
+        this.celular=null;
+        this.hogar=null;
+        this.tratoAnimal= null;
+        this.experiencia= null;
+    }
+
+    showMsg(type: string, msg: string, title: string) {
+        this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
+      }
 }
