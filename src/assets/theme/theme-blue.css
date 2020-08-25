@@ -1678,12 +1678,14 @@ body .ui-panel.ui-panel-collapsed-h .ui-panel-titlebar {
 }
 body .ui-fieldset {
   padding: 0 0 0.5em 0;
+  border: 2px solid #0D47A1!important;
 }
 body .ui-fieldset .ui-fieldset-legend {
-  color: #292B2C;
+  color: #0D47A1!important;
   background-color: #f5f5f5;
+  font-weight: bold;
   margin-left: 0.714em;
-  border: 1px solid #dddddd;
+  /*border: 1px solid #dddddd;*/
 }
 body .ui-fieldset .ui-fieldset-legend .ui-fieldset-toggler {
   float: none;
@@ -1696,7 +1698,7 @@ body .ui-fieldset .ui-fieldset-legend .ui-fieldset-toggler {
   color: #999999;
 }
 body .ui-fieldset .ui-fieldset-legend .ui-fieldset-legend-text {
-  color: #292B2C;
+  color: #0D47A1!important;
 }
 body .ui-fieldset.ui-fieldset-toggleable .ui-fieldset-legend:hover, body .ui-fieldset.ui-fieldset-toggleable .ui-fieldset-legend:focus {
   background-color: #dcdcdc;
