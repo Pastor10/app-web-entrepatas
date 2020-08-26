@@ -10,7 +10,7 @@
         </div>
         <div class="ui-g ui-fluid">
             <div class="ui-g-6">
-                <button type="button" pButton (click)="onConfirm(tipoLocal)" label="Yes"
+                <button type="button" pButton (click)="onConfirm(tipoLocal)" label="Si"
                     icon ="fa fa-thumbs-up" class="ui-button-success btn"></button>
             </div>
             <div class="ui-g-6">
@@ -38,17 +38,9 @@
                     <div *ngIf="animal.raza!=null">
                         <img class="img_bus"src="{{animal.foto}}">
                     </div>
-                    <!-- <div *ngIf="animal.raza=null">
-                        <div class="img_bus"></div>
-                    </div> -->
                 </div>
             
                 <div *ngIf="animal.raza!=null && animal.tamanoAnimal!=null" class="ui-g-12">
-                   <!--  <div class="ui-g-12 ui-md-4">
-                        <label><b>Nombre:</b></label>
-                        <label for="form-control"> {{animal.nombre}}</label>
-                    </div> -->
-
                     <div class="ui-g-4">
                         <label><b>RAZA</b></label>
                         <label for="form-control"> {{animal.raza.nombre}}</label>
