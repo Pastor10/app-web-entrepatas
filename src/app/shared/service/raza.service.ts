@@ -13,8 +13,8 @@ export class RazaService {
 
   baseUrl: string = environment.END_POINT + 'api/raza/';
 
-  getAll() {
-    return this.http.get(this.baseUrl + 'findAll').pipe(
+  getAll(params) {
+    return this.http.get(this.baseUrl + 'findAll?'+ params).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }

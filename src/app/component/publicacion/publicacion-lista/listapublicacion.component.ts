@@ -57,15 +57,15 @@ export class PublicacionListaComponent implements OnInit {
     ngOnInit() {
 
         this.cols = [
-            { field: 'fecha', header: 'Fecha', width: '70px' },
+            { field: 'fecha', header: 'Fecha', width: '80px' },
             { field: 'hora', header: 'Hora', width: '70px' },
             { field: 'usuario', header: 'Usuario', width: '230px' },
             { field: 'nombre', header: 'Mascota', width: '120px' },
             { field: 'foto', header: 'Foto', width: '80px' },
             { field: 'sexo', header: 'Tipo/Sexo', width: '120px' },
-            { field: 'condicion', header: 'Condicion', width: '90px' },
-            { field: 'observacion', header: 'Observación', width: '120px' },
-            { field: 'estado', header: 'Estado', width: '100px' },
+            { field: 'condicion', header: 'Condición', width: '120px' },
+            { field: 'observacion', header: 'Observación', width: '200px' },
+            { field: 'estado', header: 'Estado', width: '120px' },
         ];
 
         this.builderForm();

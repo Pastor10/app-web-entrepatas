@@ -39,7 +39,7 @@
 
         <ng-template pTemplate="header" let-columns let-pro>
           <tr>
-            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
+            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center">
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>

@@ -16,8 +16,8 @@ import { Table } from 'primeng/table';
 
 export class RazaComponent implements OnInit{
 
-    totalRecords: 10;
-    perPage = 10;
+    totalRecords: number;
+    perPage = 15;
     cols: any[];
 
     mf: FormGroup;
@@ -64,17 +64,24 @@ export class RazaComponent implements OnInit{
 
     }
 
-    getAllRazas(){
-        this.razaService.getAll().subscribe((data: Raza[]) =>{
-            this.razas = data;
-            console.log('razas', this.razas);
+    getAllRazas(event){
+        const params = [];
+        this.lastLazyLoadEvent = event;
+        const pageNumber = event.first / this.perPage;
+    
+        params.push(`page=${pageNumber}`);
+        params.push(`perPage=${this.perPage}`);
+
+        this.razaService.getAll(params.join('&')).subscribe((data: Raza[]) =>{
+            this.totalRecords = data['totalElements'];
+            this.razas = data['content'];
             
             
         });
 
     }
     loadLazy(event: LazyLoadEvent) {
-        this.getAllRazas();
+        this.getAllRazas(event);
     }
 
 
