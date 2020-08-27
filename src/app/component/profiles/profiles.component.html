@@ -9,10 +9,12 @@
     </div>
     <div class="ui-g ui-fluid">
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onConfirm(data)" label="Si" icon ="fa fa-thumbs-up" class="ui-button-success"></button>
+        <button type="button" pButton (click)="onConfirm(data)" label="Si" icon="fa fa-thumbs-up"
+          class="ui-button-success"></button>
       </div>
       <div class="ui-g-6">
-        <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-danger"></button>
+        <button type="button" pButton (click)="onReject()" label="No" icon="fa fa-thumbs-down"
+          class="ui-button-danger"></button>
       </div>
     </div>
   </ng-template>
@@ -21,202 +23,213 @@
   <div class="ui-g-12 ui-md-6 ui-lg-8 cont-tarjeta">
     <p-panel>
       <div class="tarjeta_adm">
-      <p-header>
-        <h2>Perfiles</h2>
-      </p-header>
+        <p-header>
+          <h2>Perfiles</h2>
+        </p-header>
 
-      <p-table #dt [columns]="cols" [value]="listProfile" [lazy]="true" [paginator]="true"
-        (onLazyLoad)="loadLazy($event)" [rows]="perPage" [totalRecords]="totalRecords" dataKey="id" [responsive]="true" [autoLayout]="true">
-        <ng-template pTemplate="colgroup" let-columns>
-          <colgroup>
-            <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-            <col style="width: 100px">
-          </colgroup>
-        </ng-template>
+        <p-table #dt [columns]="cols" [value]="listProfile" [lazy]="true" [paginator]="true"
+          (onLazyLoad)="loadLazy($event)" [rows]="perPage" [totalRecords]="totalRecords" dataKey="id"
+          [responsive]="true" [autoLayout]="true">
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+              <col style="width: 100px">
+            </colgroup>
+          </ng-template>
 
-        <ng-template pTemplate="header" let-columns let-pro>
-          <tr>
-            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center;"
-              pResizableColumn>
-              {{col.header}}
-              <p-sortIcon [field]="col.field"></p-sortIcon>
-            </th>
-            <th style="width:5em" id="">Acciones</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-          <tr [pSelectableRow]="rowData">
-            <td *ngFor="let col of columns" class="ui-resizable-column">
-              <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
-            </td>
-            <td style="text-align: center">
-              <a (click)="doAction(rowData, 'edit');" class="hand">
-                <button pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons"
-                  tooltip="Editar"></button>
-              </a>&nbsp;
-              <a (click)="showConshowConfirmDeletefirm(rowData)" class="hand">
-                <button pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons"
-                  tooltip="Eliminar"></button>
-              </a>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
+          <ng-template pTemplate="header" let-columns let-pro>
+            <tr>
+              <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center;"
+                pResizableColumn>
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th style="width:5em" id="">Acciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td *ngFor="let col of columns" class="ui-resizable-column">
+                <span title="{{rowData[col.field]}}"> {{rowData[col.field]}}</span>
+              </td>
+              <td style="text-align: center">
+                <a (click)="doAction(rowData, 'edit');" class="hand">
+                  <button pButton type="button" icon="pi pi-pencil" class="ui-button-success space-buttons"
+                    tooltip="Editar"></button>
+                </a>&nbsp;
+                <a (click)="showConshowConfirmDeletefirm(rowData)" class="hand">
+                  <button pButton type="button" icon="pi pi-trash" class="ui-button-danger space-buttons"
+                    tooltip="Eliminar"></button>
+                </a>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </p-panel>
   </div>
 
   <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
     <p-panel>
       <div class="tarjeta_adm">
-      <p-header>
-        <h2>Crear/Editar Perfil</h2>
-      </p-header>
-      <form (ngSubmit)="save()">
-        <div class="ui-g">
-          <div class="row ui-g-12 per_adm">
+        <p-header>
+          <h2>Crear/Editar Perfil</h2>
+        </p-header>
+        <form (ngSubmit)="save()">
+          <div class="ui-g">
+            <div class="row ui-g-12 per_adm">
               <input type="hidden" [(ngModel)]="idPerfil" [ngModelOptions]="{standalone: true}">
               <input mdbInputDirective type="text" id="perfil" class="form-control" pInputText placeholder="Perfil"
                 [(ngModel)]="perfil" [ngModelOptions]="{standalone: true}">
-          </div>
-          <!-- <p-scrollPanel> -->
-          <p-scrollPanel [style]="{height: '50vh'}" >
-            <div class="row ui-g-12 per_adm">
+            </div>
+            <!-- <p-scrollPanel> -->
+            <p-scrollPanel [style]="{height: '50vh'}">
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>CONFIGURACIÓN</b></label>
                 <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles1" [(ngModel)]="ROLE_USER" label="Usuario" binary="true"></p-checkbox>
+                  <p-checkbox name="roles1" [(ngModel)]="ROLE_USER" label="Usuario" binary="true"></p-checkbox>
                 </div>
                 <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles2" [(ngModel)]="ROLE_PERFIL" label="Perfil" binary="true"></p-checkbox>
+                  <p-checkbox name="roles2" [(ngModel)]="ROLE_PERFIL" label="Perfil" binary="true"></p-checkbox>
                 </div>
-            </div>
-            <div class="row ui-g-12 per_adm">
+              </div>
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>PUBLICACION</b></label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles3" [(ngModel)]="ROLE_PUBLICACION_REGISTRO" label="Publicar" binary="true">
-                    </p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles4" [(ngModel)]="ROLE_PUBLICACION_LISTADO" label="Listar Publicaciones"
-                      binary="true"></p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles5" [(ngModel)]="ROLE_PUBLICACION_HISTORIAL_CLINICO" label="Historial Clinico"
-                      binary="true"></p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles6" [(ngModel)]="ROLE_PUBLICACION_APROBACION" label="Aprobacion"
-                      binary="true"></p-checkbox>
-                  </div>
-            </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles3" [(ngModel)]="ROLE_PUBLICACION_REGISTRO" label="Publicar" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles4" [(ngModel)]="ROLE_PUBLICACION_LISTADO" label="Listar Publicaciones"
+                    binary="true"></p-checkbox>
+                </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles5" [(ngModel)]="ROLE_PUBLICACION_HISTORIAL_CLINICO" label="Historial Clinico"
+                    binary="true"></p-checkbox>
+                </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles6" [(ngModel)]="ROLE_PUBLICACION_APROBACION" label="Aprobacion" binary="true">
+                  </p-checkbox>
+                </div>
+              </div>
 
-            <div class="row ui-g-12 per_adm">              
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>ADOPCION</b> </label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles7" [(ngModel)]="ROLE_ADOPCION_POSTULANTE_LISTADO" label="Listar Postulantes"
-                      binary="true"></p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles8" [(ngModel)]="ROLE_ADOPCION_GENERAR" label="Generar Adopcion"
-                      binary="true"></p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles9" [(ngModel)]="ROLE_ADOPCION_LISTADO" label="Listar Adopcion" binary="true">
-                    </p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles10" [(ngModel)]="ROLE_ADOPCION_DEVOLUCION" label="Devolucion" binary="true">
-                    </p-checkbox>
-                  </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles7" [(ngModel)]="ROLE_ADOPCION_POSTULANTE_LISTADO" label="Listar Postulantes"
+                    binary="true"></p-checkbox>
                 </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles8" [(ngModel)]="ROLE_ADOPCION_GENERAR" label="Generar Adopcion" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles9" [(ngModel)]="ROLE_ADOPCION_LISTADO" label="Listar Adopcion" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles10" [(ngModel)]="ROLE_ADOPCION_DEVOLUCION" label="Devolucion" binary="true">
+                  </p-checkbox>
+                </div>
+              </div>
 
-            <div class="row ui-g-12 per_adm">
+              <div class="row ui-g-12 per_adm">
+                <label for="form-control"><b>SOLICITUD DE COLABORADOR</b></label>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles24" [(ngModel)]="ROLE_POSTULANTE_COLABORADOR" label="Postulantes colaborador" binary="true">
+                  </p-checkbox>
+                </div>
+              </div>
+
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>EVENTOS</b> </label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles11" [(ngModel)]="ROLE_EVENTO_GENERA" label="Generar Evento" binary="true">
-                    </p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles12" [(ngModel)]="ROLE_EVENTO_LISTADO" label="Listar Eventos" binary="true">
-                    </p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles13" [(ngModel)]="ROLE_EVENTO_TIPO" label="Tipo Evento" binary="true">
-                    </p-checkbox>
-                  </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles11" [(ngModel)]="ROLE_EVENTO_GENERA" label="Generar Evento" binary="true">
+                  </p-checkbox>
                 </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles12" [(ngModel)]="ROLE_EVENTO_LISTADO" label="Listar Eventos" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles13" [(ngModel)]="ROLE_EVENTO_TIPO" label="Tipo Evento" binary="true">
+                  </p-checkbox>
+                </div>
+              </div>
 
-            <div class="row ui-g-12 per_adm">
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>COLABORA</b></label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles14" [(ngModel)]="ROLE_COLABORA_REFUGIO" label="Colaborar" binary="true">
-                    </p-checkbox>
-                  </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles14" [(ngModel)]="ROLE_COLABORA_REFUGIO" label="Colaborar" binary="true">
+                  </p-checkbox>
                 </div>
+              </div>
 
-            <div class="row ui-g-12 per_adm">
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>LOCAL</b> </label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles15" [(ngModel)]="ROLE_LOCAL_CREA" label="Local" binary="true"></p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles16" [(ngModel)]="ROLE_LOCAL_TIPO" label="Tipo Local" binary="true">
-                    </p-checkbox>
-                  </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles15" [(ngModel)]="ROLE_LOCAL_CREA" label="Local" binary="true"></p-checkbox>
                 </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles16" [(ngModel)]="ROLE_LOCAL_TIPO" label="Tipo Local" binary="true">
+                  </p-checkbox>
+                </div>
+              </div>
 
-            <div class="row ui-g-12 per_adm">
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>VETERINARIA</b> </label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles17" [(ngModel)]="ROLE_VETERINARIA" label="Veterinaria" binary="true">
-                    </p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles18" [(ngModel)]="ROLE_VETERINARIO" label="Veterinario" binary="true">
-                    </p-checkbox>
-                  </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles17" [(ngModel)]="ROLE_VETERINARIA" label="Veterinaria" binary="true">
+                  </p-checkbox>
                 </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles18" [(ngModel)]="ROLE_VETERINARIO" label="Veterinario" binary="true">
+                  </p-checkbox>
+                </div>
+              </div>
 
-            <div class="row ui-g-12 per_adm">
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>ANIMAL</b> </label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles19" [(ngModel)]="ROLE_ANIMAL_RAZA" label="Raza" binary="true"></p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles20" [(ngModel)]="ROLE_ANIMAL_TAMANO" label="Tamaño" binary="true">
-                    </p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles21" [(ngModel)]="ROLE_ANIMAL_TIPO" label="Tipo Animal" binary="true">
-                    </p-checkbox>
-                  </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles19" [(ngModel)]="ROLE_ANIMAL_RAZA" label="Raza" binary="true"></p-checkbox>
                 </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles20" [(ngModel)]="ROLE_ANIMAL_TAMANO" label="Tamaño" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles21" [(ngModel)]="ROLE_ANIMAL_TIPO" label="Tipo Animal" binary="true">
+                  </p-checkbox>
+                </div>
+              </div>
 
-            <div class="row ui-g-12 per_adm">
+              <div class="row ui-g-12 per_adm">
                 <label for="form-control"><b>REPORTES</b> </label>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles22" [(ngModel)]="ROLE_REPORTE" label="Reporte General" binary="true">
-                    </p-checkbox>
-                  </div>
-                  <div class="ui-g-12 per_adm">
-                    <p-checkbox name="roles23" [(ngModel)]="ROLE_REPORTE_NO_COBERTURADO" label="Reporte no coberturado"
-                      binary="true"></p-checkbox>
-                  </div>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles22" [(ngModel)]="ROLE_REPORTE" label="Reporte General" binary="true">
+                  </p-checkbox>
                 </div>
-
-            <div class="ui-g-12">
-              <div class="ui-g-6">
-                <button pButton type="button" label="LIMPIAR" icon ="fa fa-eraser" class="ui-button-danger btn" (click)="limpiarData()"></button>
+                <div class="ui-g-12 per_adm">
+                  <p-checkbox name="roles23" [(ngModel)]="ROLE_REPORTE_NO_COBERTURADO" label="Reporte no coberturado"
+                    binary="true"></p-checkbox>
+                </div>
               </div>
-              <div class="ui-g-6">
-              <button pButton label="GUARDAR" icon ="fa fa-save" class="ui-button-success btn" type="submit"></button>
-              </div>
-            </div>
 
-          </p-scrollPanel>
-        </div>
-      </form>
-    </div>
+              <div class="ui-g-12">
+                <div class="ui-g-6">
+                  <button pButton type="button" label="LIMPIAR" icon="fa fa-eraser" class="ui-button-danger btn"
+                    (click)="limpiarData()"></button>
+                </div>
+                <div class="ui-g-6">
+                  <button pButton label="GUARDAR" icon="fa fa-save" class="ui-button-success btn"
+                    type="submit"></button>
+                </div>
+              </div>
+
+            </p-scrollPanel>
+          </div>
+        </form>
+      </div>
     </p-panel>
     <!-- {{theForm.value | json}} -->
   </div>

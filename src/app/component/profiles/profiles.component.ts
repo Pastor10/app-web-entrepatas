@@ -10,6 +10,7 @@ import { Role } from 'src/app/shared/model/role.model';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, ValidatorFn } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { RoleName } from 'src/app/enums/role';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -125,6 +126,7 @@ export class ProfilesComponent implements OnInit {
     ROLE_ANIMAL_RAZA: number;
     ROLE_ANIMAL_TAMANO: number;
     ROLE_ANIMAL_TIPO: number;
+    ROLE_POSTULANTE_COLABORADOR: number;
     public role: RoleName;
     public form: FormGroup;
     lastLazyLoadEvent: LazyLoadEvent;
@@ -254,6 +256,7 @@ export class ProfilesComponent implements OnInit {
         this.ROLE_ANIMAL_RAZA= 0;
         this.ROLE_ANIMAL_TAMANO= 0;
         this.ROLE_ANIMAL_TIPO= 0;
+        this.ROLE_POSTULANTE_COLABORADOR=0;
         this.profileService.getFindId(perfil.id).subscribe(
             (data: Perfil) => {
                 this.perfil = data.nombre;
@@ -304,6 +307,8 @@ export class ProfilesComponent implements OnInit {
                       this.ROLE_ANIMAL_TAMANO = item.id;
                     }else if (item.name === 'ROLE_ANIMAL_TIPO') {
                       this.ROLE_ANIMAL_TIPO = item.id;
+                    }else if (item.name === 'ROLE_POSTULANTE_COLABORADOR') {
+                      this.ROLE_POSTULANTE_COLABORADOR = item.id;
                     }else if (item.name === 'ROLE_REPORTE') {
                       this.ROLE_REPORTE = item.id;
                     }else if (item.name === 'ROLE_REPORTE_NO_COBERTURADO') {
@@ -416,6 +421,7 @@ export class ProfilesComponent implements OnInit {
       this.ROLE_ANIMAL_RAZA= 0;
       this.ROLE_ANIMAL_TAMANO= 0;
       this.ROLE_ANIMAL_TIPO= 0;
+      this.ROLE_POSTULANTE_COLABORADOR=0;
       this.saveProfile = true;
     }
 
@@ -604,6 +610,14 @@ export class ProfilesComponent implements OnInit {
           const role = new Role();
           role.id = 23;
           role.name = 'ROLE_ANIMAL_TIPO';
+          rolesToSaved.push(role);
+
+        }
+
+        if (this.ROLE_POSTULANTE_COLABORADOR != 0  ) {
+          const role = new Role();
+          role.id = 24;
+          role.name = 'ROLE_POSTULANTE_COLABORADOR';
           rolesToSaved.push(role);
 
         }

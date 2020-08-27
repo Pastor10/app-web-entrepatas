@@ -35,6 +35,7 @@ import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecu
 import { ProcesoComponent } from './component/proceso/proceso.component';
 import { UneteComponent } from './component/unete/unete.component';
 import { WebAmigaComponent } from './component/web-amigas/webamigas.component';
+import { PostulanteColaboradorComponent } from './component/solicitud-colaborador/postulantes/postulante-colaborador.component';
 
 export const routes: Routes = [
 
@@ -114,6 +115,7 @@ export const routes: Routes = [
 
             { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
             { path: 'colabora', component: ColaboraComponent, canActivate: [AuthGuard] },
+            { path: 'postulante-colaborador', component: PostulanteColaboradorComponent, canActivate: [AuthGuard] },
         ]
     },
 

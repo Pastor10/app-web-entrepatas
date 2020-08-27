@@ -33,7 +33,7 @@ export class DevolucionComponent implements OnInit {
       { field: 'foto', header: 'Foto', width: '80px' },
       { field: 'motivo', header: 'Motivo', width: '150px' },
       { field: 'estado', header: 'Estado', width: '120px' },
-      { field: 'accion', header: 'Acciones', width: '90px' }
+      // { field: 'accion', header: 'Acciones', width: '90px' }
     ];
   }
 

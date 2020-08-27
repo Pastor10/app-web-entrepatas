@@ -158,6 +158,8 @@ import { ProcesoComponent } from './component/proceso/proceso.component';
 import { PoliticaComponent } from './component/politica/politica.component';
 import { WebAmigaComponent } from './component/web-amigas/webamigas.component';
 import { UneteComponent } from './component/unete/unete.component';
+import { PostulanteColaboradorComponent } from './component/solicitud-colaborador/postulantes/postulante-colaborador.component';
+import { PostulanteColaboradorService } from './shared/service/postulante-colaborador.service';
 
 
 
@@ -244,7 +246,8 @@ import { UneteComponent } from './component/unete/unete.component';
         ProcesoComponent,
         PoliticaComponent,
         WebAmigaComponent,
-        UneteComponent
+        UneteComponent,
+        PostulanteColaboradorComponent
 
 
 
@@ -291,7 +294,8 @@ import { UneteComponent } from './component/unete/unete.component';
         PersonaService,
         FileService,
         LoaderRequestService,
-        CuestionarioService
+        CuestionarioService,
+        PostulanteColaboradorService
     ],
     bootstrap: [AppComponent]
 })

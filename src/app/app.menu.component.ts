@@ -121,6 +121,20 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
+                label: 'Solicitud colaborador',
+                icon: 'fa fa-file-text',
+                items: [
+                    {
+                        label: 'Postulantes colaborador',
+                        icon: 'fa fa-user-plus',
+                        routerLink: ['/main/postulante-colaborador'],
+                        role: 'ROLE_POSTULANTE_COLABORADOR',
+                        state: false
+                    }
+               
+                ]
+            },
+            {
                 label: 'Eventos',
                 icon: 'fa fa-calendar',
                 items: [
