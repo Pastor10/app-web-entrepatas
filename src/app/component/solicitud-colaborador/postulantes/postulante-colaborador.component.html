@@ -97,19 +97,19 @@
     <p-dialog header="SOLICITUD DE {{postulante.persona.nombre}} {{postulante.persona.apePaterno}}" [(visible)]="modalSolicitud" [modal]="true" [responsive]="true"
         [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000">
        
-        <strong>ESTARIAS DISPUESTO A DAR UN HOGAR TEMPORAL A UNA MASCOTA?</strong>
+        <b>1. ESTARIAS DISPUESTO A DAR UN HOGAR TEMPORAL A UNA MASCOTA?</b>
         <div *ngFor="let item of opciones">
-
-                <label for="" *ngIf="item.id ==13 || item.id==14">{{item.nombre}}</label>
+                <label *ngIf="item.id ==13 || item.id==14">  {{item.nombre}}</label>
         </div>
-        <strong>TIENES EXPERIENCIA CON ANIMALES?</strong>
-        <div *ngFor="let item of opciones">
 
-                <label for="" *ngIf="item.id ==15 || item.id==16">{{item.nombre}}</label>
-        </div>
-        <strong>TIENES EXPERIENCIA Y NOS PUEDES AYUDAR CON?</strong>
+        <b>2. TIENES EXPERIENCIA CON ANIMALES?</b>
         <div *ngFor="let item of opciones">
-                <label for="" *ngIf="item.id>16">{{item.nombre}}</label>
+                <label *ngIf="item.id ==15 || item.id==16">  {{item.nombre}}</label>
+        </div>
+
+        <b>3. TIENES EXPERIENCIA Y NOS PUEDES AYUDAR CON?</b>
+        <div *ngFor="let item of opciones">
+                <label *ngIf="item.id>16">  - {{item.nombre}}</label>
         </div>
         
         <p-footer>

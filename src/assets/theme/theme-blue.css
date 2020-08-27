@@ -1597,7 +1597,8 @@ label {
     /*font-family: 'bebas_neueregular', Arial;*/
     font-size: 20px;
     text-align: center;
-    color: #E91E63; /*titulo Rosado*/
+    color: #0D47A1; 
+    /*color: #E91E63; titulo Rosado*/
     margin-top: 20px;
 }
 .centrar{
