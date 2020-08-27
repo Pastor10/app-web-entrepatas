@@ -1,131 +1,241 @@
-<p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
-<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
-    <ng-template let-message pTemplate="message">
-        <div style="text-align: center">
-            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
-            <h3>{{message.summary}}</h3>
-            <input type="hidden" [(ngModel)]="tipoLocal">
-            <p>{{message.detail}}</p>
-        </div>
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-6">
-                <button type="button" pButton (click)="onConfirm(tipoLocal)" label="Si"
-                  icon ="fa fa-thumbs-up" class="ui-button-success"></button>
+<p-card>
+    <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+    <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+        <ng-template let-message pTemplate="message">
+            <div style="text-align: center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                <h3>{{message.summary}}</h3>
+                <input type="hidden" [(ngModel)]="tipoLocal">
+                <p>{{message.detail}}</p>
             </div>
-            <div class="ui-g-6">
-                <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-secondary"></button>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-6">
+                    <button type="button" pButton (click)="onConfirm(tipoLocal)" label="Si" icon="fa fa-thumbs-up"
+                        class="ui-button-success"></button>
+                </div>
+                <div class="ui-g-6">
+                    <button type="button" pButton (click)="onReject()" label="No" icon="fa fa-thumbs-down"
+                        class="ui-button-danger btn"></button>
+                </div>
             </div>
-        </div>
-    </ng-template>
-</p-toast>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-<div class="ui-g">
-    <div class="ui-g-12 ui-lg-6">
-        <!-- Left Side -->
-        <p-panel [style]="{'margin-bottom':'20px'}">
-            <p-header>
-                <span class="ui-panel-title">Mascota</span>
-            </p-header>
-            <div class="ui-g ">
-                <div class="row ui-g-12">
-                    <label for="form-control" style="padding-right: 25px"> <strong>Nombre Mascota: </strong>
-                    </label>
-                    <!-- <p-autoComplete [(ngModel)]="animal" name="animal" [suggestions]="filterAnimal"
-                        (completeMethod)="filterAnimales($event)" field="nombre" [size]="29"
-                        placeholder="buscar mascota" [minLength]="1" [disabled]="isEdit"></p-autoComplete> -->
+        </ng-template>
+    </p-toast>
+    <!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
+    <div class="ui-g cont-tarjeta">
+        <div class=" ui-g-12 tarjeta_adm">
+            <p-card>
+                <p-header>
+                    <h2>REGISTRAR CITA CLÍNICA</h2>
+                </p-header>
 
-                        <p-autoComplete [(ngModel)]="animal" [suggestions]="filterAnimal" (completeMethod)="filterAnimales($event)" [size]="29"
-                        [minLength]="1" placeholder="buscar mascota" [dropdown]="true" field="nombre">
-                        <ng-template let-animal pTemplate="item">
-                            <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-                                <img src="{{animal.foto}}" style="width:32px;display:inline-block;margin:5px 0 2px 5px"/>
-                                <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{animal.nombre}}</div>
+                <div class="ui-g-12 ui-md-6">
+                    <div class="ui-g-12">
+                        <h2><b>1. Buscar Mascota: </b></h2>
+                        <p-autoComplete [(ngModel)]="animal" [suggestions]="filterAnimal"
+                            (completeMethod)="filterAnimales($event)" [size]="29" [minLength]="1"
+                            placeholder="buscar mascota" [dropdown]="true" field="nombre">
+                            <ng-template let-animal pTemplate="item">
+                                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                                    <img src="{{animal.foto}}"
+                                        style="width:32px;display:inline-block;margin:5px 0 2px 5px" />
+                                    <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{animal.nombre}}</div>
+                                </div>
+                            </ng-template>
+                        </p-autoComplete>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-12">
+                            <div *ngIf="animal.raza!=null">
+                                <img class="img_bus" src="{{animal.foto}}">
                             </div>
-                        </ng-template>
-                    </p-autoComplete>
-
-                </div>
-                <div class="row ui-g-12">
-                    <div style="text-align: center;" class="ui-g-12 ui-md-6">
-                        <div *ngIf="animal.raza!=null">
-                            <img src="{{animal.foto}}" width="250px"
-                                height="300px">
                         </div>
 
-                    </div>
-                    <div *ngIf="animal.raza!=null && animal.tamanoAnimal!=null" class="ui-g-12 ui-md-6">
-                        <div class="ui-g-6">
-                            <h5 class="label-custom">Nombre:</h5>
-                            <label for="form-control"> {{animal.nombre}}</label>
-                        </div>
-                        <div class="ui-g-6">
-                            <h5 class="label-custom">Raza</h5>
-                            <label for="form-control"> {{animal.raza.nombre}}</label>
-                        </div>
+                        <div *ngIf="animal.raza!=null && animal.tamanoAnimal!=null" class="ui-g-12">
+                            <div class="ui-g-4">
+                                <label><b>RAZA</b></label>
+                                <label for="form-control"> {{animal.raza.nombre}}</label>
+                            </div>
 
-                        <div class="ui-g-6">
-                            <h5 class="label-custom">Tamaño:</h5>
-                            <label for="form-control"> {{animal.tamanoAnimal.nombre}}</label>
-                        </div>
-                        <div class="ui-g-6">
-                            <h5 class="label-custom">Edad</h5>
-                            <label for="form-control">{{animal.edad}}</label>
-                        </div>
-                        <div class="ui-g-6">
-                            <h5 class="label-custom">Sexo:</h5>
-                            <label for="form-control"> {{animal.sexo}}</label>
-                        </div>
+                            <div class="ui-g-4">
+                                <label><b>TAMAÑO:</b></label>
+                                <label for="form-control"> {{animal.tamanoAnimal.nombre}}</label>
+                            </div>
 
+                            <div class="ui-g-4">
+                                <label><b>EDAD</b></label>
+                                <label for="form-control">{{animal.edad}}</label>
+                            </div>
 
+                            <div class="ui-g-12">
+                                <label><b>SEXO:</b></label>
+                                <label for="form-control"> {{animal.sexo}}</label>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="ui-g-12" *ngIf="animal.citasMedicas!=null">
+                        <button pButton label="historial" icon="fa fa-search" class="ui-button-info btn" type="submit"
+                            (click)="showHistorialDialog()"></button>
+                    </div>
                 </div>
 
+                <!-- {{theForm.value | json}} -->
+                <div class="ui-g-12 ui-md-6">
+                    <h2><b>2. Completar Datos:</b></h2>
 
-                <div class="ui-g-12 ">
-                    <button pButton label="Ver historial" icon ="fa fa-search" class="ui-button-danger btn" type="submit" (click)="showHistorialDialog()"></button>
+                    <div class="ui-g-12 ui-md-6">
+                        <label><b>Veterinario (*)</b></label>
+                        <p-dropdown [options]="veterinarios" placeholder="Veterinario" name="veterinario"
+                            [(ngModel)]="veterinario" optionLabel="nombre" [showClear]="true">
+                        </p-dropdown>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-6">
+                        <label><b>Fecha visita (*)</b></label>
+                        <p-calendar [(ngModel)]="fechaVisita" [locale]="es" dateFormat="dd/mm/yy" placeholder="dd/mm/yy"
+                            [maxDate]="today"></p-calendar>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <label><b>Diagnostico(*)</b></label>
+                        <textarea rows="3" pInputTextarea name="descripcion" [(ngModel)]="diagnostico"></textarea>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <label>Foto [SELECCIONE IMAGEN Y SUBALA]</label>
+                        <p-fileUpload accept="image/*" chooseLabel="BUSCAR" uploadLabel="CARGAR" accept="image/*"
+                            [showCancelButton]="false" name="file" (uploadHandler)="onFileUpload($event)"
+                            [customUpload]="true" [multiple]="false" maxFileSize="10000000">
+                            <ng-template pTemplate="content">
+                                <ul *ngIf="uploadedFiles.length">
+                                    <li *ngFor="let file of uploadedFiles">{{file.name}} -
+                                        {{file.size}}
+                                        bytes
+                                    </li>
+                                </ul>
+                            </ng-template>
+                        </p-fileUpload>
+
+                        <label>URL Imagen</label>
+                        <input [(ngModel)]="foto" class="form-control" name="foto" id="imagenUp" type="text" disabled
+                            pInputText />
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="head-items">
+
+                            <p-table [columns]="cols" [value]="tratamientos" selectionMode="single"
+                                [(selection)]="selectTratamiento" (onRowSelect)="onRowSelect($event)" [rows]="15">
+                                <ng-template pTemplate="caption">
+                                    <div class="ui-g">
+                                        <div class="ui-g-12">
+                                            AGREGAR RECETA:
+                                            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()"
+                                                icon="pi pi-plus" class="ui-button-success"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                                            {{col.header}}
+                                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+
+                                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                    <tr [pSelectableRow]="rowData">
+                                        <td *ngFor="let col of columns">
+                                            {{rowData[col.field]}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <label><b>Estado(*)</b></label>
+                        <p-dropdown [options]="estadosClinico" placeholder="Seleccione un estado" name="tipoAnimal"
+                            [(ngModel)]="estadoSelected" optionLabel="name" [showClear]="true"
+                            (onChange)="changeEstado()">
+                        </p-dropdown>
+                    </div>
                 </div>
-
-            </div>
-        </p-panel>
-
-        <!-- {{theForm.value | json}} -->
+                <br><br><br>
+                <div class="ui-g-12 mt-3">
+                    <button pButton type="submit" label="Registrar" icon="fa fa-save" class="ui-button-success btn"
+                        (click)="saveCitaMedica()"></button>
+                </div>
+                <br>
+            </p-card>
+        </div>
     </div>
-    <div class="ui-g-12 ui-lg-6">
-        <p-panel [style]="{'margin-bottom':'20px'}">
-            <p-header>
-                <span class="ui-panel-title">Registrar cita médica</span>
-            </p-header>
-            <div class="ui-g ">
 
-                <div class="ui-g-6">
-                    <h5 class="label-custom">Veterinario (*)</h5>
-                    <p-dropdown [style]="{'width':'100%'}" [options]="veterinarios"
-                        placeholder="Seleccione un Veterinario" name="veterinario" [(ngModel)]="veterinario"
-                        optionLabel="nombre" [showClear]="true">
 
-                    </p-dropdown>
-                </div>
-                <div class="ui-g-6">
-                    <h5 class="label-custom">Fecha visita (*)</h5>
-                    <p-calendar [(ngModel)]="fechaVisita" [locale]="es" dateFormat="dd/mm/yy" [maxDate]="today"></p-calendar>
-                </div>
+    <p-dialog header="Tratamiento" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+        [style]="{width: '300px'}">
+        <div class="ui-g ui-fluid" *ngIf="tratamiento">
+            <div class="ui-g-12 centrar">
+                <label for="vin"><b>MEDICAMENTO</b></label>
                 <div class="ui-g-12">
-                    <h5 class="label-custom">Diagnostico(*)</h5>
-
-                    <textarea rows="5" cols="70" pInputTextarea name="descripcion" [(ngModel)]="diagnostico"></textarea>
+                    <input pInputText id="vin" [(ngModel)]="tratamiento.medicina" />
                 </div>
+            </div>
+            <div class="ui-g-12 centrar">
+                <label for="year"><b>MEDIDA</b></label>
                 <div class="ui-g-12">
-                    <div class="head-items">
-                        <h5 class="label-custom">Tratamiento
-                            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Agregar"
-                                icon="fa fa-plus"></button>
-                        </h5>
-                        <p-table [columns]="cols" [value]="tratamientos" selectionMode="single"
-                            [(selection)]="selectTratamiento" (onRowSelect)="onRowSelect($event)" 
-                            [rows]="15">
+                    <input pInputText id="year" [(ngModel)]="tratamiento.unidadMedida" />
+                </div>
+            </div>
+            <div class="ui-g-12 centrar">
+                <label for="brand"><b>CANTIDAD</b></label>
+                <div class="ui-g-12">
+                    <input pInputText id="brand" [(ngModel)]="tratamiento.cantidad" min="1" type="number" />
+                </div>
+            </div>
+        </div>
+        <p-footer>
+            <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                <button type="button" pButton icon="fa fa-close" class="ui-button-danger btn" (click)="delete()"
+                    label="CERRAR"></button>
+                <button type="button" pButton icon="fa fa-check" class="ui-button-success btn"
+                    (click)="addTratamiento()" label="AGREGAR"></button>
+            </div>
+        </p-footer>
+    </p-dialog>
+
+    <p-dialog header="Historial Clinica " [(visible)]="historialDialog" [modal]="true" [responsive]="true"
+        [style]="{width: '700px', height: '500px'}" [baseZIndex]="10000">
+
+        <p-scrollPanel [style]="{width: '100%', height: '400px'}">
+
+            <div *ngFor="let cita of animal.citasMedicas">
+                <fieldset class="ng-tns-c10-18 ui-fieldset ui-widget ui-widget-content ui-corner-all mt-3">
+                    <legend class="ui-fieldset-legend ui-corner-all ui-state-default ui-unselectable-text">
+                        <span class="ui-fieldset-legend-text ng-tns-c10-18 ng-star-inserted">FECHA: {{cita.fechaVisita}}
+                            | N° {{cita.numero}}</span>
+                    </legend>
+
+                    <div class="ui-g-6 ui-md-3">
+                        <label><b>VETERINARIO:</b> <br>{{cita.veterinario.nombre}} </label>
+                    </div>
+                    <div class="ui-g-6 ui-md-3">
+                        <label><b>VETERINARIA:</b><br>{{cita.veterinario.veterinaria.nombre}} </label>
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <label><b>DIAGNÓSTICO</b>: {{cita.diagnostico}} </label>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-4">
+                    <img src="{{cita.foto}}" alt="" style="width: 150px; height: 150px">
+                    </div>
+                    <div class="ui-g-12 ui-md-6">
+                        <p-table [columns]="cols" [value]="cita.listaTratamiento" [rows]="5">
                             <ng-template pTemplate="caption">
-                                Medicamentos a utilizar
+                                RECETA:
                             </ng-template>
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
@@ -143,129 +253,18 @@
                                 </tr>
                             </ng-template>
                         </p-table>
-
-
+                        <div class="ui-g-12 ">
+                            <button type="button" pButton icon="pi pi-trash" (click)="deleteCita(cita.id)"
+                                label="Eliminar" class="ui-button-danger btn"></button>
+                        </div>
                     </div>
-
-                </div>
-                <div class="ui-g-6">
-                    <h5 class="label-custom">Estado(*)</h5>
-                    <p-dropdown [style]="{'width':'100%'}" [options]="estadosClinico" placeholder="Seleccione un estado"
-                        name="tipoAnimal" [(ngModel)]="estadoSelected" optionLabel="name" [showClear]="true"
-                        (onChange)="changeEstado()">
-
-                    </p-dropdown>
-                </div>
-                <div class="ui-g-12">
-                    <button pButton type="submit" label="Registrar" icon ="fa fa-save" class="ui-button-success btn" (click)="saveCitaMedica()"></button>
-
-                </div>
+                </fieldset>
 
             </div>
-
-
-        </p-panel>
-    </div>
-
-
-</div>
-
-<p-dialog header="Tratamiento" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
-    [style]="{width: '300px'}">
-    <div class="ui-g ui-fluid" *ngIf="tratamiento">
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="vin">Medicina</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="vin" [(ngModel)]="tratamiento.medicina" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="year">Unid. Medida</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="year" [(ngModel)]="tratamiento.unidadMedida" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="brand">Cantidad</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="brand" [(ngModel)]="tratamiento.cantidad" min="1" type="number" />
-            </div>
-        </div>
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Quitar"></button>
-            <button type="button" pButton icon="fa fa-check" (click)="addTratamiento()" label="Agregar"></button>
-        </div>
-    </p-footer>
-</p-dialog>
-
-<p-dialog header="Historia Clinica " [(visible)]="historialDialog" [modal]="true" [responsive]="true"
-    [style]="{width: '700px', height: '500px'}" [baseZIndex]="10000">
-    <div>
-        <p-scrollPanel [style]="{width: '100%', height: '400px'}">
-            <div *ngFor="let cita of animal.citasMedicas">
-                <div class="ui-g-12">
-                    <label for="form-control">Cita Medica N {{cita.numero}}</label>
-                </div>
-                <div class="ui-g-4">
-                    <label for="form-control">Fecha visita: {{cita.fechaVisita}}</label>
-                </div>
-                <div class="ui-g-4">
-                    <label for="form-control">Veterinario: {{cita.veterinario.nombre}} </label>
-                </div>
-                <div class="ui-g-4">
-                    <label for="form-control">Veterinaria: {{cita.veterinario.veterinaria.nombre}} </label>
-                </div>
-                <div class="ui-g-12">
-                    <label for="form-control">Sintomas/ Diagnostico</label>
-                </div>
-                <div class="ui-g-12">
-                    <label for="form-control">{{cita.diagnostico}} </label>
-                </div>
-
-                <div class="ui-g-12">
-                    <p-table [columns]="cols" [value]="cita.listaTratamiento"  [rows]="5">
-                        <ng-template pTemplate="caption">
-                            Tratamiento
-                        </ng-template>
-                        <ng-template pTemplate="header" let-columns>
-                            <tr>
-                                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                                    {{col.header}}
-                                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                                </th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-columns="columns">
-                            <tr [pSelectableRow]="rowData">
-                                <td *ngFor="let col of columns">
-                                    {{rowData[col.field]}}
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <br>
-                        <button type="button" pButton icon="pi pi-trash" (click)="deleteCita(cita.id)" label="Eliminar"  class="ui-button-danger"></button>
-                    <br>
-                    <hr>
-                </div>
-
-             
-
-            </div>
-
-
         </p-scrollPanel>
-    </div>
 
-    <p-footer>
-        <button type="button" pButton icon="pi pi-close" (click)="historialDialog=false" label="Cerrar"></button>
-    </p-footer>
-</p-dialog>
+        <p-footer>
+            <button type="button" pButton icon="fa fa-close" class="ui-button-danger btn"
+                (click)="historialDialog=false" label="Cerrar"></button>
+        </p-footer>
+    </p-dialog>

@@ -26,14 +26,14 @@ export class DevolucionComponent implements OnInit {
     this.cols = [
       { field: 'fecha', header: 'Fecha devolución', width: '90px' },
       { field: 'nombres', header: 'Nombres', width: '150px' },
-      { field: 'documento', header: 'Documento', width: '90px' },
+      { field: 'documento', header: 'Documento', width: '120px' },
       { field: 'ubigeo', header: 'Lugar', width: '200px' },
       { field: 'celular', header: 'Celular', width: '100px' },
       { field: 'mascota', header: 'Mascota', width: '100px' },
       { field: 'foto', header: 'Foto', width: '80px' },
       { field: 'motivo', header: 'Motivo', width: '150px' },
-      { field: 'estado', header: 'Estado', width: '80px' },
-      { field: 'accion', header: 'Acciones', width: '90px' },
+      { field: 'estado', header: 'Estado', width: '120px' },
+      // { field: 'accion', header: 'Acciones', width: '90px' }
     ];
   }
 

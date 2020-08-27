@@ -1,37 +1,38 @@
 <p-card>
- <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+    <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
     <form (ngSubmit)="save()">
         <div class="ui-g ui-fluid" *ngIf="usuario!=null">
             <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
                 <div class="tarjeta">
                     <h2>Datos Personales</h2>
-                    <div class="ui-g-12">                        
+                    <div class="ui-g-12">
                         <div class="form-group mt-2">
                             <label>Nombres (*)</label>
                             <input class="form-control" type="text" name="usuario.persona.nombre"
-                                [(ngModel)]="usuario.persona.nombre" (keypress)="soloLetras($event)"  pInputText />
+                                [(ngModel)]="usuario.persona.nombre" (keypress)="soloLetras($event)" pInputText />
                         </div>
-                        
+
                         <div class="form-group mt-2">
                             <label>Apellido paterno (*)</label>
                             <input class="form-control" type="text" name="usuario.persona.apePaterno"
-                                [(ngModel)]="usuario.persona.apePaterno" (keypress)="soloLetras($event)"  pInputText />
+                                [(ngModel)]="usuario.persona.apePaterno" (keypress)="soloLetras($event)" pInputText />
                         </div>
 
                         <div class="form-group mt-2">
                             <label>Apellido materno (*)</label>
                             <input class="form-control" type="text" name="usuario.persona.apeMaterno"
-                                [(ngModel)]="usuario.persona.apeMaterno" (keypress)="soloLetras($event)"  pInputText />
+                                [(ngModel)]="usuario.persona.apeMaterno" (keypress)="soloLetras($event)" pInputText />
                         </div>
 
                         <div class="form-group mt-2">
                             <label>Ciudad (*)</label>
-                            <p-autoComplete field="descripcion" [(ngModel)]="usuario.persona.ubigeo" name="usuario.persona.ubigeo"
-                            [suggestions]="filteredCities" (completeMethod)="filterCitiesByNombre($event)" (keypress)="soloLetras($event)" 
-                            placeholder="Ingrese ubigeo" [minLength]="1">
-                            <ng-template let-d pTemplate="item">
-                                {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}} - {{d.descripcion}}
-                            </ng-template>
+                            <p-autoComplete field="descripcion" [(ngModel)]="usuario.persona.ubigeo"
+                                name="usuario.persona.ubigeo" [suggestions]="filteredCities"
+                                (completeMethod)="filterCitiesByNombre($event)" (keypress)="soloLetras($event)"
+                                placeholder="Ingrese ubigeo" [minLength]="1">
+                                <ng-template let-d pTemplate="item">
+                                    {{d.codDepartamento}}{{d.codProvincia}}{{d.codDistrito}} - {{d.descripcion}}
+                                </ng-template>
                             </p-autoComplete>
                         </div>
 
@@ -45,23 +46,23 @@
                 </div>
             </div>
 
-                <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
+            <div class="ui-g-12 ui-md-6 ui-lg-4 cont-tarjeta">
                 <div class="tarjeta">
                     <h2>Otros datos</h2>
                     <div class="ui-g-12">
                         <div class="form-group mt-2">
                             <label>Tipo documento</label>
-                            <p-dropdown [options]="listTipoDocumento"
-                            placeholder="Seleccione tipo documento" name="usuario.tipoDocumento"
-                            [(ngModel)]="usuario.persona.tipoDocumento" optionLabel="abreviatura"
-                            [showClear]="true"> class="form-control"
+                            <p-dropdown [options]="listTipoDocumento" placeholder="Seleccione tipo documento"
+                                name="usuario.tipoDocumento" [(ngModel)]="usuario.persona.tipoDocumento"
+                                optionLabel="abreviatura" [showClear]="true"> class="form-control"
                             </p-dropdown>
                         </div>
-                        
+
                         <div class="form-group mt-2">
                             <label>Numero documento (*)</label>
                             <input class="form-control" type="text" name="usuario.persona.numeroDocumento"
-                                [(ngModel)]="usuario.persona.numeroDocumento" [textMask]="{mask: numberMask}" minlength="8" maxlength="12" pInputText />
+                                [(ngModel)]="usuario.persona.numeroDocumento" [textMask]="{mask: numberMask}"
+                                minlength="8" maxlength="12" pInputText />
                         </div>
 
                         <div class="form-group mt-2">
@@ -71,56 +72,57 @@
                         </div>
                         <div class="form-group mt-2">
                             <label>Celular (*)</label>
-                            <input class="form-control"  type="text" name="usuario.persona.celular"
-                                [(ngModel)]="usuario.persona.celular" [textMask]="{mask: numberMask}" maxlength="9" pInputText />
+                            <input class="form-control" type="text" name="usuario.persona.celular"
+                                [(ngModel)]="usuario.persona.celular" [textMask]="{mask: numberMask}" maxlength="9"
+                                pInputText />
                         </div>
 
                         <div class="form-group mt-2">
                             <label>Ocupación</label>
                             <input class="form-control" type="text" name="usuario.persona.ocupacion"
-                                [(ngModel)]="usuario.persona.ocupacion" (keypress)="soloLetras($event)"  pInputText />
+                                [(ngModel)]="usuario.persona.ocupacion" (keypress)="soloLetras($event)" pInputText />
                         </div>
                     </div>
                     &nbsp;
                 </div>
             </div>
-            
 
-<!-- OTRO MAS -->
-                <div class="ui-g-12 ui-lg-4 cont-tarjeta">
-                    <div class="tarjeta">
-                        <h2 class="label-custom">FOTO</h2>
-                        <div class="ui-g-12">
+
+            <!-- OTRO MAS -->
+            <div class="ui-g-12 ui-lg-4 cont-tarjeta">
+                <div class="tarjeta">
+                    <h2 class="label-custom">FOTO</h2>
+                    <div class="ui-g-12">
                         <img src="{{usuario.persona.foto}}" class="img_circular">
-                        </div>
+                    </div>
 
                     <div class="ui-g-12">
-                    <label>Foto  [SELECCIONE IMAGEN Y SUBALA]</label>
-                        <p-fileUpload accept="image/*"
-                               chooseLabel="BUSCAR" uploadLabel="CARGAR" accept="image/*" [showCancelButton]="false"
-                               name="file" 
-                               (uploadHandler)="onFileUpload($event)" [customUpload]="true"
-                               [multiple]="false" maxFileSize="10000000">
-                                 <ng-template pTemplate="content">
-                                     <ul *ngIf="uploadedFiles.length">
-                                         <li *ngFor="let file of uploadedFiles">{{file.name}} -
-                                             {{file.size}}
-                                             bytes
-                                         </li>
-                                     </ul>
-                                 </ng-template>
+                        <label>Foto [SELECCIONE IMAGEN Y SUBALA]</label>
+                        <p-fileUpload accept="image/*" chooseLabel="BUSCAR" uploadLabel="CARGAR" accept="image/*"
+                            [showCancelButton]="false" name="file" (uploadHandler)="onFileUpload($event)"
+                            [customUpload]="true" [multiple]="false" maxFileSize="10000000">
+                            <ng-template pTemplate="content">
+                                <ul *ngIf="uploadedFiles.length">
+                                    <li *ngFor="let file of uploadedFiles">{{file.name}} -
+                                        {{file.size}}
+                                        bytes
+                                    </li>
+                                </ul>
+                            </ng-template>
                         </p-fileUpload>
 
                         <label>URL Imagen</label>
-                        <input [(ngModel)]="usuario.persona.foto" class="form-control" name="usuario.persona.foto" id="imagenUp" type="text" disabled pInputText/>
-                        </div>
+                        <input [(ngModel)]="usuario.persona.foto" class="form-control" name="usuario.persona.foto"
+                            id="imagenUp" type="text" disabled pInputText />
+                    </div>
                 </div>
                 &nbsp;
             </div>
         </div>
 
         <div style="text-align: center; margin-top: 1rem;">
-            <button pButton type="submit" [label]="'ACTUALIZAR'" icon ="fa fa-save" class="ui-button-success btn"></button>
+            <button pButton type="submit" [label]="'ACTUALIZAR'" icon="fa fa-save"
+                class="ui-button-success btn"></button>
         </div>
 
     </form>

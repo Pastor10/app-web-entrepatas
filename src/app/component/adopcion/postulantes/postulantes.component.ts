@@ -14,6 +14,7 @@ import { Opcion } from 'src/app/shared/model/opcion.model';
 import { Cuestionario } from 'src/app/shared/model/cuestionario.model';
 import { CuestionarioService } from 'src/app/shared/service/cuestionario.service';
 import { DetalleCuestionario } from 'src/app/shared/model/detalleCuestionario.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class PostulanteComponent implements OnInit {
     detalleCuestionario: DetalleCuestionario;
     cuestionario: Cuestionario;
     showCuestionario: boolean = false;
+    showAdopcion: boolean = false;
     nombrePostulante: string;
     nombreMascota: string;
 
@@ -87,7 +89,7 @@ export class PostulanteComponent implements OnInit {
             { field: 'nombre', header: 'Mascota', width: '100px' },
             { field: 'foto', header: 'Foto', width: '80px' },
             { field: 'sexo', header: 'Tipo/Sexo', width: '120px' },
-            { field: 'condicion', header: 'Condicion', width: '150px' },
+            { field: 'condicion', header: 'Condición', width: '150px' },
             { field: 'estado', header: 'Estado', width: '100px' },
         ];
     }
@@ -119,12 +121,23 @@ export class PostulanteComponent implements OnInit {
         
         this.postulante = data;
         this.showCuestionario = true;
+        this.showAdopcion = false;
         this.nombrePostulante = this.postulante.persona.nombreCompleto.toUpperCase();
 
         if(data.cuestionario!=null){
             this.modelCuestionarioToForm(data);
         }
         
+    }
+
+    showConfirm(data) {
+        this.postulante = data;
+        this.nombrePostulante = this.postulante.persona.nombreCompleto.toUpperCase();
+        this.showAdopcion = true;
+        this.showCuestionario = false;
+        //this.messageService.clear();
+        //this.data = data;
+        //this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Esta seguro de generar adopción?' });
     }
 
 
@@ -149,49 +162,23 @@ export class PostulanteComponent implements OnInit {
 
     formToModel(data) {
         this.adopcion = new Adopcion();
-        console.log('crea user', this.creaUser);
-
-        if (this.creaUser) {
-            this.user = new User();
-            this.user.estado = true;
-            this.user.visible = true;
-            this.user.username = data.numeroDocumento;
-            this.user.passwordTrans = data.numeroDocumento;
-
-            this.perfil = new Perfil();
-            this.perfil.id = 4;
-            this.perfil.nombre = 'visitante';
-            this.perfil.activo = true;
-
-            this.user.perfil = this.perfil;
-            this.adopcion.usuario = this.user;
-
-
-
-        } else {
-            this.adopcion.persona = data.persona;
-        }
         this.adopcion.animal = data.publicacion.animal;
-        this.adopcion.estado = true;
-
-        console.log("adopcion ", this.adopcion);
-
-
-
+        this.adopcion.persona= data.persona;
+        this.adopcion.createUser = this.creaUser;
 
     }
 
-    onConfirm(data) {
-        console.log("postulanee, ", data);
+    onConfirm() {
+        console.log("postulanee, ", this.postulante);
         let message;
-        this.formToModel(data);
+        this.formToModel(this.postulante);
         this.adopcionService.save(this.adopcion).subscribe(res => {
             if (res != null) {
                 message = 'Se registro la adopción correctamente';
                 this.showMsg('success', message, 'Adopción');
             }
         });
-        this.messageService.clear('c');
+
     }
 
 
@@ -199,12 +186,7 @@ export class PostulanteComponent implements OnInit {
         this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
     }
 
-    showConfirm(data) {
-        this.postulante = data;
-        this.messageService.clear();
-        //this.data = data;
-        this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Esta seguro de generar adopción?' });
-    }
+   
 
     showSaveCuestionario(type: string, msg: string, title: string) {
         this.messageService.add({ key: 'cuestionario', severity: type, summary: title, detail: msg });

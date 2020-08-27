@@ -7,6 +7,7 @@ import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 import { Postulante } from '../model/postulante.model';
 import { Publicacion } from '../model/publicacion.model';
+import { PostulanteColaborador } from '../model/postulantecolaborador.model';
 
 @Injectable()
 export class PostulanteService {
@@ -44,6 +45,11 @@ export class PostulanteService {
     } else {
       return this.http.put(this.baseUrl + 'update', o);
     }
+  }
+
+  saveColaborador(o: PostulanteColaborador) {
+      return this.http.post(this.baseUrl + 'colaborador', o);
+    
   }
 
 }

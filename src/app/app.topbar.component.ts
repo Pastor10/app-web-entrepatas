@@ -7,7 +7,7 @@ import { AppMainComponent } from './app.main.component';
     template: `
         <div class="topbar clearfix">
             <div class="topbar-left">
-                <img src="assets/layout/images/logo2.png" class="topbar-logo" />
+                <img src="assets/layout/images/logo2.png" class="topbar-logo" /> ENTREPATAS
             </div>
             <div class="topbar-right">
                 <a id="menu-button" href="#" (click)="app.onMenuButtonClick($event)"

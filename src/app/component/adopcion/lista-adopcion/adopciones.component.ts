@@ -32,13 +32,13 @@ export class AdopcionComponent implements OnInit {
   ngOnInit() {
     this.cols = [
       { field: 'nombres', header: 'Nombres', width: '170px' },
-      { field: 'documento', header: 'Documento', width: '90px' },
+      { field: 'documento', header: 'Documento', width: '120px' },
       { field: 'ubigeo', header: 'Lugar', width: '170px' },
-      { field: 'celular', header: 'Celular', width: '70px' },
+      { field: 'celular', header: 'Celular', width: '90px' },
       { field: 'mascota', header: 'Mascota', width: '100px' },
       { field: 'foto', header: 'Foto', width: '70px' },
       { field: 'fecha', header: 'Fecha entrega', width: '80px' },
-      { field: 'estado', header: 'Estado', width: '90px' },
+      { field: 'estado', header: 'Estado', width: '120px' },
     ];
 
     this.es = {

@@ -1315,17 +1315,19 @@ body a {
   -moz-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);*/
 }
-.layout-wrapper .topbar .topbar-left .topbar-logo {
-  height: 30px;
+.layout-wrapper .topbar .topbar-left .topbar-logo, .layout-wrapper .topbar .topbar-right .topbar-logo {
+  height: 50px;
+  vertical-align: middle;
 }
 .layout-wrapper .topbar .topbar-right {
   padding: 15px;
   height: 75px;
-  background: #FFB300; /* Old browsers */
-background: -moz-linear-gradient(top, #FFB300 0%, #ffecb3 100%);
+  background: #FFF176; /*Fondo de header*/
+  /*background: #FFB300; /*Fondo de header*/
+/*background: -moz-linear-gradient(top, #FFB300 0%, #ffecb3 100%);
 background: -webkit-linear-gradient(top, #FFB300 0%,#ffecb3 100%);
 background: linear-gradient(to bottom, #FFB300 0%,#ffecb3 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFB300', endColorstr='#ffecb3',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFB300', endColorstr='#ffecb3',GradientType=0 );*/
 box-shadow: 0 1px 10px #fff;
 
   /*height: 60px;
@@ -1821,7 +1823,8 @@ box-shadow: 0 1px 10px #fff;
     position: absolute;
     right: 0;
     top: -5px;
-    background-color: #3eb839;
+    /*background-color: #3eb839; Color de la campana de alertas*/
+    background-color: #F44336;
     color: #ffffff;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -1833,14 +1836,14 @@ box-shadow: 0 1px 10px #fff;
   }
   .layout-wrapper .topbar-items > li .topbar-icon {
     font-size: 24px;
-    color: #ffffff;
+    color: #000;
     -moz-transition: color 0.3s;
     -o-transition: color 0.3s;
     -webkit-transition: color 0.3s;
     transition: color 0.3s;
   }
   .layout-wrapper .topbar-items > li .topbar-icon:hover {
-    color: #cccccc;
+    color: #0D47A1;
   }
   .layout-wrapper .topbar-items > li.profile-item a {
     -moz-transition: color 0.3s;

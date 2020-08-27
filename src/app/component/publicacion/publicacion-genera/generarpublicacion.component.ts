@@ -278,10 +278,9 @@ export class GenerarPublicacionComponent implements OnInit {
 
   listarLocales() {
     this.listaLocales = [];
-    this.localService.getAll().subscribe(
+    this.localService.getAllDisponibles().subscribe(
       (data: Local[]) => {
         this.listaLocales = data;
-        console.log('locales', data);
 
       },
       error => {
@@ -295,22 +294,22 @@ export class GenerarPublicacionComponent implements OnInit {
     );
   }
 
-  listarRazas() {
-    this.listaRazas = [];
-    this.razaService.getAll().subscribe(
-      (data: Raza[]) => {
-        this.listaRazas = data;
-      },
-      error => {
-        this.listaRazas = [];
-        const errorMessage =
-          error.message != undefined
-            ? error.message
-            : 'No se pudo procesar la petición';
-        //this.alertService.danger(errorMessage);
-      }
-    );
-  }
+  // listarRazas() {
+  //   this.listaRazas = [];
+  //   this.razaService.getAll().subscribe(
+  //     (data: Raza[]) => {
+  //       this.listaRazas = data;
+  //     },
+  //     error => {
+  //       this.listaRazas = [];
+  //       const errorMessage =
+  //         error.message != undefined
+  //           ? error.message
+  //           : 'No se pudo procesar la petición';
+  //       //this.alertService.danger(errorMessage);
+  //     }
+  //   );
+  // }
 
 
   doAction(data, accion) {
@@ -540,12 +539,15 @@ export class GenerarPublicacionComponent implements OnInit {
 
   filterRaza(query, lista: Raza[]): Raza[] {
     let filtered: Raza[] = [];
-    for (let i = 0; i < lista.length; i++) {
-      let model = lista[i];
-      if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(model);
+    if(lista!=undefined){
+      for (let i = 0; i < lista.length; i++) {
+        let model = lista[i];
+        if (model.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          filtered.push(model);
+        }
       }
     }
+  
     return filtered;
   }
 

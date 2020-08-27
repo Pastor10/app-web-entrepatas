@@ -11,7 +11,8 @@ export class CitaMedica{
         public estadoClinico?: string,
         public listaTratamiento?: TratamientoMedico[],
         public animal?: Animal,
-        public numero?: string 
+        public numero?: string,
+        public foto?: string 
     ) {}
 
 }

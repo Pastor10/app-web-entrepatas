@@ -27,7 +27,7 @@
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="locales" dataKey="idDirectorio" [paginator]="true" [rows]="10"
-        [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
+        [responsive]="true" paginatorPosition="bottom" [scrollable]="true"  [lazy]="true" (onLazyLoad)="loadLazy($event)">
 
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
@@ -53,6 +53,11 @@
               </span>
             </td>
             <td>
+                <span>
+                  {{rowData.nombre}}
+                </span>
+              </td>
+            <td>
               <span>
                 {{rowData.ubigeo.nombre}} - {{rowData.direccion}}
               </span>
@@ -67,6 +72,11 @@
                 {{rowData.capacidad}}
               </span>
             </td>
+            <td>
+                <span>
+                  {{rowData.alojado}}
+                </span>
+              </td>
             <td>
               <span *ngIf="rowData.estado==true" class="label label-success">
                 Activo

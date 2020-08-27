@@ -39,7 +39,7 @@
 
         <ng-template pTemplate="header" let-columns let-pro>
           <tr>
-            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: left">
+            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center">
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
@@ -76,7 +76,7 @@
               </span>
             </td>
             <td>
-              <img src="{{rowData.animal.foto}}" width="60px" height="60px">
+              <img class="img_adm" src="{{rowData.animal.foto}}">
             </td>
             <td>
               <span>
@@ -116,34 +116,34 @@
     </p-panel>
   </div>
 
-  <p-dialog header="ESTA SEGURO DE ENTREGAR?" [(visible)]="modalEntrega" [modal]="true" [responsive]="true"
-    [style]="{width: '350px',  height: '500px'}" [baseZIndex]="10000">
+  <p-dialog header="ENTREGA DE MASCOTA" [(visible)]="modalEntrega" [modal]="true" [responsive]="true"
+    [style]="{width: '300px',  height: '450px'}" [baseZIndex]="10000">
     <div>
-      <label for="">Ingrese la fecha de entrega de la mascota</label>
+      <label><b>Seleccionar la fecha de Entrega</b></label>
       <input type="hidden" [(ngModel)]="adopcion">
       <p-calendar [(ngModel)]="fechaEntrega" [locale]="es" dateFormat="dd/mm/yy" [inline]="true"></p-calendar>
     </div>
 
     <p-footer>
       <button type="button" pButton icon="fa fa-handshake-o" (click)="doAction(adopcion, 'ENTREGADO')" label="ENTREGAR" class="ui-button-success btn"></button>
-      <button type="button" pButton icon="fa fa-times-circle" (click)="modalEntrega=false" label="SALIR" class="ui-button-salir"></button>
+      <button type="button" pButton icon="fa fa-times-circle" (click)="modalEntrega=false" label="SALIR" class="ui-button-danger btn"></button>
     </p-footer>
   </p-dialog>
 
-  <p-dialog header="ESTA SEGURO DE DEVOLVER?" [(visible)]="modalDevolucion" [modal]="true" [responsive]="true"
-    [style]="{width: '400px',  height: '500px'}" [baseZIndex]="10000">
+  <p-dialog header="DEVOLUCION DE MASCOTA" [(visible)]="modalDevolucion" [modal]="true" [responsive]="true"
+    [style]="{width: '300px',  height: '500px'}" [baseZIndex]="10000">
     <div>
-      <label for="">Ingrese la fecha de devolución de la mascota</label>
+      <label for="">Seleccionar la fecha de Devolución</label>
       <input type="hidden" [(ngModel)]="adopcion">
       <p-calendar [(ngModel)]="fechaDevolucion" [locale]="es" dateFormat="dd/mm/yy" [inline]="true"></p-calendar>
       <label for="">Ingrese el motivo</label>
-      <textarea rows="5" cols="20" pInputTextarea name="descripcion" [(ngModel)]="motivoDevolucion"
+      <textarea rows="3" cols="20" pInputTextarea name="descripcion" [(ngModel)]="motivoDevolucion"
         maxlength="200"></textarea>
     </div>
 
     <p-footer>
-      <button type="button" pButton icon="fa fa-thumbs-down" (click)="doAction(adopcion, 'DEVUELTO')" label="DEVOLVER" class="ui-button-success"></button>
-      <button type="button" pButton icon="fa fa-times-circle" (click)="modalDevolucion=false" label="SALIR" class="ui-button-danger"></button>
+      <button type="button" pButton icon="fa fa-thumbs-down" (click)="doAction(adopcion, 'DEVUELTO')" label="DEVOLVER" class="ui-button-success btn"></button>
+      <button type="button" pButton icon="fa fa-times-circle" (click)="modalDevolucion=false" label="SALIR" class="ui-button-danger btn"></button>
     </p-footer>
   </p-dialog>
 

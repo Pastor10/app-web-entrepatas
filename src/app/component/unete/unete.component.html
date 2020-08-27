@@ -1,13 +1,106 @@
 <p-card>
     <div class="ui-g">
+        <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+        <div class="ui-g-12 ui-md-9 ui-lg-5 centrar tarjeta_adm">
+            <div class="ui-g-12 centrar mt-3">
+                <h2 class="col-12 tit_evento">
+                    SUMATE AL EQUIPO
+                </h2>
+                <!-- <p class="mt-3">ENTRE PATAS no sería nada sin una comunidad impulsadora.
+    Únete a nuestro refugio y entérate de todas nuestras novedades y actividades.</p> -->
+            </div>
+                   
+            <div class="form-group mt-2">
+                <div class="ui-g-12 ui-md-6">
+                <label>Tipo Documento(*)</label>
+                <p-autoComplete [(ngModel)]="tipoDocumento" [suggestions]="listTipoDocumento" field="abreviatura" name="perfilSelected" [size]="15" (completeMethod)="filterListTipoDocumento($event)" [minLength]="1" placeholder="Seleccione tipo documento" [dropdown]="true" [readonly]="true">
+                </p-autoComplete>
+                </div>
 
-        <div class="ui-g-12 ui-md-10 ui-lg-8 centrar">
-            <h2 class="col-12 tit_evento pulso_infinito">
-                SE PARTE DE NUESTRO EQUIPO
-            </h2>
-            <p class="mt-3">ENTRE PATAS no sería nada sin una comunidad impulsadora.
-Únete a nuestro refugio y entérate de todas nuestras novedades y actividades.</p>
+                <div class="ui-g-12 ui-md-6">
+                <label>Num Doc.[PRESS ENTER]</label>
+        
+                <input type="text" class="form-control" name="documento" [textMask]="{mask: numberMask}" [(ngModel)]="numeroDocumento" required placeholder="87598626" (keydown.enter)="getPersona()" minlength="8" maxlength="12" pInputText />
+                </div>
+            </div>
+            <div class="ui-g-12"></div>
+                <div class="form-group mt-2">
+                    <label>Nombres (*)</label>
+                    <div class="ui-g-12">
+                    <input type="text" class="form-control" name="nombres" [(ngModel)]="nombres" placeholder="Juan" (keypress)="soloLetras($event)" required pInputText />
+                    </div>
+                </div>
+
+            <div class="form-group mt-2">
+                <div class="ui-g-12 ui-md-6">
+                    <label>Ape. Paterno (*)</label>
+                    <input type="text" class="form-control" name="apPaterno" placeholder="Perez"
+                        [(ngModel)]="apPaterno" (keypress)="soloLetras($event)" required pInputText />
+                </div>
+
+                <div class="ui-g-12 ui-md-6">
+                    <label>Ape. Materno (*)</label>
+                    <input type="text" class="form-control" name="apMaterno" placeholder="Hozo"
+                        [(ngModel)]="apMaterno" (keypress)="soloLetras($event)" required pInputText />
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <div class="ui-g-12 ui-md-6">
+                <label>Email (*)</label>
+                <input type="text" class="form-control" name="email" [(ngModel)]="correo"
+                    placeholder="tucorreo@tuservicio.com" required pInputText />
+                </div>
+
+                <div class="ui-g-12 ui-md-6">
+                <label>Celular (*)</label>
+                <input type="text" class="form-control" onpaste="return false" name="celular" [textMask]="{mask: numberMask}" [(ngModel)]="celular" placeholder="999 999 999" maxlength="9" required pInputText />
+                </div>
+            </div>
+
+            <div class="ui-g-12 per_adm">
+                <label for="form-control"><b>1. ESTARIAS DISPUESTO A DAR UN HOGAR TEMPORAL A UNA MASCOTA?</b></label>
+                <div class="ui-g-6 ui-md-4">
+                    <p-radioButton name="hogar" value="13" label="SI" [(ngModel)]="hogar" inputId="opt1"></p-radioButton> 
+                </div>
+                    <div class="ui-g-6 ui-md-4">
+                    <p-radioButton name="hogar" value="14" label="NO" [(ngModel)]="hogar" inputId="opt2"></p-radioButton>
+                </div>
+                
+            </div>
+            <div class="ui-g-12 per_adm">
+                <label for="form-control"><b>2. TIENES EXPERIENCIA CON ANIMALES?</b></label>
+                <div class="ui-g-12">
+                    <p-checkbox name="tratoAnimal" value="15" label="SOY VETERINARIO" [(ngModel)]="tratoAnimal" inputId="ny"></p-checkbox></div>
+                <div class="ui-g-12">
+                    <p-checkbox name="tratoAnimal" value="16" label="NO, PERO HE TENIDO O TENGO PERROS" [(ngModel)]="tratoAnimal" inputId="sf"></p-checkbox></div>
+            </div>
+
+            <div class="ui-g-12 per_adm">
+                <label for="form-control"><b>3. TIENES EXPERIENCIA Y NOS PUEDES AYUDAR CON?</b></label>
+                <div class="ui-g-12 per_adm">
+                    <p-checkbox name="experiencia" value="17" label="DISEÑO" [(ngModel)]="experiencia" inputId="ny"></p-checkbox></div>
+                <div class="ui-g-12 per_adm">
+                    <p-checkbox name="experiencia" value="18" label="MANEJO DE REDES SOCIALES" [(ngModel)]="experiencia" inputId="sf"></p-checkbox></div>
+                <div class="ui-g-12 per_adm">
+                    <p-checkbox name="experiencia" value="19" label="AUDIOVISUALES" [(ngModel)]="experiencia" inputId="ny"></p-checkbox></div>
+                <div class="ui-g-12 per_adm">
+                    <p-checkbox name="experiencia" value="20" label="FOTOGRAFIA" [(ngModel)]="experiencia" inputId="sf"></p-checkbox></div>
+                <div class="ui-g-12 per_adm">
+                    <p-checkbox name="experiencia" value="21" label="APOYO EN ACTIVIDADES DE VOLUNTARIO" [(ngModel)]="experiencia" inputId="sf"></p-checkbox></div>
+            </div>
+
+            <!-- <div class="form-group mt-3">
+                <p-checkbox name="terminos" value="true" [(ngModel)]="politica"></p-checkbox>
+                He leído y Acepto la <a class="hand" (click)="showPolitica()" style="color:#533ab3"> política de privacidad</a>
+            </div> -->
+
+            <div class="mt-2">
+                <button type="submit" icon ="fa fa-paper-plane" class="boton_act btn" (click)="save()"> ENVIAR
+                </button>
+            </div>  
         </div>
+   
      </div>
 </p-card>
 <app-pagina-interes></app-pagina-interes>
