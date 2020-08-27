@@ -8,6 +8,7 @@ import { AnimalService } from 'src/app/shared/service/animal.service';
 import { Animal } from 'src/app/shared/model/animal.model';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { FileService } from 'src/app/shared/service/file.service';
 
 
 @Component({
@@ -29,16 +30,11 @@ export class CitaMedicaComponent implements OnInit {
     filterAnimal: Animal[];
     tratamiento: TratamientoMedico = {};
     selectTratamiento: TratamientoMedico;
-
     newTratamiento: boolean;
-
     tratamientos: TratamientoMedico[];
-
     cols: any[];
-
     veterinarios: Veterinario[];
     veterinario: Veterinario;
-
     estadosClinico: any[];
     estadoSelected: any;
     fechaVisita: Date;
@@ -47,10 +43,12 @@ export class CitaMedicaComponent implements OnInit {
     historialDialog: boolean;
     today = new Date();
     filteredAnimales: any[];
+    uploadedFiles: any[] = [];
+    foto: string;
 
     constructor(private route: ActivatedRoute, public veterinarioService: VeterinarioService,
         public citaMedicaService: CitaMedicaService, private messageService: MessageService,
-        public animalService: AnimalService) {
+        public animalService: AnimalService, private fileService: FileService ){
         this.tratamientos = [];
         this.animal = new Animal();
     }
@@ -101,6 +99,7 @@ export class CitaMedicaComponent implements OnInit {
         this.model.estadoClinico = this.estadoSelected.value;
         this.model.listaTratamiento = this.tratamientos;
         this.model.animal = this.animal;
+
 
         console.log('cita medica ', this.model);
 
@@ -204,6 +203,11 @@ export class CitaMedicaComponent implements OnInit {
             return;
         }
 
+        if (this.foto==null || this.foto==''  ) {
+            this.showMsg('info', 'Suba una foto de la mascota', 'Cita Medica');
+            return;
+        }
+
         if(this.tratamientos.length==0){
             this.showMsg('info', 'Ingrese al menos un tratamiento', 'Cita Medica');
             return;
@@ -246,6 +250,7 @@ export class CitaMedicaComponent implements OnInit {
         this.diagnostico= '';
         this.tratamientos= [];
         this.estadoSelected= null;
+        this.foto='';
 
     }
 
@@ -323,6 +328,17 @@ export class CitaMedicaComponent implements OnInit {
 
         return filtered;
     }
+
+    onFileUpload(data: { files: File }): void {
+        const formData: FormData = new FormData();
+        const file = data.files[0];
+        formData.append('file', file, file.name);
+        this.fileService.uploadImage(formData).subscribe(resp => {
+          this.model.foto = resp.url;
+          this.foto = resp.url;
+          this.showMsg('success', 'Imganen subida', 'Cita médica');
+        });
+      }
 
     showMsg(type: string, msg: string, title: string = 'Cita Médica') {
         this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });

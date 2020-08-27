@@ -51,10 +51,12 @@ export class LocalComponent implements OnInit{
     ngOnInit(){
         this.cols = [
             {field: 'encargado', header: 'Encargado', width: '170px'},
-            {field: 'direccion', header: 'Direccíon', width: '150px'},
-            {field: 'tipo', header: 'Tipo', width: '70px'},
-            {field: 'capacidad', header: 'Cap.', width: '50px'},
-            {field: 'estado', header: 'Estado', width: '80px'},
+            {field: 'local', header: 'Local', width: '150px'},
+            {field: 'direccion', header: 'Direccíon', width: '200px'},
+            {field: 'tipo', header: 'Tipo', width: '90px'},
+            {field: 'capacidad', header: 'Cap.', width: '70px'},
+            {field: 'alojado', header: 'Alojado', width: '90px'},
+            {field: 'estado', header: 'Estado', width: '90px'},
         ];
         this.getAlltipoLocal();
         this.builderForm();

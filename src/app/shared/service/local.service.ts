@@ -20,6 +20,12 @@ export class LocalService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
+  getAllDisponibles() {
+    return this.http.get(this.baseUrl + 'findAllDisponibles').pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
   getFindId(id) {
     return this.http.get(this.baseUrl + 'findById/' + id).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(

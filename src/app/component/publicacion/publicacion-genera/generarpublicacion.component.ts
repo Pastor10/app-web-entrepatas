@@ -278,10 +278,9 @@ export class GenerarPublicacionComponent implements OnInit {
 
   listarLocales() {
     this.listaLocales = [];
-    this.localService.getAll().subscribe(
+    this.localService.getAllDisponibles().subscribe(
       (data: Local[]) => {
         this.listaLocales = data;
-        console.log('locales', data);
 
       },
       error => {

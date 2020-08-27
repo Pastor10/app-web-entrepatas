@@ -148,7 +148,7 @@
               <td style="text-align: center">
                 <button pButton type="button" (click)="calificar(b)" icon="fa fa-file-o"
                   class="ui-button-warning" tooltip="Ficha técnica"></button>&nbsp;
-                <button pButton type="button" (click)="showConfirm(b)" icon="fa fa-paperclip"
+                <button pButton type="button" (click)="showConfirm(b)" icon="fa fa-paw"
                   class="ui-button-success" tooltip="Generar Adopción"></button>
       
               </td>
@@ -239,6 +239,34 @@
                   <div class="ui-g-6 centrar">
                   <button pButton type="submit" label="GUARDAR" icon ="fa fa-save"
                     class="ui-button-success btn" (click)="guardarCuestionario()"></button>
+                  </div>
+                </div>
+        
+              </div>
+            </p-fieldset>
+          </div>
+          <div *ngIf="showAdopcion">
+
+            <p-fieldset legend="RESERVAR ADOPCION PARA {{nombrePostulante}}">
+              <div class="ui-g ">
+                <div class="ui-g-12 ui-g-md-6 ui-lg-4">
+                  <label><b>¿ESTA SEGURO DE RESERVAR ADOPCION?</b></label>
+                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+              
+                    <div class="ui-g-12">
+                        <div class="ui-g-12"><p-checkbox  label="CREAR USUARIO" [(ngModel)]="creaUser" binary="true"></p-checkbox></div>
+                    </div>
+                  </div>
+                </div>
+        
+
+                <div class="ui-g-12">
+                  <div class="ui-g-6 centrar">
+                  <button type="button" pButton icon="fa fa-times-circle" (click)="showAdopcion=false" label="CANCELAR" class="ui-button-danger btn"></button> 
+                </div>
+                  <div class="ui-g-6 centrar">
+                  <button pButton type="submit" label="GUARDAR" icon ="fa fa-save"
+                    class="ui-button-success btn" (click)="onConfirm()"></button>
                   </div>
                 </div>
         
