@@ -219,20 +219,25 @@
                             | N° {{cita.numero}}</span>
                     </legend>
 
-                    <div class="ui-g-6 ui-md-3">
-                        <label><b>VETERINARIO:</b> <br>{{cita.veterinario.nombre}} </label>
-                    </div>
-                    <div class="ui-g-6 ui-md-3">
-                        <label><b>VETERINARIA:</b><br>{{cita.veterinario.veterinaria.nombre}} </label>
-                    </div>
-                    <div class="ui-g-12 ui-md-6">
-                        <label><b>DIAGNÓSTICO</b>: {{cita.diagnostico}} </label>
+                    <div class='ui-g'>
+                        <div class="ui-g-12 ui-md-6">
+                            <div class="ui-g-12">
+                                <label><b>VETERINARIA:</b> {{cita.veterinario.veterinaria.nombre}} </label>
+                            </div>
+                            <div class="ui-g-12">
+                                <label><b>VETERINARIO:</b> {{cita.veterinario.nombre}} </label>
+                            </div>
+                            <div class="ui-g-12">
+                                <label><b>DIAGNÓSTICO</b>: {{cita.diagnostico}} </label>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-6 centrar">
+                        <img src="{{cita.foto}}" class="img_modal">
+                        </div>
                     </div>
 
-                    <div class="ui-g-12 ui-md-4">
-                    <img src="{{cita.foto}}" alt="" style="width: 150px; height: 150px">
-                    </div>
-                    <div class="ui-g-12 ui-md-6">
+                    <div class="ui-g-12 centrar mt-2">
                         <p-table [columns]="cols" [value]="cita.listaTratamiento" [rows]="5">
                             <ng-template pTemplate="caption">
                                 RECETA:
