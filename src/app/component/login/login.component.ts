@@ -242,7 +242,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.formToModel();
     this.usuarioService.saveVisitante(this.data).subscribe((res) => {
       if (res != null) {
-        message = 'Usuario creado correctamente.';
+        message = 'Usuario creado correctamente. Revise su correo para la activación de la cuenta.';
         this.showMsg('success', message, 'Usuario');
         this.limpiarData();
       }
