@@ -36,9 +36,8 @@ export class EventoProximoComponent implements OnInit{
 
    
     getAllEvento(){
-        this.eventoService.getAll().subscribe((data: Evento[]) =>{
+        this.eventoService.getAllProximos().subscribe((data: Evento[]) =>{
             this.eventos = data;
-            console.log(this.eventos );
             
         });
 

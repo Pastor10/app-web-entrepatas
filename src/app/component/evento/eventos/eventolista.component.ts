@@ -16,8 +16,8 @@ import { Evento } from 'src/app/shared/model/evento.model';
 
 export class EventoListaComponent implements OnInit{
 
-    totalRecords: 10;
-    perPage = 10;
+    totalRecords: number;
+    perPage = 15;
     cols: any[];
 
     mf: FormGroup;
@@ -52,7 +52,7 @@ export class EventoListaComponent implements OnInit{
         ];
        // this.getAllTipoevento();
         this.builderForm();
-        this.getAllEvento();
+       // this.getAllEvento();
     }
 
     builderForm() {
@@ -63,10 +63,16 @@ export class EventoListaComponent implements OnInit{
 
     }
 
-    getAllEvento(){
-        this.eventoService.getAll().subscribe((data: Evento[]) =>{
-            this.eventos = data;
-            console.log(this.eventos );
+    getAllEvento(event){
+        const params = [];
+        this.lastLazyLoadEvent = event;
+        const pageNumber = event.first / this.perPage;
+    
+        params.push(`page=${pageNumber}`);
+        params.push(`perPage=${this.perPage}`);
+        this.eventoService.getAll(params.join('&')).subscribe((data: Evento[]) =>{
+            this.totalRecords = data['totalElements'];
+            this.eventos = data['content'];
             
         });
 
@@ -74,7 +80,7 @@ export class EventoListaComponent implements OnInit{
 
  
     loadLazy(event: LazyLoadEvent) {
-        this.getAllEvento();
+        this.getAllEvento(event);
     }
 
     onUpload(event) {

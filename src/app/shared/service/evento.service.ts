@@ -14,8 +14,14 @@ export class EventoService {
 
   baseUrl: string = environment.END_POINT + 'api/evento/';
 
-  getAll() {
-    return this.http.get(this.baseUrl + 'findAll').pipe(
+  getAll(params) {
+    return this.http.get(this.baseUrl + 'findAll?'+ params).pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
+  getAllProximos() {
+    return this.http.get(this.baseUrl + 'proximos-eventos').pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }

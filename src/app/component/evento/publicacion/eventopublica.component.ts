@@ -222,6 +222,8 @@ export class EventoPublicaComponent implements OnInit{
             data => {
                 if(data!=null){
                     this.showMsg('success', 'Se guardó correctamente', 'evento');
+                    this.limpiarData();
+                    this.returnListaEventos();
                 }
                 
             },
@@ -233,13 +235,6 @@ export class EventoPublicaComponent implements OnInit{
                 this.showMsg('danger', errorMessage);
             }
             );
-
-        
-        this.limpiarData();
-        this.returnListaEventos();
-       
-        //
-        //this.returnAdopciones();
 
     }
 
