@@ -1,6 +1,7 @@
 .titulo{
-	font-size: 28px;
-	font-weight: bold;
+	font-family: 'bebas_neueregular', Arial;
+	font-size: 30px;
+	// font-weight: bold;
 	color:#0D47A1;
 	margin: 0;
 	text-align: center;
@@ -17,34 +18,22 @@
 		// animation: pulso 1s infinite alternate;
 	}
 }
-// .cont-tarjeta{
-// 	padding: 15px;
-// }
-// .tarjeta,.tarjeta2{
-// 	//box-shadow: 0 0 6px rgba(0,0,0,.3); //Sombra de las mascota en la publicacion
-// 	border: none;
-// 	border-radius: 10px;
-// 	box-shadow: 0 1px 3px -1px rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-// 	// border-top: 5px solid #0D47A1;
-// 	padding-bottom: 1.5px;
-// 	transition:.3s;
-// }
+
 .tarjeta:hover{
-	//box-shadow: 0 0 8px #E91E63; //Sombra de las mascota en la publicacion
-	//box-shadow: 0 0 7px rgba(0,0,0,.2);; //Sombra de las mascota en la publicacion
 	box-shadow: 0 2px 6px -1px rgba(0,0,0,.2), 0 2px 6px 1px rgba(0,0,0,.14), 0 2px 6px -1px rgba(0,0,0,.12);
 	transition:.35s;
 }
 
 .tar_titulo{
-	font-size: 18px;
+	font-family: 'bebas_neueregular', Arial;
+	font-size: 20px;
 	font-weight: bold;
 	color: #0D47A1;
 	text-align: center;
 }
 .tar_concepto{
-	font-size: 15px;
-	font-weight: normal;
+	// font-size: 15px;
+	// font-weight: normal;
 	color: black;
 }
 
@@ -62,15 +51,6 @@ input:focus{
 		color: rgba(0,0,0,0.15)
 	}
 }
-
-
-// body .ui-dialog {
-// 	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-// 	-moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-// 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-// 	border: none;
-// 	border-radius: 15px;
-// }
 
 @keyframes pulso {
   from {

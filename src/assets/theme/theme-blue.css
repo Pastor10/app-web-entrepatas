@@ -13,12 +13,50 @@
 /* Panel */
 /* Add your variable customizations of theme here */
 
+
+@font-face {
+  font-family: "FranklinGothicStdBC";
+  src: url(../layout/fonts/ITCFranklinGothicStd-BkCd.otf),
+  /*background: url("../layout/fonts");*/
+  url('../layout/fonts/ITCFranklinGothicStd-BkCd.woff') format('woff');
+  font-weight: bold;
+}
+@font-face {
+  font-family: "FranklinGothicStdMC";
+  src: url(../layout/fonts/ITCFranklinGothicStd-MdCd.otf),
+       url('../layout/fonts/ITCFranklinGothicStd-MdCd.woff') format('woff');
+  font-weight: bold;
+}
+@font-face {
+  font-family: "FranklinGothicStdDC";
+  src: url(../layout/fonts/ITCFranklinGothicStd-DmCd.otf),
+  url('../layout/fonts/CFranklinGothicStd-DmCd.woff') format('woff');
+  font-weight: bold;
+}
+@font-face {
+  font-family: 'bebas_neueregular';
+  src: url('../layout/fonts/bebasneue-webfont.eot');
+  src: url('../layout/fonts/bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../layout/fonts/bebasneue-webfont.woff2') format('woff2'),
+  url('../layout/fonts/bebasneue-webfont.woff') format('woff'),
+  url('../layout/fonts/bebasneue-webfont.ttf') format('truetype'),
+  url('../layout/fonts/bebasneue-webfont.svg#bebas_neueregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*{
+  font-size: 16px;
+  font-family: "FranklinGothicStdBC";
+  letter-spacing: 0.5px;      /* para separar entgre letras */
+  word-spacing: 1px;        /* para separacion entre palabras */ 
+}
 body,html,a,input,table,span,{
   outline:0;
 }
 body .ui-widget,
 body .ui-widget .ui-widget {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   text-decoration: none;
   padding-bottom: 5px;
 }
@@ -160,7 +198,8 @@ body .ui-button {
   background-color: #64B5F6;
   border: none;
   font-size: 14px;
-  padding: 1px!important;
+  padding: 0!important;
+  /*padding: 1px!important;*/
 }
 /*body .ui-button:enabled:hover {
   background-color: #2d6da3;
@@ -647,7 +686,7 @@ body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-contain
   vertical-align: top;
 }
 body .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container .ui-autocomplete-input-token input {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-size: 14px;
   padding: 0;
   margin: 0;
@@ -707,7 +746,7 @@ body .ui-chips > ul.ui-inputtext .ui-chips-input-token {
   vertical-align: top;
 }
 body .ui-chips > ul.ui-inputtext .ui-chips-input-token input {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-size: 14px;
   padding: 0;
   margin: 0;
@@ -1529,6 +1568,7 @@ label {
 
 .tarjeta_adm{
   /*height: 450px;*/
+  font-family: 'bebas_neueregular', Arial;
   padding: 15px;
   padding-top: 5px;
   border-top: 3px solid #0D47A1;
@@ -1537,8 +1577,10 @@ label {
 }
 
 .tarjeta_adm h2{
+    font-family: 'bebas_neueregular', Arial;
     color: #0D47A1;
-    font-weight: bold;
+    /*font-weight: bold;*/
+    font-size: 30px;
     text-transform: uppercase;
 }
 
@@ -1602,8 +1644,8 @@ label {
   filter: grayscale(0%);
 }
 .tit_otros,.tit_evento{
-    /*font-family: 'bebas_neueregular', Arial;*/
-    font-size: 20px;
+    font-family: 'bebas_neueregular', Arial;
+    font-size: 25px;
     text-align: center;
     color: #0D47A1; 
     /*color: #E91E63; titulo Rosado*/
@@ -2677,7 +2719,7 @@ body .fc .fc-button {
   background-color: #337ab7;
   color: #ffffff;
   font-size: 14px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   height: 2.25em;
   padding: 0 1em;
   border: 0 none;
@@ -3570,7 +3612,7 @@ body .ui-galleria .ui-galleria-nav-next:hover {
   color: #212529;
 }
 body .ui-terminal input {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   font-size: 14px;
 }
 

@@ -18,7 +18,7 @@
     background-clip: border-box;
     // border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
-    font-size: 14px;
+    // font-size: 14px;
 }
 
 .card-img-top {
@@ -55,9 +55,9 @@
 }
 
 .titulo_card, .titulo_card_mute {
-    // font-family: 'bebas_neueregular', Arial;
+    font-family: 'bebas_neueregular', Arial;
     font-size: 25px;
     color: #0D47A1;
-    font-weight: bold;
+    // font-weight: bold;
     margin-top: 20px;
 }

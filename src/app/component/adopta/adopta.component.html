@@ -55,36 +55,36 @@
                     [baseZIndex]="10000" [responsive]="true" [modal]="true">
                     <div class="ui-g" *ngIf="selectPublicacion">
                         <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
-                        <div class="ui-g-6">
+                        <div class="ui-g-12 ui-md-5 centrar">
                             <!-- <div class="ui-g-12" style="text-align:center"> -->
                             <img src="{{selectPublicacion.animal.foto}}" width="90%">
                             <!-- </div> -->
                         </div>
-                        <div class=" ui-g-12 ui-md-6">
+                        <div class=" ui-g-12 ui-md-7">
                             <p-tabView>
                                 <p-tabPanel header="Datos Mascota" leftIcon="fa fa-info-circle">
-                                    <div class="ui-g-6 tar_titulo"><b>NOMBRE</b> <br>
-                                        <div class="tar_concepto">{{selectPublicacion.animal.nombre}} </div>
-                                    </div>
+                                    <!-- <div class="ui-g-6 tar_titulo"><b>NOMBRE</b> <br> -->
+                                        <div class="ui-g-12 titulo">{{selectPublicacion.animal.nombre}} </div>
+                                    <!-- </div> -->
                                     <!-- <div class="ui-g-8">{{selectPublicacion.animal.nombre}}</div> -->
 
-                                    <div class="ui-g-6 tar_titulo"><b>EDAD</b> <br>
+                                    <div class="ui-g-6 tar_titulo"><b>EDAD:</b> <br>
                                         <div class="tar_concepto">{{selectPublicacion.animal.edad}}</div>
                                     </div>
 
-                                    <div class="ui-g-6 tar_titulo"><b>RAZA</b> <br>
+                                    <div class="ui-g-6 tar_titulo"><b>RAZA:</b> <br>
                                         <div class="tar_concepto">{{selectPublicacion.animal.raza.nombre}}</div>
                                     </div>
 
-                                    <div class="ui-g-6 tar_titulo"><b>SEXO</b> <br>
+                                    <div class="ui-g-6 tar_titulo"><b>SEXO:</b> <br>
                                         <div class="tar_concepto">{{selectPublicacion.animal.sexo}}</div>
                                     </div>
 
-                                    <div class="ui-g-6 tar_titulo"><b>TAMAÑO</b> <br>
+                                    <div class="ui-g-6 tar_titulo"><b>TAMAÑO:</b> <br>
                                         <div class="tar_concepto">{{selectPublicacion.animal.tamanoAnimal.nombre}}</div>
                                     </div>
 
-                                    <div class="ui-g-12 tar_titulo"><b>DESCRIPCIÓN</b> <br>
+                                    <div class="ui-g-12 tar_titulo"><b>INFORMACIÓN:</b> <br>
                                         <div class="tar_concepto">{{selectPublicacion.descripcion}}</div>
                                     </div>
                                 </p-tabPanel>
@@ -96,7 +96,7 @@
                                             <p-card>
                                                 <div class="ui-g">
                                                     <div class="ui-g-6">
-                                                        <label><b>Tipo Documento (*)</b></label>
+                                                        <label><b>Tipo Documento</b></label>
                                                         <p-autoComplete [(ngModel)]="tipoDocumento"
                                                             [suggestions]="listTipoDocumento" field="abreviatura"
                                                             name="perfilSelected" [size]="15"
@@ -107,7 +107,7 @@
                                                     </div>
 
                                                     <div class="ui-g-6">
-                                                        <label><b>Documento (*) [PRESS ENTER]</b></label>
+                                                        <label><b>N° DOC [ENTER]</b></label>
                                                         <input style="width: 100%;" type="text" name="documento"
                                                             placeholder="7859624" [(ngModel)]="documento"
                                                             (keydown.enter)="getPersona()"
@@ -115,35 +115,35 @@
 
                                                     </div>
 
-                                                    <div class="ui-g-4">
-                                                        <label><b>Nombres (*)</b></label>
+                                                    <div class="ui-g-12">
+                                                        <label><b>Nombres</b></label>
                                                         <input style="width: 100%;" type="text" name="nombres"
                                                             placeholder="Juan Carlos" [(ngModel)]="nombres" (keypress)="soloLetras($event)" 
                                                             pInputText />
 
                                                     </div>
-                                                    <div class="ui-g-4">
-                                                        <label><b>Apellido Paterno (*)</b></label>
+                                                    <div class="ui-g-6">
+                                                        <label><b>Apellido Pat.</b></label>
                                                         <input style="width: 100%;" type="text" name="apePaterno"
                                                             placeholder="Perez" [(ngModel)]="apePaterno" (keypress)="soloLetras($event)"  pInputText />
 
                                                     </div>
-                                                    <div class="ui-g-4">
-                                                        <label><b>Apellido Materno (*)</b></label>
+                                                    <div class="ui-g-6">
+                                                        <label><b>Apellido Mat.</b></label>
                                                         <input style="width: 100%;" type="text" name="apeMaterno"
                                                             placeholder="Villa" [(ngModel)]="apeMaterno" (keypress)="soloLetras($event)"  pInputText />
 
                                                     </div>
 
                                                     <div class="ui-g-6">
-                                                        <label><b>Email (*)</b></label>
+                                                        <label><b>Email</b></label>
                                                         <input style="width: 100%;" type="text" name="email"
                                                             placeholder="tucorreo@server.com" [(ngModel)]="email"
                                                             pInputText />
 
                                                     </div>
                                                     <div class="ui-g-6">
-                                                        <label><b>Ciudad (*)</b></label>
+                                                        <label><b>Distrito</b></label>
                                                         <p-autoComplete field="descripcion" [(ngModel)]="ubigeo" (keypress)="soloLetras($event)" 
                                                             name="ubigeo" [suggestions]="filteredCities"
                                                             (completeMethod)="filterCitiesByNombre($event)" [size]="40"
@@ -155,14 +155,14 @@
                                                         </p-autoComplete>
                                                     </div>
                                                     <div class="ui-g-6">
-                                                        <label><b>Dirección (*)</b></label>
+                                                        <label><b>Dirección</b></label>
                                                         <input style="width: 100%;" type="text" name="direccion"
                                                             placeholder="Calle Las Rosas 145" [(ngModel)]="direccion"
                                                             pInputText />
 
                                                     </div>
                                                     <div class="ui-g-6">
-                                                        <label><b>Celular (*)</b></label>
+                                                        <label><b>Celular</b></label>
                                                         <input style="width: 100%;" type="text" name="celular"
                                                             placeholder="988795623" [(ngModel)]="celular"
                                                             [textMask]="{mask: numberMask}" maxlength="9" minlength="9" pInputText />

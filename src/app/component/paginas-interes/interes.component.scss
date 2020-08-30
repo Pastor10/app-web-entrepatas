@@ -20,12 +20,19 @@
     filter: grayscale(0%);
     // animation: pulso 1s infinite alternate;
 }
+.con_footer h3{
+	font-family: 'bebas_neueregular', Arial;
+	font-size: 20px;
+}
 .con_footer a:hover h3{
 	color:#0D47A1;
     animation: pulso .7s infinite;
 }
 
 .titulo{
+	font-family: 'bebas_neueregular', Arial;
 	text-align: center;
+	font-weight: bold;
 	color: #212121;
+	font-size: 25px;
 }

@@ -2,28 +2,27 @@
 .valor{
     margin-top: -25px;
     text-align: center;
-    font-size: 14px;
     line-height:20px;
 }
 
 .fondo_principal{
     width: 100vw;
     height: 95vh;
-    margin-left: -45px;
-    margin-top: -75px;
+    margin-left: -55px;
+    margin-top: -85px;
     text-align: center;
     background: rgb(235,241,246);
-    background: url("../../../assets/layout/images/fondo_principal.jpg");
+    background: url("../../../assets/layout/images/foto_grupal.jpg");
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
 }
-.fondo_principal p, .fondo_principal_unete p{
-    color: white;
+.fondo_principal p{
+    // color: white;
     text-align: center;
     margin:10em 0;
-    font-size: 18px;
-    text-shadow: 0 0 10px black;
+    font-size: 20px;
+    text-shadow: 0 0 5px white;
 }
 
 @media screen and (min-width: 1024px){
@@ -86,13 +85,14 @@
 .card h4{
 	margin: 0;
 	padding: 0;
+    font-family: 'bebas_neueregular', Arial;
 }
 
 .titulo_card, .titulo_card_mute {
     // font-family: 'bebas_neueregular', Arial;
-    font-size: 25px;
+    font-size: 20px;
     color: #0D47A1;
-    font-weight: bold;
+    // font-weight: bold;
     margin-top: 20px;
 }
 
