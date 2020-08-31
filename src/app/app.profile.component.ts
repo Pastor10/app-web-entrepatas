@@ -29,6 +29,16 @@ import { User } from './shared/model/User.model';
                 </div>
             </li>
             <li role="menuitem">
+                <a href="#" routerLink="/main/change-password" [attr.tabindex]="!active ? '-1' : null">
+                    <i class="fa fa-unlock-alt"></i>
+                    <span>Cambiar contraseña</span>
+                </a>
+                <div class="layout-menu-tooltip">
+                    <div class="layout-menu-tooltip-arrow"></div>
+                    <div class="layout-menu-tooltip-text">Cambiar contraseña</div>
+                </div>
+            </li>
+            <li role="menuitem">
                 <a href="#" (click)="logout()" [attr.tabindex]="!active ? '-1' : null">
                     <i class="fa fa-fw fa-sign-out"></i>
                     <span>Cerrar sesión</span>

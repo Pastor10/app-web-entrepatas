@@ -62,6 +62,7 @@ export const routes: Routes = [
             { path: 'perfil', loadChildren: () => import('../app/component/perfil/perfil.module').then(m => m.PerfilModule) },
             { path: 'colabora', loadChildren: () => import('../app/component/colabora/colabora.module').then(m => m.ColaboraModule) },
             { path: 'postulante-colaborador', loadChildren: () => import('../app/component/solicitud-colaborador/postulante-colaborador.module').then(m => m.PostulanteColaboradorModule) },
+            { path: 'change-password', loadChildren: () => import('../app/component/password/password.module').then(m => m.PasswordModule) },
         ]
     },
 

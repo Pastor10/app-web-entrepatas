@@ -109,7 +109,7 @@ export class TipoEventoComponent implements OnInit{
         //params.join('&')
         this.tipoEventoService.save(this.model).subscribe((res) => {
           if (res != null) {
-            message = 'Tipo Evento creado correctamente.';
+            message = 'Datos guardados correctamente.';
             this.showMsg('success', message);
             this.limpiarData();
             this.refreshTable();

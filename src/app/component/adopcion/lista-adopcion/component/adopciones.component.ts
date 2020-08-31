@@ -25,6 +25,7 @@ export class AdopcionComponent implements OnInit {
   lastLazyLoadEvent: LazyLoadEvent;
   totalRecords: number;
   perPage = 10;
+  today = new Date;
   constructor(public adopcionService: AdopcionService, public messageService: MessageService) {
     this.adopcion = new Adopcion();
   }

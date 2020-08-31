@@ -32,6 +32,7 @@ export class PostulanteComponent implements OnInit {
     totalRecords: 10;
     perPage = 10;
     cols: any[];
+    colsPostulantes: any[];
     publicacionSelected: Publicacion;
     postulantes: Postulante[];
     puntuacion: number;
@@ -92,6 +93,15 @@ export class PostulanteComponent implements OnInit {
             { field: 'condicion', header: 'Condición', width: '150px' },
             { field: 'estado', header: 'Estado', width: '100px' },
         ];
+
+        this.colsPostulantes = [
+            { field: 'nombres', header: 'Nombres', width: '170px' },
+            { field: 'correo', header: 'Correo', width: '200px' },
+            { field: 'direccion', header: 'Dirección', width: '200px' },
+            { field: 'celular', header: 'Celular', width: '120px' },
+            { field: 'documento', header: 'Documento', width: '120px' },
+            { field: 'puntuacion', header: 'Puntuación', width: '150px' }
+        ];
     }
 
 
@@ -112,16 +122,18 @@ export class PostulanteComponent implements OnInit {
         this.display = true;
     }
 
-    calificar(data) {        
+    calificar(data) {
+        this.limpiarOpciones();
         this.postulante = data;
-        this.showCuestionario = true;
-        this.showAdopcion = false;
+        console.log('postulante', this.postulante);
+
         this.nombrePostulante = this.postulante.persona.nombreCompleto.toUpperCase();
 
-        if(data.cuestionario!=null){
+        if (this.postulante.cuestionario != null) {
             this.modelCuestionarioToForm(data);
         }
-        
+        this.showCuestionario = true;
+        this.showAdopcion = false;
     }
 
     showConfirm(data) {
@@ -157,7 +169,7 @@ export class PostulanteComponent implements OnInit {
     formToModel(data) {
         this.adopcion = new Adopcion();
         this.adopcion.animal = data.publicacion.animal;
-        this.adopcion.persona= data.persona;
+        this.adopcion.persona = data.persona;
         this.adopcion.createUser = this.creaUser;
 
     }
@@ -168,8 +180,17 @@ export class PostulanteComponent implements OnInit {
         this.adopcionService.save(this.adopcion).subscribe(res => {
             if (res != null) {
                 message = 'Se registro la adopción correctamente';
-                this.showMsg('success', message, 'Adopción');
+                this.showSaveCuestionario('success', message, 'Adopción');
+                this.salirDialog();
+                this.getAllPublicacion();
+
             }
+        }, error => {
+            const errorMessage =
+                error.message != undefined
+                    ? error.error.mensaje
+                    : 'No se pudo procesar la petición';
+            this.showSaveCuestionario('error', errorMessage, 'Adopción');
         });
 
     }
@@ -179,7 +200,7 @@ export class PostulanteComponent implements OnInit {
         this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
     }
 
-   
+
 
     showSaveCuestionario(type: string, msg: string, title: string) {
         this.messageService.add({ key: 'cuestionario', severity: type, summary: title, detail: msg });
@@ -192,80 +213,82 @@ export class PostulanteComponent implements OnInit {
     salirDialog() {
         this.display = false;
         this.showCuestionario = false;
+        this.showAdopcion = false;
     }
 
-    modelCuestionarioToForm(data){
-        let count =1;
-        this.cuestionario = data.cuestionario;
+    modelCuestionarioToForm(data) {
+        let count = 1;
+        //this.cuestionario = new Cuestionario();
+        // this.cuestionario = data.cuestionario;
         data.cuestionario.listaDetalle.forEach(item => {
             if (count == 1) {
                 this.mayorEdad = item.opcion.id;
             }
             if (count == 2) {
-                this.vivencia =item.opcion.id;
+                this.vivencia = item.opcion.id;
             }
             if (count == 3) {
                 this.propiedad = item.opcion.id;
             }
             if (count == 4) {
-                this.acuerdo= item.opcion.id;
+                this.acuerdo = item.opcion.id;
             }
-           
+
             count++;
         });
 
-        
+
     }
 
     guardarCuestionario() {
-            if(this.cuestionario==null){
-               this.cuestionario= new Cuestionario();
-               this.cuestionario.idPostulante = this.postulante.id;
-                this.listaDetalle = [];
-                for (let i = 1; i <= 4; i++) {
-                    this.detalleCuestionario = new DetalleCuestionario();
-        
-                    this.opcion = new Opcion();
-                    this.pregunta = new Pregunta();
-                    this.pregunta.id = i;
-                    if (i == 1) {
-                        this.opcion.id = this.mayorEdad
-                    }
-                    if (i == 2) {
-                        this.opcion.id = this.vivencia;
-                    }
-                    if (i == 3) {
-                        this.opcion.id = this.propiedad
-                    }
-                    if (i == 4) {
-                        this.opcion.id = this.acuerdo;
-                    }
-                    this.detalleCuestionario.opcion = this.opcion;
-                    this.detalleCuestionario.pregunta = this.pregunta;
-                    this.listaDetalle.push(this.detalleCuestionario);
-        
+        if (this.postulante.cuestionario == null) {
+            this.cuestionario = new Cuestionario();
+            this.cuestionario.idPostulante = this.postulante.id;
+            this.listaDetalle = [];
+            for (let i = 1; i <= 4; i++) {
+                this.detalleCuestionario = new DetalleCuestionario();
+
+                this.opcion = new Opcion();
+                this.pregunta = new Pregunta();
+                this.pregunta.id = i;
+                if (i == 1) {
+                    this.opcion.id = this.mayorEdad
                 }
-                this.cuestionario.listaDetalle = this.listaDetalle;
-            } else{
-                let count =1;
-                this.cuestionario.idPostulante = this.postulante.id;
-                this.cuestionario.listaDetalle.forEach(item => {
-                    if (count == 1) {
-                        item.opcion.id = this.mayorEdad
-                    }
-                    if (count == 2) {
-                        item.opcion.id = this.vivencia;
-                    }
-                    if (count == 3) {
-                        item.opcion.id = this.propiedad
-                    }
-                    if (count == 4) {
-                        item.opcion.id = this.acuerdo;
-                    }
-                   
-                    count++;
-                });
+                if (i == 2) {
+                    this.opcion.id = this.vivencia;
+                }
+                if (i == 3) {
+                    this.opcion.id = this.propiedad
+                }
+                if (i == 4) {
+                    this.opcion.id = this.acuerdo;
+                }
+                this.detalleCuestionario.opcion = this.opcion;
+                this.detalleCuestionario.pregunta = this.pregunta;
+                this.listaDetalle.push(this.detalleCuestionario);
+
             }
+            this.cuestionario.listaDetalle = this.listaDetalle;
+        } else {
+            let count = 1;
+            this.cuestionario.idPostulante = this.postulante.id;
+            this.cuestionario.listaDetalle.forEach(item => {
+                if (count == 1) {
+                    item.opcion.id = this.mayorEdad
+                }
+                if (count == 2) {
+                    item.opcion.id = this.vivencia;
+                }
+                if (count == 3) {
+                    item.opcion.id = this.propiedad
+                }
+                if (count == 4) {
+                    item.opcion.id = this.acuerdo;
+                }
+
+                count++;
+            });
+        }
 
         let message;
         this.cuestionarioService.save(this.cuestionario).subscribe(res => {
@@ -277,8 +300,8 @@ export class PostulanteComponent implements OnInit {
             }
         });
 
-       this.limpiarOpciones();
-       this.showCuestionario = false;
+        this.limpiarOpciones();
+        this.showCuestionario = false;
 
     }
 
@@ -286,7 +309,7 @@ export class PostulanteComponent implements OnInit {
         this.mayorEdad = null;
         this.vivencia = null
         this.propiedad = null;
-        this.acuerdo= null;
+        this.acuerdo = null;
     }
 
 }

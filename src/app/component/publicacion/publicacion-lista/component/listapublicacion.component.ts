@@ -58,7 +58,7 @@ export class PublicacionListaComponent implements OnInit {
 
         this.cols = [
             { field: 'fecha', header: 'Fecha', width: '100px' },
-            { field: 'hora', header: 'Hora', width: '70px' },
+            { field: 'hora', header: 'Hora', width: '80px' },
             { field: 'usuario', header: 'Usuario', width: '230px' },
             { field: 'nombre', header: 'Mascota', width: '120px' },
             { field: 'foto', header: 'Foto', width: '80px' },

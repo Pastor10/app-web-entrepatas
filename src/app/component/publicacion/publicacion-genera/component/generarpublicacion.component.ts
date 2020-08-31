@@ -25,6 +25,7 @@ import { Local } from 'src/app/shared/model/local.model';
 import { LocalService } from 'src/app/shared/service/local.service';
 import { FileService } from 'src/app/shared/service/file.service';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-generarpublicacion',
@@ -93,10 +94,8 @@ export class GenerarPublicacionComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.listarRazas();
     this.listarTamanoAnimal();
     this.listarTipoAnimal();
-    this.listarCondicion();
     this.listarLocales();
     this.loadModel();
 
@@ -119,6 +118,7 @@ export class GenerarPublicacionComponent implements OnInit {
       { name: 'Mayor a 6 Años', code: '5' }
     ];
   }
+
 
   onBasicUpload(event) {
     this.file = event.files[0]
@@ -143,6 +143,13 @@ export class GenerarPublicacionComponent implements OnInit {
   getUserId(id) {
     this.usuarioService.getUserId(id).subscribe((data: User) => {
       this.usuario = data;
+      console.log('user',this.usuario);
+      if(this.usuario.perfil.nombre!='VISITANTE'){
+        this.listarCondicion();
+      }else{
+        this.listarCondicionVisitante();
+      }
+      
       this.isCompleted = this.usuario.persona.isCompleted;
       if(!this.isCompleted){
           this.showWarn();
@@ -239,6 +246,23 @@ export class GenerarPublicacionComponent implements OnInit {
     );
   }
 
+  listarCondicionVisitante() {
+    this.listaCondicion = [];
+    this.condicionService.getAllVisitante().subscribe(
+      (data: Condicion[]) => {
+        this.listaCondicion = data;
+      },
+      error => {
+        this.listaCondicion = [];
+        const errorMessage =
+          error.message != undefined
+            ? error.message
+            : 'No se pudo procesar la petición';
+        //this.alertService.danger(errorMessage);
+      }
+    );
+  }
+
   listarTipoAnimal() {
     this.listaTipoAnimal = [];
     this.tipoAnimalService.getAll().subscribe(
@@ -290,24 +314,6 @@ export class GenerarPublicacionComponent implements OnInit {
       }
     );
   }
-
-  // listarRazas() {
-  //   this.listaRazas = [];
-  //   this.razaService.getAll().subscribe(
-  //     (data: Raza[]) => {
-  //       this.listaRazas = data;
-  //     },
-  //     error => {
-  //       this.listaRazas = [];
-  //       const errorMessage =
-  //         error.message != undefined
-  //           ? error.message
-  //           : 'No se pudo procesar la petición';
-  //       //this.alertService.danger(errorMessage);
-  //     }
-  //   );
-  // }
-
 
   doAction(data, accion) {
     if (accion == 'state') {
@@ -488,6 +494,7 @@ export class GenerarPublicacionComponent implements OnInit {
         if (data != null) {
           this.showMsg('success', 'Se guardó correctamente', 'Publicación');
           this.limpiarData();
+          this.router.navigate(['/main/publicacion-lista']);
 
         }
 
@@ -501,7 +508,7 @@ export class GenerarPublicacionComponent implements OnInit {
         this.showMsg('danger', errorMessage);
       }
     );
-    this.router.navigate(['/main/publicacion-lista']);
+   
 
   }
 

@@ -103,7 +103,7 @@
     <div>
       <label><b>Seleccionar la fecha de Entrega</b></label>
       <input type="hidden" [(ngModel)]="adopcion">
-      <p-calendar [(ngModel)]="fechaEntrega" [locale]="es" dateFormat="dd/mm/yy" [inline]="true"></p-calendar>
+      <p-calendar [(ngModel)]="fechaEntrega" [locale]="es" dateFormat="dd/mm/yy" [inline]="true" [maxDate]="today"></p-calendar>
     </div>
 
     <p-footer>
