@@ -1,6 +1,7 @@
 export const environment = {
-  production: true,
-  END_POINT: 'http://Entrepatas-env.eba-qwt2u3hp.us-east-2.elasticbeanstalk.com/',
+  production: false,
+  END_POINT: 'https://api.entrepatasch.com/',
+  //END_POINT: 'http://localhost:9002/',
   TIMEOUT: 10000,
   MESSAGE_TIMEOUT: 'Tiempo de respuesta excedido',
   MESSAGE_ERROR_CONNECTION: 'Error al comunicarse con el servidor',
