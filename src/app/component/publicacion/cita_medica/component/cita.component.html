@@ -1,25 +1,5 @@
 <p-card>
     <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
-    <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
-        <ng-template let-message pTemplate="message">
-            <div style="text-align: center">
-                <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
-                <h3>{{message.summary}}</h3>
-                <input type="hidden" [(ngModel)]="tipoLocal">
-                <p>{{message.detail}}</p>
-            </div>
-            <div class="ui-g ui-fluid">
-                <div class="ui-g-6">
-                    <button type="button" pButton (click)="onConfirm(tipoLocal)" label="Si" icon="fa fa-thumbs-up"
-                        class="ui-button-success"></button>
-                </div>
-                <div class="ui-g-6">
-                    <button type="button" pButton (click)="onReject()" label="No" icon="fa fa-thumbs-down"
-                        class="ui-button-danger btn"></button>
-                </div>
-            </div>
-        </ng-template>
-    </p-toast>
     <!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog> -->
     <div class="ui-g cont-tarjeta">
         <div class=" ui-g-12 tarjeta_adm">
