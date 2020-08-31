@@ -1,40 +1,40 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
-import { LoginComponent } from './component/login/login.component';
-import { UsuariosComponent } from './component/usuarios/usuarios.component';
+import { LoginComponent } from './component/login/component/login.component';
+import { UsuariosComponent } from './component/usuarios/component/usuarios.component';
 import { AuthGuard } from './shared/service/auth.guard';
 import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 import { AppMainComponent } from './app.main.component';
-import { ProfilesComponent } from './component/profiles/profiles.component';
-import { TipoLocalComponent } from './component/local/tipolocal/tipolocal.component';
-import { GenerarPublicacionComponent } from './component/publicacion/publicacion-genera/generarpublicacion.component';
-import { LocalComponent } from './component/local/local_user/local.component';
-import { VeterinariaComponent } from './component/veterinaria/veterinaria/veterinaria.component';
-import { VeterinarioComponent } from './component/veterinaria/veterinario/veterinario.component';
-import { TipoAnimalComponent } from './component/animal/tipo/tipoanimal.component';
-import { TamanoAnimalComponent } from './component/animal/tamano/tamanoanimal.component';
-import { RazaComponent } from './component/animal/raza/raza.component';
-import { TipoEventoComponent } from './component/evento/tipoEvento/tipoevento.component';
-import { EventoPublicaComponent } from './component/evento/publicacion/eventopublica.component';
-import { EventoListaComponent } from './component/evento/eventos/eventolista.component';
-import { PublicacionListaComponent } from './component/publicacion/publicacion-lista/listapublicacion.component';
+import { ProfilesComponent } from './component/profiles/component/profiles.component';
+import { TipoLocalComponent } from './component/local/tipolocal/component/tipolocal.component';
+import { GenerarPublicacionComponent } from './component/publicacion/publicacion-genera/component/generarpublicacion.component';
+import { LocalComponent } from './component/local/local_user/component/local.component';
+import { VeterinariaComponent } from './component/veterinaria/veterinaria/component/veterinaria.component';
+import { VeterinarioComponent } from './component/veterinaria/veterinario/component/veterinario.component';
+import { TipoAnimalComponent } from './component/animal/tipo/component/tipoanimal.component';
+import { TamanoAnimalComponent } from './component/animal/tamano/component/tamanoanimal.component';
+import { RazaComponent } from './component/animal/raza/component/raza.component';
+import { TipoEventoComponent } from './component/evento/tipoEvento/component/tipoevento.component';
+import { EventoPublicaComponent } from './component/evento/publicacion/component/eventopublica.component';
+import { EventoListaComponent } from './component/evento/eventos/component/eventolista.component';
+import { PublicacionListaComponent } from './component/publicacion/publicacion-lista/component/listapublicacion.component';
 import { HomeComponent } from './component/home/home.component';
-import { ConocenosComponent } from './component/conocenos/conocenos.component';
-import { AdoptaComponent } from './component/adopta/adopta.component';
-import { PostulanteComponent } from './component/adopcion/postulantes/postulantes.component';
-import { AdopcionComponent } from './component/adopcion/lista-adopcion/adopciones.component';
-import { PerfilComponent } from './component/perfil/perfil.component';
-import { CitaMedicaComponent } from './component/publicacion/cita_medica/cita.component';
-import { AprobacionPublicacionComponent } from './component/publicacion/aprobaciones/aprobaciones.component';
-import { GeneraAdopcionComponent } from './component/adopcion/genera-adopcion/genera.component';
-import { DevolucionComponent } from './component/adopcion/devolucion/devolucion.component';
-import { ColaboraComponent } from './component/colabora/colabora.component';
-import { EventoProximoComponent } from './component/evento/proximos-eventos/eventoproximo.component';
+import { ConocenosComponent } from './component/conocenos/component/conocenos.component';
+import { AdoptaComponent } from './component/adopta/component/adopta.component';
+import { PostulanteComponent } from './component/adopcion/postulantes/component/postulantes.component';
+import { AdopcionComponent } from './component/adopcion/lista-adopcion/component/adopciones.component';
+import { PerfilComponent } from './component/perfil/component/perfil.component';
+import { CitaMedicaComponent } from './component/publicacion/cita_medica/component/cita.component';
+import { AprobacionPublicacionComponent } from './component/publicacion/aprobaciones/component/aprobaciones.component';
+import { GeneraAdopcionComponent } from './component/adopcion/genera-adopcion/component/genera.component';
+import { DevolucionComponent } from './component/adopcion/devolucion/component/devolucion.component';
+import { ColaboraComponent } from './component/colabora/component/colabora.component';
+import { EventoProximoComponent } from './component/evento/proximos-eventos/component/eventoproximo.component';
 import { ActiveCuentaComponent } from './component/cuenta/active-cuenta/activecuenta.component';
-import { ProcesoComponent } from './component/proceso/proceso.component';
-import { UneteComponent } from './component/unete/unete.component';
-import { WebAmigaComponent } from './component/web-amigas/webamigas.component';
+import { ProcesoComponent } from './component/proceso/component/proceso.component';
+import { UneteComponent } from './component/unete/component/unete.component';
+import { WebAmigaComponent } from './component/web-amigas/component/webamigas.component';
 import { PostulanteColaboradorComponent } from './component/solicitud-colaborador/postulantes/postulante-colaborador.component';
 
 export const routes: Routes = [
@@ -47,86 +47,58 @@ export const routes: Routes = [
                 pathMatch: 'full',
                 redirectTo: 'adopta'
             },
-            { path: 'login', component: LoginComponent },
-            { path: 'conocenos', component: ConocenosComponent },
-            { path: 'adopta', component: AdoptaComponent },
-            { path: 'proximos-eventos', component: EventoProximoComponent },
-            { path: 'active-acount', component: ActiveCuentaComponent },
-            { path: 'proceso', component: ProcesoComponent },
-            { path: 'colaboracion', component: ColaboraComponent },
-            { path: 'unete', component: UneteComponent },
-            { path: 'web-amigas', component: WebAmigaComponent },
+
+           { path: 'active-acount', loadChildren: () => import('../app/component/cuenta/active.module').then(m => m.ActiveModule) },
+            { path: 'web-amigas', loadChildren: () => import('../app/component/web-amigas/auspiciador.module').then(m => m.AuspiciadorModule) },
+            { path: 'colaboracion', loadChildren: () => import('../app/component/colabora/colabora.module').then(m => m.ColaboraModule) },
+            { path: 'login', loadChildren: () => import('../app/component/login/login.module').then(m => m.LoginModule) },
+            { path: 'adopta', loadChildren: () => import('../app/component/adopta/adopta.module').then(m => m.AdoptaModule) },
+            { path: 'conocenos', loadChildren: () => import('../app/component/conocenos/conocenos.module').then(m => m.ConocenosModule) },
+            { path: 'proceso', loadChildren: () => import('../app/component/proceso/proceso.module').then(m => m.ProcesoModule) },
+            { path: 'unete', loadChildren: () => import('../app/component/unete/unete.module').then(m => m.UneteModule) },
+            { path: 'proximos-eventos', loadChildren: () => import('../app/component/evento/proximos-eventos/proximoevento.module').then(m => m.EventoProximosModule) },
+
+
         ]
+
     },
+
+
     {
         path: 'main', component: AppMainComponent, canActivate: [AuthGuard],
         children: [
             { path: 'reporteF7-general', component: ReporteF7GeneralComponent, canActivate: [AuthGuard] },
             { path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent, canActivate: [AuthGuard] },
-            // {path: 'usuarios', component: UsuariosComponent},
-            { path: 'perfiles', component: ProfilesComponent, canActivate: [AuthGuard] },
-            { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard] },
-            { path: 'local', component: LocalComponent, canActivate: [AuthGuard] },
-            { path: 'tipolocal', component: TipoLocalComponent, canActivate: [AuthGuard] },
-            { path: 'generar-publicacion', component: GenerarPublicacionComponent, canActivate: [AuthGuard] },
-            { path: 'veterinaria', component: VeterinariaComponent, canActivate: [AuthGuard] },
-            { path: 'veterinario', component: VeterinarioComponent, canActivate: [AuthGuard] },
-            { path: 'tipo-animal', component: TipoAnimalComponent, canActivate: [AuthGuard] },
-            { path: 'tamano-animal', component: TamanoAnimalComponent, canActivate: [AuthGuard] },
-            { path: 'raza', component: RazaComponent, canActivate: [AuthGuard] },
-            { path: 'tipo-evento', component: TipoEventoComponent, canActivate: [AuthGuard] },
-            { path: 'evento-publica', component: EventoPublicaComponent, canActivate: [AuthGuard] },
-            { path: 'evento-lista', component: EventoListaComponent, canActivate: [AuthGuard] },
-            {
-                path: 'evento-editar/:id', component: EventoPublicaComponent, data: {
-                    modeRoot: false,
-                    isEdit: true,
-                    title: 'Editar Evento',
-                }, canActivate: [AuthGuard]
-            },
-            { path: 'publicacion-lista', component: PublicacionListaComponent, canActivate: [AuthGuard] },
-            { path: 'publicacion-cita', component: CitaMedicaComponent, canActivate: [AuthGuard] },
-            { path: 'publicacion-aprobacion', component: AprobacionPublicacionComponent, canActivate: [AuthGuard] },
-            {
-                path: 'publicacion-editar/:id', component: GenerarPublicacionComponent, data: {
-                    modeRoot: false,
-                    isEdit: true,
-                    title: 'Editar Publicacion',
-                }, canActivate: [AuthGuard]
-            },
-            {
-                path: 'publicacion-cita/:id', component: CitaMedicaComponent, data: {
-                    modeRoot: false,
-                    isEdit: true,
-                    title: 'Editar cita Medica',
-                }, canActivate: [AuthGuard]
-            },
-            { path: 'postulante', component: PostulanteComponent, canActivate: [AuthGuard] },
-            { path: 'genera-adopcion', component: GeneraAdopcionComponent, canActivate: [AuthGuard] },
-            { path: 'adopciones', component: AdopcionComponent, canActivate: [AuthGuard] },
-            {
-                path: 'adopcion-usuario/:id', component: GeneraAdopcionComponent, data: {
-                    modeRoot: false,
-                    isEdit: true,
-                    title: 'Adopcion usuario',
-                }, canActivate: [AuthGuard]
-            },
-            { path: 'devoluciones', component: DevolucionComponent, canActivate: [AuthGuard] },
 
-            { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
-            { path: 'colabora', component: ColaboraComponent, canActivate: [AuthGuard] },
-            { path: 'postulante-colaborador', component: PostulanteColaboradorComponent, canActivate: [AuthGuard] },
+            { path: 'usuarios', loadChildren: () => import('../app/component/usuarios/usuarios.module').then(m => m.UsuariosModule) },
+            { path: 'perfiles', loadChildren: () => import('../app/component/profiles/profile.module').then(m => m.ProfileModule) },
+            { path: 'raza', loadChildren: () => import('../app/component/animal/raza/raza.module').then(m => m.RazaModule) },
+            { path: 'tamano-animal', loadChildren: () => import('../app/component/animal/tamano/tamano.module').then(m => m.TamanoModule) },
+            { path: 'tipo-animal', loadChildren: () => import('../app/component/animal/tipo/tipoanimal.module').then(m => m.TipoAnimalModule) },
+            { path: 'veterinaria', loadChildren: () => import('../app/component/veterinaria/veterinaria/veterinaria.module').then(m => m.VeterinariaModule) },
+            { path: 'veterinario', loadChildren: () => import('../app/component/veterinaria/veterinario/veterinario.module').then(m => m.VeterinarioModule) },
+            { path: 'tipolocal', loadChildren: () => import('../app/component/local/tipolocal/tipolocal.module').then(m => m.TipoLocalModule) },
+            { path: 'local', loadChildren: () => import('../app/component/local/local_user/local.module').then(m => m.LocalModule) },
+            { path: 'evento-publica', loadChildren: () => import('../app/component/evento/publicacion/eventopublica.module').then(m => m.EventoCreaModule) },
+            { path: 'tipo-evento', loadChildren: () => import('../app/component/evento/tipoEvento/tipoevento.module').then(m => m.TipoEventoModule) },
+            { path: 'evento-lista', loadChildren: () => import('../app/component/evento/eventos/eventolista.module').then(m => m.EventoListaModule) },
+            { path: 'generar-publicacion', loadChildren: () => import('../app/component/publicacion/publicacion-genera/publicacion-crea.module').then(m => m.PublicacionCreaModule) },
+            { path: 'publicacion-lista', loadChildren: () => import('../app/component/publicacion/publicacion-lista/publicacion-lista.module').then(m => m.PublicacionListaModule) },
+            { path: 'publicacion-cita', loadChildren: () => import('../app/component/publicacion/cita_medica/cita.module').then(m => m.CitaMedicaModule) },
+            { path: 'publicacion-aprobacion', loadChildren: () => import('../app/component/publicacion/aprobaciones/aprobaciones.module').then(m => m.AprobacionesModule) },
+            { path: 'genera-adopcion', loadChildren: () => import('../app/component/adopcion/genera-adopcion/genera-adopcion.module').then(m => m.GeneraAdopcionModule) },
+            { path: 'adopciones', loadChildren: () => import('../app/component/adopcion/lista-adopcion/adopcion-lista.module').then(m => m.AdopcionListaModule) },
+            { path: 'devoluciones', loadChildren: () => import('../app/component/adopcion/devolucion/devolucion.module').then(m => m.DevolucionModule) },
+            { path: 'postulante', loadChildren: () => import('../app/component/adopcion/postulantes/postulantes.module').then(m => m.PostulantesModule) },
+            { path: 'perfil', loadChildren: () => import('../app/component/perfil/perfil.module').then(m => m.PerfilModule) },
+
+            { path: 'colabora', loadChildren: () => import('../app/component/colabora/colabora.module').then(m => m.ColaboraModule) },
+            { path: 'postulante-colaborador', loadChildren: () => import('../app/component/solicitud-colaborador/postulante-colaborador.module').then(m => m.PostulanteColaboradorModule) },
         ]
     },
 
 
-    // {path: 'reporteF7-general', component: ReporteF7GeneralComponent},
-    // {path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent},
-    /* { path: 'usuarios', component: UsuariosComponent,
-         children : [
-             { path: 'nuevo', component: UsuarioComponent canActivate: [AuthGuard]}
-         ]
-     } */
+
 ];
 
 export const AppRoutes: ModuleWithProviders = RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' });

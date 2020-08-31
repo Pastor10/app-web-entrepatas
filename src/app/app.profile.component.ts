@@ -74,7 +74,7 @@ constructor(public usuarioService: UsuarioService){
          this.tkn = localStorage.getItem("userLogin");
          
          this.pl = JSON.parse(this.tkn);
-         console.log('user ',this.pl);
+
          
          this.name = this.pl.user.name;
          //this.perfil = this.pl.user.per
@@ -88,7 +88,6 @@ getUserId(id){
     this.usuarioService.getUserId(id).subscribe((data: User) =>{
     this.usuario = data;
     this.foto = this.usuario.persona.foto;
-    console.log('resp user ', this.usuario);
     
     });
     return this.usuario;

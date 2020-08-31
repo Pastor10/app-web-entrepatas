@@ -14,7 +14,6 @@ export class ActiveCuentaComponent implements OnInit{
 
     constructor(private route: ActivatedRoute, private usuarioService: UsuarioService) {
        this.uuid= this.route.snapshot.queryParamMap.get('code-validation');
-       console.log(this.uuid);
        
         
     }
@@ -25,7 +24,6 @@ export class ActiveCuentaComponent implements OnInit{
     }
 
     validateCuenta(){
-        console.log('code ',this.uuid); 
         this.usuarioService.validateCuenta(this.uuid).subscribe(
             (data) => {
               console.log('data', data);
