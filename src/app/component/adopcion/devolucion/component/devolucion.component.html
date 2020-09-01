@@ -5,7 +5,7 @@
   <div class="ui-g-12 ui-lg-12 tarjeta_adm">
     <p-panel [style]="{'margin-bottom':'20px'}">
       <p-header>
-        <span  class="ui-panel-title">Devoluciones</span>
+        <h2>Devoluciones</h2>
       </p-header>
       <p-table #dt [columns]="cols" [value]="adopciones"  [paginator]="true" [rows]="perPage" [totalRecords]="totalRecords"
       [responsive]="true" paginatorPosition="bottom" [lazy]="true" [scrollable]="true" (onLazyLoad)="loadLazy($event)">

@@ -46,7 +46,7 @@
 }
 
 *{
-  font-size: 16px;
+  font-size: 15px;
   font-family: "FranklinGothicStdBC";
   letter-spacing: 0.5px;      /* para separar entgre letras */
   word-spacing: 1px;        /* para separacion entre palabras */ 
@@ -198,8 +198,8 @@ body .ui-button {
   background-color: #64B5F6;
   border: none;
   font-size: 14px;
-  padding: 0!important;
-  /*padding: 1px!important;*/
+  /*padding: 0!important;*/
+  padding: 1px!important;
 }
 /*body .ui-button:enabled:hover {
   background-color: #2d6da3;
@@ -1579,7 +1579,7 @@ label {
 .tarjeta_adm h2{
     font-family: 'bebas_neueregular', Arial;
     color: #0D47A1;
-    /*font-weight: bold;*/
+    margin:0px;
     font-size: 30px;
     text-transform: uppercase;
 }
