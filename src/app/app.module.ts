@@ -9,7 +9,7 @@ import {AppFooterComponent} from './app.footer.component';
 import {AppProfileComponent} from './app.profile.component';
 
 
-import { ReporteF7Service } from './shared/service/reporteF7.service';
+
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { AuthService } from './shared/service/auth.service';
 import { LocalStorageService } from './shared/service/localstorage.service';
@@ -52,6 +52,7 @@ import { PostulanteColaboradorService } from './shared/service/postulante-colabo
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ReporteService } from './shared/service/reporte.service';
 
 
 
@@ -97,7 +98,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
             multi: true
         },
   
-        ReporteF7Service,
+        ReporteService,
         MessageService,
         AuthService,
         LocalStorageService,
