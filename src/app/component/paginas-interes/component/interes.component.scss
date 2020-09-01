@@ -39,3 +39,35 @@
 	color: #212121;
 	font-size: 25px;
 }
+
+
+/***FOOTER***/
+footer{
+	height: 100px;
+	width: 100vw;
+	background: #000;
+	color: white;
+	font-size: 13px;
+	/*margin-top: 25px;*/
+}
+footer img{
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	margin:0 15px; 
+	border-radius: 50%;
+	-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+footer img:hover{
+	-webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0%);
+    animation: zoomIn_ 1s;
+}
+
+@media (min-width:640px ) {
+	footer{
+	height: 60px;
+	}
+
+}
