@@ -31,6 +31,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 import {NgxsModule} from '@ngxs/store';
 import { CommonModule } from '@angular/common';
+import { ChartModule } from 'primeng/primeng';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import { CommonModule } from '@angular/common';
         CarouselModule,
         CommonModule,
         FormsModule,
+        ChartModule
         //NgxsModule.forRoot()
     ]
 

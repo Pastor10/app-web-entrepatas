@@ -60,7 +60,7 @@ export class AprobacionPublicacionComponent implements OnInit{
     ngOnInit(){
         this.cols = [
             { field: 'fecha', header: 'Fecha', width: '100px' },
-            { field: 'hora', header: 'Hora', width: '70px' },
+            { field: 'hora', header: 'Hora', width: '80px' },
             { field: 'usuario', header: 'Usuario', width: '230px' },
             { field: 'nombre', header: 'Mascota', width: '120px' },
             { field: 'sexo', header: 'Tipo/Sexo', width: '120px' },

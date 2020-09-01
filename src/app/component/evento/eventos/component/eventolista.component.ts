@@ -43,8 +43,8 @@ export class EventoListaComponent implements OnInit{
     ngOnInit(){
         this.cols = [
             {field: 'fecha', header: 'Fecha', width: '120px'},
-            {field: 'fecha', header: 'Hora', width: '70px'},
-            {field: 'tipo', header: 'Tipo', width: '80px'},
+            {field: 'hora', header: 'Hora', width: '80px'},
+            {field: 'tipo', header: 'Tipo', width: '100px'},
             {field: 'titulo', header: 'Titulo', width: '150px'},
             {field: 'ubigeo', header: 'Lugar', width: '200px'},
             {field: 'descripcion', header: 'Descripcíon', width: '250px'},

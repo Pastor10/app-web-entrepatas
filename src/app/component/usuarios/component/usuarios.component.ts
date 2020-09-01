@@ -82,7 +82,7 @@ export class UsuariosComponent implements OnInit {
     //this.listarUsuariosAplicacion();
     this.getAllTipoDocumento();
     this.cols = [
-      // { field: 'fecha', header: 'Fecha', width: '150px' },
+      { field: 'fecha', header: 'Fecha', width: '170px' },
       { field: 'nombre', header: 'Nombres y Apellidos', width: '250px' },
       { field: 'correo', header: 'Email', width: '230px' },
       { field: 'documento', header: 'Documento', width: '120px' },

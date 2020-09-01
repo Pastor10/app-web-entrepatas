@@ -1,10 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
 import { AuthGuard } from './shared/service/auth.guard';
 import { ReporteF7NoCoberturadoComponent } from './component/reporte/reporte-no-coberturado/f7-nocoberturado.component';
 import { AppMainComponent } from './app.main.component';
 import { HomeComponent } from './component/home/home.component';
+import { ReporteGeneralComponent } from './component/reporte/reporte-general/component/reporte-general.component';
 
 export const routes: Routes = [
 
@@ -36,9 +36,10 @@ export const routes: Routes = [
     {
         path: 'main', component: AppMainComponent, canActivate: [AuthGuard],
         children: [
-            { path: 'reporteF7-general', component: ReporteF7GeneralComponent, canActivate: [AuthGuard] },
+
             { path: 'reporteF7-no-coverturado', component: ReporteF7NoCoberturadoComponent, canActivate: [AuthGuard] },
 
+           
             { path: 'usuarios', loadChildren: () => import('../app/component/usuarios/usuarios.module').then(m => m.UsuariosModule) },
             { path: 'perfiles', loadChildren: () => import('../app/component/profiles/profile.module').then(m => m.ProfileModule) },
             { path: 'raza', loadChildren: () => import('../app/component/animal/raza/raza.module').then(m => m.RazaModule) },
@@ -63,6 +64,7 @@ export const routes: Routes = [
             { path: 'colabora', loadChildren: () => import('../app/component/colabora/colabora.module').then(m => m.ColaboraModule) },
             { path: 'postulante-colaborador', loadChildren: () => import('../app/component/solicitud-colaborador/postulante-colaborador.module').then(m => m.PostulanteColaboradorModule) },
             { path: 'change-password', loadChildren: () => import('../app/component/password/password.module').then(m => m.PasswordModule) },
+            { path: 'reporte-general', loadChildren: () => import('../app/component/reporte/reporte-general/reporte-general.module').then(m => m.ReporteGeneralModule) },
         ]
     },
 

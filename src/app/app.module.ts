@@ -8,7 +8,7 @@ import {AppTopBarComponent} from './app.topbar.component';
 import {AppFooterComponent} from './app.footer.component';
 import {AppProfileComponent} from './app.profile.component';
 
-import { ReporteF7GeneralComponent } from './component/reporte/reporte-general/f7-general.component';
+
 import { ReporteF7Service } from './shared/service/reporteF7.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { AuthService } from './shared/service/auth.service';
@@ -72,7 +72,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         AppTopBarComponent,
         AppFooterComponent,
         AppProfileComponent,
-        ReporteF7GeneralComponent,
         ReporteF7NoCoberturadoComponent,
         LoadingComponent,
         CabeceraComponent,
