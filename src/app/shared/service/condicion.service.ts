@@ -20,6 +20,12 @@ export class CondicionService {
         new Error(environment.MESSAGE_TIMEOUT))));
   }
 
+  getAllVisitante() {
+    return this.http.get(this.baseUrl + 'findAllVisitante').pipe(
+      timeoutWith(environment.TIMEOUT, observableThrowError(
+        new Error(environment.MESSAGE_TIMEOUT))));
+  }
+
   getFindId(id) {
     return this.http.get(this.baseUrl + 'findById/' + id).pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(

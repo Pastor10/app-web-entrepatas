@@ -1,0 +1,91 @@
+
+<p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<div class="ui-g cont-tarjeta">
+  <div class="ui-g-12 ui-lg-12 tarjeta_adm">
+    <p-panel [style]="{'margin-bottom':'20px'}">
+      <p-header>
+        <h2>Devoluciones</h2>
+      </p-header>
+      <p-table #dt [columns]="cols" [value]="adopciones"  [paginator]="true" [rows]="perPage" [totalRecords]="totalRecords"
+      [responsive]="true" paginatorPosition="bottom" [lazy]="true" [scrollable]="true" (onLazyLoad)="loadLazy($event)">
+
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+          <col style="width: 150px">
+        </colgroup>
+      </ng-template>
+
+      <ng-template pTemplate="header" let-columns let-pro>
+        <tr>
+          <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+          <th style="width:5em" id="">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td>
+            <span>
+              {{rowData.fechaDevolucion | date:'dd/MM/yyyy'}}
+            </span>
+          </td>
+
+          <td>
+            <span>
+              {{rowData.persona.nombreCompleto}}
+            </span>
+          </td>
+          <td>
+            <span>
+              {{rowData.persona.numeroDocumento}}
+            </span>
+          </td>
+          <td>
+            <span>
+              {{rowData.persona.ubigeo.nombre}} - {{rowData.persona.direccion}}
+            </span>
+          </td>
+          <td>
+            <span>
+              {{rowData.persona.celular}}
+            </span>
+          </td>
+
+          <td>
+            <span>
+              {{rowData.animal.nombre}} / {{rowData.animal.sexo}}
+            </span>
+          </td>
+          <td>
+
+            <img class="img_adm" src="{{rowData.animal.foto}}">
+
+          </td>
+          <td>
+            <span>
+              {{rowData.motivoDevolucion}}
+            </span>
+          </td>
+
+          <td>
+            <span class="label label-success">
+              {{rowData.estadoAdopcion}}
+            </span>
+          </td>
+          <td style="text-align: center">
+            <a (click)="doAction(rowData, 'edit');" class="hand">
+              <button pButton type="button" icon="fa fa-eye" class="ui-button-info" tooltip="Ver"></button>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+ 
+  </p-panel>
+  </div>
+
+</div>

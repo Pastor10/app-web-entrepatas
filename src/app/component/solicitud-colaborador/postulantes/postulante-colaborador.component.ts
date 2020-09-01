@@ -56,7 +56,7 @@ export class PostulanteColaboradorComponent implements OnInit {
         params.push(`perPage=${this.perPage}`);
         this.postulanteColaboradorService.getAll().subscribe((data: PostulanteColaborador[]) => {
             this.postulantes = data;
-            console.log(data);
+        
 
         });
     }

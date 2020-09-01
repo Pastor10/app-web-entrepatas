@@ -1,0 +1,288 @@
+<p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+<!-- <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog> -->
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <div style="text-align: center">
+      <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+      <h3>{{message.summary}}</h3>
+      <input type="hidden" [(ngModel)]="postulante">
+      <p>{{message.detail}}</p>
+    </div>
+    <div style="text-align: left" class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <p> <strong>¿Generar Usuario?</strong>&nbsp;
+          <p-inputSwitch [(ngModel)]="creaUser"></p-inputSwitch>
+        </p>
+      </div>
+
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onConfirm(postulante)" label="Si" icon ="fa fa-thumbs-up" class="ui-button-success btn"></button>
+      </div>
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onReject()" label="No" icon ="fa fa-thumbs-down" class="ui-button-danger btn"></button>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<div class="ui-g cont-tarjeta">
+  <div class="ui-g-12 ui-lg-12 tarjeta_adm">
+    <p-panel>
+      <p-header>
+        <h2>Postulantes</h2>
+      </p-header>
+
+      <p-table #dt [columns]="cols" [value]="publicaciones" dataKey="idDirectorio" [paginator]="true" [rows]="10"
+        [responsive]="true" paginatorPosition="bottom" [lazy]="true">
+
+        <ng-template pTemplate="colgroup" let-columns>
+          <colgroup>
+            <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+            <col style="width: 150px">
+          </colgroup>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns let-pro>
+          <tr>
+            <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="width:15em" id="">Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td>
+              <span>
+                {{rowData.fechaCreacion | date:'dd/MM/yyyy'}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.fechaCreacion | date:'h:mm a'}}
+              </span>
+            </td>
+
+            <td>
+              <span>
+                {{rowData.usuarioPublica.persona.nombreCompleto}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.animal.nombre}}
+              </span>
+            </td>
+            <td>
+              <img class="img_adm" src="{{rowData.animal.foto}}">
+            </td>
+            <td>
+              <span>
+                {{rowData.animal.raza.tipoAnimal.nombre}} - {{rowData.animal.sexo}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.condicion.nombre}}
+              </span>
+            </td>
+
+            <td>
+              <span *ngIf="rowData.estadoPublicacion=='PENDIENTE'" class="label label-secondari">
+                {{rowData.estadoPublicacion}}
+              </span>
+              <span *ngIf="rowData.estadoPublicacion=='APROBADO'" class="label label-success">
+                {{rowData.estadoPublicacion}}
+              </span>
+              <span *ngIf="rowData.estadoPublicacion=='RECHAZADO'" class="label label-danger">
+                {{rowData.estadoPublicacion}}
+              </span>
+              <span *ngIf="rowData.estadoPublicacion=='FINALIZADO'" class="label label-success">
+                {{rowData.estadoPublicacion}}
+              </span>
+            </td>
+            <td style="text-align: center">
+              <a (click)="getAllPostulantesByPublicacion(rowData)">
+                <button pButton type="button" icon="fa fa-users" class="ui-button-info space-buttons"
+                  tooltip="Postulantes"></button>
+              </a>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-panel>
+  </div>
+
+
+<p-dialog header="Postulantes para {{nombreMascota}}" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '1200px', minWidth: '400px'}" [minY]="70"  [baseZIndex]="10000">
+
+  <p-scrollPanel [style]="{width: '100%', height: '400px'}">
+      <p-toast key="cuestionario" [style]="{marginTop: '70px'}"></p-toast>
+      <p-table [columns]="colsPostulantes"  [value]="postulantes" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+              <col style="width: 150px">
+            </colgroup>
+          </ng-template>
+  
+          <ng-template pTemplate="header" let-columns let-pro>
+            <tr>
+              <th *ngFor="let col of columns" id="col.id" [pSortableColumn]="col.field" style="text-align: center">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th style="width:15em" id="">Acciones</th>
+            </tr>
+          </ng-template>
+      
+          <ng-template pTemplate="body" let-b>
+            <tr style="text-align: center">
+              <td>{{b.persona.nombreCompleto}}</td>
+              <td>{{b.persona.correo}}</td>
+              <td>{{b.persona.ubigeo.nombre}}-{{b.persona.direccion}}</td>
+              <td>{{b.persona.celular}}</td>
+              <td>{{b.persona.numeroDocumento}}</td>
+              <td>
+                <p-rating [(ngModel)]="b.puntuacion" name="puntuacion" stars="5" readonly="true" id="puntuacion"></p-rating>
+              </td>
+              <td style="text-align: center">
+                <button pButton type="button" (click)="calificar(b)" icon="fa fa-file-o"
+                  class="ui-button-warning" tooltip="Ficha técnica"></button>&nbsp;
+                <button pButton type="button" (click)="showConfirm(b)" icon="fa fa-paw"
+                  class="ui-button-success" tooltip="Generar Adopción"></button>
+      
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <div *ngIf="showCuestionario">
+
+            <p-fieldset legend="CUESTIONARIO DE {{nombrePostulante}}">
+              <div class="ui-g ">
+                <div class="ui-g-12 ui-g-md-6 ui-lg-3">
+                  <label><b>¿MAYOR DE EDAD?</b></label>
+                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+                    <div class="ui-g-12">
+                      <p-radioButton name="mayorEdad" value="1" [(ngModel)]="mayorEdad" inputId="1"></p-radioButton>
+                      <label>SI</label>
+                    </div>
+                    <div class="ui-g-12">
+                      <p-radioButton name="mayorEdad" value="2"[(ngModel)]="mayorEdad" inputId="2"></p-radioButton>
+                      <label>NO</label>
+                    </div>
+                  </div>
+                </div>
+        
+                <div class="ui-g-12 ui-g-md-6 ui-lg-3">
+                  <label><b>¿CON QUIEN VIVES?</b></label>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="3" [(ngModel)]="vivencia" inputId="3">
+                    </p-radioButton>
+                    <label>FAMILIA NUCLEAR</label>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="4" [(ngModel)]="vivencia" inputId="4">
+                    </p-radioButton>
+                    <label>SOLO PADRES</label>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="5" [(ngModel)]="vivencia" inputId="5"></p-radioButton>
+                    <label>PAREJA</label>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="6" [(ngModel)]="vivencia" inputId="6">
+                    </p-radioButton>
+                    <label>PAREJA E HIJOS</label>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="vivencia" value="7" [(ngModel)]="vivencia" inputId="7">
+                    </p-radioButton>
+                    <label>SOLO HIJOS</label>
+                  </div>
+                </div>
+                <div class="ui-g-12 ui-g-md-6 ui-lg-3">
+                  <label><b>VIVES EN:</b></label>
+                  <div class="ui-g-12">
+                    <p-radioButton name="propiedad" value="8" [(ngModel)]="propiedad" inputId="8">
+                    </p-radioButton>
+                    <label>CASA PROPIA</label>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="propiedad" value="9" [(ngModel)]="propiedad" inputId="9">
+                    </p-radioButton>
+                    <label>CASA ALQUILADA</label>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="propiedad" value="10" [(ngModel)]="propiedad"
+                      inputId="10"></p-radioButton>
+                      <label>CUARTO / DEPART.</label>
+                  </div>
+                </div>
+                <div class="ui-g-12 ui-g-md-6 ui-lg-3">
+                  <label><b>¿APOYA LA ESTERILIZACION?</b></label>
+                  <div class="ui-g-12">
+                    <p-radioButton name="acuerdo" value="11"[(ngModel)]="acuerdo" inputId="11">
+                    </p-radioButton>
+                    <label>SI</label>
+                  </div>
+                  <div class="ui-g-12">
+                    <p-radioButton name="acuerdo" value="12" [(ngModel)]="acuerdo" inputId="12">
+                    </p-radioButton>
+                    <label>NO</label>
+                  </div>
+                </div>
+        
+                <div class="ui-g-12">
+                  <div class="ui-g-6 centrar">
+                  <button type="button" pButton icon="fa fa-times-circle" (click)="showCuestionario=false" label="CANCELAR" class="ui-button-danger btn"></button> 
+                </div>
+                  <div class="ui-g-6 centrar">
+                  <button pButton type="submit" label="GUARDAR" icon ="fa fa-save"
+                    class="ui-button-success btn" (click)="guardarCuestionario()"></button>
+                  </div>
+                </div>
+        
+              </div>
+            </p-fieldset>
+          </div>
+          <div *ngIf="showAdopcion">
+
+            <p-fieldset legend="RESERVAR ADOPCION PARA {{nombrePostulante}}">
+              <div class="ui-g ">
+                <div class="ui-g-12 ui-g-md-6 ui-lg-4">
+                  <label><b>¿ESTA SEGURO DE RESERVAR ADOPCION?</b></label>
+                  <div class="ui-g" style="width:250px;margin-bottom:10px">
+              
+                    <div class="ui-g-12">
+                        <div class="ui-g-12"><p-checkbox  label="CREAR USUARIO" [(ngModel)]="creaUser" binary="true"></p-checkbox></div>
+                    </div>
+                  </div>
+                </div>
+        
+
+                <div class="ui-g-12">
+                  <div class="ui-g-6 centrar">
+                  <button type="button" pButton icon="fa fa-times-circle" (click)="showAdopcion=false" label="CANCELAR" class="ui-button-danger btn"></button> 
+                </div>
+                  <div class="ui-g-6 centrar">
+                  <button pButton type="submit" label="GUARDAR" icon ="fa fa-save"
+                    class="ui-button-success btn" (click)="onConfirm()"></button>
+                  </div>
+                </div>
+        
+              </div>
+            </p-fieldset>
+          </div>
+  </p-scrollPanel>
+
+
+  <p-footer>
+    <button type="button" pButton icon="fa fa-times-circle" (click)="salirDialog()" label="SALIR" class="ui-button-danger btn"></button>
+  </p-footer>
+</p-dialog>
+

@@ -237,11 +237,11 @@ export class AppMenuComponent implements OnInit {
             },
             {
                 label: 'Reportes', 
-                icon: 'fa fa-fw fa-bars',
+                icon: 'fa fa-line-chart',
                 items: [
-                    {label: 'Reporte general',
-                    icon: 'fa fa-list-alt',
-                    routerLink: ['/main/reporteF7-general'],
+                    {label: 'Reporte mensual',
+                    icon: 'fa fa-bar-chart',
+                    routerLink: ['/main/reporte-general'],
                     role:'ROLE_REPORTE',
                     state: false
                     },

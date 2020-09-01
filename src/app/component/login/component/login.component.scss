@@ -1,0 +1,210 @@
+
+.formulario{
+    margin:0 auto;
+    margin-top: 40px;
+    width: 300px;
+    padding: 5px 20px;
+    border-top: 5px solid #0D47A1;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,.3);
+    background:#fff;
+}
+.formulario img{
+    width: 80px;
+    border-radius: 50%;
+}
+.formulario p{
+    color: #0D47A1;
+    font-family: 'bebas_neueregular', Arial;
+    margin-top: -10px;
+    font-size: 30px;
+    animation-name: pulso;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+
+.formulario div .boton, .boton{
+  background: #689F38;
+  cursor: pointer;
+  color: white;
+}
+
+.formulario div .boton, .boton {
+    background: #689F38;
+    cursor: pointer;
+    color: white;
+}
+
+.formulario div .boton:hover, .boton:hover {
+    background: #558B2F;
+}
+
+.btn:focus, .btn:hover {
+    text-decoration: none;
+}
+
+.olvide_clave a{
+    color: gray;
+}
+.crear_usuario{
+    color: #0D47A1;
+}
+
+.olvide_clave a:hover,.crear_usuario:hover{
+    font-weight: bold;
+}
+.formulario .recuerda{
+font-size: 13px;
+// font-family: "FranklinGothicStdBC";
+color:gray;
+}
+
+.formulario, .formulario input{
+    text-align: center;
+    // font-family: "FranklinGothicStdBC";
+}
+
+input[type="text"],input[type="password"]{
+  width: 100%;
+}
+
+@keyframes jackInTheBox{
+  0%{transform:scale(1) rotate(1deg);
+    transform-origin:center bottom}
+
+  50%{transform:rotate(-5deg)}
+
+  70%{transform:rotate(5deg)}
+  
+  to{transform:scale(1)}
+}
+
+.jack{
+  animation:jackInTheBox 2s infinite alternate;
+}
+
+@keyframes flipInY {
+  from {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  }
+
+  to {
+    transform: perspective(400px);
+  }
+}
+
+.flipInY {
+  -webkit-backface-visibility: visible !important;
+  backface-visibility: visible !important;
+ animation:flipInY 2s;
+}
+
+@keyframes pulso {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+.pulso_infinito{
+  /*margin-left: 45px;*/
+  animation: pulso 1.5s infinite alternate;
+}
+
+@media (min-width:576px ) {
+  .formulario{
+    width: 350px;
+  }
+}
+
+
+
+
+
+/*------------------------------------------------------------------
+[ Alert validate ]*/
+
+.validate-input {
+    position: relative;
+}
+
+.alert-validate::before {
+    content: attr(data-validate);
+    position: absolute;
+    max-width: 70%;
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 2px;
+    padding: 4px 25px 5px 10px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 12px;
+    pointer-events: none;
+    color: #c80000;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+
+    visibility: hidden;
+    opacity: 0;
+
+    -webkit-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    transition: opacity 0.4s;
+}
+
+.alert-validate::after {
+    content: "\f12a";
+    font-family: FontAwesome;
+    display: block;
+    position: absolute;
+    color: #c80000;
+    font-size: 18px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 18px;
+}
+
+.alert-validate:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 992px) {
+    .alert-validate::before {
+        visibility: visible;
+        opacity: 1;
+    }
+}

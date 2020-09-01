@@ -29,6 +29,16 @@ import { User } from './shared/model/User.model';
                 </div>
             </li>
             <li role="menuitem">
+                <a href="#" routerLink="/main/change-password" [attr.tabindex]="!active ? '-1' : null">
+                    <i class="fa fa-unlock-alt"></i>
+                    <span>Cambiar contraseña</span>
+                </a>
+                <div class="layout-menu-tooltip">
+                    <div class="layout-menu-tooltip-arrow"></div>
+                    <div class="layout-menu-tooltip-text">Cambiar contraseña</div>
+                </div>
+            </li>
+            <li role="menuitem">
                 <a href="#" (click)="logout()" [attr.tabindex]="!active ? '-1' : null">
                     <i class="fa fa-fw fa-sign-out"></i>
                     <span>Cerrar sesión</span>
@@ -74,7 +84,7 @@ constructor(public usuarioService: UsuarioService){
          this.tkn = localStorage.getItem("userLogin");
          
          this.pl = JSON.parse(this.tkn);
-         console.log('user ',this.pl);
+
          
          this.name = this.pl.user.name;
          //this.perfil = this.pl.user.per
@@ -88,7 +98,6 @@ getUserId(id){
     this.usuarioService.getUserId(id).subscribe((data: User) =>{
     this.usuario = data;
     this.foto = this.usuario.persona.foto;
-    console.log('resp user ', this.usuario);
     
     });
     return this.usuario;

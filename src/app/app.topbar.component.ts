@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {AppComponent} from './app.component';
+import { Component, OnInit } from '@angular/core';
+import { AppComponent } from './app.component';
 import { AppMainComponent } from './app.main.component';
 
 @Component({
@@ -59,19 +59,20 @@ import { AppMainComponent } from './app.main.component';
                             <i class="topbar-icon fa fa-fw fa-cog"></i>
                             <span class="topbar-item-name">Settings</span>
                         </a>
+                    
                
                         <ul class="layout-menu fadeInDown">
                             <li role="menuitem">
                                 <a href="#" (click)="logout()">
                                     <i class="fa fa-sign-in"></i>
-                                    <span>Cerrar Sesion</span>
+                                    <span>Cerrar Sesión</span>
                                 </a>
                             </li>
                     
                         </ul>
                     </li>
 
-                    <li #notifications [ngClass]="{'active-top-menu':app.activeTopbarItem === notifications}">
+                    <!-- <li #notifications [ngClass]="{'active-top-menu':app.activeTopbarItem === notifications}">
                         <a href="#" (click)="app.onTopbarItemClick($event,notifications)">
                             <i class="topbar-icon fa fa-fw fa-bell-o"></i>
                             <span class="topbar-badge animated rubberBand">4</span>
@@ -86,7 +87,7 @@ import { AppMainComponent } from './app.main.component';
                             </li>
                     
                         </ul>
-                    </li>
+                    </li> -->
              
               
                 </ul>
@@ -96,11 +97,19 @@ import { AppMainComponent } from './app.main.component';
         </div>
     `
 })
-export class AppTopBarComponent {
+export class AppTopBarComponent implements OnInit{
 
-    constructor(public app: AppMainComponent) {}
-    logout(){
+    constructor(public app: AppMainComponent) { 
+
+    }
+
+    ngOnInit(){
+
+    }
+
+    logout() {
         localStorage.removeItem("userLogin");
-       }
+    }
+
 
 }

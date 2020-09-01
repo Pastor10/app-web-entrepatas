@@ -16,8 +16,6 @@ export class LoaderComponent implements OnInit, OnDestroy {
 
   constructor(private loaderService: LoaderRequestService, private spinner: NgxSpinnerService) { }
   ngOnInit() {
-      console.log("llega al loader");
-      
       this.subscription = this.loaderService.loaderState
           .subscribe((state: LoaderState) => {
               if (state.show) {

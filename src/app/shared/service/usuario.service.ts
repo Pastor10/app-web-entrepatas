@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/User.model';
+import { PasswordRequest } from '../model/password.model';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,11 @@ export class UsuarioService {
   update(o: User) {
     return this.http.put(this.baseUrl + 'update', o).
       toPromise().then(res => res).then(data => data).catch(err => console.log(err));
+
+  }
+
+  changePassword(o: PasswordRequest) {
+    return this.http.post(this.baseUrl + 'change-password', o);
 
   }
 
