@@ -1,3 +1,7 @@
+.text{
+display: none;
+}
+
 .logo{
   color: black;
 }
@@ -68,7 +72,7 @@ a {
 .topbar-submenu img{
 	width: 45px;
 	height: 45px;
-
+  margin-top: 0;
 }
 .hidden-xs-down{
 	display: none;
@@ -108,13 +112,23 @@ a {
 		display: inline;
 	}
 	.topbar-submenu img{
+  margin-top: 0;
 	width: 35px;
 	height: 35px;
 	}
 }
-@media screen and (min-width: 768px){
+
+@media screen and (min-width: 640px){
+  .text{
+  display: inline;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "bebas_neueregular", Arial;
+  vertical-align: middle;
+}
 
 }
+
 @media screen and (min-width: 1300px){
 	.topbar-submenu img{
 	width: 40px;
