@@ -65,7 +65,7 @@ export class PublicacionListaComponent implements OnInit {
             { field: 'sexo', header: 'Tipo/Sexo', width: '120px' },
             { field: 'condicion', header: 'Condición', width: '120px' },
             { field: 'observacion', header: 'Observación', width: '200px' },
-            { field: 'estado', header: 'Estado', width: '120px' },
+            { field: 'estado', header: 'Estado', width: '120px' }
         ];
 
         this.builderForm();
@@ -220,6 +220,15 @@ export class PublicacionListaComponent implements OnInit {
         data.observacion = this.observacion;
         this.udpdatePublicacion(data);
         this.modalRechazo = false;
+
+    }
+
+    aprobarPublicacion(data, accion) {
+
+        data.estadoPublicacion = accion;
+        data.usuarioEvalua = this.usuario;
+        console.log(data);
+        this.udpdatePublicacion(data);
 
     }
 

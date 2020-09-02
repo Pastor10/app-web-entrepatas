@@ -35,7 +35,6 @@ export class PostulanteColaboradorComponent implements OnInit {
             { field: 'fecha', header: 'Fecha', width: '90px' },
             { field: 'nombres', header: 'Nombres', width: '150px' },
             { field: 'documento', header: 'Documento', width: '120px' },
-            { field: 'ubigeo', header: 'Lugar', width: '200px' },
             { field: 'celular', header: 'Celular', width: '100px' },
             { field: 'correo', header: 'Correo', width: '150px' },
             // { field: 'accion', header: 'Acciones', width: '90px' }
