@@ -33,7 +33,7 @@
         "font-awesome": "4.7.0",
         "inputmask": "^5.0.5",
         "intl": "1.2.5",
-        "moment": "^2.24.0",
+        "moment": "^2.27.0",
         "ng2-tooltip-directive": "^2.8.17",
         "ngx-spinner": "^8.1.0",
         "primeicons": "1.0.0",

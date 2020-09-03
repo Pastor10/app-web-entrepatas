@@ -14,6 +14,8 @@ export class Evento {
         public fecha?: Date,
         public estado?: boolean,
         public fechaCreacion?: Date,
-        public banner?: string
+        public banner?: string,
+        public fechaEvento?: string
+
     ) {}
 }
