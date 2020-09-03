@@ -51,10 +51,10 @@
                         </div>
                     </ng-template>
                 </p-dataView>
-                <p-dialog header="Hola, Gracias por considerarme" [(visible)]="displayDialog" [style]="{width: '70vw'}"
-                    [baseZIndex]="10000" [responsive]="true" [modal]="true">
+                <p-dialog header="Hola, Gracias por considerarme" [(visible)]="displayDialog" [style]="{width:'80vw'}" 
+                    [baseZIndex]="10000"  [responsive]="true" [modal]="true"> 
                     <div class="ui-g" *ngIf="selectPublicacion">
-                        <p-toast key="tst" [style]="{marginTop: '70px'}"></p-toast>
+                        <p-toast key="tst"></p-toast>
                         <div class="ui-g-12 ui-md-5 centrar">
                             <!-- <div class="ui-g-12" style="text-align:center"> -->
                             <img src="{{selectPublicacion.animal.foto}}" width="90%">

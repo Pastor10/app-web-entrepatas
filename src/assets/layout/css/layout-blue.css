@@ -1316,8 +1316,8 @@ body a {
   padding: 15px;
   height: 75px;
   background: #FFF176; /*Fondo de header*/
-  border-top: 3px solid orange;
-  border-bottom: 3px solid orange;
+  border-top: 5px solid orange;
+  /*border-bottom: 3px solid orange;*/
   /*background: #FFB300; /*Fondo de header*/
 box-shadow: 0 1px 10px #fff;
 }
