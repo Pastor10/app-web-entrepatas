@@ -167,9 +167,12 @@
             <div class="ui-g-12 centrar">
                 <label for="year"><b>MEDIDA</b></label>
                 <div class="ui-g-12">
-                    <input pInputText id="year" [(ngModel)]="tratamiento.unidadMedida" />
+                    <p-dropdown [options]="unidades" [(ngModel)]="medida" placeholder="Seleccionar"
+                        optionLabel="name"></p-dropdown>
+                    <!-- <input pInputText id="year" [(ngModel)]="tratamiento.unidadMedida" /> -->
                 </div>
             </div>
+
             <div class="ui-g-12 centrar">
                 <label for="brand"><b>CANTIDAD</b></label>
                 <div class="ui-g-12">
@@ -213,7 +216,7 @@
                         </div>
 
                         <div class="ui-g-12 ui-md-6 centrar">
-                        <img src="{{cita.foto}}" class="img_modal">
+                            <img src="{{cita.foto}}" class="img_modal">
                         </div>
                     </div>
 

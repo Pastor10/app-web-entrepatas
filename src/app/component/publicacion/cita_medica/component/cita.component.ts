@@ -45,6 +45,8 @@ export class CitaMedicaComponent implements OnInit {
     filteredAnimales: any[];
     uploadedFiles: any[] = [];
     foto: string;
+    unidades: any[];
+    medida: any;
 
     constructor(private route: ActivatedRoute, public veterinarioService: VeterinarioService,
         public citaMedicaService: CitaMedicaService, private messageService: MessageService,
@@ -79,6 +81,13 @@ export class CitaMedicaComponent implements OnInit {
             { value: 'TRATAMIENTO', name: 'TRATAMIENTO' },
             { value: 'ALTA', name: 'ALTA' },
             { value: 'FALLECIDO', name: 'FALLECIDO' }
+        ];
+
+        this.unidades = [
+            { value: 'UND', name: 'UND' },
+            { value: 'KG', name: 'KG' },
+            { value: 'L', name: 'L' },
+            { value: 'OTRO', name: 'OTRO'}
         ];
     }
 
@@ -134,15 +143,13 @@ export class CitaMedicaComponent implements OnInit {
     }
 
     modelToForm(data) {
-        // this.fechaVisita = data.fechaVisita ;
-        // this.veterinario = data.veterinario;
-        // this.diagnostico = data.diagnostico ;
         this.animal = data;
 
     }
 
 
     showDialogToAdd() {
+        this.medida=null;
         this.newTratamiento = true;
         this.tratamiento = {};
         this.displayDialog = true;
@@ -153,6 +160,8 @@ export class CitaMedicaComponent implements OnInit {
     }
 
     addTratamiento() {
+        let medida = this.medida==undefined?"":this.medida.value;
+        this.tratamiento.unidadMedida = medida;
         let tratamientos = [...this.tratamientos];
         if (this.newTratamiento){
             if(this.tratamiento.medicina==undefined || this.tratamiento.medicina.trim()==''){
@@ -160,7 +169,7 @@ export class CitaMedicaComponent implements OnInit {
                 return;
             }
 
-            if(this.tratamiento.unidadMedida==undefined || this.tratamiento.unidadMedida.trim()==''){
+            if(this.tratamiento.unidadMedida==undefined || this.tratamiento.unidadMedida.trim() =='' ){
                 this.showMsg('info', 'Ingrese unidad medida', 'Tratamiento');
                 return;
             }
@@ -268,6 +277,7 @@ export class CitaMedicaComponent implements OnInit {
         this.tratamientos = this.tratamientos.filter((val, i) => i != index);
         this.tratamiento = null;
         this.displayDialog = false;
+        this.medida=null;
     }
 
     deleteCita(id){

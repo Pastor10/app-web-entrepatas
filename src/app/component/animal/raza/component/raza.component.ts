@@ -11,10 +11,10 @@ import { Table } from 'primeng/table';
     selector: 'app-raza',
     templateUrl: './raza.component.html',
     styleUrls: ['./raza.component.scss']
-   
+
 })
 
-export class RazaComponent implements OnInit{
+export class RazaComponent implements OnInit {
 
     totalRecords: number;
     perPage = 15;
@@ -24,25 +24,25 @@ export class RazaComponent implements OnInit{
     tipoAnimales: TipoAnimal[];
     razas: Raza[];
     tipoAnimal: TipoAnimal;
-    model= new Raza();
+    model = new Raza();
     id: number;
 
-    nombre:string;
-    estado: boolean=true;
+    nombre: string;
+    estado: boolean = true;
     data: Raza;
 
-    @ViewChild('dt', {static: true}) public tabla: Table;
+    @ViewChild('dt', { static: true }) public tabla: Table;
     lastLazyLoadEvent: LazyLoadEvent;
-     constructor(public tipoAnimalService: TipoAnimalService, public razaService: RazaService, 
-        public messageService: MessageService, public fb: FormBuilder){
+    constructor(public tipoAnimalService: TipoAnimalService, public razaService: RazaService,
+        public messageService: MessageService, public fb: FormBuilder) {
 
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.cols = [
-            {field: 'raza', header: 'Raza', width: '170px'},
-            {field: 'tipoAnimal', header: 'Tipo Animal', width: '150px'},
-            {field: 'estado', header: 'Estado', width: '80px'},
+            { field: 'raza', header: 'Raza', width: '170px' },
+            { field: 'tipoAnimal', header: 'Tipo Animal', width: '150px' },
+            { field: 'estado', header: 'Estado', width: '80px' },
         ];
         this.getAlltipoAnimal();
         this.builderForm();
@@ -52,31 +52,31 @@ export class RazaComponent implements OnInit{
     builderForm() {
         this.mf = this.fb.group({
             ubigeo: [null, [Validators.required]],
-         
+
         });
 
     }
 
-    getAlltipoAnimal(){
-        this.tipoAnimalService.getAll().subscribe((data: TipoAnimal[]) =>{
+    getAlltipoAnimal() {
+        this.tipoAnimalService.getAll().subscribe((data: TipoAnimal[]) => {
             this.tipoAnimales = data;
         });
 
     }
 
-    getAllRazas(event){
+    getAllRazas(event) {
         const params = [];
         this.lastLazyLoadEvent = event;
         const pageNumber = event.first / this.perPage;
-    
+
         params.push(`page=${pageNumber}`);
         params.push(`perPage=${this.perPage}`);
 
-        this.razaService.getAll(params.join('&')).subscribe((data: Raza[]) =>{
+        this.razaService.getAll(params.join('&')).subscribe((data: Raza[]) => {
             this.totalRecords = data['totalElements'];
             this.razas = data['content'];
-            
-            
+
+
         });
 
     }
@@ -91,23 +91,39 @@ export class RazaComponent implements OnInit{
         this.model.nombre = this.nombre;
         this.model.tipoAnimal = this.tipoAnimal;
         this.model.estado = this.estado;
-        
+        console.log(this.model);
+
+
     }
 
- 
+
     save() {
         let message;
+        if (this.tipoAnimal == undefined) {
+            message = 'Seleccione tipo animal.';
+            this.showMsg('info', message);
+            return;
+
+        }
+
+        if (this.nombre == undefined || this.nombre == '') {
+            message = 'Ingrese nombre de raza.';
+            this.showMsg('info', message);
+            return;
+
+        }
+
         this.formToModel();
         this.razaService.save(this.model).subscribe((res) => {
-          if (res != null) {
-            message = 'Raza creado correctamente.';
-            this.showMsg('success', message);
+            if (res != null) {
+                message = 'Raza creado correctamente.';
+                this.showMsg('success', message);
 
-            this.limpiarData();
-            this.refreshTable();
+                this.limpiarData();
+                this.refreshTable();
 
             }
-       });
+        });
 
     }
 
@@ -126,67 +142,67 @@ export class RazaComponent implements OnInit{
     showConfirmDelete(data) {
         this.messageService.clear();
         this.data = data;
-        this.messageService.add({key: 'c', sticky: true, severity: 'warn', summary: 'Seguro que desea eliminar?'});
+        this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Seguro que desea eliminar?' });
     }
 
     limpiarData() {
         this.id = undefined;
         this.tipoAnimal = null;
         this.nombre = '';
-      }
+    }
 
-      onReject() {
+    onReject() {
         this.messageService.clear('c');
-      }
-      
-      onConfirm(data) {
+    }
+
+    onConfirm(data) {
         this.deleteRaza(data, 'Raza eliminado correctamente');
         this.messageService.clear('c');
-      }
+    }
 
-      public deleteRaza(data, message): void {
+    public deleteRaza(data, message): void {
         this.razaService.delete(data.id).subscribe(
-          data => {
-            this.showMsg('success', message, 'Raza');
-            this.refreshTable();
-          },
-          error => {
-            const errorMessage =
-              error.message != undefined
-                ? error.message
-                : 'No se pudo procesar la petición';
-            this.showMsg('error',  errorMessage, 'Raza');
-  
-          }
-        );
-      }
+            data => {
+                this.showMsg('success', message, 'Raza');
+                this.refreshTable();
+            },
+            error => {
+                const errorMessage =
+                    error.message != undefined
+                        ? error.message
+                        : 'No se pudo procesar la petición';
+                this.showMsg('error', errorMessage, 'Raza');
 
-      doAction(data, accion) {
-        if (accion =='state') {
+            }
+        );
+    }
+
+    doAction(data, accion) {
+        if (accion == 'state') {
             data.estado = !data.estado;
-            
+
             let message;
             if (data.estado) {
                 message = 'usuario activado correctamente.';
             } else {
                 message = 'usuario desactivado correctamente.';
             }
-           // this.updateUser(data, message);
+            // this.updateUser(data, message);
 
         } else {
-             this.id = data.id;
-             this.nombre = data.nombre
-             this.tipoAnimal = data.tipoAnimal;
-             this.estado = data.estado;
+            this.id = data.id;
+            this.nombre = data.nombre
+            this.tipoAnimal = data.tipoAnimal;
+            this.estado = data.estado;
 
-             
+
 
         }
 
 
     }
 
-    showMsg( type: string, msg: string, title: string = 'Raza') {
-        this.messageService.add( { key: 'tst', severity: type, summary: title, detail: msg } );
-      }
+    showMsg(type: string, msg: string, title: string = 'Raza') {
+        this.messageService.add({ key: 'tst', severity: type, summary: title, detail: msg });
+    }
 }

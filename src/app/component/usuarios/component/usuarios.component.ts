@@ -461,7 +461,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.delete(data.id).subscribe(
       data => {
         this.showMsg('success', message, 'Usuario');
-        //this.getUsers();
+        this.refreshTable();
       },
       error => {
         const errorMessage =

@@ -7,14 +7,14 @@ import {environment} from 'src/environments/environment';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
-export class RoleService {
+export class ReporteService {
   constructor(private http: HttpClient) {
   }
 
-  baseUrl: string = environment.END_POINT + 'api/role/';
+  baseUrl: string = environment.END_POINT + 'api/reporte/';
 
-  getAll() {
-    return this.http.get(this.baseUrl + 'findAll').pipe(
+  getPublicaciones() {
+    return this.http.get(this.baseUrl + 'publicaciones').pipe(
       timeoutWith(environment.TIMEOUT, observableThrowError(
         new Error(environment.MESSAGE_TIMEOUT))));
   }
