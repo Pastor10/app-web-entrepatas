@@ -25,7 +25,7 @@
         <h2>Eventos realizados</h2>
       </p-header>
 
-      <p-table #dt [columns]="cols" [value]="eventos"  dataKey="idDirectorio"
+      <p-table #dt [columns]="cols" [value]="eventos"  dataKey="idDirectorio" [scrollable]="true" 
         [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="bottom" [lazy]="true" (onLazyLoad)="loadLazy($event)">
         
         <ng-template pTemplate="colgroup" let-columns>

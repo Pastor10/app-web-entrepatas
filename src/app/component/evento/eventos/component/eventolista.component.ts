@@ -44,10 +44,10 @@ export class EventoListaComponent implements OnInit{
         this.cols = [
             {field: 'fecha', header: 'Fecha', width: '120px'},
             {field: 'hora', header: 'Hora', width: '80px'},
-            {field: 'tipo', header: 'Tipo', width: '100px'},
-            {field: 'titulo', header: 'Titulo', width: '150px'},
+            {field: 'tipo', header: 'Tipo', width: '150px'},
+            {field: 'titulo', header: 'Titulo', width: '200px'},
             {field: 'ubigeo', header: 'Lugar', width: '200px'},
-            {field: 'descripcion', header: 'Descripcíon', width: '250px'},
+            {field: 'descripcion', header: 'Descripcíon', width: '600px'},
             {field: 'estado', header: 'Estado', width: '80px'},
         ];
        // this.getAllTipoevento();
