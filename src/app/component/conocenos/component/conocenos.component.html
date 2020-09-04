@@ -45,7 +45,7 @@
                     <h2 class="tit_otros">INTEGRANTES</h2>
                 </div>
 
-                <p-dataView #dv [value]="users" [paginator]="true" [rows]="4" filterBy="name" 
+                <p-dataView #dv [value]="users"   [rows]="4" filterBy="name" 
                     layout="grid">
                     <ng-template pTemplate="header">
                         <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
@@ -60,18 +60,21 @@
                         </div>
                     </ng-template>
 
+                        <div class="ui-g centrar"> 
                     <ng-template let-data pTemplate="gridItem">
-                        <div class="ui-g-12 ui-md-4 ui-lg-3 cont-tarjeta">
-                            <div class='card'>
-                                <img class='card-img-top img-fluid' src="{{data.persona.foto}}">
+                        <div class="ui-g-10 ui-md-4 ui-lg-3 cont-tarjeta centrar"> 
+                            <div class='nos_tarjeta'>
+                            <!-- <div class='card'> -->
+                                <img src="{{data.persona.foto}}">
 
-                                <h4 class="titulo_card pulso_infinito">
-                                    {{data.persona.nombre}}
+                                <div class="nos_texto">
+                                    <p>{{data.persona.nombre}}</p>
                                     <!-- <p-panel [header]="data.titulo"> </p-panel> -->
-                                </h4>
+                                </div>
                             </div>
                         </div>
                     </ng-template>
+                        </div>
 
                 </p-dataView>
 

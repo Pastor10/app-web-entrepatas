@@ -39,7 +39,7 @@ a {
     list-style-type: none;
     padding: 0;
     height: 100%;
-    margin: 0 0 0 auto;
+    margin: 0 auto;
     display: -ms-flexbox;
     display: flex;
 }
@@ -50,7 +50,7 @@ a {
 }
 
 .layout-topbar .topbar-menu>li>a {
-  margin-top: 5px;
+  margin-top: 3px;
   text-decoration: none;
   min-width: 120px;
   font-size: 14px;
@@ -117,6 +117,9 @@ a {
 	width: 35px;
 	height: 35px;
 	}
+  .layout-topbar .topbar-menu {
+    margin: 0 0 0 auto;
+  }
 }
 
 @media screen and (min-width: 640px){
@@ -126,6 +129,9 @@ a {
   font-weight: bold;
   font-family: "bebas_neueregular", Arial;
   vertical-align: middle;
+}
+.layout-topbar .topbar-menu {
+  margin:0 0 0 auto;
 }
 
 }
