@@ -46,7 +46,8 @@
 
           <div class="ui-g-12">
                 <label><b>Foto (*) [SELECCIONE IMAGEN Y DAR CLICK EN BOTON SUBIR]</b></label>
-                  <p-fileUpload accept="image/*" chooseLabel="BUSCAR" uploadLabel="CARGAR" accept="image/*" cancelLabel="CANCELAR" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" [multiple]="false" maxFileSize="5000000">
+                  <p-fileUpload accept="image/*" chooseLabel="BUSCAR" uploadLabel="CARGAR" accept="image/*" cancelLabel="CANCELAR" name="file" (uploadHandler)="onFileUpload($event)" [customUpload]="true" 
+                  [multiple]="false" maxFileSize="3000000" invalidFileSizeMessageSummary=""	invalidFileSizeMessageDetail="El peso maximo de la imagen debe ser 3 MB">
                   <ng-template pTemplate="content">
                   <ul *ngIf="uploadedFiles.length">
                     <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>

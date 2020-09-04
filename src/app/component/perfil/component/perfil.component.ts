@@ -150,6 +150,8 @@ export class PerfilComponent implements OnInit {
           this.usuario.persona.foto = resp.url;
           this.showMsg('success', 'Imganen subida', 'Perfil de usuario');
         });
+        setTimeout(function(){
+          }, 5000);
       }
     
 

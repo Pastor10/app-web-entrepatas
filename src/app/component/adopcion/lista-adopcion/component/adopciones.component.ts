@@ -73,21 +73,28 @@ export class AdopcionComponent implements OnInit {
     this.getAllAdopciones(event);
   }
 
+  refreshTable() {
+    if (this.lastLazyLoadEvent) {
+      this.loadLazy(this.lastLazyLoadEvent);
+    }
+  }
+
   doAction(data, accion) {
     data.estadoAdopcion = accion;
 
-    if(accion=='ENTREGADO'){
+    if (accion == 'ENTREGADO') {
       data.fechaEntrega = this.fechaEntrega;
-    }else{
+    } else {
       data.fechaDevolucion = this.fechaDevolucion;
       data.motivoDevolucion = this.motivoDevolucion;
     }
-    
+
 
     this.adopcionService.save(data).subscribe(
       data => {
         if (data != null) {
           this.showMsg('success', 'Se guardó correctamente', 'Adopción');
+          this.refreshTable();
         }
 
       },

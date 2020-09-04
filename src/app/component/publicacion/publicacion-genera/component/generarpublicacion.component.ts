@@ -138,6 +138,8 @@ export class GenerarPublicacionComponent implements OnInit {
       this.imagenUp = resp.url;
       this.showMsg('success', 'Imganen subida', 'Publicación');
     });
+    setTimeout(function(){
+    }, 5000);
   }
 
   getUserId(id) {

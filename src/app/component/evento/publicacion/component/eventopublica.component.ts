@@ -202,6 +202,8 @@ export class EventoPublicaComponent implements OnInit {
       this.imagenUp = resp.url;
       this.showMsg('success', 'Imganen subida', 'Evento');
     });
+    setTimeout(function(){
+    }, 5000);
   }
 
   save() {

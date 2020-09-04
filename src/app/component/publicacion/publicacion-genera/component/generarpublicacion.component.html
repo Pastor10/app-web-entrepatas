@@ -105,7 +105,7 @@
                         <label><b>Foto (*) [SELECCIONE IMAGEN Y CARGUELA]</b></label>
                         <p-fileUpload accept="image/*" chooseLabel="BUSCAR" [disabled]="isDisabled" uploadLabel="CARGAR" [showCancelButton]="false"
                             accept="image/*"  name="file" (uploadHandler)="onFileUpload($event)"
-                            [customUpload]="true" [multiple]="false" maxFileSize="5000000">
+                            [customUpload]="true" [multiple]="false" maxFileSize="2000000" invalidFileSizeMessageSummary=""	invalidFileSizeMessageDetail="El peso maximo de la imagen debe ser 2 MB">
                             <ng-template pTemplate="content">
                                 <ul *ngIf="uploadedFiles.length">
                                     <li *ngFor="let file of uploadedFiles">{{file.name}} -
