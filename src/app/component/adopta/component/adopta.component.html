@@ -26,11 +26,11 @@
                     <ng-template let-data pTemplate="gridItem">
                         <div class="ui-g-12 ui-md-3 ui-lg-2 cont-tarjeta">
                             <div class='tarjeta'>
-                                <p-panel [header]="data.animal.nombre" [style]="{'text-align':'center'}">
+                                <p-panel [header]="data.animal.nombre" [style]="{'font-size':'25px'}">
                                     <img class='tamanio' src="{{data.animal.foto}}"
                                         (click)="getPublicacion($event, data)">
-                                    <!-- <div class="car-detail">{{data.animal.sexo}} </div> -->
-                                    <hr class="ui-widget-content" style="border-top:0;margin-bottom:15px;">
+                                    <br><br><br>
+                                    <!-- <hr class="ui-widget-content" style="border-top:0;margin-bottom:15px;"> -->
                                     <span *ngIf="data.condicion.nombre=='ENCONTRADO'" class="label label-warning">
                                         {{data.condicion.nombre}}
                                     </span>
@@ -40,7 +40,7 @@
                                     <span *ngIf="data.condicion.nombre=='ADOPCION'" class="label label-success">
                                         {{data.condicion.nombre}}
                                     </span>
-                                    <span *ngIf="data.animal.sexo=='Macho'" class="label label-info">
+                                    <span *ngIf="data.animal.sexo=='Macho'" class="label label-macho">
                                         {{data.animal.sexo}}
                                     </span>
                                     <span *ngIf="data.animal.sexo=='Hembra'" class="label label-pinki">
@@ -179,7 +179,7 @@
 
                                     </div>
                                 </p-tabPanel>
-                                <p-tabPanel header="Información del contacto" leftIcon="fa fa-file-text-o"
+                                <p-tabPanel header="contactame" leftIcon="fa fa-file-text-o"
                                     *ngIf="selectPublicacion.condicion.nombre!='ADOPCION'">
                                     <div class="ui-g ui-fluid">
                                         <div class=" ui-g-12 ui-md-12">
