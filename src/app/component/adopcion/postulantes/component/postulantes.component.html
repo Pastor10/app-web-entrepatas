@@ -36,7 +36,7 @@
       </p-header>
 
       <p-table #dt [columns]="cols" [value]="publicaciones" dataKey="idDirectorio" [paginator]="true" [rows]="10"
-        [responsive]="true" paginatorPosition="bottom" [lazy]="true">
+        [responsive]="true" paginatorPosition="bottom" [lazy]="true" [scrollable]="true" >
 
         <ng-template pTemplate="colgroup" let-columns>
           <colgroup>
@@ -88,6 +88,11 @@
             <td>
               <span>
                 {{rowData.condicion.nombre}}
+              </span>
+            </td>
+            <td>
+              <span>
+                {{rowData.totalPostulante}}
               </span>
             </td>
 

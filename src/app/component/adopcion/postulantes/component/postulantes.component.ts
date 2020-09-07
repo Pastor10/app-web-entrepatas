@@ -85,12 +85,13 @@ export class PostulanteComponent implements OnInit {
         this.getAllPublicacion();
         this.cols = [
             { field: 'fecha', header: 'Fecha', width: '100px' },
-            { field: 'hora', header: 'Hora', width: '70px' },
+            { field: 'hora', header: 'Hora', width: '80px' },
             { field: 'usuario', header: 'Usuario publica', width: '250px' },
             { field: 'nombre', header: 'Mascota', width: '100px' },
             { field: 'foto', header: 'Foto', width: '80px' },
             { field: 'sexo', header: 'Tipo/Sexo', width: '120px' },
             { field: 'condicion', header: 'Condición', width: '150px' },
+            { field: 'cantidad', header: 'Total', width: '80px' },
             { field: 'estado', header: 'Estado', width: '100px' },
         ];
 
@@ -108,7 +109,8 @@ export class PostulanteComponent implements OnInit {
     getAllPublicacion() {
         this.publicacionService.getAllCondicionAdopcion().subscribe((data: Publicacion[]) => {
             this.publicaciones = data;
-
+            console.log(this.publicaciones );
+            
         });
 
     }

@@ -117,6 +117,10 @@
               </td>
 
               <td style="text-align: center">
+                <!-- <a (click)="doAction(rowData, 'state');">
+                  <button pButton type="button" icon="fa fa-repeat" class="ui-button-secondari"
+                    tooltip="restablecer contraseña"></button>
+                </a> &nbsp; -->
                 <a *ngIf="rowData.estado==true" (click)="doAction(rowData, 'state');">
                   <button pButton type="button" icon="pi pi-ban" class="ui-button-secondari"
                     tooltip="Desactivar"></button>

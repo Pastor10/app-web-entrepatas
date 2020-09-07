@@ -17,6 +17,7 @@ export class Publicacion {
         public fechaModificacion?: Date,
         public archivo?: any,
         public nombreArchivo?: string,
-        public observacion?: string
+        public observacion?: string,
+        public totalPostulante?: number
     ) {}
 }
