@@ -27,7 +27,7 @@ padding-left: 8px;
     height: 70px;
     line-height: 70px;
     text-align: center;
-    transition: background-color .2s;
+    transition: .2s;
     cursor: pointer;
 }
 
@@ -129,7 +129,11 @@ a {
   font-weight: bold;
   font-family: "bebas_neueregular", Arial;
   vertical-align: middle;
+  text-shadow:0 0 5px white;
 }
+  .text:hover{
+    text-shadow:0 0 10px white;
+  }
 .layout-topbar .topbar-menu {
   margin:0 0 0 auto;
 }

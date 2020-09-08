@@ -12,7 +12,7 @@
     margin-top: -85px;
     text-align: center;
     background: rgb(235,241,246);
-    background: url("../../../../assets/layout/images/foto_grupal.jpg");
+    background: url("../../../../assets/layout/images/foto_grupal_.jpg");
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -96,7 +96,7 @@
     height: 180px;
     background: white;
     /*border: 2px solid rgba(0,0,0,.3);*/
-    border-top: 3px solid #0D47A1;
+    // border-top: 3px solid #0D47A1;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0,0,0,.3);
 }
@@ -105,7 +105,7 @@
     height: 100px;
     border-radius: 50%;
     margin-top: 15px;
-    box-shadow: 0 0 7px #1e88e5;
+    // box-shadow: 0 0 7px #1e88e5;
     transition: .35s;
 }
 
@@ -116,7 +116,7 @@
 .nos_texto p{
     font-family: 'bebas_neueregular', Arial;
     font-size: 25px;
-    color: black;
+    color: #0D47A1;
     line-height: 1.2;
     cursor:default;
 }
