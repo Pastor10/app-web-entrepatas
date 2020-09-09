@@ -1968,7 +1968,12 @@ body .ui-toolbar .ui-toolbar-seperator {
   vertical-align: middle;
   margin: 0 0.5em;
 }
-
+.hidden-xs-down{
+  display: none;
+}
+.hidden-xs-down2{
+  display: inline;
+}
 @media screen and (min-width: 380px){
     .tit_otros{
         font-size: 35px;
@@ -1980,6 +1985,9 @@ body .ui-toolbar .ui-toolbar-seperator {
     }
     .hidden-xs-down{
     display: inline;
+  }
+  .hidden-xs-down2{
+    display: none;
   }
   .img_colabora{
   width: 120px;

@@ -129,10 +129,10 @@ a {
   font-weight: bold;
   font-family: "bebas_neueregular", Arial;
   vertical-align: middle;
-  text-shadow:0 0 5px white;
 }
   .text:hover{
-    text-shadow:0 0 10px white;
+    text-shadow:0 0 10px #FFF176;
+    transition: .3s;
   }
 .layout-topbar .topbar-menu {
   margin:0 0 0 auto;
