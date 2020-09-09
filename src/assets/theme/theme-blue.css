@@ -45,13 +45,14 @@ body .ui-widget .ui-widget {
   /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
   text-decoration: none;
   padding-bottom: 5px;
+  /*background: #fff;*/
 }
 body .ui-widget-content {
-  background-color: #ffffff;
-  /*border: 1px solid #dddddd;*/
+  /*background-color: #ffffff;*/
+  /*border: 1px solid #fff;*/
 }
 body .ui-widget-header {/*Cabecera del nombre en de cada publicacion*/
-  background-color: #fff;
+  /*background-color: #fff;*/
   border:none;
   /*border-top: 5px solid #0D47A1;*/
   color: #0D47A1;
@@ -1527,13 +1528,7 @@ label {
     text-transform: uppercase;
 }
 
-/*.text-center{
-  text-align: center!important;
-  margin: 0 auto;
-}
-*/
 .pulso_infinito {
-    /* margin-left: 45px; */
     animation: pulso 1.5s infinite alternate;
 }
 
@@ -1543,17 +1538,15 @@ label {
 
 .tarjeta,.tarjeta2,.tarjeta_adm{
   text-align: center;
-  /*//box-shadow: 0 0 6px rgba(0,0,0,.3); //Sombra de las mascota en la publicacion*/
   border: none;
   border-radius: 10px;
-  box-shadow: 0 1px 3px -1px rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-  /*// border-top: 5px solid #0D47A1;*/
+  /*box-shadow: 0 1px 3px -1px rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);*/
   padding-bottom: 1.5px;
   transition:.3s;
+  background: #fff;
 }
 
 .tarjeta_adm{
-  /*height: 450px;*/
   font-family: 'bebas_neueregular', Arial;
   padding: 15px;
   padding-top: 5px;
@@ -2042,7 +2035,7 @@ body .ui-paginator .ui-paginator-first:not(.ui-state-disabled):not(.ui-state-act
 body .ui-paginator .ui-paginator-first.ui-state-disabled, body .ui-paginator .ui-paginator-prev.ui-state-disabled, body .ui-paginator .ui-paginator-next.ui-state-disabled, body .ui-paginator .ui-paginator-last.ui-state-disabled {
   opacity: 1;
   filter: alpha(opacity=100);
-  background-color: #eeeeee;
+  background-color: #fff;
 }
 body .ui-paginator .ui-paginator-first:before, body .ui-paginator .ui-paginator-prev:before, body .ui-paginator .ui-paginator-next:before, body .ui-paginator .ui-paginator-last:before {
   position: relative;
@@ -2355,6 +2348,7 @@ body .ui-dataview .ui-dataview-content {
 }
 body .ui-dataview .ui-paginator {
   padding: 10px 15px;
+  background: none;
 }
 body .ui-datagrid .ui-datagrid-header {
   padding: 10px 15px;
@@ -3019,12 +3013,14 @@ body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
   padding: 0;
   margin-left: 0.35em;
   font-size: 16px;
+  background: #fff;
 }
 body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon:hover {
   color: #5e5e5e;
 }
 body .ui-dialog .ui-dialog-content {
   padding: 15px;
+  background: #fff;
 }
 body .ui-dialog .ui-dialog-footer {
   padding: 10px 15px;
