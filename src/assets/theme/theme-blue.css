@@ -2996,6 +2996,7 @@ body .ui-dialog {
 body .ui-dialog .ui-dialog-titlebar {
   padding: 1em;
   border-bottom: 1px solid #dddddd;
+  background: #fff;
 }
 body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
   margin: 0;
